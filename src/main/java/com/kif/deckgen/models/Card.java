@@ -12,13 +12,10 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 @Entity
 public class Card {
-	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
-	private Long cardId;
-	
-	@ManyToOne(targetEntity = Deck.class)
-    @JoinColumn(name = "deckId")
-	private Long deckId;
+
+	//@ManyToOne(targetEntity = Deck.class)
+   //@JoinColumn(name = "deckId")
+	//private Long deckId;
 	
     @JsonProperty("name")
 	private String name;
@@ -44,18 +41,25 @@ public class Card {
 	private String artist;
     @JsonProperty("copyright")
 	private String copyright;
+    
+	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	private Long cardId;
+	
 	public Long getCardId() {
 		return cardId;
 	}
 	public void setCardId(Long cardId) {
 		this.cardId = cardId;
 	}
+	/*
 	public Long getDeckId() {
 		return deckId;
 	}
 	public void setDeckId(Long deckId) {
 		this.deckId = deckId;
 	}
+	*/
 	public String getName() {
 		return name;
 	}
@@ -127,6 +131,13 @@ public class Card {
 	}
 	public void setCopyright(String copyright) {
 		this.copyright = copyright;
+	}
+	@Override
+	public String toString() {
+		return "Card [name=" + name + ", manaCost=" + manaCost + ", artDescription=" + artDescription + ", types="
+				+ types + ", subtypes=" + subtypes + ", rarity=" + rarity + ", rulesText=" + rulesText + ", flavorText="
+				+ flavorText + ", power=" + power + ", toughness=" + toughness + ", artist=" + artist + ", copyright="
+				+ copyright + ", cardId=" + cardId + "]";
 	}
     
     

@@ -1,6 +1,7 @@
 package com.kif.deckgen.controllers;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -12,10 +13,12 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.kif.deckgen.models.Card;
 import com.kif.deckgen.models.Deck;
+import com.kif.deckgen.repositories.DeckRepository;
 import com.kif.deckgen.services.ChatGPTClient;
 @PropertySource("classpath:application.properties")
 @Controller
@@ -28,20 +31,28 @@ public class DeckListController {
     /*@Value("${com.kif.test-json}")
     private String testJson;*/
     
+    @Autowired
+    private ChatGPTClient gptClient;
+    
+    @Autowired
+    private ObjectMapper objectMapper;
+    
+    @Autowired
+    private DeckRepository deckRepo;
+    
     @GetMapping("/deck-gen")
     public String showInputPage() {
         //System.out.println(siteTitle);
         //System.out.println("hello");
         return "deck-gen";
     }
-    @Autowired
-    private ChatGPTClient gptClient;
+
 
     @PostMapping("/submit-theme")
     public String processInput(@RequestParam("inputText") String inputText, Model model) {
-    	String deck = transformInput(inputText);
-        model.addAttribute("inputText", deck);
-        model.addAttribute("inputText", deck);
+    	Deck deck = generateCardNames(inputText);
+        model.addAttribute("inputText", deck.getCards().toString());
+        //model.addAttribute("inputText", deck);
 
 
         return "deck-list";
@@ -56,13 +67,42 @@ public class DeckListController {
     }
     */
     
-    private String transformInput(String inputText) {
+    private Deck generateCardNames(String inputText) {
     	
     	//ChatGPTClient gptClient = new ChatGPTClient();
     	String prompt = promptTemplate.replace("<MYTHEME>", inputText);
-    	String deck = gptClient.generateCompletion(prompt, 500);
+    	String deck = gptClient.generateCompletion(prompt, 1500);
+    	Deck deckObject = new Deck();
+    	
+    	List<Card> cards = null;
+		try {
+			cards = objectMapper.readValue(deck, new TypeReference<List<Card>>() {}); //THIS IS A PROBLEM, I THINK I AM DESERIALIZING THE CARD BUT I AM NOT
+			System.out.println(cards.get(0).getClass());
+		} catch (JsonProcessingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+    	
+    	if(!cards.equals(null)) {
+    		//deckObject.setCards(cards);
+    		//deckObject.getCards().add( objectMapper.readValue(cards.get(0), Card.class) );
+    		deckObject.getCards().add( cards.get(0) );
+
+    		System.out.println(deckObject.getCards().get(0).getClass());
+    		System.out.println(deckObject.getDeckId());
+    		//for(Card c : deckObject.getCards()){
+    		//	c.setDeckId(deckObject.getDeckId());
+    		//}
+    		//deckRepo.save(deckObject);
+    	}
+    	else {
+    		System.out.println("fuck you");
+    	}
+    	
+    	
+    	
         // perform some transformation on the input (e.g. convert to uppercase)
-        return deck;
+        return deckObject;
     }
     
     
@@ -72,9 +112,9 @@ public class DeckListController {
         
     	Deck myDeck =  new Deck();
     	ObjectMapper myOM = new ObjectMapper();
-    	ArrayList<Card> myCards=null;
+    	List<Card> myCards=null;
 		try {
-			myCards = myOM.readValue(testJson, ArrayList.class);
+			myCards = myOM.readValue(testJson, new TypeReference<List<Card>>() {});
 		} catch (JsonMappingException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -84,7 +124,8 @@ public class DeckListController {
 		};
     	
     	myDeck.setCards(myCards);
-    
+		deckRepo.save(myDeck);
+
     	System.out.println(myDeck.getCards().toString());
     	
     	model.addAttribute("transformedText", testJson);

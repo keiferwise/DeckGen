@@ -21,7 +21,7 @@ public class DecksController {
 	public String decks(Model model) {
 		
 		List<Deck> myDecks = deckRepo.findAll();
-		
+		System.out.println(myDecks.toString());
 		model.addAttribute("myDecks",myDecks);
 		
 		return "decks";
