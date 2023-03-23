@@ -21,12 +21,12 @@ import com.kif.deckgen.daos.DeckDao;
 import com.kif.deckgen.models.Card;
 import com.kif.deckgen.models.Deck;
 import com.kif.deckgen.services.ChatGPTClient;
+import com.kif.deckgen.services.DeckGenerator;
 
 @PropertySource("classpath:application.properties")
 @Controller
 public class DeckListController {
-    @Value("${com.kif.deckListTemplate}")
-    private String promptTemplate;
+
     @Value("${com.kif.site-title}")
     private String siteTitle;
     
@@ -34,11 +34,9 @@ public class DeckListController {
     private String testJson;*/
     
     @Autowired
-    private ChatGPTClient gptClient;
-    
-    @Autowired
-    private ObjectMapper objectMapper;
-    
+    private DeckGenerator deckGenerator;
+
+
     @Autowired
     private CardDao cardDao;
     
@@ -49,16 +47,13 @@ public class DeckListController {
     
     @GetMapping("/deck-gen")
     public String showInputPage() {
-        //System.out.println(siteTitle);
-        //System.out.println("hello");
-    	//cardDao.count();
         return "deck-gen";
     }
 
 
     @PostMapping("/submit-theme")
     public String processInput(@RequestParam("inputText") String inputText, Model model) {
-    	Deck deck = generateCardNames(inputText);
+    	Deck deck = deckGenerator.generateCardNames(inputText);
         UUID myUuid=UUID.randomUUID();
 
     	deck.setDeckId(myUuid.toString());
@@ -68,7 +63,6 @@ public class DeckListController {
     	
         model.addAttribute("inputText", deck.getCards().toString());
         //model.addAttribute("inputText", deck);
-
 
         return "deck-list";
        // return "redirect:/result"
@@ -81,45 +75,6 @@ public class DeckListController {
         return "deck-list";
     }
     */
-    
-    private Deck generateCardNames(String inputText) {
-    	
-    	//ChatGPTClient gptClient = new ChatGPTClient();
-    	String prompt = promptTemplate.replace("<MYTHEME>", inputText);
-    	String deck = gptClient.generateCompletion(prompt, 1500);
-    	Deck deckObject = new Deck();
-    	
-    	List<Card> cards = null;
-		try {
-			cards = objectMapper.readValue(deck, new TypeReference<List<Card>>() {}); //THIS IS A PROBLEM, I THINK I AM DESERIALIZING THE CARD BUT I AM NOT
-			System.out.println(cards.get(0).getClass());
-		} catch (JsonProcessingException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-    	
-    	if(!cards.equals(null)) {
-    		//deckObject.setCards(cards);
-    		//deckObject.getCards().add( objectMapper.readValue(cards.get(0), Card.class) );
-    		deckObject.setCards(cards);
-
-    		System.out.println(deckObject.getCards().get(0).getClass());
-    		System.out.println(deckObject.getDeckId());
-    		//for(Card c : deckObject.getCards()){
-    		//	c.setDeckId(deckObject.getDeckId());
-    		//}
-    		//deckRepo.save(deckObject);
-    	}
-    	else {
-    		System.out.println("fuck you");
-    	}
-    	
-    	
-    	
-        // perform some transformation on the input (e.g. convert to uppercase)
-        return deckObject;
-    }
-    
     
     @GetMapping("/deck-list-test")
     public String testJson(Model model) {
