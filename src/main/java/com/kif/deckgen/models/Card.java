@@ -4,29 +4,20 @@ import java.util.ArrayList;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
-@Entity
-public class Card {
 
-	//@ManyToOne(targetEntity = Deck.class)
-   //@JoinColumn(name = "deckId")
-	//private Long deckId;
-	
+public class Card {
+	@JsonProperty("deck_id")
+	private String deckId;
     @JsonProperty("name")
 	private String name;
     @JsonProperty("mana_cost")
 	private String manaCost;
     @JsonProperty("art_description")
 	private String artDescription;
-    @JsonProperty("types")
-	private ArrayList<String> types;
-    @JsonProperty("subtypes")
-	private ArrayList<String> subtypes;
+    @JsonProperty("type")
+	private String type;
+    @JsonProperty("subtype")
+	private String subtype;
     @JsonProperty("rarity")
 	private String rarity;
     @JsonProperty("rules-text")
@@ -42,24 +33,21 @@ public class Card {
     @JsonProperty("copyright")
 	private String copyright;
     
-	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	private Long cardId;
+	private String cardId;
 	
-	public Long getCardId() {
+	public String getCardId() {
 		return cardId;
 	}
-	public void setCardId(Long cardId) {
+	public void setCardId(String cardId) {
 		this.cardId = cardId;
 	}
-	/*
-	public Long getDeckId() {
+	
+	public String getDeckId() {
 		return deckId;
 	}
-	public void setDeckId(Long deckId) {
+	public void setDeckId(String deckId) {
 		this.deckId = deckId;
 	}
-	*/
 	public String getName() {
 		return name;
 	}
@@ -78,17 +66,17 @@ public class Card {
 	public void setArtDescription(String artDescription) {
 		this.artDescription = artDescription;
 	}
-	public ArrayList<String> getTypes() {
-		return types;
+	public String getType() {
+		return type;
 	}
-	public void setTypes(ArrayList<String> types) {
-		this.types = types;
+	public void setType(String type) {
+		this.type = type;
 	}
-	public ArrayList<String> getSubtypes() {
-		return subtypes;
+	public String getSubtype() {
+		return subtype;
 	}
-	public void setSubtypes(ArrayList<String> subtypes) {
-		this.subtypes = subtypes;
+	public void setSubtype(String subtype) {
+		this.subtype= subtype;
 	}
 	public String getRarity() {
 		return rarity;
@@ -135,7 +123,7 @@ public class Card {
 	@Override
 	public String toString() {
 		return "Card [name=" + name + ", manaCost=" + manaCost + ", artDescription=" + artDescription + ", types="
-				+ types + ", subtypes=" + subtypes + ", rarity=" + rarity + ", rulesText=" + rulesText + ", flavorText="
+				+ type + ", subtypes=" + subtype + ", rarity=" + rarity + ", rulesText=" + rulesText + ", flavorText="
 				+ flavorText + ", power=" + power + ", toughness=" + toughness + ", artist=" + artist + ", copyright="
 				+ copyright + ", cardId=" + cardId + "]";
 	}

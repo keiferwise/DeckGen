@@ -5,34 +5,26 @@ import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-import jakarta.persistence.CascadeType;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.OneToMany;
-@Entity
 public class Deck {
 	
-	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	private Long deckId;
-	
-
-
+	private String deckId;
 	@JsonProperty("cards")
-	@OneToMany(cascade = CascadeType.ALL, orphanRemoval=true)
-	//@JoinColumn(name = "deckId")
 	private List<Card> cards = new ArrayList<Card>();
-	
+	private String name;
 	private String status = "NEW";
 	
-	
-	
+
 	// Setters and Getters
 	public List<Card> getCards() {
 		return cards;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
 	}
 
 	public void setCards(List<Card> cards) {
@@ -45,11 +37,11 @@ public class Deck {
 	public void setStatus(String status) {
 		this.status = status;
 	}
-	public Long getDeckId() {
+	public String getDeckId() {
 		return deckId;
 	}
 
-	public void setDeckId(Long deckId) {
+	public void setDeckId(String deckId) {
 		this.deckId = deckId;
 	}
 	

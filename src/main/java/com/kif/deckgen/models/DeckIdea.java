@@ -7,12 +7,9 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 
-@Entity
 public class DeckIdea {
 	
-	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
-	private Long deckIdeaId;
+
 	private String Theme;
 	
 	//Let the user define the name of a Legendary Creature that will be in the deck

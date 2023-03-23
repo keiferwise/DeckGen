@@ -2,6 +2,7 @@ package com.kif.deckgen.controllers;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -16,10 +17,12 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.kif.deckgen.daos.CardDao;
+import com.kif.deckgen.daos.DeckDao;
 import com.kif.deckgen.models.Card;
 import com.kif.deckgen.models.Deck;
-import com.kif.deckgen.repositories.DeckRepository;
 import com.kif.deckgen.services.ChatGPTClient;
+
 @PropertySource("classpath:application.properties")
 @Controller
 public class DeckListController {
@@ -38,12 +41,18 @@ public class DeckListController {
     private ObjectMapper objectMapper;
     
     @Autowired
-    private DeckRepository deckRepo;
+    private CardDao cardDao;
+    
+    @Autowired
+    private DeckDao deckDao;
+    
+  
     
     @GetMapping("/deck-gen")
     public String showInputPage() {
         //System.out.println(siteTitle);
         //System.out.println("hello");
+    	//cardDao.count();
         return "deck-gen";
     }
 
@@ -51,6 +60,11 @@ public class DeckListController {
     @PostMapping("/submit-theme")
     public String processInput(@RequestParam("inputText") String inputText, Model model) {
     	Deck deck = generateCardNames(inputText);
+        
+
+    	deck.setDeckId(UUID.randomUUID().toString());
+    	deckDao.save(deck);
+    	
         model.addAttribute("inputText", deck.getCards().toString());
         //model.addAttribute("inputText", deck);
 
@@ -124,7 +138,7 @@ public class DeckListController {
 		};
     	
     	myDeck.setCards(myCards);
-		deckRepo.save(myDeck);
+		// deckRepo.save(myDeck);
 
     	System.out.println(myDeck.getCards().toString());
     	
