@@ -1,8 +1,8 @@
 package com.kif.deckgen.daos;
 
-import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -34,6 +34,22 @@ public class CardDao {
         cards = jdbcTemplate.query(sql, cardRowMapper);
 		return cards;
 		
+	}
+	
+	public int saveAll( List<Card> list, UUID myUuid) {
+		int result=0;
+		for (Card card : list) {
+			result = jdbcTemplate.update(
+	                "insert into card (card_id, card_name, mana_cost,"
+	                + "art_description,card_type,card_subtype,rarity,"
+	                + "rules_text,flavor_text,power,toughness,artist,copyright,deck_id) values(?,?,?,?,?,?,?,?,?,?,?,?,?,?)",
+	                
+	                UUID.randomUUID().toString(), card.getName(), card.getManaCost(),card.getArtDescription(),card.getType(),card.getSubtype(),
+	                card.getRarity(),card.getRulesText(),card.getFlavorText(),card.getPower(),card.getToughness(),
+	                card.getArtist(),card.getCopyright(),
+	                myUuid.toString());	
+		}
+		return result;
 	}
 	
 	//TODO Select Card names and IDs for a particular deck and output a list

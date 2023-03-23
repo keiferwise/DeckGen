@@ -15,7 +15,7 @@ public class DeckDao {
 	public int save(Deck deck) {
 		
 		int result = jdbcTemplate.update(
-                "insert into deck (deck_name, status, deck_id) values(?,?,?)",
+                "insert into deck (deck_name, job_status, deck_id) values(?,?,?)",
                 deck.getName(), deck.getStatus(), deck.getDeckId());
 		return result;
 	}

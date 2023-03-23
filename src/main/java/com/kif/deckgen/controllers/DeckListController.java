@@ -1,6 +1,5 @@
 package com.kif.deckgen.controllers;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -60,10 +59,12 @@ public class DeckListController {
     @PostMapping("/submit-theme")
     public String processInput(@RequestParam("inputText") String inputText, Model model) {
     	Deck deck = generateCardNames(inputText);
-        
+        UUID myUuid=UUID.randomUUID();
 
-    	deck.setDeckId(UUID.randomUUID().toString());
+    	deck.setDeckId(myUuid.toString());
+    	deck.setName(inputText);
     	deckDao.save(deck);
+    	cardDao.saveAll(deck.getCards(),myUuid);
     	
         model.addAttribute("inputText", deck.getCards().toString());
         //model.addAttribute("inputText", deck);
@@ -100,7 +101,7 @@ public class DeckListController {
     	if(!cards.equals(null)) {
     		//deckObject.setCards(cards);
     		//deckObject.getCards().add( objectMapper.readValue(cards.get(0), Card.class) );
-    		deckObject.getCards().add( cards.get(0) );
+    		deckObject.setCards(cards);
 
     		System.out.println(deckObject.getCards().get(0).getClass());
     		System.out.println(deckObject.getDeckId());

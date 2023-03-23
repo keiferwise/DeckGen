@@ -1,6 +1,5 @@
 package com.kif.deckgen.models;
 
-import java.util.ArrayList;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
