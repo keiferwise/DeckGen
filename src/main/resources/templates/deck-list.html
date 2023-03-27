@@ -9,6 +9,14 @@
     <p>The transformed text is:</p>
     <!--/* <input type="textarea" th:value="${inputText}" width="500px" height="1000px"> */-->
     
+    <p th:text="${deck.deckId}"></p>
+    
     <p th:text="${inputText}"></p>
+        <form method="post" th:action="@{/submit-deck}">
+		<input type="hidden" name="deckId" id="deckId" th:value="${deck.deckId}" />
+        <label for="inputField">Submit Deck</label>
+        <button type="submit">Submit</button>
+    </form>
+    
 </body>
 </html>

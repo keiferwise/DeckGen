@@ -1,12 +1,14 @@
-<p>TODO a page that displays a list of the decks in the DB, click for details</p>
-
+<h1>TODO a page that displays a list of the decks in the DB, click for details</h1>
+<br>
+<table>
     <tr>
-        <th>ID</th>
         <th>Deck Name</th>
+        <th>ID</th>
         <th>Status</th>
     </tr>
-    <tr th:each="deck : ${decks}">
-        <td class="align-middle" th:text="${deck.id}"></td>
-        <td class="align-middle" th:text="${deck.name}"></td>
+    <tr th:each="deck : ${myDecks}">
+		<td class="align-middle" th:text="${deck.name}"></td>
+        <td class="align-middle" th:text="${deck.deckId}"></td>
         <td class="align-middle" th:text="${deck.status}"></td>
     </tr>
+</table>

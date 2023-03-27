@@ -1,27 +1,29 @@
 package com.kif.deckgen.models;
 
 
+import org.springframework.stereotype.Component;
+
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-
+@Component
 public class Card {
 	@JsonProperty("deck_id")
 	private String deckId;
-    @JsonProperty("name")
+    @JsonProperty("card_name")
 	private String name;
     @JsonProperty("mana_cost")
 	private String manaCost;
     @JsonProperty("art_description")
 	private String artDescription;
-    @JsonProperty("type")
+    @JsonProperty("card_type")
 	private String type;
-    @JsonProperty("subtype")
+    @JsonProperty("card_subtype")
 	private String subtype;
     @JsonProperty("rarity")
 	private String rarity;
-    @JsonProperty("rules-text")
+    @JsonProperty("rules_text")
 	private String rulesText;
-    @JsonProperty("flavor-text")
+    @JsonProperty("flavor_text")
 	private String flavorText;
     @JsonProperty("power")
 	private String power;

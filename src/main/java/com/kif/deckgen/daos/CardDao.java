@@ -7,10 +7,11 @@ import java.util.UUID;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
 
 import com.kif.deckgen.models.Card;
 
-@Component
+@Repository
 public class CardDao {
 
 	@Autowired 
@@ -27,11 +28,13 @@ public class CardDao {
 		return result;
 	}
 	
-	public List<Card> findAllByDeckId(Long CardId){
+	public List<Card> findAllByDeckId(String cardId){
 		
 		List<Card> cards = new ArrayList<Card>();
-        String sql = "SELECT * FROM card WHERE card_id = ?";
-        cards = jdbcTemplate.query(sql, cardRowMapper);
+        String sql = "SELECT * FROM card WHERE deck_id = ?";
+        
+        cards = jdbcTemplate.query(sql, cardRowMapper,cardId);
+        //System.out.println(cards.isEmpty());
 		return cards;
 		
 	}
@@ -52,8 +55,17 @@ public class CardDao {
 		return result;
 	}
 	
-	//TODO Select Card names and IDs for a particular deck and output a list
+	public Card getCardById(String cardId) {
+		  String sql = "SELECT * FROM card WHERE card_id = ?";
+		  Card deck = jdbcTemplate.queryForObject(sql,  new CardRowMapper(),new Object[]{cardId});
+		  return deck;
+		}
 	
-	//TODO Select Cards based on deck ID into a list of CARD
+	
+	public int updateCard(Card card,String cardId) {
+		String sql = "UPDATE card SET 				card_name = ?,	 mana_cost = ?, 	art_description = ?, 	 card_type = ?,  card_subtype =?, 	rarity = ?, 	  rules_text = ?, 		flavor_text = ?,	 power = ?, 	  toughness = ? WHERE card_id=?";
+		int rowsUpdated = jdbcTemplate.update(sql, card.getName(), card.getManaCost(), card.getArtDescription(), card.getType(), card.getSubtype(), card.getRarity(), card.getRulesText(), card.getFlavorText(), card.getPower(), card.getToughness(), cardId);
+		return rowsUpdated;
+	}
 	
 }

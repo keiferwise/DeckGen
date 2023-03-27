@@ -25,17 +25,17 @@ public class DeckRowMapper implements RowMapper<Deck> {
 	public Deck mapRow(ResultSet rs, int rowNum) throws SQLException {
 		
 		Deck deck = new Deck();
-		
-		deck.setDeckId(rs.getString("row_id"));
-		deck.setStatus(rs.getString("status"));
-		deck.setName(rs.getString("name"));
+		//
+		deck.setDeckId(rs.getString("deck_id"));
+		deck.setStatus(rs.getString("job_status"));
+		deck.setName(rs.getString("deck_name"));
 		
 		List<Card> cards = new ArrayList<Card>();
-		cards = cardDao.findAllByDeckId(rs.getLong("row_id"));
+		cards = cardDao.findAllByDeckId(rs.getString("deck_id"));
 		deck.setCards(cards);
 		
 		//deck.setCards(null); // We need to call the dao and row mapper for the cards
-		
+		//
 		
 		return deck;
 		

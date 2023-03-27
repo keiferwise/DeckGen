@@ -12,16 +12,12 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.JsonMappingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.kif.deckgen.daos.CardDao;
 import com.kif.deckgen.daos.DeckDao;
 import com.kif.deckgen.models.Card;
 import com.kif.deckgen.models.Deck;
 import com.kif.deckgen.services.ChatGPTClient;
-import com.kif.deckgen.services.DeckGenerator;
+import com.kif.deckgen.services.CardNamesGenerator;
 
 @PropertySource("classpath:application.properties")
 @Controller
@@ -34,16 +30,13 @@ public class DeckListController {
     private String testJson;*/
     
     @Autowired
-    private DeckGenerator deckGenerator;
-
+    private CardNamesGenerator cardNamesGenerator;
 
     @Autowired
     private CardDao cardDao;
     
     @Autowired
     private DeckDao deckDao;
-    
-  
     
     @GetMapping("/deck-gen")
     public String showInputPage() {
@@ -53,7 +46,7 @@ public class DeckListController {
 
     @PostMapping("/submit-theme")
     public String processInput(@RequestParam("inputText") String inputText, Model model) {
-    	Deck deck = deckGenerator.generateCardNames(inputText);
+    	Deck deck = cardNamesGenerator.generateCardNames(inputText);
         UUID myUuid=UUID.randomUUID();
 
     	deck.setDeckId(myUuid.toString());
@@ -62,6 +55,7 @@ public class DeckListController {
     	cardDao.saveAll(deck.getCards(),myUuid);
     	
         model.addAttribute("inputText", deck.getCards().toString());
+        model.addAttribute("deck",deck);
         //model.addAttribute("inputText", deck);
 
         return "deck-list";
@@ -75,7 +69,7 @@ public class DeckListController {
         return "deck-list";
     }
     */
-    
+    /*
     @GetMapping("/deck-list-test")
     public String testJson(Model model) {
     	String testJson="[{\"name\": \"Strawberry Mage\", \"type\": \"Creature\"}, {\"name\": \"Strawberry Summoner\", \"type\": \"Creature\"}]";
@@ -101,5 +95,6 @@ public class DeckListController {
     	model.addAttribute("transformedText", testJson);
         return "deck-list";
     }
+    */
     
 }
