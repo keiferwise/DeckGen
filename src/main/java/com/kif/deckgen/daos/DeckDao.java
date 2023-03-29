@@ -6,11 +6,12 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
 
 import com.kif.deckgen.models.Card;
 import com.kif.deckgen.models.Deck;
 
-@Component
+@Repository
 public class DeckDao {
 
 	@Autowired
@@ -32,7 +33,6 @@ public class DeckDao {
         
         decks = jdbcTemplate.query(sql, deckRowMapper,deckId);
         
-		
 		return decks.get(0);
 	}
 	

@@ -7,7 +7,7 @@
         <th>Status</th>
     </tr>
     <tr th:each="deck : ${myDecks}">
-		<td class="align-middle" th:text="${deck.name}"></td>
+		<td ><a  th:text="${deck.name}" th:href="@{/deck/{id}(id=${deck.deckId})}"></a></td>
         <td class="align-middle" th:text="${deck.deckId}"></td>
         <td class="align-middle" th:text="${deck.status}"></td>
     </tr>

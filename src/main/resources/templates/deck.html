@@ -1,5 +1,12 @@
 <h1>Finished Deck!</h1>
 
-<ul>
-  <li th:each="card : ${cards}" th:text="${card.name}"></li>
-</ul>
+
+<table>
+	<tr th:each="card : ${cards}" >
+		<td><a th:text="${card.name}" th:href="@{/card/{id}(id=${card.cardId})}"></a></td>
+		<td th:text="${card.manaCost}"></td>
+		<td></td>
+	</tr>
+	
+	
+</table>

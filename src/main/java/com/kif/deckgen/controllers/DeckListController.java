@@ -1,5 +1,8 @@
 package com.kif.deckgen.controllers;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.UUID;
 
@@ -14,8 +17,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.kif.deckgen.daos.CardDao;
 import com.kif.deckgen.daos.DeckDao;
+import com.kif.deckgen.daos.DeckIdeaDao;
 import com.kif.deckgen.models.Card;
 import com.kif.deckgen.models.Deck;
+import com.kif.deckgen.models.DeckIdea;
 import com.kif.deckgen.services.ChatGPTClient;
 import com.kif.deckgen.services.CardNamesGenerator;
 
@@ -38,21 +43,37 @@ public class DeckListController {
     @Autowired
     private DeckDao deckDao;
     
-    @GetMapping("/deck-gen")
+    
+    @Autowired
+    private DeckIdeaDao ideaDao;
+    
+    @GetMapping("/")
     public String showInputPage() {
         return "deck-gen";
     }
 
 
     @PostMapping("/submit-theme")
-    public String processInput(@RequestParam("inputText") String inputText, Model model) {
-    	Deck deck = cardNamesGenerator.generateCardNames(inputText);
-        UUID myUuid=UUID.randomUUID();
-
-    	deck.setDeckId(myUuid.toString());
-    	deck.setName(inputText);
+    public String processInput(
+    		@RequestParam("deckName") String name, 
+    		@RequestParam("theme") String theme, 
+    		@RequestParam("legend") String legend,
+    		@RequestParam("mana") String[]	 mana,
+    		Model model) {
+    	
+    	ArrayList<String> manaArray = new ArrayList<String>();
+    	Collections.addAll(manaArray, mana);
+    	Deck deck = cardNamesGenerator.generateCardNames(theme);
+        UUID deck_idea_id = UUID.randomUUID();
+    	UUID deck_id=UUID.randomUUID();
+    	DeckIdea deckIdea = new DeckIdea(theme, legend, manaArray.contains("red"), manaArray.contains("green"),manaArray.contains("black"),manaArray.contains("blue"),manaArray.contains("white"),deck_id.toString(),deck_idea_id.toString());
+    	ideaDao.save(deckIdea);
+    	deck.setDeckId(deck_id.toString());
+    	deck.setName(name);
     	deckDao.save(deck);
-    	cardDao.saveAll(deck.getCards(),myUuid);
+    	cardDao.saveAll(deck.getCards(),deck_id);
+    	//System.out.println(name+theme+legend+mana[0]+mana[1]+mana[2]+mana[3]+mana[4]);
+    	
     	
         model.addAttribute("inputText", deck.getCards().toString());
         model.addAttribute("deck",deck);

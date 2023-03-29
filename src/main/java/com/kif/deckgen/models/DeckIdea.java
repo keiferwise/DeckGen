@@ -1,7 +1,5 @@
 package com.kif.deckgen.models;
 
-import java.util.ArrayList;
-
 import org.springframework.stereotype.Component;
 
 @Component
@@ -11,7 +9,7 @@ public class DeckIdea {
 	private String Theme;
 	
 	//Let the user define the name of a Legendary Creature that will be in the deck
-	private ArrayList<String> Legends = new ArrayList<String>();
+	private String Legends;
 	
 	//Allow the user to choose preferred colours
 	private boolean red;
@@ -20,13 +18,19 @@ public class DeckIdea {
 	private boolean blue;
 	private boolean white;
 	
+	private String deckId;
+	private String deckIdeaId;
+
 	
 	
+
 	public DeckIdea() {
 		super();
 	}
-	public DeckIdea(String theme, ArrayList<String> legends, boolean red, boolean green, boolean black, boolean blue,
-			boolean white) {
+
+	
+	public DeckIdea(String theme, String legends, boolean red, boolean green, boolean black, boolean blue,
+			boolean white, String deckId, String deckIdeaId) {
 		super();
 		Theme = theme;
 		Legends = legends;
@@ -35,17 +39,34 @@ public class DeckIdea {
 		this.black = black;
 		this.blue = blue;
 		this.white = white;
+		this.deckId = deckId;
+		this.deckIdeaId = deckIdeaId;
 	}
+
+
+	public String getDeckId() {
+		return deckId;
+	}
+	public void setDeckId(String deckId) {
+		this.deckId = deckId;
+	}
+	public String getDeckIdeaId() {
+		return deckIdeaId;
+	}
+	public void setDeckIdeaId(String deckIdeaId) {
+		this.deckIdeaId = deckIdeaId;
+	}
+	
 	public String getTheme() {
 		return Theme;
 	}
 	public void setTheme(String theme) {
 		Theme = theme;
 	}
-	public ArrayList<String> getLegends() {
+	public String getLegends() {
 		return Legends;
 	}
-	public void setLegends(ArrayList<String> legends) {
+	public void setLegends(String legends) {
 		Legends = legends;
 	}
 	public boolean isRed() {

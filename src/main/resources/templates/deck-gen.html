@@ -6,8 +6,50 @@
 </head>
 <body>
     <form method="post" th:action="@{/submit-theme}">
-        <label for="inputField">Enter some text:</label>
-        <input type="text" id="inputField" name="inputText">
+<div>
+        <label for="theme">What is the theme of your deck:</label>
+        <input type="text" id="theme" name="theme">
+        </div>
+        <div>
+        <label for="deckName">Name your deck:</label>
+        <input type="text" id="deckName" name="deckName">
+        </div>
+        <div>
+        <label for="legend">Add a Legend</label>
+       	<input type="text" id="legend" name="legend">
+       	</div>
+       	
+       	<div id="checkboxdiv">
+       	<label for="checkboxdiv">Choose mana colours</label>
+
+        <input type="checkbox" id="red" name="mana" th:value="red"/>
+        <label for="red">Red</label>
+
+        <input type="checkbox" id="blue" name="mana" th:value="blue"/>
+        <label for="blue">Blue</label>
+
+        <input type="checkbox" id="green" name="mana" th:value="green"/>
+        <label for="green">Green</label>
+
+        <input type="checkbox" id="white" name="mana" th:value="white"/>
+        <label for="white">White</label>
+        
+        <input type="checkbox" id="black" name="mana" th:value="black"/>
+        <label for="black">Black</label>
+        </div>
+       <!--/*	
+        <label for=""></label>
+       	<input type="" id="" name="">
+       	
+        <label for=""></label>
+       	<input type="" id="" name="">
+       	
+        <label for=""></label>
+       	<input type="" id="" name="">
+       	
+        <label for=""></label>
+       	<input type="" id="" name="">       	       	       	       	
+        */-->
         <button type="submit">Submit</button>
     </form>
 </body>
