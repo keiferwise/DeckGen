@@ -44,7 +44,8 @@ public class CardGenerator {
 		String newCardJson = gptClient.generateCompletion(prompt,1000);
 		System.out.println(newCardJson);
 		//newCardJson = newCardJson.replace("/", "//");
-		//Card newCard = jsonConverter.convertCardToObject(newCardJson);
+		//newCardJson = newCardJson.replace("\n", " ");
+		//Card newCard = jsonConverter.convertCardToObject(newCardJson); //System.getProperty("line.separator")
 		Card newCard=null;
 		try {
 			newCard = objectMapper.readValue(newCardJson, Card.class);

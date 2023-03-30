@@ -66,9 +66,9 @@ public class DecksController {
 		executor.execute(deckGenerator);
 		
 		//Add the finished cards so you can display them.
-		model.addAttribute( finishedCards );
+		//model.addAttribute( finishedCards );
 		
-		return "deck";
+		return "decks";
 	}
 	
 	
