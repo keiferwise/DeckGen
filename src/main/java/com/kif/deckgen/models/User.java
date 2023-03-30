@@ -8,7 +8,7 @@ import jakarta.persistence.Id;
 public class User {
 	
 	
-	private Long cardId;
+	private String userId;
 	
 	private String userName;
 	

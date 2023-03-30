@@ -40,15 +40,25 @@ public class DeckGenerator implements Runnable {
 	@Override
 	public void run() {
 		// TODO Auto-generated method stub
-		Card newCardTemp = new Card();
+		//Card newCardTemp = new Card();
 		
 		for(Card card : deck.getCards()) {
 			
 			//newCardTemp = cardGenerator.createCard(card, deck.getName());
 			
-			cardDao.updateCard(cardGenerator.createCard(card, deck.getName()), card.getCardId());
+			cardDao.updateCard(cardGenerator.createCard(card, deck.getName(),deckIdea), card.getCardId());
 			
 		}
+		
+		Card legend = deck.getCards().get(0);
+		legend.setName(deckIdea.getLegends());
+		legend.setType("Legendary Creature");
+
+		cardDao.updateCard(cardGenerator.createCard(legend, deck.getName(),deckIdea), legend.getCardId());
+		
+		//deckIdea.getLegends();
+		
+		
 
 	}
 

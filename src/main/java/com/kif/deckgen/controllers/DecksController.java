@@ -47,7 +47,6 @@ public class DecksController {
 
 		//Test Deck Idea
 
-		
 		System.out.println(currentDeckId);
 		List<Card> cards = cardDao.findAllByDeckId(currentDeckId);
 		Deck deck = deckDao.findDeckById(currentDeckId);
@@ -66,16 +65,8 @@ public class DecksController {
 		
 		executor.execute(deckGenerator);
 		
-		
-		//for (Card c : cards) {
-		//	finishedCards.add(cardGenerator.createCard(c,deck.getName()));
-		//}
-		
-		
 		//Add the finished cards so you can display them.
 		model.addAttribute( finishedCards );
-		
-		//
 		
 		return "deck";
 	}

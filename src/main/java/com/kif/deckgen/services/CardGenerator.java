@@ -35,10 +35,11 @@ public class CardGenerator {
 
 	
 	//TODO take a card object with only a name and type and fill out the details
-	public Card createCard(Card card, String theme) {
+	public Card createCard(Card card, String theme, DeckIdea deckIdea) {
 		String prompt = cardDetailsTemplate.replace("<NAME>", card.getName());
 		prompt = prompt.replace("<TYPE>", card.getType());
 		prompt = prompt.replace("<THEME>", theme);
+		prompt = prompt.replace("<MANA>",manaColour(deckIdea));
 		
 		String newCardJson = gptClient.generateCompletion(prompt,1000);
 		System.out.println(newCardJson);
@@ -56,6 +57,23 @@ public class CardGenerator {
 		newCard.setDeckId(card.getDeckId());
 		
 		return newCard;
+	}
+	
+	private String manaColour(DeckIdea idea) {
+				
+		String result = " ";
+		if(idea.isBlack()) {result = result + "Black, ";};
+		if(idea.isRed()) {result = result + "Red, ";};
+		if(idea.isGreen()) {result = result + "Green, ";};
+		if(idea.isWhite()) {result = result + "White, ";};
+		if(idea.isBlue()) {result = result + "Blue, ";};
+		
+		result = result.substring(0, result.length()-2);
+		
+		System.out.println(result);
+		
+		
+		return result;
 	}
 
 

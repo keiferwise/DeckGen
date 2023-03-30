@@ -63,7 +63,7 @@ public class DeckListController {
     	
     	ArrayList<String> manaArray = new ArrayList<String>();
     	Collections.addAll(manaArray, mana);
-    	Deck deck = cardNamesGenerator.generateCardNames(theme);
+    	Deck deck = cardNamesGenerator.generateCardNames(theme);// TODO Add other parameters
         UUID deck_idea_id = UUID.randomUUID();
     	UUID deck_id=UUID.randomUUID();
     	DeckIdea deckIdea = new DeckIdea(theme, legend, manaArray.contains("red"), manaArray.contains("green"),manaArray.contains("black"),manaArray.contains("blue"),manaArray.contains("white"),deck_id.toString(),deck_idea_id.toString());
@@ -72,7 +72,6 @@ public class DeckListController {
     	deck.setName(name);
     	deckDao.save(deck);
     	cardDao.saveAll(deck.getCards(),deck_id);
-    	//System.out.println(name+theme+legend+mana[0]+mana[1]+mana[2]+mana[3]+mana[4]);
     	
     	
         model.addAttribute("inputText", deck.getCards().toString());

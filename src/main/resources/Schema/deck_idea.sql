@@ -14,3 +14,6 @@ CREATE TABLE `deck_idea` (
   `deck_id` varchar(36),
   PRIMARY KEY (`deck_idea_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+
+describe deck_idea;
