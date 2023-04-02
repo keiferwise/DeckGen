@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.kif.deckgen.daos.CardDao;
 import com.kif.deckgen.daos.DeckDao;
 import com.kif.deckgen.daos.DeckIdeaDao;
+import com.kif.deckgen.daos.MinioDao;
 import com.kif.deckgen.models.Card;
 import com.kif.deckgen.models.Deck;
 import com.kif.deckgen.models.DeckIdea;
@@ -43,12 +44,16 @@ public class DeckListController {
     @Autowired
     private DeckDao deckDao;
     
+    @Autowired
+    private MinioDao minioDao;
+    
     
     @Autowired
     private DeckIdeaDao ideaDao;
     
     @GetMapping("/")
     public String showInputPage() {
+    	minioDao.testBucket();
         return "deck-gen";
     }
 

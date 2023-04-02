@@ -6,7 +6,7 @@ drop table card;
 Create table card (
 card_id varchar(36),
 card_name varchar(50),
-mana_cost varchar(10),
+mana_cost varchar(50),
 art_description varchar(300),
 card_type varchar(100),
 card_subtype varchar(100),
