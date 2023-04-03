@@ -24,8 +24,17 @@ public class MinioDao {
 		// TODO Auto-generated constructor stub
 	}
 	
+	public int saveImage( byte[] image ) {
+		
+	      MinioClient minioClient =  getClient();
+	      
+	      //minioClient.
+		
+		return 0;
+	}
+	
 	public boolean testBucket() {
-	      MinioClient minioClient =  MinioClient.builder().credentials("minio99", "minio123").endpoint("http://localhost:9000/").build();
+	      MinioClient minioClient =  getClient();
 	      BucketExistsArgs.builder().bucket("deckgen").build();
 	      
 	      boolean isExist=false;
@@ -58,6 +67,11 @@ public class MinioDao {
 	      
 		return false;
 		
+	}
+	
+	private MinioClient getClient() {
+		
+		return MinioClient.builder().credentials("minio99", "minio123").endpoint("http://localhost:9000/").build();
 	}
 
 }
