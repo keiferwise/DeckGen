@@ -16,6 +16,8 @@ import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
 
+import com.kif.deckgen.models.ImageResult;
+
 @Service 
 public class DalleClient {
 
@@ -26,7 +28,7 @@ public class DalleClient {
     private String API_KEY;
 	
 	
-    public String generateImage(String prompt) {
+    public ImageResult generateImage(String prompt) {
 
     	System.out.println("Making art for prompt: " + prompt);
     	
@@ -35,7 +37,8 @@ public class DalleClient {
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
         headers.set("Authorization", "Bearer " + API_KEY);
-
+        
+        prompt = prompt + ". Fantasy Painting ins the style of Boris Vallejo";
         
         
         Map<String, String> requestBody = new HashMap<>();
@@ -47,13 +50,14 @@ public class DalleClient {
 
         HttpEntity<?> requestEntity = new HttpEntity<>(requestBody, headers);
         System.out.println("Posting request..");
-        ResponseEntity<String> responseEntity = restTemplate.postForEntity(url, requestEntity, String.class);
+        ResponseEntity<ImageResult> responseEntity = restTemplate.postForEntity(url, requestEntity, ImageResult.class);
 
         if (responseEntity.getStatusCode() == HttpStatus.OK) {
-           String responseBody = responseEntity.getBody();
+           ImageResult responseBody = responseEntity.getBody();
             System.out.println(responseEntity.hasBody());
-            
-            System.out.println(responseEntity.toString());
+            System.out.println(responseBody.getCreated());
+            System.out.println(responseBody.getData().toString());
+            //System.out.println(responseEntity.toString());
             
             System.out.println(responseEntity.getBody());
             
@@ -65,9 +69,9 @@ public class DalleClient {
             
             
             // do something with the image data...
-            return "Image generated successfully!";
+            return responseBody;
         } else {
-            return "Failed to generate image!";
+            return null;
         }
     }
 }

@@ -7,8 +7,14 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import com.kif.deckgen.models.Card;
+import com.kif.deckgen.models.Image;
+import com.kif.deckgen.models.ImageResult;
 import com.kif.deckgen.services.DalleClient;
+
+import io.minio.MinioClient;
+
 import com.kif.deckgen.daos.CardDao;
+import com.kif.deckgen.daos.MinioDao;
 
 
 
@@ -20,6 +26,9 @@ public class CardController {
 	
 	@Autowired
 	DalleClient dalleClient;
+	
+	@Autowired
+	MinioDao minio;
 	
 	@Value("${com.kif.site-title}")
 	private String siteTitle;
@@ -38,7 +47,15 @@ public class CardController {
     	
     	Card card = cardDao.getCardById(cardId);
     	//System.out.println(card.getArtDescription());
-    	dalleClient.generateImage(card.getArtDescription());
+    	ImageResult result = dalleClient.generateImage(card.getArtDescription());
+    	Image image = result.getData().get(0);
+    	
+    	
+    	
+    	model.addAttribute("image",image);
+    	
+    	//minio.uploadObject(null);
+    	
     	
     	return "art";
     }
