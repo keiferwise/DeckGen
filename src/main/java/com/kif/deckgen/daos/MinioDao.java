@@ -1,7 +1,10 @@
 package com.kif.deckgen.daos;
 
 import java.awt.image.BufferedImage;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.security.InvalidKeyException;
@@ -33,9 +36,10 @@ public class MinioDao {
 		// TODO Auto-generated constructor stub
 	}
 	
-	public int saveImage( Image image ) {
+	public int saveImage( Image image,String cardId ) {
 		 
-			BufferedImage img = null;
+		//Retrieve the image from the URL and put it into a bufferedimage
+		BufferedImage img = null;
         URL url=null;
 		try {
 			url = new URL(image.getUrl());
@@ -49,13 +53,24 @@ public class MinioDao {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+        
+        //Convert the buffered image to a input stream
+        ByteArrayOutputStream os = new ByteArrayOutputStream();
+        try {
+			ImageIO.write(img, "png", os);
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+        InputStream is = new ByteArrayInputStream(os.toByteArray());
+        
 		
 		  //UploadObjectArgs args = UploadObjectArgs.builder()
 		  //       .bucket("deckgen").object("my-objectname").filename("person.json").build());
 	      
 	      //minioClient
 	      MinioClient minioClient =  getClient();
-	      PutObjectArgs args = PutObjectArgs.builder().object("myimg").bucket("deckgen").contentType("image/png").stream(img, 0, 0).build();
+	      PutObjectArgs args = PutObjectArgs.builder().object(cardId+".png").bucket("deckgen").contentType("image/png").stream(is, -1,1024 * 1024 * 16).build();
 
 	      try {
 			minioClient.putObject(args);
