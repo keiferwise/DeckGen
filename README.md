@@ -2,12 +2,15 @@
 
 To Do
 - Add a "seriousness level" radio buttons. silly, neither serious or silly, serious
-- A service the composes the final card. i.e. frame + text + art + post-processing
-- Dall E client
 - Front end design
 - Navigation menu
 - User Authenication with Spring Security
-- Create the CardComposer (going to be difficult?)
-- Design custom card backs and frames(fiverr???)
+- Design custom card backs 
+- refractor deck controller and decklistcontroller
 - 
+In Progress
+- Create the CardComposer (going to be difficult?)
+- design custom card frames
 
+Done
+- Dall E client
