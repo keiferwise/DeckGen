@@ -1,5 +1,6 @@
 package com.kif.deckgen.controllers;
 
+import java.io.IOException;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import com.kif.deckgen.models.Card;
 import com.kif.deckgen.models.Image;
 import com.kif.deckgen.models.ImageResult;
+import com.kif.deckgen.services.CardComposer;
 import com.kif.deckgen.services.DalleClient;
 
 import io.minio.MinioClient;
@@ -32,6 +34,9 @@ public class CardController {
 	@Autowired
 	MinioDao minio;
 	
+	@Autowired 
+	CardComposer cardComposer;
+	
 	@Value("${com.kif.site-title}")
 	private String siteTitle;
 	
@@ -49,12 +54,23 @@ public class CardController {
     	
     	Card card = cardDao.getCardById(cardId);
     	//System.out.println(card.getArtDescription());
-    	ImageResult result = dalleClient.generateImage(card.getArtDescription());
-    	Image image = result.getData().get(0);
+    	//ImageResult result = dalleClient.generateImage(card.getArtDescription());
+    	//Image image = result.getData().get(0);
     	
-    	minio.saveImage(image, cardId);
-    	
+    	//minio.saveImage(image, cardId);
+    	//cardComposer.createImage(cardId, cardId, cardId, cardId, cardId, cardId, cardId, cardId, cardId, cardId)
+    	//
+    	//( mana,  name,  type,  subtype,  rulesText,  flavorText,  power,  toughness,  copywrite,  artist) 
+    	Image image = new Image();
+    	image.setUrl(minio.getImage(cardId));
     	model.addAttribute("image",image);
+    	
+    	try {
+			cardComposer.createImage(card.getManaCost(), card.getName(), card.getType(), card.getSubtype(), card.getRulesText(), card.getFlavorText(), card.getPower(), card.getToughness(),"Copywrite Kif Co.", "Keifer Wiseman");
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
     	
     	//minio.uploadObject(null);
     	

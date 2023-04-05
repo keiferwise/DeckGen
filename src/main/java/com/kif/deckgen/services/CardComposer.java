@@ -6,6 +6,7 @@ import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.UUID;
 
 import javax.imageio.ImageIO;
 
@@ -13,9 +14,9 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class CardComposer {
-    private String framePath;
-    private String artPath;
-    private String backgroundPath;
+    private String framePath = "D:\\deckgen\\src\\main\\resources\\images\\simplecard.png";
+    private String artPath = "D:\\deckgen\\src\\main\\resources\\images\\1a244e99-bae5-4d4c-bd80-edf03604cd4d.png";
+    //private String backgroundPath;
 
     public CardComposer(String framePath, String artPath) {
         this.framePath = framePath;
@@ -31,15 +32,15 @@ public class CardComposer {
         BufferedImage frameImage = ImageIO.read(new File(framePath));
         BufferedImage artImage = ImageIO.read(new File(artPath));
 
-        int width = 1500;
-        int height = 2100;
+        int width = 1200;
+        int height = 1680;
 
         BufferedImage combinedImage = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
 
         Graphics2D g2d = combinedImage.createGraphics();
+        g2d.drawImage(artImage, 90, 160, null);
 
         g2d.drawImage(frameImage, 0, 0, null);
-        g2d.drawImage(artImage, 0, 0, null);
 
         Font font = new Font("Arial", Font.BOLD, 30);
         g2d.setFont(font);
@@ -76,24 +77,25 @@ public class CardComposer {
             g2d.drawString(String.valueOf(c), x - (i * 50) + 15, y + 30);
         }
 
-        font = new Font("Arial", Font.BOLD, 60);
+        font = new Font("Serif", Font.BOLD, 60);
         g2d.setFont(font);
 
-        x = width / 2 - name.length() * 20;
-        y += 200;
+        x = width / 3 - name.length() * 20;
+        y += 90;
 
         g2d.drawString(name, x, y);
 
         font = new Font("Arial", Font.PLAIN, 40);
         g2d.setFont(font);
 
-        x -= type.length() * 20 + subtype.length() * 20 + rulesText.length() * 10 + flavorText.length() * 10 + power.length() * 10 + toughness.length() * 10 + copywrite.length() * 5 + artist.length() * 5;
+        //x -= type.length() * 20 + subtype.length() * 20 + rulesText.length() * 10 + flavorText.length() * 10 + power.length() * 10 + toughness.length() * 10 + copywrite.length() * 5 + artist.length() * 5;
 
-        y += 100;
+        //y += 100;
+        x = 200;
+        y = 1200;
 
         g2d.drawString(type + " - " + subtype, x, y);
 
-        y += 100;
 
         font = new Font("Arial", Font.PLAIN, 30);
       g2d.setFont(font);
@@ -127,6 +129,6 @@ public class CardComposer {
 
         g2d.dispose();
 
-        ImageIO.write(combinedImage, "png", new File("output.png"));
+        ImageIO.write(combinedImage, "png", new File("D:\\out-images\\"+ name + UUID.randomUUID().toString() +".png"));
     }
 }

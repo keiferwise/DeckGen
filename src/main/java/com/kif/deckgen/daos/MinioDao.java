@@ -17,6 +17,7 @@ import org.springframework.stereotype.Service;
 import com.kif.deckgen.models.Image;
 
 import io.minio.BucketExistsArgs;
+import io.minio.GetPresignedObjectUrlArgs;
 import io.minio.MakeBucketArgs;
 import io.minio.MinioClient;
 import io.minio.PutObjectArgs;
@@ -28,6 +29,7 @@ import io.minio.errors.InvalidResponseException;
 import io.minio.errors.MinioException;
 import io.minio.errors.ServerException;
 import io.minio.errors.XmlParserException;
+import io.minio.http.Method;
 
 @Service
 public class MinioDao {
@@ -84,17 +86,31 @@ public class MinioDao {
 		
 		return 0;
 	}
-	/*
-	public boolean saveImage() {
+	
+	public String getImage(String cardId) {
 		
 		MinioClient minioClient = getClient();
 		
-		return true;
+		String objectName = cardId + ".png";
+		
+		GetPresignedObjectUrlArgs args = new GetPresignedObjectUrlArgs.Builder().method(Method.GET).bucket("deckgen").object(objectName).build();	
+		String url = "";
+		
+		try {
+			url = minioClient.getPresignedObjectUrl(args);
+		} catch (InvalidKeyException | ErrorResponseException | InsufficientDataException | InternalException
+				| InvalidResponseException | NoSuchAlgorithmException | XmlParserException | ServerException
+				| IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return url;
 	}
-	*/
+	
 	public boolean testBucket() {
 	      MinioClient minioClient =  getClient();
-	      BucketExistsArgs.builder().bucket("deckgen").build();
+	      //BucketExistsArgs.builder().bucket("deckgen").build();
 	      
 	      boolean isExist=false;
 		try {
