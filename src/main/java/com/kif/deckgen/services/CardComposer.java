@@ -14,8 +14,8 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class CardComposer {
-    private String framePath = "D:\\deckgen\\src\\main\\resources\\images\\simplecard.png";
-    private String artPath = "D:\\deckgen\\src\\main\\resources\\images\\1a244e99-bae5-4d4c-bd80-edf03604cd4d.png";
+    private String framePath = "D:\\deckgen\\src\\main\\resources\\images\\white.png";
+    private String artPath = "D:\\deckgen\\src\\main\\resources\\images\\img-H7MTllJItxyHXRMlnO77hB9I.png";
     //private String backgroundPath;
 
     public CardComposer(String framePath, String artPath) {
@@ -46,7 +46,7 @@ public class CardComposer {
         g2d.setFont(font);
 
         int x = width - 200;
-        int y = 50;
+        int y = 100;
 
         for (int i = 0; i < mana.length(); i += 1) {
             char c = mana.charAt(i);
@@ -76,54 +76,51 @@ public class CardComposer {
             g2d.drawOval(x - (i * 50), y, 40, 40);
             g2d.drawString(String.valueOf(c), x - (i * 50) + 15, y + 30);
         }
-
+        
         font = new Font("Serif", Font.BOLD, 60);
         g2d.setFont(font);
-
+        //Card Name
         x = width / 3 - name.length() * 20;
-        y += 90;
-
+        y += 40;
         g2d.drawString(name, x, y);
 
-        font = new Font("Arial", Font.PLAIN, 40);
+        //Type and subtype
+        font = new Font("Serif", Font.BOLD, 40);
         g2d.setFont(font);
-
-        //x -= type.length() * 20 + subtype.length() * 20 + rulesText.length() * 10 + flavorText.length() * 10 + power.length() * 10 + toughness.length() * 10 + copywrite.length() * 5 + artist.length() * 5;
-
-        //y += 100;
-        x = 200;
-        y = 1200;
-
+        x = 180;
+        y = 980;
         g2d.drawString(type + " - " + subtype, x, y);
 
-
+        // Rules text
         font = new Font("Arial", Font.PLAIN, 30);
-      g2d.setFont(font);
-
+        x = 200;
+        y = 1200;
+        g2d.setFont(font);
         g2d.drawString(rulesText, x, y);
-
+        
+        
+        //Flavor Text
         y += rulesText.split("\n").length * font.getSize();
-
         font = new Font("Arial", Font.ITALIC | Font.BOLD, 30);
         g2d.setFont(font);
-
         g2d.drawString(flavorText, x, y);
 
+        
         font = new Font("Arial", Font.BOLD, 60);
         g2d.setFont(font);
 
-        x += width / 3;
+        x = width - width / 7;
 
-        y -= rulesText.split("\n").length * font.getSize();
+        y = height - height / 16;
 
         g2d.drawString(power + "/" + toughness, x, y);
 
         font = new Font("Arial", Font.PLAIN, 20);
         g2d.setFont(font);
 
-        x -= copywrite.length() * font.getSize();
+        x =  width/2 - copywrite.length() * font.getSize();
 
-        y += font.getSize() * (rulesText.split("\n").length - flavorText.split("\n").length) / 2;
+        //y += font.getSize() * (rulesText.split("\n").length - flavorText.split("\n").length) / 2;
 
         g2d.drawString(copywrite + " | Art by " + artist, x, y);
 

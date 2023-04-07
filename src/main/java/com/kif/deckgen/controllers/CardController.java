@@ -46,6 +46,7 @@ public class CardController {
     	Card card = cardDao.getCardById(cardId);
     	
     	model.addAttribute(card);
+    	System.out.println(card.getRulesText());
     	
         return "card";
     }

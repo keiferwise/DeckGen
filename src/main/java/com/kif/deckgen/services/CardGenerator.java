@@ -56,7 +56,8 @@ public class CardGenerator {
 		
 		newCard.setCardId(card.getCardId());
 		newCard.setDeckId(card.getDeckId());
-		
+		//newCard.setRulesText(newCard.getRulesText().replace("<NEWLINE>", "\n"));
+		//newCard.setFlavorText(newCard.getFlavorText().replace("<NEWLINE>", "\n"));
 		return newCard;
 	}
 	
