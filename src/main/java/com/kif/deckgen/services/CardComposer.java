@@ -37,6 +37,7 @@ public class CardComposer {
         int height = 1680;
         int newParagraphSize = 75;
         int newlineSize = 40;
+        int textWidth = 1600;
 
         BufferedImage combinedImage = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
 
@@ -83,7 +84,7 @@ public class CardComposer {
         font = new Font("Serif", Font.BOLD, 60);
         g2d.setFont(font);
         //Card Name
-        x = width / 3 - name.length() * 20;
+        x = width/10;
         y += 40;
         g2d.drawString(name, x, y);
 
@@ -95,7 +96,7 @@ public class CardComposer {
         g2d.drawString(type + " - " + subtype, x, y);
 
         // Rules text
-        font = new Font("Arial", Font.PLAIN, 30);
+        font = new Font("Serif", Font.BOLD, 40);
         x = 200;
         y = 1050;
         g2d.setFont(font);
@@ -104,35 +105,61 @@ public class CardComposer {
         
         String currentLine = new String();
         int lineCount=1;
+        
         for(String rule : rules) {
-        	
-        	while(rule.length() * font.getSize() > 1600) {
+        	while(rule.length() * font.getSize() > textWidth) {
+        		int breakPosition = textWidth/font.getSize();
         		
-        		int breakPosition = 1600/font.getSize();
+        		System.out.println(breakPosition);
+        		System.out.println(rule.charAt(breakPosition));
+
         		
-        		while( !rule.substring(breakPosition,breakPosition+1).equals(" ")) {
-        			
-        			breakPosition++;
-        			
+        		while( !rule.substring( breakPosition,breakPosition+1).equals(" ") && !rule.substring(breakPosition,breakPosition+1).equals(".") && !(rule.length()-1==breakPosition)){
+            		System.out.println(rule.charAt(breakPosition));
+
+        			breakPosition++;	
         		}
         		currentLine = rule.substring(0,breakPosition);
         		rule = rule.substring(breakPosition);
         		y+=newlineSize;
-            	g2d.drawString(currentLine, x, y);
+            	g2d.drawString(currentLine.trim(), x, y);
         		lineCount++;
         	}
-        	
     		y+=newlineSize;
-        	g2d.drawString(rule, x, y);
+        	g2d.drawString(rule.trim(), x, y);
     		lineCount++;
-        	
         }
         
         //Flavor Text
-        y += newParagraphSize;//rulesText.split("\n").length * font.getSize();
-        font = new Font("Arial", Font.ITALIC | Font.BOLD, 30);
-        g2d.setFont(font);
-        g2d.drawString(flavorText, x, y);
+        
+        String[] flavor =  flavorText.split("<NEWLINE>");
+        for(String line : flavor) {
+        	if(line.isBlank()){continue;}
+        	 y += newParagraphSize;//rulesText.split("\n").length * font.getSize();
+             font = new Font("Arial", Font.ITALIC | Font.BOLD, 30);
+             g2d.setFont(font);
+            
+             	while(line.length() * font.getSize() > textWidth) {
+             		int breakPosition = textWidth/font.getSize();
+             		while( !line.substring( breakPosition,breakPosition+1).equals(" ")  && !(line.length()-1==breakPosition)) {
+                		System.out.println(line.charAt(breakPosition));
+
+             			breakPosition++;	
+             		}
+             		currentLine = line.substring(0,breakPosition);
+             		line = line.substring(breakPosition);
+             		y+=newlineSize;
+                 	g2d.drawString(currentLine.trim(), x, y);
+             		lineCount++;
+             	}
+         		y+=newlineSize;
+             	g2d.drawString(line.trim(), x, y);
+        }
+       
+
+        
+
+        //g2d.drawString(flavorText, x, y);
 
         
         font = new Font("Arial", Font.BOLD, 60);
