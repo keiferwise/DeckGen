@@ -32,8 +32,11 @@ public class CardComposer {
         BufferedImage frameImage = ImageIO.read(new File(framePath));
         BufferedImage artImage = ImageIO.read(new File(artPath));
 
+        
         int width = 1200;
         int height = 1680;
+        int newParagraphSize = 75;
+        int newlineSize = 40;
 
         BufferedImage combinedImage = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
 
@@ -94,13 +97,39 @@ public class CardComposer {
         // Rules text
         font = new Font("Arial", Font.PLAIN, 30);
         x = 200;
-        y = 1200;
+        y = 1050;
         g2d.setFont(font);
-        g2d.drawString(rulesText, x, y);
         
+        String[] rules =  rulesText.split("<NEWLINE>");
+        
+        String currentLine = new String();
+        int lineCount=1;
+        for(String rule : rules) {
+        	
+        	while(rule.length() * font.getSize() > 1600) {
+        		
+        		int breakPosition = 1600/font.getSize();
+        		
+        		while( !rule.substring(breakPosition,breakPosition+1).equals(" ")) {
+        			
+        			breakPosition++;
+        			
+        		}
+        		currentLine = rule.substring(0,breakPosition);
+        		rule = rule.substring(breakPosition);
+        		y+=newlineSize;
+            	g2d.drawString(currentLine, x, y);
+        		lineCount++;
+        	}
+        	
+    		y+=newlineSize;
+        	g2d.drawString(rule, x, y);
+    		lineCount++;
+        	
+        }
         
         //Flavor Text
-        y += rulesText.split("\n").length * font.getSize();
+        y += newParagraphSize;//rulesText.split("\n").length * font.getSize();
         font = new Font("Arial", Font.ITALIC | Font.BOLD, 30);
         g2d.setFont(font);
         g2d.drawString(flavorText, x, y);
@@ -118,7 +147,7 @@ public class CardComposer {
         font = new Font("Arial", Font.PLAIN, 20);
         g2d.setFont(font);
 
-        x =  width/2 - copywrite.length() * font.getSize();
+        x =  width/2 - ((copywrite.length()+artist.length()+10)/2 * font.getSize()/3);
 
         //y += font.getSize() * (rulesText.split("\n").length - flavorText.split("\n").length) / 2;
 
