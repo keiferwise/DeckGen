@@ -48,7 +48,7 @@ public class CardComposer {
         frameColour += ".png";
         
         /* Test */
-        frameColour = "green_1.png";
+        frameColour = "white_1.png";
         
         framePath += frameColour;
         
