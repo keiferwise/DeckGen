@@ -14,7 +14,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class CardComposer {
-    private String framePath = "D:\\deckgen\\src\\main\\resources\\images\\white.png";
+    private String framePath = "D:\\deckgen\\src\\main\\resources\\images\\";
     private String artPath = "D:\\deckgen\\src\\main\\resources\\images\\img-H7MTllJItxyHXRMlnO77hB9I.png";
     //private String backgroundPath;
 
@@ -29,8 +29,7 @@ public class CardComposer {
     
 
     public void createImage(String mana, String name, String type, String subtype, String rulesText, String flavorText, String power, String toughness, String copywrite, String artist) throws IOException {
-        BufferedImage frameImage = ImageIO.read(new File(framePath));
-        BufferedImage artImage = ImageIO.read(new File(artPath));
+
 
         
         int width = 1200;
@@ -38,7 +37,24 @@ public class CardComposer {
         int newParagraphSize = 75;
         int newlineSize = 40;
         int textWidth = 1600;
-
+        
+        String frameColour = "frame";
+        
+        if(mana.contains("W")) {frameColour+="white";}
+        if(mana.contains("U")) {frameColour+="blue";}
+        if(mana.contains("B")) {frameColour+="black";}
+        if(mana.contains("R")) {frameColour+="red";}
+        if(mana.contains("G")) {frameColour+="green";}
+        frameColour += ".png";
+        
+        /* Test */
+        frameColour = "green_1.png";
+        
+        framePath += frameColour;
+        
+        BufferedImage frameImage = ImageIO.read(new File(framePath));
+        BufferedImage artImage = ImageIO.read(new File(artPath));
+        
         BufferedImage combinedImage = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
 
         Graphics2D g2d = combinedImage.createGraphics();
