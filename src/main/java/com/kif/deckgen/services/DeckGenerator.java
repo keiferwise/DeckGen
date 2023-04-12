@@ -4,12 +4,15 @@
 package com.kif.deckgen.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import com.kif.deckgen.daos.CardDao;
+import com.kif.deckgen.daos.MinioDao;
 import com.kif.deckgen.models.Card;
 import com.kif.deckgen.models.Deck;
 import com.kif.deckgen.models.DeckIdea;
+import com.kif.deckgen.models.Image;
 
 /**
  * @author Keifer
@@ -20,7 +23,13 @@ public class DeckGenerator implements Runnable {
 
 	//@Autowired
 	//CardGenerator cardGenerator;
+	@Value("${com.kif.generateImages}")
+	boolean makeArt; 
+	@Autowired
+	DalleClient dalle;
 	
+	@Autowired
+	MinioDao minio;
 	
 	CardDao cardDao;
 	/**
@@ -57,6 +66,25 @@ public class DeckGenerator implements Runnable {
 		cardDao.updateCard(cardGenerator.createCard(legend, deck.getName(),deckIdea), legend.getCardId());
 		
 		//deckIdea.getLegends();
+		deck.setCards(cardDao.findAllByDeckId(deck.getDeckId()));
+		
+		
+		//Generate Art for cards FINISH THIS
+		if(makeArt==true) {
+			
+			for (Card card : deck.getCards()) {
+				
+				//dalle.generateImage(card.getArtDescription()).getData().get(0).getUrl();
+				
+				Image art = dalle.generateImage(card.getArtDescription()).getData().get(0);
+				
+				
+				
+				//minio.saveImage(, card.getCardId());
+			}
+			
+			
+		}
 		
 		
 

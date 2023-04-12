@@ -42,7 +42,7 @@ public class DalleClient {
         
         
         Map<String, String> requestBody = new HashMap<>();
-        requestBody.put("size", "512x512");
+        requestBody.put("size", "1024x1024");
         requestBody.put("prompt", prompt);
         //requestBody.("n", 1);
         requestBody.put("response_format", "url");
