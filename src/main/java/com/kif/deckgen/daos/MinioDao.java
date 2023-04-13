@@ -38,6 +38,40 @@ public class MinioDao {
 		// TODO Auto-generated constructor stub
 	}
 	
+	public int saveImage (BufferedImage image, String cardId) {
+		
+		
+        ByteArrayOutputStream os = new ByteArrayOutputStream();
+        try {
+			ImageIO.write(image, "png", os);
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+        InputStream is = new ByteArrayInputStream(os.toByteArray());
+        
+		
+		  //UploadObjectArgs args = UploadObjectArgs.builder()
+		  //       .bucket("deckgen").object("my-objectname").filename("person.json").build());
+	      
+	      //minioClient
+	      MinioClient minioClient =  getClient();
+	      PutObjectArgs args = PutObjectArgs.builder().object(cardId+".png").bucket("deckgen").contentType("image/png").stream(is, -1,1024 * 1024 * 16).build();
+
+	      try {
+			minioClient.putObject(args);
+		} catch (InvalidKeyException | ErrorResponseException | InsufficientDataException | InternalException
+				| InvalidResponseException | NoSuchAlgorithmException | ServerException | XmlParserException
+				| IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	      //minioClient.
+		
+		return 0;
+
+	}
+	
 	public int saveImage( Image image,String cardId ) {
 		 
 		//Retrieve the image from the URL and put it into a bufferedimage

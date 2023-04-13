@@ -3,6 +3,13 @@
  */
 package com.kif.deckgen.services;
 
+import java.awt.image.BufferedImage;
+import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URL;
+
+import javax.imageio.ImageIO;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
@@ -78,9 +85,23 @@ public class DeckGenerator implements Runnable {
 				
 				Image art = dalle.generateImage(card.getArtDescription()).getData().get(0);
 				
+				BufferedImage img = null;
+		        URL url=null;
+		        
+				try {
+					url = new URL(art.getUrl());
+				} catch (MalformedURLException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+		        try {
+					img = ImageIO.read(url);
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 				
-				
-				//minio.saveImage(, card.getCardId());
+				minio.saveImage(img, card.getCardId());
 			}
 			
 			
