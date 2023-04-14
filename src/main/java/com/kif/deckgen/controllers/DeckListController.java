@@ -64,6 +64,7 @@ public class DeckListController {
     		@RequestParam("theme") String theme, 
     		@RequestParam("legend") String legend,
     		@RequestParam("mana") String[]	 mana,
+    		@RequestParam("vibe") String vibe,
     		Model model) {
     	
     	ArrayList<String> manaArray = new ArrayList<String>();
@@ -77,7 +78,7 @@ public class DeckListController {
     	deck.setName(name);
     	deckDao.save(deck);
     	cardDao.saveAll(deck.getCards(),deck_id);
-    	
+    	System.out.println(vibe);
     	
         model.addAttribute("inputText", deck.getCards().toString());
         model.addAttribute("deck",deck);
