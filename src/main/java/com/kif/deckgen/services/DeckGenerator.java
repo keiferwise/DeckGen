@@ -7,6 +7,7 @@ import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.UUID;
 
 import javax.imageio.ImageIO;
 
@@ -70,10 +71,11 @@ public class DeckGenerator implements Runnable {
 		legend.setName(deckIdea.getLegends());
 		legend.setType("Legendary Creature");
 
-		cardDao.updateCard(cardGenerator.createCard(legend, deck.getName(),deckIdea), legend.getCardId());
+		cardDao.save(cardGenerator.createCard(legend, deck.getName(),deckIdea), UUID.randomUUID().toString());
 		
 		//deckIdea.getLegends();
 		deck.setCards(cardDao.findAllByDeckId(deck.getDeckId()));
+		
 		
 		
 		//Generate Art for cards FINISH THIS

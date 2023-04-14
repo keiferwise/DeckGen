@@ -31,10 +31,11 @@ public class CardNamesGenerator {
    
     
 	
-public Deck generateCardNames(String inputText) {
+public Deck generateCardNames(String inputText, String vibe) {
     	
     	//ChatGPTClient gptClient = new ChatGPTClient();
     	String prompt = promptTemplate.replace("<MYTHEME>", inputText);
+    	prompt = promptTemplate.replace("<VIBE>", vibe);
     	String deck = gptClient.generateCompletion(prompt, 1500);
     	Deck deckObject = new Deck();
     	

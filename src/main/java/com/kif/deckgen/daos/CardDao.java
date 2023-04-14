@@ -54,6 +54,20 @@ public class CardDao {
 		}
 		return result;
 	}
+	public int save(Card card, String deckId) {
+		int result=0;
+		result = jdbcTemplate.update(
+                "insert into card (card_id, card_name, mana_cost,"
+                + "art_description,card_type,card_subtype,rarity,"
+                + "rules_text,flavor_text,power,toughness,artist,copyright,deck_id) values(?,?,?,?,?,?,?,?,?,?,?,?,?,?)",
+                
+                UUID.randomUUID().toString(), card.getName(), card.getManaCost(),card.getArtDescription(),card.getType(),card.getSubtype(),
+                card.getRarity(),card.getRulesText(),card.getFlavorText(),card.getPower(),card.getToughness(),
+                card.getArtist(),card.getCopyright(),
+                deckId);	
+		
+		return result;
+	}
 	
 	public Card getCardById(String cardId) {
 		  String sql = "SELECT * FROM card WHERE card_id = ?";
