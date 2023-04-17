@@ -4,7 +4,10 @@
     <meta charset="UTF-8">
     <title>Input Page</title>
 </head>
+
 <body>
+	<div th:replace="fragments/header">...</div>
+
     <form method="post" th:action="@{/submit-theme}">
 <div>
         <label for="theme">What is the theme of your deck:</label>

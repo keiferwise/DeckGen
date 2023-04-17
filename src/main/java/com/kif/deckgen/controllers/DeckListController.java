@@ -85,7 +85,6 @@ public class DeckListController {
         //model.addAttribute("inputText", deck);
 
         return "deck-list";
-       // return "redirect:/result"
     }
     //
    /*
