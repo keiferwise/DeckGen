@@ -20,6 +20,8 @@ public class DeckIdea {
 	
 	private String deckId;
 	private String deckIdeaId;
+	
+	private String vibe;
 
 	
 	
@@ -30,7 +32,7 @@ public class DeckIdea {
 
 	
 	public DeckIdea(String theme, String legends, boolean red, boolean green, boolean black, boolean blue,
-			boolean white, String deckId, String deckIdeaId) {
+			boolean white, String deckId, String deckIdeaId, String vibe) {
 		super();
 		Theme = theme;
 		Legends = legends;
@@ -41,6 +43,7 @@ public class DeckIdea {
 		this.white = white;
 		this.deckId = deckId;
 		this.deckIdeaId = deckIdeaId;
+		this.vibe = vibe;
 	}
 
 
@@ -98,6 +101,16 @@ public class DeckIdea {
 	}
 	public void setWhite(boolean white) {
 		this.white = white;
+	}
+
+
+	public String getVibe() {
+		return vibe;
+	}
+
+
+	public void setVibe(String vibe) {
+		this.vibe = vibe;
 	}
 
 }

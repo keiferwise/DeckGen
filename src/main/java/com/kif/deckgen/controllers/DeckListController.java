@@ -69,16 +69,16 @@ public class DeckListController {
     	
     	ArrayList<String> manaArray = new ArrayList<String>();
     	Collections.addAll(manaArray, mana);
-    	Deck deck = cardNamesGenerator.generateCardNames(theme,vibe);// TODO Add other parameters
+    	Deck deck = cardNamesGenerator.generateCardNames(theme);// TODO Add other parameters
         UUID deck_idea_id = UUID.randomUUID();
     	UUID deck_id=UUID.randomUUID();
-    	DeckIdea deckIdea = new DeckIdea(theme, legend, manaArray.contains("red"), manaArray.contains("green"),manaArray.contains("black"),manaArray.contains("blue"),manaArray.contains("white"),deck_id.toString(),deck_idea_id.toString());
+    	DeckIdea deckIdea = new DeckIdea(theme, legend, manaArray.contains("red"), manaArray.contains("green"),manaArray.contains("black"),manaArray.contains("blue"),manaArray.contains("white"),deck_id.toString(),deck_idea_id.toString(),vibe);
     	ideaDao.save(deckIdea);
     	deck.setDeckId(deck_id.toString());
     	deck.setName(name);
     	deckDao.save(deck);
     	cardDao.saveAll(deck.getCards(),deck_id);
-    	System.out.println(vibe);
+    	
     	
         model.addAttribute("inputText", deck.getCards().toString());
         model.addAttribute("deck",deck);

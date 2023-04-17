@@ -55,7 +55,7 @@ public class CardComposer {
         
         /* Test */
         
-        frameColour = "black_1.png";
+        frameColour = "black.png";
         
         framePath += frameColour;
         System.out.println(framePath);

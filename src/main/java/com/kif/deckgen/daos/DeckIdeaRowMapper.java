@@ -24,6 +24,7 @@ public class DeckIdeaRowMapper implements RowMapper<DeckIdea> {
 			deckIdea.setBlack(rs.getBoolean("black"));
 			deckIdea.setWhite(rs.getBoolean("white"));
 			deckIdea.setDeckIdeaId(rs.getString("deck_idea_id"));
+			deckIdea.setVibe(rs.getString("vibe"));
 			return deckIdea;
 		
 		}
