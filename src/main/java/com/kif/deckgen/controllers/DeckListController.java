@@ -86,40 +86,6 @@ public class DeckListController {
 
         return "deck-list";
     }
-    //
-   /*
-    @GetMapping("/deck-list")
-    public String showResultPage(Model model) {
-        //model.addAttribute("transformedText", transformedText);
-        return "deck-list";
-    }
-    */
-    /*
-    @GetMapping("/deck-list-test")
-    public String testJson(Model model) {
-    	String testJson="[{\"name\": \"Strawberry Mage\", \"type\": \"Creature\"}, {\"name\": \"Strawberry Summoner\", \"type\": \"Creature\"}]";
-        
-    	Deck myDeck =  new Deck();
-    	ObjectMapper myOM = new ObjectMapper();
-    	List<Card> myCards=null;
-		try {
-			myCards = myOM.readValue(testJson, new TypeReference<List<Card>>() {});
-		} catch (JsonMappingException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (JsonProcessingException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		};
-    	
-    	myDeck.setCards(myCards);
-		// deckRepo.save(myDeck);
-
-    	System.out.println(myDeck.getCards().toString());
-    	
-    	model.addAttribute("transformedText", testJson);
-        return "deck-list";
-    }
-    */
+   
     
 }

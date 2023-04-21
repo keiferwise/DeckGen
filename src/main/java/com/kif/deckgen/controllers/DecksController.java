@@ -53,7 +53,7 @@ public class DecksController {
 		deck.setCards(cards);
 		ArrayList<Card> finishedCards = new ArrayList<Card>();
 		ArrayList<String> legends = new ArrayList<String>();
-		legends.add("Keifer,Chief Chef");
+		//legends.add("Keifer,Chief Chef");
 		DeckIdea idea = ideaDao.findByDeckId(currentDeckId);
 		
 		//TODO Generate the deck
