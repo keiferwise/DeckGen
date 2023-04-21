@@ -1,7 +1,5 @@
 use deckgendb;
 
-drop table deck_idea;
-
 CREATE TABLE `deck_idea` (
   `deck_idea_id` varchar(36) NOT NULL,
   `legends` varchar(255) DEFAULT NULL,
@@ -17,4 +15,3 @@ CREATE TABLE `deck_idea` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 
-describe deck_idea;

@@ -1,7 +1,5 @@
--- select * from deck;
+use deckgendb;
 
--- drop table deck_cards;
--- drop table deck CASCADE;
 create table deck (
 deck_id varchar(36),
 deck_name varchar(100),

@@ -1,8 +1,5 @@
 use deckgendb;
 
-drop table card;
-
-
 Create table card (
 card_id varchar(36),
 card_name varchar(50),
@@ -18,5 +15,4 @@ toughness varchar(6),
 artist varchar(200),
 copyright varchar(200),
 deck_id varchar(36)
--- type and subtype: can have more than one so maybe make it seperate tables later?
 );
