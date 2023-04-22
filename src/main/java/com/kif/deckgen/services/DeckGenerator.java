@@ -39,6 +39,9 @@ public class DeckGenerator implements Runnable {
 	@Autowired
 	MinioDao minio;
 	
+	@Autowired
+	CardComposer composer;
+	
 	CardDao cardDao;
 	/**
 	 * 
@@ -102,8 +105,15 @@ public class DeckGenerator implements Runnable {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
-				
-				minio.saveImage(img, card.getCardId());
+		        BufferedImage cardImage =null;
+		        try {
+					 cardImage = composer.createImage(card);
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+		        
+				minio.saveImage(cardImage, card.getCardId());
 			}
 			
 			

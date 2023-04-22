@@ -18,6 +18,8 @@ import javax.imageio.ImageIO;
 
 import org.springframework.stereotype.Service;
 
+import com.kif.deckgen.models.Card;
+
 @Service
 public class CardComposer {
     private String framePath;
@@ -34,7 +36,7 @@ public class CardComposer {
     
     
 
-    public void createImage(String mana, String name, String type, String subtype, String rulesText, String flavorText, String power, String toughness, String copywrite, String artist) throws IOException {
+    public BufferedImage createImage(Card card) throws IOException {
 
 
         
@@ -46,11 +48,11 @@ public class CardComposer {
         framePath = "D:\\deckgen\\src\\main\\resources\\images\\";
         String frameColour = "";
         
-        if(mana.contains("W")) {frameColour+="white";}
-        if(mana.contains("U")) {frameColour+="blue";}
-        if(mana.contains("B")) {frameColour+="black";}
-        if(mana.contains("R")) {frameColour+="red";}
-        if(mana.contains("G")) {frameColour+="green";}
+        if(card.getManaCost().contains("W")) {frameColour+="white";}
+        if(card.getManaCost().contains("U")) {frameColour+="blue";}
+        if(card.getManaCost().contains("B")) {frameColour+="black";}
+        if(card.getManaCost().contains("R")) {frameColour+="red";}
+        if(card.getManaCost().contains("G")) {frameColour+="green";}
         frameColour += ".png";
         
         /* Test */
@@ -75,8 +77,8 @@ public class CardComposer {
         int x = width - 200;
         int y = 100;
 
-        for (int i = 0; i < mana.length(); i += 1) {
-            char c = mana.charAt(i);
+        for (int i = 0; i < card.getManaCost().length(); i += 1) {
+            char c = card.getManaCost().charAt(i);
             Color color;
             switch (c) {
                 case 'W':
@@ -109,7 +111,7 @@ public class CardComposer {
         //Card Name
         x = width/10;
         y += 30;
-        drawTextWithOutline( g2d, name, x,  y,font);
+        drawTextWithOutline( g2d, card.getName(), x,  y,font);
 
         //Type and subtype
         font = new Font("Serif", Font.BOLD, 40);
@@ -118,11 +120,11 @@ public class CardComposer {
         y = 980;
         //g2d.drawString(type + " - " + subtype, x, y);
         String typeText;
-        if(subtype.isBlank()) {
-        	typeText = type;
+        if(card.getSubtype().isBlank()) {
+        	typeText = card.getType();
         }
         else {
-        	typeText = type + " - " + subtype;
+        	typeText = card.getType() + " - " + card.getSubtype();
         }
         
         drawTextWithOutline( g2d, (typeText), x, y,font);
@@ -132,7 +134,7 @@ public class CardComposer {
         y = 1050;
         g2d.setFont(font);
         
-        String[] rules =  rulesText.split("<NEWLINE>");
+        String[] rules =  card.getRulesText().split("<NEWLINE>");
         
         String currentLine = new String();
         int lineCount=1;
@@ -167,7 +169,7 @@ public class CardComposer {
         
         //Flavor Text
         
-        String[] flavor =  flavorText.split("<NEWLINE>");
+        String[] flavor =  card.getFlavorText().split("<NEWLINE>");
         for(String line : flavor) {
         	if(line.isBlank()){continue;}
         	 y += newParagraphSize;//rulesText.split("\n").length * font.getSize();
@@ -210,21 +212,25 @@ public class CardComposer {
         y = height - height / 16;
 
         //g2d.drawString(power + "/" + toughness, x, y);
-    	drawTextWithOutline( g2d, (power + "/" + toughness), x,  y,font);
+    	drawTextWithOutline( g2d, (card.getPower() + "/" + card.getToughness()), x,  y,font);
 
 
         font = new Font("Arial", Font.PLAIN, 20);
         g2d.setFont(font);
 
-        x =  width/2 - ((copywrite.length()+artist.length()+10)/2 * font.getSize()/3);
+        x =  width/2 - ((card.getCopyright().length()+card.getArtist().length()+10)/2 * font.getSize()/3);
 
         //y += font.getSize() * (rulesText.split("\n").length - flavorText.split("\n").length) / 2;
 
         //g2d.drawString(copywrite + " | Art by " + artist, x, y);
-        drawTextWithOutline( g2d, (copywrite + " | Art by " + artist), x,  y,font);
+        drawTextWithOutline( g2d, (card.getCopyright() + " | Art by " + card.getArtist()), x,  y,font);
         g2d.dispose();
 
-        ImageIO.write(combinedImage, "png", new File("D:\\out-images\\"+ name + UUID.randomUUID().toString() +".png"));
+        //This writes the file to d:\out-images for testing
+        ImageIO.write(combinedImage, "png", new File("D:\\out-images\\"+ card.getName() + UUID.randomUUID().toString() +".png"));
+        
+        return combinedImage;
+        
     }
     
     public void drawTextWithOutline(Graphics2D g2d, String text, int x, int y, Font font) {

@@ -1,5 +1,6 @@
 package com.kif.deckgen.controllers;
 
+import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.UUID;
 
@@ -65,9 +66,9 @@ public class CardController {
     	Image image = new Image();
     	image.setUrl(minio.getImage(cardId));
     	model.addAttribute("image",image);
-    	
+    	BufferedImage img = null;
     	try {
-			cardComposer.createImage(card.getManaCost(), card.getName(), card.getType(), card.getSubtype(), card.getRulesText(), card.getFlavorText(), card.getPower(), card.getToughness(),"Copywrite Kif Co.", "Keifer Wiseman");
+    		img= cardComposer.createImage(card);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

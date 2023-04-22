@@ -24,8 +24,7 @@ public class CardGenerator {
 	@Value("${com.kif.cardDetailsTemplate}")
 	private String cardDetailsTemplate;
 	
-	@Autowired
-	JsonConverter jsonConverter;
+
 	@Autowired 
 	ObjectMapper objectMapper;
 	@Autowired
@@ -42,7 +41,7 @@ public class CardGenerator {
 		prompt = prompt.replace("<MANA>",manaColour(deckIdea));
 		
 		String newCardJson = gptClient.generateCompletion(prompt,1000);
-		System.out.println(newCardJson);
+		//System.out.println(newCardJson);
 		//newCardJson = newCardJson.replace("/", "//");
 		//newCardJson = newCardJson.replace("\n", " ");
 		//Card newCard = jsonConverter.convertCardToObject(newCardJson); //System.getProperty("line.separator")
