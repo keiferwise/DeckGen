@@ -4,6 +4,7 @@
 package com.kif.deckgen.services;
 
 import java.awt.image.BufferedImage;
+import java.io.File;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -33,13 +34,13 @@ public class DeckGenerator implements Runnable {
 	//CardGenerator cardGenerator;
 	@Value("${com.kif.generateImages}")
 	boolean makeArt; 
-	@Autowired
+	
 	DalleClient dalle;
 	
-	@Autowired
+	
 	MinioDao minio;
 	
-	@Autowired
+	
 	CardComposer composer;
 	
 	CardDao cardDao;
@@ -49,12 +50,15 @@ public class DeckGenerator implements Runnable {
 	Deck deck;
 	DeckIdea deckIdea;
 	CardGenerator cardGenerator;
-	public DeckGenerator(Deck deck, DeckIdea deckIdea, CardGenerator cardGenerator,CardDao cardDao) {
+	public DeckGenerator(Deck deck, DeckIdea deckIdea, CardGenerator cardGenerator,CardDao cardDao,MinioDao minioDao, CardComposer cardComposer, DalleClient dalleClient) {
 		// TODO Auto-generated constructor stub
 		this.deck = deck;
 		this.deckIdea = deckIdea;
 		this.cardGenerator = cardGenerator;
 		this.cardDao = cardDao;
+		this.minio = minioDao;
+		this.composer = cardComposer;
+		this.dalle = dalleClient;
 	}
 
 	@Override
@@ -73,41 +77,62 @@ public class DeckGenerator implements Runnable {
 		Card legend = deck.getCards().get(0);
 		legend.setName(deckIdea.getLegends());
 		legend.setType("Legendary Creature");
-
-		cardDao.save(cardGenerator.createCard(legend, deck.getName(),deckIdea), UUID.randomUUID().toString());
+		cardDao.save(cardGenerator.createCard(legend, legend.getName(),deckIdea), UUID.randomUUID().toString());
 		
 		//deckIdea.getLegends();
 		deck.setCards(cardDao.findAllByDeckId(deck.getDeckId()));
+	    
+
 		
 		
-		
-		//Generate Art for cards FINISH THIS
-		if(makeArt==true) {
+	
 			
 			for (Card card : deck.getCards()) {
 				
-				//dalle.generateImage(card.getArtDescription()).getData().get(0).getUrl();
-				
-				Image art = dalle.generateImage(card.getArtDescription()).getData().get(0);
-				
+				BufferedImage imgTest =null;
 				BufferedImage img = null;
 		        URL url=null;
+		    	//Generate Art for cards FINISH THIS
+				if(makeArt==true) {
 		        
-				try {
-					url = new URL(art.getUrl());
-				} catch (MalformedURLException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
+
+			        
+			        //######################################################
+					//#### What we will call when we are generating art ####
+					//######################################################
+					 
+					Image art = dalle.generateImage(card.getArtDescription()).getData().get(0);
+			        //get the art from Dall-E URL
+					try {
+						url = new URL(art.getUrl());
+					} catch (MalformedURLException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+			        try {
+						img = ImageIO.read(url);
+					} catch (IOException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+			        
+		        
 				}
-		        try {
-					img = ImageIO.read(url);
-				} catch (IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
+				else {
+					// What we will call while we are testing
+					String artPath = "D:\\deckgen\\src\\main\\resources\\images\\img-H7MTllJItxyHXRMlnO77hB9I.png";
+			        try {
+						imgTest = ImageIO.read(new File(artPath));
+					} catch (IOException e2) {
+						// TODO Auto-generated catch block
+						e2.printStackTrace();
+					}
+					
 				}
+		        //Create the card
 		        BufferedImage cardImage =null;
 		        try {
-					 cardImage = composer.createImage(card);
+					 cardImage = composer.createImage(card, imgTest);
 				} catch (IOException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -117,7 +142,7 @@ public class DeckGenerator implements Runnable {
 			}
 			
 			
-		}
+		
 		
 		
 

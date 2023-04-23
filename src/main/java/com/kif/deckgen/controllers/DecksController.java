@@ -16,10 +16,13 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.kif.deckgen.daos.CardDao;
 import com.kif.deckgen.daos.DeckDao;
 import com.kif.deckgen.daos.DeckIdeaDao;
+import com.kif.deckgen.daos.MinioDao;
 import com.kif.deckgen.models.Card;
 import com.kif.deckgen.models.Deck;
 import com.kif.deckgen.models.DeckIdea;
+import com.kif.deckgen.services.CardComposer;
 import com.kif.deckgen.services.CardGenerator;
+import com.kif.deckgen.services.DalleClient;
 import com.kif.deckgen.services.DeckGenerator;
 
 //TODO This page should list all the Decks, Eventually filtered by user, should show the status of the deck(Queued, InProgress, Completed)
@@ -57,7 +60,7 @@ public class DecksController {
 		DeckIdea idea = ideaDao.findByDeckId(currentDeckId);
 		
 		//TODO Generate the deck
-		DeckGenerator deckGenerator = new DeckGenerator(deck,idea,cardGenerator,cardDao);
+		DeckGenerator deckGenerator = new DeckGenerator(deck,idea,cardGenerator,cardDao, new MinioDao(),new CardComposer(),new DalleClient());
 		
 		//deckGenerator.run();
 		ExecutorService executor = Executors.newSingleThreadExecutor();

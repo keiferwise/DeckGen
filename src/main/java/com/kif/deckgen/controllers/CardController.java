@@ -47,11 +47,13 @@ public class CardController {
     	Card card = cardDao.getCardById(cardId);
     	
     	model.addAttribute(card);
-    	System.out.println(card.getRulesText());
-    	
+    	//System.out.println(card.getRulesText());
+    	Image image = new Image();
+    	image.setUrl(minio.getImage(cardId));
+    	model.addAttribute("image",image);
         return "card";
     }
-    @GetMapping("/card/{cardId}/art")
+    @GetMapping("/card/art/{cardId}")
     public String art(@PathVariable String cardId, Model model) {
     	
     	Card card = cardDao.getCardById(cardId);
@@ -66,7 +68,7 @@ public class CardController {
     	Image image = new Image();
     	image.setUrl(minio.getImage(cardId));
     	model.addAttribute("image",image);
-    	BufferedImage img = null;
+    	/*BufferedImage img = null;
     	try {
     		img= cardComposer.createImage(card);
 		} catch (IOException e) {
@@ -75,7 +77,7 @@ public class CardController {
 		}
     	
     	//minio.uploadObject(null);
-    	
+    	*/
     	
     	return "art";
     }

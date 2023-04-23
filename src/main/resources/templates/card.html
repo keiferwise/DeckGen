@@ -11,3 +11,8 @@
 <p th:text="${card.flavorText}"></p>
 <p th:text="${card.power}"></p>
 <p th:text="${card.toughness}"></p>
+
+
+<img th:src="${image.url}" style="width: 400px;height: 560px;" >
+
+<a th:href="@{/card/art/{id}(id=${card.cardId})}">Full Sized Art</a>

@@ -36,7 +36,7 @@ public class CardComposer {
     
     
 
-    public BufferedImage createImage(Card card) throws IOException {
+    public BufferedImage createImage(Card card, BufferedImage cardArt) throws IOException {
 
 
         
@@ -45,21 +45,10 @@ public class CardComposer {
         int newParagraphSize = 75;
         int newlineSize = 40;
         int textWidth = 1600;
-        framePath = "D:\\deckgen\\src\\main\\resources\\images\\";
-        String frameColour = "";
+        card.setArtist("Keifer Wiseman");
+        card.setCopyright("Wizards of the Coast 2023");
         
-        if(card.getManaCost().contains("W")) {frameColour+="white";}
-        if(card.getManaCost().contains("U")) {frameColour+="blue";}
-        if(card.getManaCost().contains("B")) {frameColour+="black";}
-        if(card.getManaCost().contains("R")) {frameColour+="red";}
-        if(card.getManaCost().contains("G")) {frameColour+="green";}
-        frameColour += ".png";
-        
-        /* Test */
-        
-        frameColour = "black.png";
-        
-        framePath += frameColour;
+        framePath = getFrame(card);
         System.out.println(framePath);
         BufferedImage frameImage = ImageIO.read(new File(framePath));
         BufferedImage artImage = ImageIO.read(new File(artPath));
@@ -233,7 +222,7 @@ public class CardComposer {
         
     }
     
-    public void drawTextWithOutline(Graphics2D g2d, String text, int x, int y, Font font) {
+    private void drawTextWithOutline(Graphics2D g2d, String text, int x, int y, Font font) {
         //Font font = new Font("Arial", Font.BOLD, 20);
         FontRenderContext frc = g2d.getFontRenderContext();
         GlyphVector gv = font.createGlyphVector(frc, text);
@@ -247,4 +236,30 @@ public class CardComposer {
         g2d.fill(glyph);
         g2d.setTransform(orig);
     }
+    private String getFrame(Card card) {
+    	String frameColour="";
+    	String path = "D:\\deckgen\\src\\main\\resources\\images\\";
+    	String file = "";
+    	int colourCounter=0;
+    	//Get Colour Identity String
+        if(card.getManaCost().contains("W")) {frameColour+="white"; colourCounter++;}
+        if(card.getManaCost().contains("U")) {frameColour+="blue"; colourCounter++;}
+        if(card.getManaCost().contains("B")) {frameColour+="black"; colourCounter++;}
+        if(card.getManaCost().contains("R")) {frameColour+="red"; colourCounter++;}
+        if(card.getManaCost().contains("G")) {frameColour+="green"; colourCounter++;}
+       
+        System.out.println(frameColour);
+        
+        if(colourCounter>1) {
+        	frameColour = "Multicolour";
+        }
+        else if(colourCounter == 0) {
+        	frameColour="Colourless";
+        }
+        
+    	path = path + frameColour + ".png";
+
+        System.out.println(path);
+        return path;
+}
 }
