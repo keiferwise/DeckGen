@@ -3,6 +3,7 @@ package com.kif.deckgen.services;
 import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.FontFormatException;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
 import java.awt.Shape;
@@ -12,6 +13,7 @@ import java.awt.geom.AffineTransform;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.UUID;
 
 import javax.imageio.ImageIO;
@@ -37,8 +39,24 @@ public class CardComposer {
     
 
     public BufferedImage createImage(Card card, BufferedImage cardArt) throws IOException {
+    	Font goudyMedieval = new Font("Serif", Font.BOLD, 40);;
 
-
+    	InputStream stream = ClassLoader.getSystemClassLoader().getResourceAsStream("/deckgen/src/main/java/GoudyMediaevalRegular.ttf");
+    	try {
+			goudyMedieval  = Font.createFont(Font.TRUETYPE_FONT, stream).deriveFont(12f);
+		} catch ( IOException e) {
+			// TODO Auto-generated catch block
+			System.out.println(e.getMessage()+" IO exception ");
+			e.printStackTrace();
+		
+		} catch (FontFormatException e ) {
+		// TODO Auto-generated catch block
+			System.out.println(e.getMessage()+" Font Format Exception ");
+		e.printStackTrace();
+		}
+	
+    	
+    	
         
         int width = 1200;
         int height = 1680;
@@ -96,7 +114,7 @@ public class CardComposer {
         }
         g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
         font = new Font("Serif", Font.BOLD, 60);
-        g2d.setFont(font);
+        g2d.setFont(goudyMedieval);
         //Card Name
         x = width/10;
         y += 30;
@@ -108,12 +126,17 @@ public class CardComposer {
         x = 180;
         y = 980;
         //g2d.drawString(type + " - " + subtype, x, y);
-        String typeText;
-        if(card.getSubtype().isBlank()) {
-        	typeText = card.getType();
+        String typeText="";
+        if(!(card.getSubtype()==null)) {
+		    if(card.getSubtype().isBlank()) {
+		    	typeText = card.getType();
+		    }
+		    else {
+		    	typeText = card.getType() + " - " + card.getSubtype();
+		    }
         }
         else {
-        	typeText = card.getType() + " - " + card.getSubtype();
+        	typeText = card.getType();
         }
         
         drawTextWithOutline( g2d, (typeText), x, y,font);
@@ -216,7 +239,7 @@ public class CardComposer {
         g2d.dispose();
 
         //This writes the file to d:\out-images for testing
-        ImageIO.write(combinedImage, "png", new File("D:\\out-images\\"+ card.getName() + UUID.randomUUID().toString() +".png"));
+        //ImageIO.write(combinedImage, "png", new File("D:\\out-images\\"+ card.getName() + UUID.randomUUID().toString() +".png"));
         
         return combinedImage;
         

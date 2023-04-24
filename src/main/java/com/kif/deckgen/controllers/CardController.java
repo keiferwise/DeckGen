@@ -1,8 +1,11 @@
 package com.kif.deckgen.controllers;
 
 import java.awt.image.BufferedImage;
+import java.io.File;
 import java.io.IOException;
 import java.util.UUID;
+
+import javax.imageio.ImageIO;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -84,21 +87,46 @@ public class CardController {
     
     @GetMapping("/art-test")
     public String artTest(Model model) {
-    	String cardId= UUID.randomUUID().toString();
+    	//String cardId= UUID.randomUUID().toString();
     	//Card card = cardDao.getCardById(cardId);
     	//System.out.println(card.getArtDescription());
     	//ImageResult result = dalleClient.generateImage(card.getArtDescription());
-    	Image image = new Image();
-    	image.setUrl("https://oaidalleapiprodscus.blob.core.windows.net/private/org-cGoUntEkBIWyFiYN2i9SA6oT/user-vwpIeYuorlrjcgtL57td7628/img-9HgUibWHYnWQjx0pWgS8P5GB.png?st=2023-04-04T22%3A16%3A21Z&se=2023-04-05T00%3A16%3A21Z&sp=r&sv=2021-08-06&sr=b&rscd=inline&rsct=image/png&skoid=6aaadede-4fb3-4698-a8f6-684d7786b067&sktid=a48cca56-e6da-484e-a814-9c849652bcb3&skt=2023-04-04T19%3A36%3A05Z&ske=2023-04-05T19%3A36%3A05Z&sks=b&skv=2021-08-06&sig=tQdew%2BeJpXGMfdelgGv4cLkeoSJULj424GaI2JhtW60%3D");
+    	//Image image = new Image();
+    	//image.setUrl("https://oaidalleapiprodscus.blob.core.windows.net/private/org-cGoUntEkBIWyFiYN2i9SA6oT/user-vwpIeYuorlrjcgtL57td7628/img-9HgUibWHYnWQjx0pWgS8P5GB.png?st=2023-04-04T22%3A16%3A21Z&se=2023-04-05T00%3A16%3A21Z&sp=r&sv=2021-08-06&sr=b&rscd=inline&rsct=image/png&skoid=6aaadede-4fb3-4698-a8f6-684d7786b067&sktid=a48cca56-e6da-484e-a814-9c849652bcb3&skt=2023-04-04T19%3A36%3A05Z&ske=2023-04-05T19%3A36%3A05Z&sks=b&skv=2021-08-06&sig=tQdew%2BeJpXGMfdelgGv4cLkeoSJULj424GaI2JhtW60%3D");
+        BufferedImage cardImage =null;
+        Card card = cardDao.getCardById("638a0e84-160b-4495-8c9b-1a99a20e8a03");
+		BufferedImage imgTest =null;
+
+        String artPath = "D:\\deckgen\\src\\main\\resources\\images\\img-H7MTllJItxyHXRMlnO77hB9I.png";
+        try {
+			imgTest = ImageIO.read(new File(artPath));
+		} catch (IOException e2) {
+			// TODO Auto-generated catch block
+			e2.printStackTrace();
+		}
+        try {
+			 cardImage = cardComposer.createImage(card, imgTest);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
     	
-    	minio.saveImage(image, cardId);
     	
-    	model.addAttribute("image",image);
+    	try {
+			ImageIO.write(cardImage, "png", new File("D:\\out-images\\"+ card.getName() + UUID.randomUUID().toString() +".png"));
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+    	//minio.saveImage(image, cardId);
+    	
+    	model.addAttribute("image",cardImage);
     	
     	//minio.uploadObject(null);
     	
     	
-    	return "art";
+    	return "art-test";
     }
     
 	
