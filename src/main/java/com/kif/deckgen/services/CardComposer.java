@@ -104,7 +104,7 @@ public class CardComposer {
 		//Card Name
 		x = width/10;
 		y += 30;
-		drawTextWithOutline( g2d, card.getName(), x,  y,getCustomFont2());
+		drawTextWithOutline( g2d, card.getName(), x,  y, getCustomFont("D:\\deckgen\\src\\main\\java\\GoudyMediaevalRegular.ttf",60,Font.PLAIN, "Goudy Mediaeval"));
 
 		//Type and subtype
 		font = new Font("Serif", Font.BOLD, 40);
@@ -271,33 +271,13 @@ public class CardComposer {
 		System.out.println(path);
 		return path;
 	}
-	private Font getCustomFont() {
-		
-		Font goudyMedieval = new Font("Serif", Font.BOLD, 40);;
-
-		InputStream stream = ClassLoader.getSystemClassLoader().getResourceAsStream("/deckgen/src/main/java/EBGaramond-Medium.ttf");
-		try {
-			goudyMedieval  = Font.createFont(Font.TRUETYPE_FONT, stream).deriveFont(12f);
-		} catch ( IOException e) {
-			// TODO Auto-generated catch block
-			System.out.println(e.getMessage()+" IO exception ");
-			e.printStackTrace();
-
-		} catch (FontFormatException e ) {
-			// TODO Auto-generated catch block
-			System.out.println(e.getMessage()+" Font Format Exception ");
-			e.printStackTrace();
-		}
-
-	return goudyMedieval;	
 	
-	}
-	private Font getCustomFont2() {
+	private Font getCustomFont(String fontPath,int size,int style,String fontName) {
 		
 		//Font goudyMedieval = new Font("Serif", Font.BOLD, 40);;
 		GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
 		try {
-			ge.registerFont(Font.createFont(Font.TRUETYPE_FONT, new File("D:\\deckgen\\src\\main\\java\\GoudyMediaevalRegular.ttf")));
+			ge.registerFont(Font.createFont(Font.TRUETYPE_FONT, new File(fontPath)));
 		} catch (FontFormatException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -305,11 +285,11 @@ public class CardComposer {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		for(String s : ge.getAvailableFontFamilyNames()) {
+		/*for(String s : ge.getAvailableFontFamilyNames()) {
 			System.out.println(s);
 
-		}
-		Font goudyMedieval = new  Font("Goudy Mediaeval", Font.PLAIN, 60);
+		}*/
+		Font goudyMedieval = new  Font(fontName, style, size);
 		System.out.println(goudyMedieval.getFontName() + " " + goudyMedieval.getFamily());
 	return goudyMedieval; 
 	
