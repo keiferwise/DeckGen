@@ -147,7 +147,7 @@ public class CardComposer {
 				//System.out.println(rule.charAt(breakPosition));
 
 
-				while( !rule.substring( breakPosition,breakPosition+1).equals(" ") && !rule.substring(breakPosition,breakPosition+1).equals(".") && !(rule.length()-1==breakPosition)){
+				while( !rule.substring( breakPosition,breakPosition+1).equals(" ") /*&& !rule.substring(breakPosition,breakPosition+1).equals(".")*/ && !(rule.length()-1==breakPosition)){
 					//System.out.println(rule.charAt(breakPosition));
 
 					breakPosition++;	
@@ -274,7 +274,6 @@ public class CardComposer {
 	
 	private Font getCustomFont(String fontPath,int size,int style,String fontName) {
 		
-		//Font goudyMedieval = new Font("Serif", Font.BOLD, 40);;
 		GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
 		try {
 			ge.registerFont(Font.createFont(Font.TRUETYPE_FONT, new File(fontPath)));
