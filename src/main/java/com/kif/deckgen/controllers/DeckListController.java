@@ -80,7 +80,7 @@ public class DeckListController {
     	cardDao.saveAll(deck.getCards(),deck_id);
     	
     	
-        model.addAttribute("inputText", deck.getCards().toString());
+        model.addAttribute("cardList", deck.getCards());
         model.addAttribute("deck",deck);
         //model.addAttribute("inputText", deck);
 

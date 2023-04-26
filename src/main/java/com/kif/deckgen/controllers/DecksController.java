@@ -90,8 +90,9 @@ public class DecksController {
 		//System.out.println(deckId);
 
 		List<Card> cards = cardDao.findAllByDeckId(deckId);
-		
+		Deck deck = deckDao.findDeckById(deckId);
 		model.addAttribute("cards",cards);
+		model.addAttribute("deck", deck);
 		//System.out.println(cards.isEmpty());
 		return "deck";
 	}

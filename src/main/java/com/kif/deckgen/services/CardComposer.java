@@ -37,12 +37,7 @@ public class CardComposer {
 
 	}
 
-
-
 	public BufferedImage createImage(Card card, BufferedImage cardArt) throws IOException {
-		
-
-
 
 		int width = 1200;
 		int height = 1680;
@@ -51,7 +46,8 @@ public class CardComposer {
 		int textWidth = 1600;
 		card.setArtist("Keifer Wiseman");
 		card.setCopyright("Wizards of the Coast 2023");
-
+		Font GaramondMedium = getCustomFont("D:\\deckgen\\src\\main\\java\\EBGaramond-Medium.ttf",50,Font.PLAIN, "EB Garamond Medium");
+		Font nameFont = getCustomFont("D:\\deckgen\\src\\main\\java\\GoudyMediaevalRegular.ttf",65,Font.PLAIN, "Goudy Mediaeval");
 		framePath = getFrame(card);
 		System.out.println(framePath);
 		BufferedImage frameImage = ImageIO.read(new File(framePath));
@@ -63,7 +59,7 @@ public class CardComposer {
 		g2d.drawImage(artImage, 90, 160, null);
 
 		g2d.drawImage(frameImage, 0, 0, null);
-
+		card.setManaCost(card.getManaCost().replaceAll("[^WUBRG1234567890]", ""));
 		Font font = new Font("Arial", Font.BOLD, 30);
 		g2d.setFont(font);
 
@@ -101,14 +97,15 @@ public class CardComposer {
 		g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 		font = new Font("Serif", Font.BOLD, 60);
 		g2d.setFont(font);
+		
 		//Card Name
 		x = width/10;
 		y += 30;
-		drawTextWithOutline( g2d, card.getName(), x,  y, getCustomFont("D:\\deckgen\\src\\main\\java\\GoudyMediaevalRegular.ttf",60,Font.PLAIN, "Goudy Mediaeval"));
+		drawTextWithOutline( g2d, card.getName(), x,  y, nameFont);
 
 		//Type and subtype
 		font = new Font("Serif", Font.BOLD, 40);
-		g2d.setFont(font);
+		g2d.setFont(GaramondMedium);
 		x = 180;
 		y = 980;
 		//g2d.drawString(type + " - " + subtype, x, y);
@@ -125,7 +122,7 @@ public class CardComposer {
 			typeText = card.getType();
 		}
 
-		drawTextWithOutline( g2d, (typeText), x, y,font);
+		drawTextWithOutline( g2d, (typeText), x, y,GaramondMedium);
 		// Rules text
 		font = new Font("Serif", Font.BOLD, 40);
 		x = 200;
@@ -133,56 +130,62 @@ public class CardComposer {
 		g2d.setFont(font);
 
 		String[] rules =  card.getRulesText().split("<NEWLINE>");
-
+		
 		String currentLine = new String();
 		int lineCount=1;
 
 		g2d.setColor(Color.BLACK);
 
 		for(String rule : rules) {
+			System.out.println(rule);
 			while(rule.length() * font.getSize() > textWidth) {
 				int breakPosition = textWidth/font.getSize();
 
 				//System.out.println(breakPosition);
 				//System.out.println(rule.charAt(breakPosition));
 
-
-				while( !rule.substring( breakPosition,breakPosition+1).equals(" ") /*&& !rule.substring(breakPosition,breakPosition+1).equals(".")*/ && !(rule.length()-1==breakPosition)){
+				while( !rule.substring( breakPosition,breakPosition+1).equals(" ") && !(rule.length()-1==breakPosition)){
 					//System.out.println(rule.charAt(breakPosition));
 
 					breakPosition++;	
 				}
-				currentLine = rule.substring(0,breakPosition);
-				rule = rule.substring(breakPosition);
+				currentLine = rule.substring(0,breakPosition+1);
+				rule = rule.substring(breakPosition+1);
 				y+=newlineSize;
+				//System.out.println(currentLine.trim());
 				g2d.drawString(currentLine.trim(), x, y);
 				//drawTextWithOutline( g2d, currentLine.trim(), x,  y,font);
 				lineCount++;
 			}
 			y+=newlineSize;
 			g2d.drawString(rule.trim(), x, y);
+			//System.out.println(rule.trim());
+
 			//drawTextWithOutline( g2d, rule.trim(), x,  y,font);
 			lineCount++;
+			
 		}
 
 		//Flavor Text
 
 		String[] flavor =  card.getFlavorText().split("<NEWLINE>");
 		for(String line : flavor) {
+			
 			if(line.isBlank()){continue;}
-			y += newParagraphSize;//rulesText.split("\n").length * font.getSize();
+			
+			y += newParagraphSize; 
 			font = new Font("Arial", Font.ITALIC | Font.BOLD, 30);
 			g2d.setFont(font);
 
 			while(line.length() * font.getSize() > textWidth) {
 				int breakPosition = textWidth/font.getSize();
-				while( !line.substring( breakPosition,breakPosition+1).equals(" ")  && !(line.length()-1==breakPosition)) {
+				while( !line.substring( breakPosition,breakPosition+1).equals(" ")  &&  !(line.length()-1==breakPosition) ) {
 					System.out.println(line.charAt(breakPosition));
 
 					breakPosition++;	
 				}
-				currentLine = line.substring(0,breakPosition);
-				line = line.substring(breakPosition);
+				currentLine = line.substring(0,breakPosition+1);
+				line = line.substring(breakPosition+1);
 				y+=newlineSize;
 				g2d.drawString(currentLine.trim(), x, y);
 				//drawTextWithOutline( g2d, line.trim(), x,  y,font);
@@ -248,7 +251,7 @@ public class CardComposer {
 	private String getFrame(Card card) {
 		String frameColour="";
 		String path = "D:\\deckgen\\src\\main\\resources\\images\\";
-		String file = "";
+		//String file = "";
 		int colourCounter=0;
 		//Get Colour Identity String
 		if(card.getManaCost().contains("W")) {frameColour+="white"; colourCounter++;}
@@ -257,7 +260,7 @@ public class CardComposer {
 		if(card.getManaCost().contains("R")) {frameColour+="red"; colourCounter++;}
 		if(card.getManaCost().contains("G")) {frameColour+="green"; colourCounter++;}
 
-		System.out.println(frameColour);
+		//System.out.println(frameColour);
 
 		if(colourCounter>1) {
 			frameColour = "Multicolour";
@@ -286,11 +289,10 @@ public class CardComposer {
 		}
 		/*for(String s : ge.getAvailableFontFamilyNames()) {
 			System.out.println(s);
-
 		}*/
-		Font goudyMedieval = new  Font(fontName, style, size);
-		System.out.println(goudyMedieval.getFontName() + " " + goudyMedieval.getFamily());
-	return goudyMedieval; 
+		Font myFont = new  Font(fontName, style, size);
+		//System.out.println(goudyMedieval.getFontName() + " " + goudyMedieval.getFamily());
+	return myFont; 
 	
 	}
 }

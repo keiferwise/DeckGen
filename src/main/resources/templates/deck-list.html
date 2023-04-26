@@ -11,7 +11,21 @@
     
     <p th:text="${deck.deckId}"></p>
     
-    <p th:text="${inputText}"></p>
+    <table>
+		<tr>
+			<th>Card</th>
+			<th>type</th>
+			<th>CMC</th>
+		</tr>
+		<tr th:each="card : ${cardList}">
+			<td th:text="${card.name}" ></td>
+			<td th:text="${card.type}" ></td>
+			<td></td>
+		</tr>
+		
+		
+	</table>
+    
         <form method="post" th:action="@{/submit-deck}">
 		<input type="hidden" name="deckId" id="deckId" th:value="${deck.deckId}" />
         <label for="inputField">Submit Deck</label>
