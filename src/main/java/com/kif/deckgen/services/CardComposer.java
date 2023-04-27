@@ -260,7 +260,6 @@ public class CardComposer {
 		if(card.getManaCost().contains("R")) {frameColour+="red"; colourCounter++;}
 		if(card.getManaCost().contains("G")) {frameColour+="green"; colourCounter++;}
 
-		//System.out.println(frameColour);
 
 		if(colourCounter>1) {
 			frameColour = "Multicolour";
