@@ -15,6 +15,7 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.UUID;
 
 import javax.imageio.ImageIO;
@@ -293,5 +294,23 @@ public class CardComposer {
 		//System.out.println(goudyMedieval.getFontName() + " " + goudyMedieval.getFamily());
 	return myFont; 
 	
+	}
+	private ArrayList<String> divideLines(String rulesText,int charLimit) {
+		
+		String[] splitRules =  rulesText.split(" ");
+		ArrayList<String> lines = new ArrayList<String>();
+		int length=0;
+		String temp = "";
+		for(String word : splitRules) {
+			length+=word.length();
+			temp = temp + " " + word;
+			if(length>=charLimit) {
+				lines.add(temp);
+				length=0;
+				temp="";
+			}
+		}
+		
+		return lines;
 	}
 }
