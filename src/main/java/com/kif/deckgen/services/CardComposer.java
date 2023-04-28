@@ -98,7 +98,7 @@ public class CardComposer {
 		g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 		font = new Font("Serif", Font.BOLD, 60);
 		g2d.setFont(font);
-		
+
 		//Card Name
 		x = width/10;
 		y += 30;
@@ -131,16 +131,22 @@ public class CardComposer {
 		g2d.setFont(font);
 
 		String[] rules =  card.getRulesText().split("<NEWLINE>");
-		
+
+		String[] flavors =  card.getFlavorText().split("<NEWLINE>");
+
+
 		String currentLine = new String();
-		int lineCount=1;
-		int maxChars=textWidth/font.getSize()-10;
+		int lineCount = 1;
+		int maxChars = textWidth/font.getSize()-10;
+		System.out.println("there are a total of "+ (numberOfLines(rules,maxChars) +numberOfLines(flavors,maxChars))+" lines");
+
+
 		g2d.setColor(Color.BLACK);
 
 		for(String rule : rules) {
-			System.out.println(rule);
+			//System.out.println(rule);
 			ArrayList<String> ruleLines = divideLines(rule,maxChars);
-			
+
 			for(String ruleLine : ruleLines) {
 				System.out.println(ruleLine);
 				g2d.drawString(ruleLine.trim(), x, y);
@@ -148,74 +154,28 @@ public class CardComposer {
 
 			}
 			y+=newParagraphSize - newlineSize;
-			
-			/*System.out.println(rule);
-			while(rule.length() * font.getSize() > textWidth) {
-				int breakPosition = textWidth/font.getSize();
 
-				//System.out.println(breakPosition);
-				//System.out.println(rule.charAt(breakPosition));
-
-				while( !rule.substring( breakPosition,breakPosition+1).equals(" ") && !(rule.length()-1==breakPosition)){
-					//System.out.println(rule.charAt(breakPosition));
-
-					breakPosition++;	
-				}
-				currentLine = rule.substring(0,breakPosition+1);
-				rule = rule.substring(breakPosition+1);
-				y+=newlineSize;
-				//System.out.println(currentLine.trim());
-				g2d.drawString(currentLine.trim(), x, y);
-				//drawTextWithOutline( g2d, currentLine.trim(), x,  y,font);
-				lineCount++;
-			}
-			y+=newlineSize;
-			g2d.drawString(rule.trim(), x, y);
-			//System.out.println(rule.trim());
-
-			//drawTextWithOutline( g2d, rule.trim(), x,  y,font);
-			lineCount++;*/
-			
 		}
 
 		//Flavor Text
 
-		String[] flavor =  card.getFlavorText().split("<NEWLINE>");
-		for(String line : flavor) {
-			
-			if(line.isBlank()){continue;}
-			
-			y += newParagraphSize; 
-			font = new Font("Arial", Font.ITALIC | Font.BOLD, 30);
-			g2d.setFont(font);
+		for(String flavor : flavors) {
 
-			while(line.length() * font.getSize() > textWidth) {
-				int breakPosition = textWidth/font.getSize();
-				while( !line.substring( breakPosition,breakPosition+1).equals(" ")  &&  !(line.length()-1==breakPosition) ) {
-					System.out.println(line.charAt(breakPosition));
+			if(flavor.isBlank()){continue;}
 
-					breakPosition++;	
-				}
-				currentLine = line.substring(0,breakPosition+1);
-				line = line.substring(breakPosition+1);
+
+			//System.out.println(flavor);
+			ArrayList<String> flavorLines = divideLines(flavor,maxChars);
+
+			for(String line : flavorLines) {
+				System.out.println(line);
+				g2d.drawString(line.trim(), x, y);
 				y+=newlineSize;
-				g2d.drawString(currentLine.trim(), x, y);
-				//drawTextWithOutline( g2d, line.trim(), x,  y,font);
 
-
-				lineCount++;
 			}
-			y+=newlineSize;
-			g2d.drawString(line.trim(), x, y);
-			//drawTextWithOutline( g2d, line.trim(), x,  y,font);
+			y += newParagraphSize - newlineSize;
 
 		}
-
-
-
-
-		//g2d.drawString(flavorText, x, y);
-
 
 		font = new Font("Arial", Font.BOLD, 60);
 		g2d.setFont(font);
@@ -285,9 +245,9 @@ public class CardComposer {
 		System.out.println(path);
 		return path;
 	}
-	
+
 	private Font getCustomFont(String fontPath,int size,int style,String fontName) {
-		
+
 		GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
 		try {
 			ge.registerFont(Font.createFont(Font.TRUETYPE_FONT, new File(fontPath)));
@@ -303,29 +263,55 @@ public class CardComposer {
 		}*/
 		Font myFont = new  Font(fontName, style, size);
 		//System.out.println(goudyMedieval.getFontName() + " " + goudyMedieval.getFamily());
-	return myFont; 
-	
+		return myFont; 
+
 	}
-	private ArrayList<String> divideLines(String rulesText,int charLimit) {
-		
-		String[] splitRules =  rulesText.split(" ");
+	private ArrayList<String> divideLines(String text,int charLimit) {
+
+		String[] splitText =  text.split(" ");
 		ArrayList<String> lines = new ArrayList<String>();
 		int length=0;
 		int wordCount=0;
 		String temp = "";
-		for(String word : splitRules) {
+		for(String word : splitText) {
 			wordCount++;
-			System.out.println(word);
+			//System.out.println(word);
 			length+=word.length();
 			temp = temp + " " + word;
-			if(length>=charLimit || splitRules.length==wordCount ) {
+			if(length>=charLimit || splitText.length==wordCount ) {
 				lines.add(temp);
-				System.out.println(temp+ ", " +length);
+				//System.out.println(temp+ ", " +length);
 				length=0;
 				temp="";
 			} 
 		}
-		
+
 		return lines;
+	}
+	private int numberOfLines(String[] textList,int charLimit) {
+
+		int length=0;
+		int wordCount=0;
+		int lineCount = 0;
+		for (String text : textList) {
+			String[] splitText =  text.split(" ");
+			//ArrayList<String> lines = new ArrayList<String>();
+
+			//String temp = "";
+			for(String word : splitText) {
+				wordCount++;
+				length+=word.length();
+				//temp = temp + " " + word;
+				if(length>=charLimit || splitText.length==wordCount ) {
+					//lines.add(temp);
+					lineCount++;
+					length=0;
+					//temp="";
+				} 
+			}
+
+		}
+		return lineCount+(textList.length/2);
+
 	}
 }
