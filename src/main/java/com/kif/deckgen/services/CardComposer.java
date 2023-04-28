@@ -127,18 +127,29 @@ public class CardComposer {
 		// Rules text
 		font = new Font("Serif", Font.BOLD, 40);
 		x = 200;
-		y = 1050;
+		y = 1100;
 		g2d.setFont(font);
 
 		String[] rules =  card.getRulesText().split("<NEWLINE>");
 		
 		String currentLine = new String();
 		int lineCount=1;
-
+		int maxChars=textWidth/font.getSize()-10;
 		g2d.setColor(Color.BLACK);
 
 		for(String rule : rules) {
 			System.out.println(rule);
+			ArrayList<String> ruleLines = divideLines(rule,maxChars);
+			
+			for(String ruleLine : ruleLines) {
+				System.out.println(ruleLine);
+				g2d.drawString(ruleLine.trim(), x, y);
+				y+=newlineSize;
+
+			}
+			y+=newParagraphSize - newlineSize;
+			
+			/*System.out.println(rule);
 			while(rule.length() * font.getSize() > textWidth) {
 				int breakPosition = textWidth/font.getSize();
 
@@ -163,7 +174,7 @@ public class CardComposer {
 			//System.out.println(rule.trim());
 
 			//drawTextWithOutline( g2d, rule.trim(), x,  y,font);
-			lineCount++;
+			lineCount++;*/
 			
 		}
 
@@ -300,15 +311,19 @@ public class CardComposer {
 		String[] splitRules =  rulesText.split(" ");
 		ArrayList<String> lines = new ArrayList<String>();
 		int length=0;
+		int wordCount=0;
 		String temp = "";
 		for(String word : splitRules) {
+			wordCount++;
+			System.out.println(word);
 			length+=word.length();
 			temp = temp + " " + word;
-			if(length>=charLimit) {
+			if(length>=charLimit || splitRules.length==wordCount ) {
 				lines.add(temp);
+				System.out.println(temp+ ", " +length);
 				length=0;
 				temp="";
-			}
+			} 
 		}
 		
 		return lines;
