@@ -314,4 +314,25 @@ public class CardComposer {
 		return lineCount+(textList.length/2);
 
 	}
+	private String orderManaCost(String manaCost) {
+		
+		for(char c : manaCost.toCharArray()) {
+			
+			
+			
+		}
+		
+		String newManaCost = "";
+		
+		
+	return newManaCost;
+	}
+	private static boolean isNumeric(String str) { 
+		  try {  
+		    Double.parseDouble(str);  
+		    return true;
+		  } catch(NumberFormatException e){  
+		    return false;  
+		  }  
+		}
 }
