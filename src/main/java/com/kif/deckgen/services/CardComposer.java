@@ -20,6 +20,7 @@ import java.util.UUID;
 
 import javax.imageio.ImageIO;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import com.kif.deckgen.models.Card;
@@ -28,7 +29,10 @@ import com.kif.deckgen.models.Card;
 public class CardComposer {
 	private String framePath;
 	private String artPath = "D:\\deckgen\\src\\main\\resources\\images\\img-H7MTllJItxyHXRMlnO77hB9I.png";
-	//private String backgroundPath;
+	@Value("${com.kif.mana-path}")
+	private String manaPath;
+
+
 
 	public CardComposer(String framePath, String artPath) {
 		this.framePath = framePath;
@@ -39,7 +43,7 @@ public class CardComposer {
 	}
 
 	public BufferedImage createImage(Card card, BufferedImage cardArt) throws IOException {
-
+		
 		int width = 1200;
 		int height = 1680;
 		int newParagraphSize = 75;
@@ -315,16 +319,38 @@ public class CardComposer {
 
 	}
 	private String orderManaCost(String manaCost) {
-		
+		int [] manaArray = new int[6];
 		for(char c : manaCost.toCharArray()) {
-			
-			
-			
+			if(isNumeric(String.valueOf(c))) {
+				
+				
+				manaArray[0] = Integer.parseInt(manaCost.replaceAll("[WUBRGwbrg]+", ""));
+			}
+			else {
+				switch (c) {
+				case 'W':
+					manaArray[1]+=1;
+					break;
+				case 'U':
+					manaArray[2]+=1;
+					break;
+				case 'B':
+					manaArray[3]+=1;
+					break;
+				case 'R':
+					manaArray[4]+=1;
+					break;
+				case 'G':
+					manaArray[5]+=1;
+					break;
+				default:
+					break;
+				}
+			}	
 		}
 		
 		String newManaCost = "";
-		
-		
+	
 	return newManaCost;
 	}
 	private static boolean isNumeric(String str) { 
