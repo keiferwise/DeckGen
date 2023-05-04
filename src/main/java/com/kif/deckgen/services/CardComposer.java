@@ -16,6 +16,8 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.UUID;
 
 import javax.imageio.ImageIO;
@@ -55,26 +57,34 @@ public class CardComposer {
 		int newParagraphSize = 75;
 		int newlineSize = 40;
 		int textWidth = 1600;
+		
 		card.setArtist("Keifer Wiseman");
 		card.setCopyright("Wizards of the Coast 2023");
-		Font GaramondMedium = getCustomFont("D:\\deckgen\\src\\main\\java\\EBGaramond-Medium.ttf",50,Font.PLAIN, "EB Garamond Medium");
+		
+		Font rulesFont = getCustomFont("D:\\deckgen\\src\\main\\java\\EBGaramond-Medium.ttf",40,Font.PLAIN, "EB Garamond Medium");
 		Font nameFont = getCustomFont("D:\\deckgen\\src\\main\\java\\GoudyMediaevalRegular.ttf",65,Font.PLAIN, "Goudy Mediaeval");
-		framePath = getFrame(card);
-		System.out.println(framePath);
-		BufferedImage frameImage = ImageIO.read(new File(framePath));
-		BufferedImage artImage = ImageIO.read(new File(artPath));
 		String[] manaSymbolFileNames = {"w.png","u.png","b.png","r.png","g.png"}; 
 
-		BufferedImage combinedImage = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
+		//Determine what frame to user
+		framePath = getFrame(card);
 
+		//Load art and frame
+		BufferedImage frameImage = ImageIO.read(new File(framePath));
+		//Change this if we are generating images
+		BufferedImage artImage = ImageIO.read(new File(artPath));
+		
+		// Combine the Art and Frame
+		BufferedImage combinedImage = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
 		Graphics2D g2d = combinedImage.createGraphics();
 		g2d.drawImage(artImage, 90, 160, null);
-
 		g2d.drawImage(frameImage, 0, 0, null);
+		
+		//Clean the mana cost of other symbols
 		card.setManaCost(card.getManaCost().replaceAll("[^WUBRG1234567890]", ""));
-		Font font = new Font("Arial", Font.BOLD, 30);
-		g2d.setFont(font);
-
+		//Set the initial font
+		//Font font = new Font("Arial", Font.BOLD, 30);
+		//g2d.setFont(font);
+		// init 
 		int x = width - 180;
 		int y = 85;
 		int manaSymbolSize = 50;
@@ -98,52 +108,22 @@ public class CardComposer {
 			manaSymbolPath = manaPath + colourlessManaFileName;
 			BufferedImage colourlessManaImage = ImageIO.read(new File(manaSymbolPath));
 			g2d.drawImage(colourlessManaImage, x, y,manaSymbolSize,manaSymbolSize, null);
-
-		}
+		}// End of mana 
 		
-		/*
-		for (int i = 0; i < card.getManaCost().length(); i += 1) {
-			char c = card.getManaCost().charAt(i);
-			Color color;
-			switch (c) {
-			case 'W':
-				color = Color.WHITE;
-				break;
-			case 'U':
-				color = Color.BLUE;
-				break;
-			case 'B':
-				color = Color.BLACK;
-				break;
-			case 'R':
-				color = Color.RED;
-				break;
-			case 'G':
-				color = Color.GREEN;
-				break;
-			default:
-				color = Color.GRAY;
-			}
-			g2d.setColor(color);
-			g2d.fillOval(x - (i * 50), y, 40, 40);
-			g2d.setColor(Color.BLACK);
-			g2d.drawOval(x - (i * 50), y, 40, 40);
-			g2d.drawString(String.valueOf(c), x - (i * 50) + 15, y + 30);
-		}
-
-*/
+		
+		//  Define Default Font
+		Font font = new Font("EB Garamond Medium", Font.BOLD, 60);
+		
 		g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-		font = new Font("Serif", Font.BOLD, 60);
-		g2d.setFont(font);
+		//g2d.setFont(font);
 		//Card Name
 		x = width/10;
-		y = 130;
-		
+		y = 130;		
 		drawTextWithOutline( g2d, card.getName(), x,  y, nameFont);
 
-		//Type and subtype
-		font = new Font("Serif", Font.BOLD, 40);
-		g2d.setFont(GaramondMedium);
+		// ## Type and subtype ## //
+		//font = new Font("Serif", Font.BOLD, 40);
+		g2d.setFont(rulesFont);
 		x = 180;
 		y = 980;
 		//g2d.drawString(type + " - " + subtype, x, y);
@@ -160,27 +140,33 @@ public class CardComposer {
 			typeText = card.getType();
 		}
 
-		drawTextWithOutline( g2d, (typeText), x, y,GaramondMedium);
-		// Rules text
-		font = new Font("Serif", Font.BOLD, 40);
+		drawTextWithOutline( g2d, (typeText), x, y,rulesFont);
+		// ## Rules text ## //
+		//font = new Font("Serif", Font.BOLD, 40);
 		x = 200;
 		y = 1100;
-		g2d.setFont(font);
+		g2d.setFont(rulesFont);
 
 		String[] rules =  card.getRulesText().split("<NEWLINE>");
-
+		ArrayList<String> rulesArray = new ArrayList(Arrays.asList(rules));	
+		
 		String[] flavors =  card.getFlavorText().split("<NEWLINE>");
+		ArrayList<String> flavorArray = new ArrayList(Arrays.asList(flavors));	
 
 
 		String currentLine = new String();
 		int lineCount = 1;
-		int maxChars = textWidth/font.getSize()-10;
+		int maxChars = textWidth/rulesFont.getSize()-10;
 		System.out.println("there are a total of "+ (numberOfLines(rules,maxChars) +numberOfLines(flavors,maxChars))+" lines");
 
 
 		g2d.setColor(Color.BLACK);
 
-		for(String rule : rules) {
+		if(rulesArray.get(0).isBlank()) {
+			rulesArray.remove(0);
+		}
+		
+		for(String rule : rulesArray) {
 			//System.out.println(rule);
 			ArrayList<String> ruleLines = divideLines(rule,maxChars);
 
@@ -195,8 +181,10 @@ public class CardComposer {
 		}
 
 		//Flavor Text
+		font = new Font("EB Garamond Medium", Font.ITALIC, 60);
 
-		for(String flavor : flavors) {
+
+		for(String flavor : flavorArray) {
 
 			if(flavor.isBlank()){continue;}
 
@@ -243,7 +231,14 @@ public class CardComposer {
 
 	}
 
-	
+	/**
+	 * 
+	 * @param g2d
+	 * @param text
+	 * @param x
+	 * @param y
+	 * @param font
+	 */
 	private void drawTextWithOutline(Graphics2D g2d, String text, int x, int y, Font font) {
 		//Font font = new Font("Arial", Font.BOLD, 20);
 		FontRenderContext frc = g2d.getFontRenderContext();
@@ -258,6 +253,11 @@ public class CardComposer {
 		g2d.fill(glyph);
 		g2d.setTransform(orig);
 	}
+	/**
+	 * 
+	 * @param card
+	 * @return
+	 */
 	private String getFrame(Card card) {
 		String frameColour="";
 		String path = "D:\\deckgen\\src\\main\\resources\\images\\";
@@ -283,10 +283,20 @@ public class CardComposer {
 		System.out.println(path);
 		return path;
 	}
-
+	/**
+	 * 
+	 * @param fontPath
+	 * @param size
+	 * @param style
+	 * @param fontName
+	 * @return
+	 */
 	private Font getCustomFont(String fontPath,int size,int style,String fontName) {
 
 		GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
+		//for(String s : ge.getAvailableFontFamilyNames()) {System.out.println(s);}
+		//System.out.println(ge.getAvailableFontFamilyNames());
+		
 		try {
 			ge.registerFont(Font.createFont(Font.TRUETYPE_FONT, new File(fontPath)));
 		} catch (FontFormatException e) {
@@ -300,6 +310,12 @@ public class CardComposer {
 		return myFont; 
 
 	}
+	/**
+	 * 
+	 * @param text
+	 * @param charLimit
+	 * @return
+	 */
 	private ArrayList<String> divideLines(String text,int charLimit) {
 
 		String[] splitText =  text.split(" ");
@@ -322,6 +338,12 @@ public class CardComposer {
 
 		return lines;
 	}
+	/**
+	 * 
+	 * @param textList
+	 * @param charLimit
+	 * @return
+	 */
 	private int numberOfLines(String[] textList,int charLimit) {
 
 		int length=0;
@@ -348,6 +370,11 @@ public class CardComposer {
 		return lineCount+(textList.length/2);
 
 	}
+	/**
+	 * 
+	 * @param manaCost
+	 * @return
+	 */
 	private int [] orderManaCost(String manaCost) {
 		int [] manaArray = new int[6];
 		for(char c : manaCost.toCharArray()) {
@@ -378,11 +405,14 @@ public class CardComposer {
 				}
 			}	
 		}
-		
-		String newManaCost = "";
-	
+			
 	return manaArray;
 	}
+	/**
+	 * 
+	 * @param str
+	 * @return
+	 */
 	private static boolean isNumeric(String str) { 
 		  try {  
 		    Double.parseDouble(str);  
