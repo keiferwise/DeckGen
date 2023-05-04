@@ -88,8 +88,8 @@ public class CardController {
     @GetMapping("/art-test")
     public String artTest(Model model) {
     	
-    	BufferedImage cardImage =null;
-        Card card = cardDao.getCardById("9725ee03-4e00-479a-8c50-1aca7847f590");
+    	BufferedImage cardImage = null;
+        Card card = cardDao.getCardById("ee2fddec-6a04-44a6-bf3c-bc82c3db4efa");
 		BufferedImage imgTest =null;
 		//TestArt
         String artPath = "D:\\deckgen\\src\\main\\resources\\images\\img-H7MTllJItxyHXRMlnO77hB9I.png";

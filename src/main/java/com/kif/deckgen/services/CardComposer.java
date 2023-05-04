@@ -29,8 +29,8 @@ import com.kif.deckgen.models.Card;
 public class CardComposer {
 	private String framePath;
 	private String artPath = "D:\\deckgen\\src\\main\\resources\\images\\img-H7MTllJItxyHXRMlnO77hB9I.png";
-	@Value("${com.kif.mana-path}")
-	private String manaPath;
+	//@Value("${com.kif.mana-path}")
+	private String manaPath = "D:\\deckgen\\src\\main\\resources\\images\\mana-symbols\\";
 
 
 
@@ -41,7 +41,13 @@ public class CardComposer {
 	public CardComposer() {
 
 	}
-
+/**
+ * 
+ * @param card
+ * @param cardArt
+ * @return
+ * @throws IOException
+ */
 	public BufferedImage createImage(Card card, BufferedImage cardArt) throws IOException {
 		
 		int width = 1200;
@@ -57,6 +63,7 @@ public class CardComposer {
 		System.out.println(framePath);
 		BufferedImage frameImage = ImageIO.read(new File(framePath));
 		BufferedImage artImage = ImageIO.read(new File(artPath));
+		String[] manaSymbolFileNames = {"w.png","u.png","b.png","r.png","g.png"}; 
 
 		BufferedImage combinedImage = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
 
@@ -68,9 +75,33 @@ public class CardComposer {
 		Font font = new Font("Arial", Font.BOLD, 30);
 		g2d.setFont(font);
 
-		int x = width - 200;
-		int y = 100;
+		int x = width - 180;
+		int y = 85;
+		int manaSymbolSize = 50;
+		int[] manaArray = orderManaCost( card.getManaCost());
+		int cmc = 0;
+		int colourlessManaAmount = manaArray[0];
+		String colourlessManaFileName = manaArray[0] + ".png";
+		String manaSymbolPath="";
+		for(int q = 1; q<6; q++) {
+			for(int r = 0;r<manaArray[q];r++) {
+				cmc++;
+				manaSymbolPath = manaPath + manaSymbolFileNames[q-1];
+				System.out.println("Mana Symbol Path: "+manaSymbolPath);
+				BufferedImage manaImage = ImageIO.read(new File(manaSymbolPath));
+				g2d.drawImage(manaImage, x, y,manaSymbolSize,manaSymbolSize, null);
+				x-=60;
+			}
+		}
+		if (colourlessManaAmount>0 || cmc==0) {
+			cmc+=colourlessManaAmount;
+			manaSymbolPath = manaPath + colourlessManaFileName;
+			BufferedImage colourlessManaImage = ImageIO.read(new File(manaSymbolPath));
+			g2d.drawImage(colourlessManaImage, x, y,manaSymbolSize,manaSymbolSize, null);
 
+		}
+		
+		/*
 		for (int i = 0; i < card.getManaCost().length(); i += 1) {
 			char c = card.getManaCost().charAt(i);
 			Color color;
@@ -99,13 +130,15 @@ public class CardComposer {
 			g2d.drawOval(x - (i * 50), y, 40, 40);
 			g2d.drawString(String.valueOf(c), x - (i * 50) + 15, y + 30);
 		}
+
+*/
 		g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 		font = new Font("Serif", Font.BOLD, 60);
 		g2d.setFont(font);
-
 		//Card Name
 		x = width/10;
-		y += 30;
+		y = 130;
+		
 		drawTextWithOutline( g2d, card.getName(), x,  y, nameFont);
 
 		//Type and subtype
@@ -210,6 +243,7 @@ public class CardComposer {
 
 	}
 
+	
 	private void drawTextWithOutline(Graphics2D g2d, String text, int x, int y, Font font) {
 		//Font font = new Font("Arial", Font.BOLD, 20);
 		FontRenderContext frc = g2d.getFontRenderContext();
@@ -262,11 +296,7 @@ public class CardComposer {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		/*for(String s : ge.getAvailableFontFamilyNames()) {
-			System.out.println(s);
-		}*/
 		Font myFont = new  Font(fontName, style, size);
-		//System.out.println(goudyMedieval.getFontName() + " " + goudyMedieval.getFamily());
 		return myFont; 
 
 	}
@@ -318,7 +348,7 @@ public class CardComposer {
 		return lineCount+(textList.length/2);
 
 	}
-	private String orderManaCost(String manaCost) {
+	private int [] orderManaCost(String manaCost) {
 		int [] manaArray = new int[6];
 		for(char c : manaCost.toCharArray()) {
 			if(isNumeric(String.valueOf(c))) {
@@ -351,7 +381,7 @@ public class CardComposer {
 		
 		String newManaCost = "";
 	
-	return newManaCost;
+	return manaArray;
 	}
 	private static boolean isNumeric(String str) { 
 		  try {  
