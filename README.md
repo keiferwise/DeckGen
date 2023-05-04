@@ -1,6 +1,8 @@
 # DeckGen
 
 To Do
+- Finish the Mana Symbols
+- Do a third iteration on the card frames
 - Deck generator
 - Front end design
 - Later add more deck prompt options to include: 40 card deck, 60 card deck, 100 card Commander deck.
