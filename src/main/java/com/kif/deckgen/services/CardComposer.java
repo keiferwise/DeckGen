@@ -55,13 +55,14 @@ public class CardComposer {
 		int width = 1200;
 		int height = 1680;
 		int newParagraphSize = 75;
-		int newlineSize = 40;
+		int newlineSize = 45;
 		int textWidth = 1700;
+		int rulesTextSize=45;
 		
 		card.setArtist("Keifer Wiseman");
 		card.setCopyright("Wizards of the Coast 2023");
 		
-		Font rulesFont = getCustomFont("D:\\deckgen\\src\\main\\java\\EBGaramond-Medium.ttf",40,Font.PLAIN, "EB Garamond Medium");
+		Font rulesFont = getCustomFont("D:\\deckgen\\src\\main\\java\\EBGaramond-Medium.ttf",rulesTextSize,Font.PLAIN, "EB Garamond Medium");
 		Font nameFont = getCustomFont("D:\\deckgen\\src\\main\\java\\GoudyMediaevalRegular.ttf",65,Font.PLAIN, "Goudy Mediaeval");
 		String[] manaSymbolFileNames = {"w.png","u.png","b.png","r.png","g.png"}; 
 
@@ -161,8 +162,10 @@ public class CardComposer {
 		if(rulesArray.get(0).isBlank()) {
 			rulesArray.remove(0);
 		}
-		if(rulesArray.get(rulesArray.size()-1).isBlank()) {
-			rulesArray.remove(rulesArray.size()-1);
+		if(rulesArray.size()>1) {
+			if(rulesArray.get(rulesArray.size()-1).isBlank()) {
+				rulesArray.remove(rulesArray.size()-1);
+			}
 		}
 		if(flavorArray.get(0).isBlank()) {
 			flavorArray.remove(0);
@@ -380,14 +383,14 @@ public class CardComposer {
 				//temp = temp + " " + word;
 				if(length>=charLimit || splitText.length==wordCount ) {
 					//lines.add(temp);
-					lineCount++;
+					lineCount+=45;
 					length=0;
 					//temp="";
 				} 
 			}
 
 		}
-		return lineCount+(textList.size()/2);
+		return (lineCount+(textList.size()*75))/45;
 
 	}
 	/**
@@ -441,4 +444,43 @@ public class CardComposer {
 		    return false;  
 		  }  
 		}
+	private int getTextStartingPoint(int numLines) {
+		int y = 1215;
+		switch(numLines) {
+		case 1:
+			y=1215;
+			break;
+		case 2:
+			y=1200;
+			break;
+		case 3:
+			y=1185;
+			break;
+		case 4:
+			y=1170;
+			break;
+		case 5:
+			y=1155;
+			break;
+		case 6:
+			y=1140;
+			break;
+		case 7:
+			y-=15*7;
+			break;
+		case 8:
+			y-=15*8;
+			break;
+		case 9:
+			y-=15*9;
+			break;
+		default:
+			break;
+		}
+		
+		
+		return y;
+		
+	}
+	
 }
