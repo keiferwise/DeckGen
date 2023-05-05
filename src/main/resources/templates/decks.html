@@ -9,8 +9,9 @@
         <th>Status</th>
     </tr>
     <tr th:each="deck : ${myDecks}">
-		<td ><a  th:text="${deck.name}" th:href="@{/deck/{id}(id=${deck.deckId})}"></a></td>
+		<td ><a th:text="${deck.name}" th:href="@{/deck/{id}(id=${deck.deckId})}"></a></td>
         <td class="align-middle" th:text="${deck.deckId}"></td>
         <td class="align-middle" th:text="${deck.status}"></td>
+        <td><a th:text="Cards" th:href="@{/deck/allcards/{id}(id=${deck.deckId})}"></a></td>
     </tr>
 </table>

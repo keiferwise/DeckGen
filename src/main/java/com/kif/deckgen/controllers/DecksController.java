@@ -34,7 +34,8 @@ public class DecksController {
 	DeckDao deckDao;
 	@Autowired
 	DeckIdeaDao ideaDao;
-	
+	@Autowired 
+	MinioDao minio;
 	@Autowired
 	CardGenerator cardGenerator;
 	
@@ -95,6 +96,20 @@ public class DecksController {
 		model.addAttribute("deck", deck);
 		//System.out.println(cards.isEmpty());
 		return "deck";
+	}
+	
+	@GetMapping("/deck/allcards/{deckId}")
+	public String deckCardGrid(@PathVariable String deckId, Model model) {
+
+		//Deck deck = deckDao.findDeckById(deckId);
+		//model.addAttribute("cards",deck.getCards());
+		ArrayList<String> images = new ArrayList<String>();
+		for(Card c : deckDao.findDeckById(deckId).getCards()) {
+			images.add(minio.getImage(c.getCardId()));
+		}
+		model.addAttribute("images",images);
+
+		return "card-grid";
 	}
 
 }

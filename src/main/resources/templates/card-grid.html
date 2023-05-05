@@ -1,0 +1,9 @@
+<div th:replace="fragments/header">...</div>
+<div th:replace="fragments/menu">...</div>
+
+
+<table>
+	<tr th:each="image : ${images}">
+		<td><img th:src="${image}" style="width: 400px;height: 560px;" ></td>
+	</tr>
+</table>

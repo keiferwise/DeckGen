@@ -56,7 +56,7 @@ public class CardComposer {
 		int height = 1680;
 		int newParagraphSize = 75;
 		int newlineSize = 40;
-		int textWidth = 1600;
+		int textWidth = 1700;
 		
 		card.setArtist("Keifer Wiseman");
 		card.setCopyright("Wizards of the Coast 2023");
@@ -122,8 +122,8 @@ public class CardComposer {
 		drawTextWithOutline( g2d, card.getName(), x,  y, nameFont);
 
 		// ## Type and subtype ## //
-		//font = new Font("Serif", Font.BOLD, 40);
-		g2d.setFont(rulesFont);
+		font = new Font("EB Garamond Medium", Font.BOLD, 40);
+		g2d.setFont(font);
 		x = 180;
 		y = 980;
 		//g2d.drawString(type + " - " + subtype, x, y);
@@ -144,7 +144,7 @@ public class CardComposer {
 		// ## Rules text ## //
 		//font = new Font("Serif", Font.BOLD, 40);
 		x = 200;
-		y = 1100;
+		y = 1520;
 		g2d.setFont(rulesFont);
 
 		String[] rules =  card.getRulesText().split("<NEWLINE>");
@@ -157,14 +157,34 @@ public class CardComposer {
 		String currentLine = new String();
 		int lineCount = 1;
 		int maxChars = textWidth/rulesFont.getSize()-10;
-		System.out.println("there are a total of "+ (numberOfLines(rules,maxChars) +numberOfLines(flavors,maxChars))+" lines");
-
-
-		g2d.setColor(Color.BLACK);
-
+		//System.out.println("there are a total of "+ (numberOfLines(rulesArray,maxChars) +numberOfLines(flavorArray,maxChars))+" lines");
 		if(rulesArray.get(0).isBlank()) {
 			rulesArray.remove(0);
 		}
+		if(rulesArray.get(rulesArray.size()-1).isBlank()) {
+			rulesArray.remove(rulesArray.size()-1);
+		}
+		if(flavorArray.get(0).isBlank()) {
+			flavorArray.remove(0);
+		}
+		//if(flavorArray.get(flavorArray.size()-1).isBlank()) {
+		//	flavorArray.remove(flavorArray.size()-1);
+		//}
+		int numLines = numberOfLines(rulesArray,maxChars) + numberOfLines(flavorArray,maxChars);
+		System.out.println("there are a total of "+ numLines);
+		int minusPerLine = 80;
+
+		for(int z = 0; z < numLines; z++) {
+			
+			y = y - minusPerLine;
+			minusPerLine-=7;
+			
+		}
+		System.out.println(x+" "+y+" ");
+
+		g2d.setColor(Color.BLACK);
+
+
 		
 		for(String rule : rulesArray) {
 			//System.out.println(rule);
@@ -344,7 +364,7 @@ public class CardComposer {
 	 * @param charLimit
 	 * @return
 	 */
-	private int numberOfLines(String[] textList,int charLimit) {
+	private int numberOfLines(ArrayList<String> textList,int charLimit) {
 
 		int length=0;
 		int wordCount=0;
@@ -367,7 +387,7 @@ public class CardComposer {
 			}
 
 		}
-		return lineCount+(textList.length/2);
+		return lineCount+(textList.size()/2);
 
 	}
 	/**
