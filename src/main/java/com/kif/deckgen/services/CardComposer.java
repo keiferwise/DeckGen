@@ -98,7 +98,7 @@ public class CardComposer {
 			for(int r = 0;r<manaArray[q];r++) {
 				cmc++;
 				manaSymbolPath = manaPath + manaSymbolFileNames[q-1];
-				System.out.println("Mana Symbol Path: "+manaSymbolPath);
+				//System.out.println("Mana Symbol Path: "+manaSymbolPath);
 				BufferedImage manaImage = ImageIO.read(new File(manaSymbolPath));
 				g2d.drawImage(manaImage, x, y,manaSymbolSize,manaSymbolSize, null);
 				x-=60;
@@ -145,7 +145,7 @@ public class CardComposer {
 		// ## Rules text ## //
 		//font = new Font("Serif", Font.BOLD, 40);
 		x = 200;
-		y = 1520;
+		//y = 1520;
 		g2d.setFont(rulesFont);
 
 		String[] rules =  card.getRulesText().split("<NEWLINE>");
@@ -153,12 +153,15 @@ public class CardComposer {
 		
 		String[] flavors =  card.getFlavorText().split("<NEWLINE>");
 		ArrayList<String> flavorArray = new ArrayList(Arrays.asList(flavors));	
+		int maxChars = textWidth/rulesFont.getSize()-10;
 
+		int numLines =numberOfLines(rulesArray,maxChars)+numberOfLines(flavorArray,maxChars);
+
+		y = getTextStartingPoint( numLines);
+		System.out.println("there are a total of "+ (numberOfLines(rulesArray,maxChars) +numberOfLines(flavorArray,maxChars))+" lines. Text Starting at " + y + "px.");
 
 		String currentLine = new String();
 		int lineCount = 1;
-		int maxChars = textWidth/rulesFont.getSize()-10;
-		//System.out.println("there are a total of "+ (numberOfLines(rulesArray,maxChars) +numberOfLines(flavorArray,maxChars))+" lines");
 		if(rulesArray.get(0).isBlank()) {
 			rulesArray.remove(0);
 		}
@@ -173,9 +176,9 @@ public class CardComposer {
 		//if(flavorArray.get(flavorArray.size()-1).isBlank()) {
 		//	flavorArray.remove(flavorArray.size()-1);
 		//}
-		int numLines = numberOfLines(rulesArray,maxChars) + numberOfLines(flavorArray,maxChars);
-		System.out.println("there are a total of "+ numLines);
-		int minusPerLine = 80;
+		 //numLines = numberOfLines(rulesArray,maxChars) + numberOfLines(flavorArray,maxChars);
+		//System.out.println("there are a total of "+ numLines);
+		/*int minusPerLine = 80;
 
 		for(int z = 0; z < numLines; z++) {
 			
@@ -184,7 +187,7 @@ public class CardComposer {
 			
 		}
 		System.out.println(x+" "+y+" ");
-
+*/
 		g2d.setColor(Color.BLACK);
 
 
@@ -194,7 +197,7 @@ public class CardComposer {
 			ArrayList<String> ruleLines = divideLines(rule,maxChars);
 
 			for(String ruleLine : ruleLines) {
-				System.out.println(ruleLine);
+				//System.out.println(ruleLine);
 				g2d.drawString(ruleLine.trim(), x, y);
 				y+=newlineSize;
 
@@ -473,6 +476,33 @@ public class CardComposer {
 			break;
 		case 9:
 			y-=15*9;
+			break;
+		case 10:
+			y-=15*10;
+			break;
+		case 11:
+			y-=15*11;
+			break;
+		case 12:
+			y-=15*12;
+			break;
+		case 13:
+			y-=15*13;
+			break;
+		case 14:
+			y-=15*14;
+			break;
+		case 15:
+			y-=15*15;
+			break;
+		case 16:
+			y-=15*16;
+			break;
+		case 17:
+			y-=15*17;
+			break;
+		case 18:
+			y-=15*18;
 			break;
 		default:
 			break;
