@@ -123,7 +123,7 @@ public class CardComposer {
 		drawTextWithOutline( g2d, card.getName(), x,  y, nameFont);
 
 		// ## Type and subtype ## //
-		font = new Font("EB Garamond Medium", Font.BOLD, 40);
+		font = new Font("EB Garamond Medium", Font.BOLD, 50);
 		g2d.setFont(font);
 		x = 180;
 		y = 980;
@@ -142,37 +142,35 @@ public class CardComposer {
 		}
 
 		drawTextWithOutline( g2d, (typeText), x, y,rulesFont);
-		// ## Rules text ## //
-		//font = new Font("Serif", Font.BOLD, 40);
+		
+		/*
+		################
+		## Rules text ##
+		################
+		*/
+		 
 		x = 200;
-		//y = 1520;
 		g2d.setFont(rulesFont);
 
-		String[] rules =  card.getRulesText().split("<NEWLINE>");
-		ArrayList<String> rulesArray = new ArrayList(Arrays.asList(rules));	
+		//String[] rules =  card.getRulesText().split("<NEWLINE>");
+		ArrayList<String> rulesArray = new ArrayList(Arrays.asList(card.getRulesText().split("<NEWLINE>")));	
 		
-		String[] flavors =  card.getFlavorText().split("<NEWLINE>");
-		ArrayList<String> flavorArray = new ArrayList(Arrays.asList(flavors));	
+		//String[] flavors =  card.getFlavorText().split("<NEWLINE>");
+		ArrayList<String> flavorArray = new ArrayList(Arrays.asList(card.getFlavorText().split("<NEWLINE>")));	
+
+		//String currentLine = new String();
+		//int lineCount = 1;
+		
+		rulesArray=removeBlankLines(rulesArray);
+		flavorArray=removeBlankLines(flavorArray);
+
 		int maxChars = textWidth/rulesFont.getSize()-10;
 
 		int numLines =numberOfLines(rulesArray,maxChars)+numberOfLines(flavorArray,maxChars);
 
 		y = getTextStartingPoint( numLines);
-		System.out.println("there are a total of "+ (numberOfLines(rulesArray,maxChars) +numberOfLines(flavorArray,maxChars))+" lines. Text Starting at " + y + "px.");
+		System.out.println(card.getName()+". There are a total of "+ (numberOfLines(rulesArray,maxChars) +numberOfLines(flavorArray,maxChars))+" lines. Text Starting at " + y + "px.");
 
-		String currentLine = new String();
-		int lineCount = 1;
-		if(rulesArray.get(0).isBlank()) {
-			rulesArray.remove(0);
-		}
-		if(rulesArray.size()>1) {
-			if(rulesArray.get(rulesArray.size()-1).isBlank()) {
-				rulesArray.remove(rulesArray.size()-1);
-			}
-		}
-		if(flavorArray.get(0).isBlank()) {
-			flavorArray.remove(0);
-		}
 		//if(flavorArray.get(flavorArray.size()-1).isBlank()) {
 		//	flavorArray.remove(flavorArray.size()-1);
 		//}
@@ -207,7 +205,7 @@ public class CardComposer {
 		}
 
 		//Flavor Text
-		font = new Font("EB Garamond Medium", Font.ITALIC, 60);
+		font = new Font("Times", Font.ITALIC, 60);
 
 
 		for(String flavor : flavorArray) {
@@ -219,7 +217,7 @@ public class CardComposer {
 			ArrayList<String> flavorLines = divideLines(flavor,maxChars);
 
 			for(String line : flavorLines) {
-				System.out.println(line);
+				//System.out.println(line);
 				g2d.drawString(line.trim(), x, y);
 				y+=newlineSize;
 
@@ -448,25 +446,25 @@ public class CardComposer {
 		  }  
 		}
 	private int getTextStartingPoint(int numLines) {
-		int y = 1215;
+		int y = 1245;
 		switch(numLines) {
 		case 1:
-			y=1215;
+			y-=15*1;
 			break;
 		case 2:
-			y=1200;
+			y-=15*2;
 			break;
 		case 3:
-			y=1185;
+			y-=15*3;
 			break;
 		case 4:
-			y=1170;
+			y-=15*4;
 			break;
 		case 5:
-			y=1155;
+			y-=15*5;
 			break;
 		case 6:
-			y=1140;
+			y-=15*6;
 			break;
 		case 7:
 			y-=15*7;
@@ -511,6 +509,14 @@ public class CardComposer {
 		
 		return y;
 		
+	}
+	private ArrayList<String> removeBlankLines(ArrayList<String> lines) {
+		for(int r=0;r<lines.size();r++) {
+			if(lines.get(r).isBlank()) {
+				lines.remove(r);
+			}
+		}
+		return lines;
 	}
 	
 }
