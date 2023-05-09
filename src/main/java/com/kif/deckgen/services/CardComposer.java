@@ -163,32 +163,39 @@ public class CardComposer {
 		
 		rulesArray=removeBlankLines(rulesArray);
 		flavorArray=removeBlankLines(flavorArray);
-
-		int maxChars = textWidth/rulesFont.getSize()-10;
-
+		
+		//int maxCharsPerLine = textWidth/rulesFont.getSize()-10;
+		int maxLines = 11;
+		int lineLengthMinus = 5;
+		int maxChars = textWidth/rulesFont.getSize()-lineLengthMinus;
 		int numLines =numberOfLines(rulesArray,maxChars)+numberOfLines(flavorArray,maxChars);
+		int[] textProps = calibrateText( numLines);
+		newParagraphSize = textProps[0];
+		newlineSize= textProps[1];
+		rulesTextSize=textProps[2];
+		maxChars = textProps[3];
+		rulesFont= new Font("EB Garamond Medium", Font.PLAIN, rulesTextSize);
+
+		System.out.println("rulesTextSize:"+rulesTextSize+ ", newParaSize:"+newParagraphSize + ", newLineSize:"+ newlineSize +", max chars:" +(textWidth/rulesFont.getSize()-10));
+		
+		/*while(numLines>maxLines) {
+			System.out.println(numLines + " is too many lines");
+			rulesTextSize-=1;
+			newParagraphSize -= 1;
+			newlineSize -=1;
+			rulesFont= new Font("EB Garamond Medium", Font.PLAIN, rulesTextSize);
+			maxChars =  ((textWidth/rulesFont.getSize())-lineLengthMinus);
+			lineLengthMinus+=5;
+			numLines = numberOfLines(rulesArray,maxChars)+numberOfLines(flavorArray,maxChars);
+			System.out.println("rulesTextSize:"+rulesTextSize+ ", newParaSize:"+newParagraphSize + ", newLineSize:"+ newlineSize +", max chars:" +maxChars);
+		}*/
+		
+
 
 		y = getTextStartingPoint( numLines);
 		System.out.println(card.getName()+". There are a total of "+ (numberOfLines(rulesArray,maxChars) +numberOfLines(flavorArray,maxChars))+" lines. Text Starting at " + y + "px.");
 
-		//if(flavorArray.get(flavorArray.size()-1).isBlank()) {
-		//	flavorArray.remove(flavorArray.size()-1);
-		//}
-		 //numLines = numberOfLines(rulesArray,maxChars) + numberOfLines(flavorArray,maxChars);
-		//System.out.println("there are a total of "+ numLines);
-		/*int minusPerLine = 80;
-
-		for(int z = 0; z < numLines; z++) {
-			
-			y = y - minusPerLine;
-			minusPerLine-=7;
-			
-		}
-		System.out.println(x+" "+y+" ");
-*/
 		g2d.setColor(Color.BLACK);
-
-
 		
 		for(String rule : rulesArray) {
 			//System.out.println(rule);
@@ -518,5 +525,74 @@ public class CardComposer {
 		}
 		return lines;
 	}
+	private int[] calibrateText(int lines) {
+		
+		int[] props = new int[4];
+		
+		switch(lines) {
+		case 12:
+			props[0]=71;//para
+			props[1]=42;//nl
+			props[2]=42;//font
+			props[3]=29; //maxchars
+			break;
+		case 13:
+			props[0]=69;//para
+			props[1]=40;//nl
+			props[2]=40;//font
+			props[3]=31; //maxchars
+			break;
+		case 14:
+			props[0]=66;//para
+			props[1]=38;//nl
+			props[2]=38;//font
+			props[3]=33; //maxchars
+			break;
+		case 15:
+			props[0]=62;//para
+			props[1]=35;//nl
+			props[2]=35;//font
+			props[3]=35;//maxchars
+			break;
+		case 16:
+			props[0]=59;//para
+			props[1]=33;//nl
+			props[2]=33;//font
+			props[3]=37;//maxchars
+			break;
+		case 17:
+			props[0]=0;//para
+			props[1]=0;//nl
+			props[2]=0;//font
+			props[3]=0;//maxchars
+			break;
+		case 18:
+			props[0]=0;//para
+			props[1]=0;//nl
+			props[2]=0;//font
+			props[3]=0;//maxchars
+			break;
+		case 19:
+			props[0]=0;//para
+			props[1]=0;//nl
+			props[2]=0;//font
+			props[3]=0;//maxchars
+			break;
+		case 20:
+			props[0]=0;//para
+			props[1]=0;//nl
+			props[2]=0;//font
+			props[3]=0;//maxchars
+			break;
+		default:
+			props[0]=75;//para
+			props[1]=45;//nl
+			props[2]=45;//font
+			props[3]=27;//maxchars
+			break;
+		}
+		return props;
+	}
+	
 	
 }
