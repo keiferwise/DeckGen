@@ -89,10 +89,10 @@ public class CardController {
     public String artTest(Model model) {
     	
     	BufferedImage cardImage = null;
-        Card card = cardDao.getCardById("ee2fddec-6a04-44a6-bf3c-bc82c3db4efa");
+        Card card = cardDao.getCardById("a3468a4e-4e3a-4369-bf56-db5e323f4b8f");
 		BufferedImage imgTest =null;
 		//TestArt
-        String artPath = "D:\\deckgen\\src\\main\\resources\\images\\img-H7MTllJItxyHXRMlnO77hB9I.png";
+        String artPath = "D:\\deckgen\\src\\main\\resources\\images\\test-clay.png";
         try {
 			imgTest = ImageIO.read(new File(artPath));
 		} catch (IOException e2) {

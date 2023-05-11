@@ -61,9 +61,16 @@ public class CardComposer {
 		
 		card.setArtist("Keifer Wiseman");
 		card.setCopyright("Wizards of the Coast 2023");
+
+		registerFont("D:\\deckgen\\src\\main\\java\\EBGaramond-Medium.ttf");
+		registerFont("D:\\deckgen\\src\\main\\java\\GoudyMediaevalRegular.ttf");
+		registerFont("D:\\deckgen\\src\\main\\java\\EBGaramond-Italic.ttf");
+		registerFont("D:\\deckgen\\src\\main\\resources\\EBGaramond-SemiBoldItalic.ttf");
 		
-		Font rulesFont = getCustomFont("D:\\deckgen\\src\\main\\java\\EBGaramond-Medium.ttf",rulesTextSize,Font.PLAIN, "EB Garamond Medium");
-		Font nameFont = getCustomFont("D:\\deckgen\\src\\main\\java\\GoudyMediaevalRegular.ttf",65,Font.PLAIN, "Goudy Mediaeval");
+		Font rulesFont = new Font("EB Garamond Medium", Font.PLAIN, rulesTextSize);
+		Font nameFont = new Font("Goudy Mediaeval",Font.PLAIN,65 );
+        
+		
 		String[] manaSymbolFileNames = {"w.png","u.png","b.png","r.png","g.png"}; 
 
 		//Determine what frame to user
@@ -72,7 +79,7 @@ public class CardComposer {
 		//Load art and frame
 		BufferedImage frameImage = ImageIO.read(new File(framePath));
 		//Change this if we are generating images
-		BufferedImage artImage = ImageIO.read(new File(artPath));
+		BufferedImage artImage = cardArt;//ImageIO.read(new File(artPath));
 		
 		// Combine the Art and Frame
 		BufferedImage combinedImage = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
@@ -169,31 +176,23 @@ public class CardComposer {
 		int lineLengthMinus = 5;
 		int maxChars = textWidth/rulesFont.getSize()-lineLengthMinus;
 		int numLines =numberOfLines(rulesArray,maxChars)+numberOfLines(flavorArray,maxChars);
+		System.out.println(numLines);
+
 		int[] textProps = calibrateText( numLines);
+		int lineFactor = textProps[4];
 		newParagraphSize = textProps[0];
 		newlineSize= textProps[1];
 		rulesTextSize=textProps[2];
+		System.out.println(rulesTextSize);
 		maxChars = textProps[3];
 		rulesFont= new Font("EB Garamond Medium", Font.PLAIN, rulesTextSize);
+		Font flavorFont = new Font("EB Garamond SemiBold",Font.ITALIC,rulesTextSize-5);
+		int NewnumLines =numberOfLines(rulesArray,maxChars)+numberOfLines(flavorArray,maxChars);
 
-		System.out.println("rulesTextSize:"+rulesTextSize+ ", newParaSize:"+newParagraphSize + ", newLineSize:"+ newlineSize +", max chars:" +(textWidth/rulesFont.getSize()-10));
-		
-		/*while(numLines>maxLines) {
-			System.out.println(numLines + " is too many lines");
-			rulesTextSize-=1;
-			newParagraphSize -= 1;
-			newlineSize -=1;
-			rulesFont= new Font("EB Garamond Medium", Font.PLAIN, rulesTextSize);
-			maxChars =  ((textWidth/rulesFont.getSize())-lineLengthMinus);
-			lineLengthMinus+=5;
-			numLines = numberOfLines(rulesArray,maxChars)+numberOfLines(flavorArray,maxChars);
-			System.out.println("rulesTextSize:"+rulesTextSize+ ", newParaSize:"+newParagraphSize + ", newLineSize:"+ newlineSize +", max chars:" +maxChars);
-		}*/
-		
+		g2d.setFont(rulesFont);
 
-
-		y = getTextStartingPoint( numLines);
-		System.out.println(card.getName()+". There are a total of "+ (numberOfLines(rulesArray,maxChars) +numberOfLines(flavorArray,maxChars))+" lines. Text Starting at " + y + "px.");
+		y = getTextStartingPoint( numLines,lineFactor);
+		System.out.println(card.getName()+". There are a total of "+ numLines+" lines. Text Starting at " + y + "px.");
 
 		g2d.setColor(Color.BLACK);
 		
@@ -208,11 +207,11 @@ public class CardComposer {
 
 			}
 			y+=newParagraphSize - newlineSize;
-
 		}
 
 		//Flavor Text
-		font = new Font("Times", Font.ITALIC, 60);
+		//font = new Font("Times", Font.ITALIC, 60);
+		g2d.setFont(flavorFont);
 
 
 		for(String flavor : flavorArray) {
@@ -233,7 +232,7 @@ public class CardComposer {
 
 		}
 
-		font = new Font("Arial", Font.BOLD, 60);
+		font = new Font("EB Garamond Medium", Font.BOLD, 60);
 		g2d.setFont(font);
 
 		x = width - width / 7;
@@ -243,27 +242,19 @@ public class CardComposer {
 		//g2d.drawString(power + "/" + toughness, x, y);
 		drawTextWithOutline( g2d, (card.getPower() + "/" + card.getToughness()), x,  y,font);
 
-
-		font = new Font("Arial", Font.PLAIN, 20);
+		font = new Font("EB Garamond Medium", Font.PLAIN, 20);
 		g2d.setFont(font);
 
 		x =  width/2 - ((card.getCopyright().length()+card.getArtist().length()+10)/2 * font.getSize()/3);
 
-		//y += font.getSize() * (rulesText.split("\n").length - flavorText.split("\n").length) / 2;
-
-		//g2d.drawString(copywrite + " | Art by " + artist, x, y);
 		drawTextWithOutline( g2d, (card.getCopyright() + " | Art by " + card.getArtist()), x,  y,font);
 		g2d.dispose();
-
-		//This writes the file to d:\out-images for testing
-		//ImageIO.write(combinedImage, "png", new File("D:\\out-images\\"+ card.getName() + UUID.randomUUID().toString() +".png"));
 
 		return combinedImage;
 
 	}
 
-	/**
-	 * 
+	/** 
 	 * @param g2d
 	 * @param text
 	 * @param x
@@ -292,7 +283,6 @@ public class CardComposer {
 	private String getFrame(Card card) {
 		String frameColour="";
 		String path = "D:\\deckgen\\src\\main\\resources\\images\\";
-		//String file = "";
 		int colourCounter=0;
 		//Get Colour Identity String
 		if(card.getManaCost().contains("W")) {frameColour+="white"; colourCounter++;}
@@ -314,20 +304,14 @@ public class CardComposer {
 		System.out.println(path);
 		return path;
 	}
-	/**
-	 * 
-	 * @param fontPath
-	 * @param size
-	 * @param style
-	 * @param fontName
-	 * @return
-	 */
-	private Font getCustomFont(String fontPath,int size,int style,String fontName) {
 
+
+	
+	private void registerFont(String fontPath) {
 		GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
-		//for(String s : ge.getAvailableFontFamilyNames()) {System.out.println(s);}
-		//System.out.println(ge.getAvailableFontFamilyNames());
-		
+		for (Font f : ge.getAllFonts()) {
+			System.out.println(f.getFamily());
+		}
 		try {
 			ge.registerFont(Font.createFont(Font.TRUETYPE_FONT, new File(fontPath)));
 		} catch (FontFormatException e) {
@@ -337,10 +321,10 @@ public class CardComposer {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		Font myFont = new  Font(fontName, style, size);
-		return myFont; 
-
+		
 	}
+	
+
 	/**
 	 * 
 	 * @param text
@@ -440,7 +424,6 @@ public class CardComposer {
 	return manaArray;
 	}
 	/**
-	 * 
 	 * @param str
 	 * @return
 	 */
@@ -452,69 +435,13 @@ public class CardComposer {
 		    return false;  
 		  }  
 		}
-	private int getTextStartingPoint(int numLines) {
-		int y = 1245;
-		switch(numLines) {
-		case 1:
-			y-=15*1;
-			break;
-		case 2:
-			y-=15*2;
-			break;
-		case 3:
-			y-=15*3;
-			break;
-		case 4:
-			y-=15*4;
-			break;
-		case 5:
-			y-=15*5;
-			break;
-		case 6:
-			y-=15*6;
-			break;
-		case 7:
-			y-=15*7;
-			break;
-		case 8:
-			y-=15*8;
-			break;
-		case 9:
-			y-=15*9;
-			break;
-		case 10:
-			y-=15*10;
-			break;
-		case 11:
-			y-=15*11;
-			break;
-		case 12:
-			y-=15*12;
-			break;
-		case 13:
-			y-=15*13;
-			break;
-		case 14:
-			y-=15*14;
-			break;
-		case 15:
-			y-=15*15;
-			break;
-		case 16:
-			y-=15*16;
-			break;
-		case 17:
-			y-=15*17;
-			break;
-		case 18:
-			y-=15*18;
-			break;
-		default:
-			break;
-		}
+	private int getTextStartingPoint(int numLines,int lineFactor) {
+		int y = 1255;
 		
-		
-		return y;
+		int subtract = numLines*lineFactor;
+
+		return y-subtract;
+
 		
 	}
 	private ArrayList<String> removeBlankLines(ArrayList<String> lines) {
@@ -527,38 +454,55 @@ public class CardComposer {
 	}
 	private int[] calibrateText(int lines) {
 		
-		int[] props = new int[4];
+		int[] props = new int[5];
 		
 		switch(lines) {
-		case 12:
-			props[0]=71;//para
+		case 11:
+			props[0]=70;//para
 			props[1]=42;//nl
 			props[2]=42;//font
-			props[3]=29; //maxchars
+			props[3]=32; //maxchars
+			props[4]=14;//factor
+
+		case 12:
+			props[0]=70;//para
+			props[1]=40;//nl
+			props[2]=40;//font
+			props[3]=33; //maxchars
+			props[4]=14;//factor
+
 			break;
 		case 13:
 			props[0]=69;//para
 			props[1]=40;//nl
 			props[2]=40;//font
-			props[3]=31; //maxchars
+			props[3]=34; //maxchars
+			props[4]=13;//factor
+
 			break;
 		case 14:
 			props[0]=66;//para
 			props[1]=38;//nl
 			props[2]=38;//font
-			props[3]=33; //maxchars
+			props[3]=35; //maxchars
+			props[4]=12;//factor
+
 			break;
 		case 15:
 			props[0]=62;//para
 			props[1]=35;//nl
 			props[2]=35;//font
-			props[3]=35;//maxchars
+			props[3]=36;//maxchars
+			props[4]=11;//factor
+
 			break;
 		case 16:
 			props[0]=59;//para
 			props[1]=33;//nl
 			props[2]=33;//font
 			props[3]=37;//maxchars
+			props[4]=10;//factor
+
 			break;
 		case 17:
 			props[0]=0;//para
@@ -571,12 +515,14 @@ public class CardComposer {
 			props[1]=0;//nl
 			props[2]=0;//font
 			props[3]=0;//maxchars
+			props[4]=9;//factor
+
 			break;
 		case 19:
 			props[0]=0;//para
 			props[1]=0;//nl
 			props[2]=0;//font
-			props[3]=0;//maxchars
+			props[3]=8;//maxchars
 			break;
 		case 20:
 			props[0]=0;//para
@@ -589,6 +535,7 @@ public class CardComposer {
 			props[1]=45;//nl
 			props[2]=45;//font
 			props[3]=27;//maxchars
+			props[4]=15;//factor
 			break;
 		}
 		return props;
