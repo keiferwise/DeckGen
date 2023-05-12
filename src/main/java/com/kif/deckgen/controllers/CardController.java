@@ -89,7 +89,7 @@ public class CardController {
     public String artTest(Model model) {
     	
     	BufferedImage cardImage = null;
-        Card card = cardDao.getCardById("a3468a4e-4e3a-4369-bf56-db5e323f4b8f");
+        Card card = cardDao.getCardById("7a8ddf98-38b1-4a92-a710-7610cdbcd040");
 		BufferedImage imgTest =null;
 		//TestArt
         String artPath = "D:\\deckgen\\src\\main\\resources\\images\\test-clay.png";

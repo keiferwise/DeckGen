@@ -130,13 +130,13 @@ public class CardComposer {
 		drawTextWithOutline( g2d, card.getName(), x,  y, nameFont);
 
 		// ## Type and subtype ## //
-		font = new Font("EB Garamond Medium", Font.BOLD, 50);
+		font = new Font("EB Garamond Medium", Font.PLAIN, 55);
 		g2d.setFont(font);
 		x = 180;
-		y = 980;
+		y = 985;
 		//g2d.drawString(type + " - " + subtype, x, y);
 		String typeText="";
-		if(!(card.getSubtype()==null)) {
+		if((card.getSubtype()!=null || !card.getSubtype().isBlank())) {
 			if(card.getSubtype().isBlank()) {
 				typeText = card.getType();
 			}
@@ -148,7 +148,7 @@ public class CardComposer {
 			typeText = card.getType();
 		}
 
-		drawTextWithOutline( g2d, (typeText), x, y,rulesFont);
+		drawTextWithOutline( g2d, (typeText), x, y,font);
 		
 		/*
 		################
@@ -231,21 +231,24 @@ public class CardComposer {
 			y += newParagraphSize - newlineSize;
 
 		}
-
-		font = new Font("EB Garamond Medium", Font.BOLD, 60);
-		g2d.setFont(font);
-
-		x = width - width / 7;
-
 		y = height - height / 16;
 
-		//g2d.drawString(power + "/" + toughness, x, y);
-		drawTextWithOutline( g2d, (card.getPower() + "/" + card.getToughness()), x,  y,font);
+		if(card.getType().toLowerCase().contains("creature")) {
+			font = new Font("EB Garamond Medium", Font.BOLD, 60);
+			g2d.setFont(font);
+
+			x = width - width / 7;
+
+
+			////g2d.drawString(power + "/" + toughness, x, y);
+			drawTextWithOutline( g2d, (card.getPower() + "/" + card.getToughness()), x,  y,font);
+		}
+
 
 		font = new Font("EB Garamond Medium", Font.PLAIN, 20);
 		g2d.setFont(font);
 
-		x =  width/2 - ((card.getCopyright().length()+card.getArtist().length()+10)/2 * font.getSize()/3);
+		x =  width/2 - ((card.getCopyright().length()+card.getArtist().length())/2 * font.getSize()/2);
 
 		drawTextWithOutline( g2d, (card.getCopyright() + " | Art by " + card.getArtist()), x,  y,font);
 		g2d.dispose();
@@ -309,9 +312,9 @@ public class CardComposer {
 	
 	private void registerFont(String fontPath) {
 		GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
-		for (Font f : ge.getAllFonts()) {
-			System.out.println(f.getFamily());
-		}
+		//for (Font f : ge.getAllFonts()) {
+		//	System.out.println(f.getFamily());
+		//}
 		try {
 			ge.registerFont(Font.createFont(Font.TRUETYPE_FONT, new File(fontPath)));
 		} catch (FontFormatException e) {
