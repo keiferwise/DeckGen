@@ -61,26 +61,11 @@ public class CardController {
     	
     	Card card = cardDao.getCardById(cardId);
     	//System.out.println(card.getArtDescription());
-    	//ImageResult result = dalleClient.generateImage(card.getArtDescription());
-    	//Image image = result.getData().get(0);
-    	
-    	//minio.saveImage(image, cardId);
-    	//cardComposer.createImage(cardId, cardId, cardId, cardId, cardId, cardId, cardId, cardId, cardId, cardId)
-    	//
-    	//( mana,  name,  type,  subtype,  rulesText,  flavorText,  power,  toughness,  copywrite,  artist) 
+
     	Image image = new Image();
     	image.setUrl(minio.getImage(cardId));
     	model.addAttribute("image",image);
-    	/*BufferedImage img = null;
-    	try {
-    		img= cardComposer.createImage(card);
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-    	
-    	//minio.uploadObject(null);
-    	*/
+
     	
     	return "art";
     }

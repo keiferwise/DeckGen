@@ -33,7 +33,7 @@ public class DeckGenerator implements Runnable {
 	//@Autowired
 	//CardGenerator cardGenerator;
 	@Value("${com.kif.generateImages}")
-	boolean makeArt; 
+	String makeArt; 
 	
 	DalleClient dalle;
 	
@@ -81,7 +81,7 @@ public class DeckGenerator implements Runnable {
 		
 		//deckIdea.getLegends();
 		deck.setCards(cardDao.findAllByDeckId(deck.getDeckId()));
-	    
+	    System.out.println("Making art: " + makeArt);
 
 		
 		
@@ -93,7 +93,7 @@ public class DeckGenerator implements Runnable {
 				BufferedImage img = null;
 		        URL url=null;
 		    	//Generate Art for cards FINISH THIS
-				if(makeArt==true) {
+				if(makeArt=="true") {
 		        
 
 			        
