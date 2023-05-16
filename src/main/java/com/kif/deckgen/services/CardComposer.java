@@ -62,10 +62,10 @@ public class CardComposer {
 		card.setArtist("Keifer Wiseman");
 		card.setCopyright("Wizards of the Coast 2023");
 
-		registerFont("D:\\deckgen\\src\\main\\java\\EBGaramond-Medium.ttf");
-		registerFont("D:\\deckgen\\src\\main\\java\\GoudyMediaevalRegular.ttf");
-		registerFont("D:\\deckgen\\src\\main\\java\\EBGaramond-Italic.ttf");
-		registerFont("D:\\deckgen\\src\\main\\resources\\EBGaramond-SemiBoldItalic.ttf");
+		registerFont("D:\\deckgen\\src\\main\\resources\\fonts\\EBGaramond-Medium.ttf");
+		registerFont("D:\\deckgen\\src\\main\\resources\\fonts\\GoudyMediaevalRegular.ttf");
+		registerFont("D:\\deckgen\\src\\main\\resources\\fonts\\EBGaramond-Italic.ttf");
+		registerFont("D:\\deckgen\\src\\main\\resources\\fonts\\EBGaramond-SemiBoldItalic.ttf");
 		
 		Font rulesFont = new Font("EB Garamond Medium", Font.PLAIN, rulesTextSize);
 		Font nameFont = new Font("Goudy Mediaeval",Font.PLAIN,65 );
