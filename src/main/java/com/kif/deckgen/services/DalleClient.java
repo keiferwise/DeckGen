@@ -38,7 +38,7 @@ public class DalleClient {
         headers.setContentType(MediaType.APPLICATION_JSON);
         headers.set("Authorization", "Bearer " + API_KEY);
         
-        prompt = prompt + ". Fantasy Painting in the style of Boris Vallejo";
+        prompt = prompt + ". Baroque Fantasy Painting.";
         
         
         Map<String, String> requestBody = new HashMap<>();

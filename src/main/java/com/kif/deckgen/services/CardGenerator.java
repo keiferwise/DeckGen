@@ -38,8 +38,8 @@ public class CardGenerator {
 		String prompt = cardDetailsTemplate.replace("<NAME>", card.getName());
 		prompt = prompt.replace("<TYPE>", card.getType());
 		prompt = prompt.replace("<THEME>", theme);
-		prompt = prompt.replace("<MANA>",manaColour(deckIdea));
-		
+		prompt = prompt.replace("<MANACOST>",card.getManaCost());
+		System.out.println(prompt);
 		String newCardJson = gptClient.generateCompletion(prompt,1000);
 		//System.out.println(newCardJson);
 		//newCardJson = newCardJson.replace("/", "//");
@@ -52,12 +52,12 @@ public class CardGenerator {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
+		System.out.println(newCard.toString());
 		newCard.setCardId(card.getCardId());
 		newCard.setDeckId(card.getDeckId());
 		//newCard.setRulesText(newCard.getRulesText().replace("<NEWLINE>", "\n"));
 		//newCard.setFlavorText(newCard.getFlavorText().replace("<NEWLINE>", "\n"));
-		System.out.println(card.getName());
+		//System.out.println(card.getName());
 		return newCard;
 	}
 	
@@ -76,6 +76,30 @@ public class CardGenerator {
 		
 		
 		return result;
+	}
+	
+	private String getCardColours(Card card) {
+		String cardColour="";
+		//String path = "D:\\deckgen\\src\\main\\resources\\images\\";
+		int colourCounter=0;
+		//Get Colour Identity String
+		if(card.getManaCost().contains("W")) {cardColour+="white, "; colourCounter++;}
+		if(card.getManaCost().contains("U")) {cardColour+="blue, "; colourCounter++;}
+		if(card.getManaCost().contains("B")) {cardColour+="black, "; colourCounter++;}
+		if(card.getManaCost().contains("R")) {cardColour+="red, "; colourCounter++;}
+		if(card.getManaCost().contains("G")) {cardColour+="green, "; colourCounter++;}
+
+
+		//if(colourCounter>1) {
+		//	cardColour = "Multicolour";
+		//}
+		else if(colourCounter == 0) {
+			cardColour="Colourless";
+		}
+		//path = path + frameColour + ".png";
+
+		//System.out.println(path);
+		return cardColour.substring(0, cardColour.length()-2);
 	}
 
 
