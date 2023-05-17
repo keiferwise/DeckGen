@@ -11,6 +11,7 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.kif.deckgen.models.Card;
 import com.kif.deckgen.models.Deck;
+import com.kif.deckgen.models.DeckIdea;
 /**
  * 
  * @author Keifer
@@ -31,10 +32,12 @@ public class CardNamesGenerator {
    
     
 	
-public Deck generateCardNames(String inputText) {
+public Deck generateCardNames(String inputText, DeckIdea deckIdea) {
     	
     	//ChatGPTClient gptClient = new ChatGPTClient();
+		String mana = manaColour(deckIdea);
     	String prompt = promptTemplate.replace("<MYTHEME>", inputText);
+    	prompt = prompt.replace("<MANA>", mana);
     	//prompt = promptTemplate.replace("<VIBE>", vibe);
     	String deck = gptClient.generateCompletion(prompt, 1500);
     	Deck deckObject = new Deck();
@@ -69,6 +72,21 @@ public Deck generateCardNames(String inputText) {
         return deckObject;
     }
     
+private String manaColour(DeckIdea idea) {
 	
+	String result = " ";
+	if(idea.isBlack()) {result = result + "Black, ";};
+	if(idea.isRed()) {result = result + "Red, ";};
+	if(idea.isGreen()) {result = result + "Green, ";};
+	if(idea.isWhite()) {result = result + "White, ";};
+	if(idea.isBlue()) {result = result + "Blue, ";};
+	
+	result = result.substring(0, result.length()-2);
+	
+	System.out.println(result);
+	
+	
+	return result;
+}
 
 }

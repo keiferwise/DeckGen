@@ -69,10 +69,10 @@ public class DeckListController {
     	
     	ArrayList<String> manaArray = new ArrayList<String>();
     	Collections.addAll(manaArray, mana);
-    	Deck deck = cardNamesGenerator.generateCardNames(theme);// TODO Add other parameters
         UUID deck_idea_id = UUID.randomUUID();
     	UUID deck_id=UUID.randomUUID();
     	DeckIdea deckIdea = new DeckIdea(theme, legend, manaArray.contains("red"), manaArray.contains("green"),manaArray.contains("black"),manaArray.contains("blue"),manaArray.contains("white"),deck_id.toString(),deck_idea_id.toString(),vibe);
+    	Deck deck = cardNamesGenerator.generateCardNames(theme,deckIdea);// TODO Add other parameters
     	ideaDao.save(deckIdea);
     	deck.setDeckId(deck_id.toString());
     	deck.setName(name);

@@ -77,7 +77,7 @@ public class DeckGenerator implements Runnable {
 		Card legend = deck.getCards().get(0);
 		legend.setName(deckIdea.getLegends());
 		legend.setType("Legendary Creature");
-		cardDao.save(cardGenerator.createCard(legend, legend.getName(),deckIdea), UUID.randomUUID().toString());
+		cardDao.save(cardGenerator.createCard(legend, legend.getName(),deckIdea), deck.getDeckId());
 		
 		//deckIdea.getLegends();
 		deck.setCards(cardDao.findAllByDeckId(deck.getDeckId()));
