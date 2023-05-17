@@ -4,6 +4,7 @@ import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.FontFormatException;
+import java.awt.FontMetrics;
 import java.awt.Graphics2D;
 import java.awt.GraphicsEnvironment;
 import java.awt.RenderingHints;
@@ -247,10 +248,11 @@ public class CardComposer {
 
 		font = new Font("EB Garamond Medium", Font.PLAIN, 20);
 		g2d.setFont(font);
-
-		x =  width/2 - ((card.getCopyright().length()+card.getArtist().length())/2 * font.getSize()/2);
-
-		drawTextWithOutline( g2d, (card.getCopyright() + " | Art by " + card.getArtist()), x,  y,font);
+		FontMetrics metrics = g2d.getFontMetrics(font);
+		String copyArtist=(card.getCopyright() + " | Art by " + card.getArtist());
+		//x =  width/2 - (((card.getCopyright().length()+card.getArtist().length()+10) * font.getSize())/2);
+		x =  (width/2) - (metrics.stringWidth(copyArtist)/2);
+		drawTextWithOutline( g2d, copyArtist, x,  y,font);
 		g2d.dispose();
 
 		return combinedImage;
