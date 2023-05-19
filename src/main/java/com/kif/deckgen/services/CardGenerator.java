@@ -3,12 +3,10 @@ package com.kif.deckgen.services;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Service;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.kif.deckgen.models.Card;
-import com.kif.deckgen.models.Deck;
 import com.kif.deckgen.models.DeckIdea;
 
 
@@ -30,17 +28,24 @@ public class CardGenerator {
 	@Autowired
 	ChatGPTClient gptClient;
 	
+	@Autowired 
+	PromptBuilder pb;
+	
 	
 
 	
 	//TODO take a card object with only a name and type and fill out the details
 	public Card createCard(Card card, String theme, DeckIdea deckIdea) {
-		String prompt = cardDetailsTemplate.replace("<NAME>", card.getName());
+		System.out.println(cardDetailsTemplate);
+		System.out.println("running promptbuilder");
+		String prompt = pb.buildCardPrompt(card,deckIdea.getTheme());
+		/*String prompt = cardDetailsTemplate.replace("<NAME>", card.getName());
 		prompt = prompt.replace("<TYPE>", card.getType());
 		prompt = prompt.replace("<THEME>", theme);
-		prompt = prompt.replace("<MANACOST>",card.getManaCost());
-		System.out.println(prompt);
-		String newCardJson = gptClient.generateCompletion(prompt,1000);
+		prompt = prompt.replace("<MANACOST>",card.getManaCost());*/
+		System.out.println("the prompt is... "+prompt);
+		String newCardJson = gptClient.generateCompletion(prompt,2000);
+		System.out.println("hello?");
 		//System.out.println(newCardJson);
 		//newCardJson = newCardJson.replace("/", "//");
 		//newCardJson = newCardJson.replace("\n", " ");
