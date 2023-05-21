@@ -2,17 +2,50 @@
 <div th:replace="fragments/menu">...</div>
 <h1>Card</h1>
 
+<table>
+<tr>
+    <td>Name</td>
+    <td th:text="${card.name}"></td>
+</tr>
+<tr>
+    <td>Mana Cost</td>
+    <td th:text="${card.manaCost}"></td>
+</tr>
+<tr>
+    <td>type</td>
 
-<h2 th:text="${card.name}"></h2>
-<p th:text="${card.manaCost}"></p>
-<p th:text="${card.type}"></p>
-<p th:text="${card.subtype}"></p>
-<p th:text="${card.artDescription}"></p>
-<p th:text="${card.rarity}"></p>
-<p th:text="${card.rulesText}"></p>
-<p th:text="${card.flavorText}"></p>
-<p th:text="${card.power}"></p>
-<p th:text="${card.toughness}"></p>
+    <td th:text="${card.type}"></td>
+</tr>
+<tr>
+    <td>subtype</td>
+    <td th:text="${card.subtype}"></td>
+</tr>
+<tr>
+    <td>Art Text</td>
+    <td th:text="${card.artDescription}"></td>
+</tr>
+<tr>
+    <td>Rarity</td>
+    <td th:text="${card.rarity}"></td>
+</tr>
+<tr>
+    <td>Rules</td>
+    <td th:text="${card.rulesText}"></td>
+</tr>
+<tr>
+    <td>Flavor Text</td>
+    <td  th:text="${card.flavorText}"></td>
+</tr>
+<tr>
+    <td>Power</td>
+    <td th:text="${card.power}"></td>
+</tr>
+<tr>
+    <td>Toughness</td>
+    <td th:text="${card.toughness}"></td>
+</tr>
+</table>
+
 
 
 <img th:src="${image.url}" style="width: 400px;height: 560px;" >
