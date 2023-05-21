@@ -75,7 +75,7 @@ public class DecksController {
 		return "decks";
 	}
 	
-	
+	// this controller shows a list of decks
 	@GetMapping("/decks")
 	public String decks(Model model) {
 		
@@ -85,7 +85,7 @@ public class DecksController {
 		
 		return "decks";
 	}
-	
+	// this controller lists the cards in the the deck and provides links to each
 	@GetMapping("/deck/{deckId}")
 	public String deck(@PathVariable String deckId, Model model) {
 		//System.out.println(deckId);
@@ -97,7 +97,9 @@ public class DecksController {
 		//System.out.println(cards.isEmpty());
 		return "deck";
 	}
-	
+	/*
+	this controller shows all the cards as images
+	*/
 	@GetMapping("/deck/allcards/{deckId}")
 	public String deckCardGrid(@PathVariable String deckId, Model model) {
 
