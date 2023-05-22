@@ -157,7 +157,7 @@ public class CardComposer {
 		################
 		*/
 		 
-		x = 200;
+		x = 170;
 		g2d.setFont(rulesFont);
 
 		//String[] rules =  card.getRulesText().split("<NEWLINE>");
@@ -328,7 +328,6 @@ public class CardComposer {
 		}
 		
 	}
-	
 
 	/**
 	 * 
@@ -466,14 +465,14 @@ public class CardComposer {
 			props[0]=70;//para
 			props[1]=42;//nl
 			props[2]=42;//font
-			props[3]=32; //maxchars
+			props[3]=36; //maxchars
 			props[4]=14;//factor
 
 		case 12:
 			props[0]=70;//para
 			props[1]=40;//nl
 			props[2]=40;//font
-			props[3]=33; //maxchars
+			props[3]=38; //maxchars
 			props[4]=14;//factor
 
 			break;
@@ -481,7 +480,7 @@ public class CardComposer {
 			props[0]=69;//para
 			props[1]=40;//nl
 			props[2]=40;//font
-			props[3]=34; //maxchars
+			props[3]=40; //maxchars
 			props[4]=13;//factor
 
 			break;
@@ -489,7 +488,7 @@ public class CardComposer {
 			props[0]=66;//para
 			props[1]=38;//nl
 			props[2]=38;//font
-			props[3]=35; //maxchars
+			props[3]=42; //maxchars
 			props[4]=12;//factor
 
 			break;
@@ -497,7 +496,7 @@ public class CardComposer {
 			props[0]=62;//para
 			props[1]=35;//nl
 			props[2]=35;//font
-			props[3]=36;//maxchars
+			props[3]=44;//maxchars
 			props[4]=11;//factor
 
 			break;
@@ -505,7 +504,7 @@ public class CardComposer {
 			props[0]=59;//para
 			props[1]=33;//nl
 			props[2]=33;//font
-			props[3]=37;//maxchars
+			props[3]=46;//maxchars
 			props[4]=10;//factor
 
 			break;
@@ -513,13 +512,15 @@ public class CardComposer {
 			props[0]=0;//para
 			props[1]=0;//nl
 			props[2]=0;//font
-			props[3]=0;//maxchars
+			props[3]=48;//maxchars
+			props[4]=9;//factor
+
 			break;
 		case 18:
 			props[0]=0;//para
 			props[1]=0;//nl
 			props[2]=0;//font
-			props[3]=0;//maxchars
+			props[3]=50;//maxchars
 			props[4]=9;//factor
 
 			break;
@@ -527,19 +528,19 @@ public class CardComposer {
 			props[0]=0;//para
 			props[1]=0;//nl
 			props[2]=0;//font
-			props[3]=8;//maxchars
+			props[3]=52;//maxchars
 			break;
 		case 20:
 			props[0]=0;//para
 			props[1]=0;//nl
 			props[2]=0;//font
-			props[3]=0;//maxchars
+			props[3]=54;//maxchars
 			break;
 		default:
 			props[0]=75;//para
 			props[1]=45;//nl
 			props[2]=45;//font
-			props[3]=27;//maxchars
+			props[3]=34;//maxchars
 			props[4]=15;//factor
 			break;
 		}

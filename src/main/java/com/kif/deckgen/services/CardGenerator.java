@@ -27,7 +27,6 @@ public class CardGenerator {
 	ObjectMapper objectMapper;
 	@Autowired
 	ChatGPTClient gptClient;
-	
 	@Autowired 
 	PromptBuilder pb;
 	
@@ -39,13 +38,10 @@ public class CardGenerator {
 		System.out.println(cardDetailsTemplate);
 		System.out.println("running promptbuilder");
 		String prompt = pb.buildCardPrompt(card,deckIdea.getTheme());
-		/*String prompt = cardDetailsTemplate.replace("<NAME>", card.getName());
-		prompt = prompt.replace("<TYPE>", card.getType());
-		prompt = prompt.replace("<THEME>", theme);
-		prompt = prompt.replace("<MANACOST>",card.getManaCost());*/
-		System.out.println("the prompt is... "+prompt);
+
+		//System.out.println("the prompt is... "+prompt);
 		String newCardJson = gptClient.generateCompletion(prompt,2000);
-		System.out.println("hello?");
+		//System.out.println("hello?");
 		//System.out.println(newCardJson);
 		//newCardJson = newCardJson.replace("/", "//");
 		//newCardJson = newCardJson.replace("\n", " ");
