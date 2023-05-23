@@ -60,7 +60,7 @@ public class CardComposer {
 		int textWidth = 1700;
 		int rulesTextSize=45;
 		
-		card.setArtist("Keifer Wiseman");
+		card.setArtist("Dall e");
 		card.setCopyright("Wizards of the Coast 2023");
 
 		registerFont("D:\\deckgen\\src\\main\\resources\\fonts\\EBGaramond-Medium.ttf");
@@ -471,7 +471,7 @@ public class CardComposer {
 		case 12:
 			props[0]=70;//para
 			props[1]=40;//nl
-			props[2]=40;//font
+			props[2]=41;//font
 			props[3]=38; //maxchars
 			props[4]=14;//factor
 
@@ -487,7 +487,7 @@ public class CardComposer {
 		case 14:
 			props[0]=66;//para
 			props[1]=38;//nl
-			props[2]=38;//font
+			props[2]=39;//font
 			props[3]=42; //maxchars
 			props[4]=12;//factor
 
@@ -495,7 +495,7 @@ public class CardComposer {
 		case 15:
 			props[0]=62;//para
 			props[1]=35;//nl
-			props[2]=35;//font
+			props[2]=38;//font
 			props[3]=44;//maxchars
 			props[4]=11;//factor
 
@@ -503,7 +503,7 @@ public class CardComposer {
 		case 16:
 			props[0]=59;//para
 			props[1]=33;//nl
-			props[2]=33;//font
+			props[2]=37;//font
 			props[3]=46;//maxchars
 			props[4]=10;//factor
 
@@ -511,7 +511,7 @@ public class CardComposer {
 		case 17:
 			props[0]=0;//para
 			props[1]=0;//nl
-			props[2]=0;//font
+			props[2]=36;//font
 			props[3]=48;//maxchars
 			props[4]=9;//factor
 
@@ -519,7 +519,7 @@ public class CardComposer {
 		case 18:
 			props[0]=0;//para
 			props[1]=0;//nl
-			props[2]=0;//font
+			props[2]=35;//font
 			props[3]=50;//maxchars
 			props[4]=9;//factor
 
@@ -527,13 +527,13 @@ public class CardComposer {
 		case 19:
 			props[0]=0;//para
 			props[1]=0;//nl
-			props[2]=0;//font
+			props[2]=34;//font
 			props[3]=52;//maxchars
 			break;
 		case 20:
 			props[0]=0;//para
 			props[1]=0;//nl
-			props[2]=0;//font
+			props[2]=33;//font
 			props[3]=54;//maxchars
 			break;
 		default:

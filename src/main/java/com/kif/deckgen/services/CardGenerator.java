@@ -35,8 +35,8 @@ public class CardGenerator {
 	
 	//TODO take a card object with only a name and type and fill out the details
 	public Card createCard(Card card, String theme, DeckIdea deckIdea) {
-		System.out.println(cardDetailsTemplate);
-		System.out.println("running promptbuilder");
+		//System.out.println(cardDetailsTemplate);
+		//System.out.println("running promptbuilder");
 		String prompt = pb.buildCardPrompt(card,deckIdea.getTheme());
 
 		//System.out.println("the prompt is... "+prompt);

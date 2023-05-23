@@ -19,7 +19,7 @@ public class PromptBuilder {
 
 
     //@Value("${com.kif.creatureRules}")
-    private String cRules="Creatures must have a power, toughtness, and a subtype. Rules text is optional but recommended. ";
+    private String cRules="Creatures must have a power, toughtness, and a subtype. Rules text is optional but recommended. If there is no rules text, then flavor text in manditory. ";
     
    // @Value("${com.kif.enchatmentRules}")
     private String eRules="Enchantments must have rules text, they have no power or toughness and don't have a subtype.";
@@ -48,7 +48,7 @@ public class PromptBuilder {
 	}
 	
 	public String buildCardPrompt(Card card, String theme) {
-		System.out.println("Base rompt is : "+ cardDetailsTemplate);
+		//System.out.println("Base rompt is : "+ cardDetailsTemplate);
 		String prompt = cardDetailsTemplate.replace("<NAME>", card.getName());
 		prompt = prompt.replace("<TYPE>", card.getType());
 		prompt = prompt.replace("<THEME>", theme);
@@ -76,7 +76,7 @@ public class PromptBuilder {
 			prompt=prompt.replace("<CARDRULES>","");
 			System.out.println("ERROR, CARD NOT VALID");
 		}
-		System.out.println("The prompt is: "+prompt);
+		//System.out.println("The prompt is: "+prompt);
 		return prompt;
 	}
 

@@ -72,7 +72,7 @@ public class DecksController {
 		//Add the finished cards so you can display them.
 		//model.addAttribute( finishedCards );
 		
-		return "decks";
+		return decks(model);
 	}
 	
 	// this controller shows a list of decks
