@@ -297,11 +297,14 @@ public class CardComposer {
 		if(card.getManaCost().contains("G")) {frameColour+="green"; colourCounter++;}
 
 
-		if(colourCounter>1) {
-			frameColour = "Multicolour";
+		if(colourCounter>3) {
+			frameColour = "multicolour";
+		}
+		else if(colourCounter == 0  && card.getType().toLowerCase().contains("artifact")){
+			frameColour="artifact";
 		}
 		else if(colourCounter == 0) {
-			frameColour="Colourless";
+			frameColour="colourless";
 		}
 
 		path = path + frameColour + ".png";
