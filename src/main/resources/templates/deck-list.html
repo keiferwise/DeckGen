@@ -20,7 +20,7 @@
 		<tr th:each="card : ${cardList}">
 			<td th:text="${card.name}" ></td>
 			<td th:text="${card.type}" ></td>
-			<td></td>
+			<td th:text="${card.manaCost}"></td>
 		</tr>
 		
 		

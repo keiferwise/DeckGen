@@ -37,7 +37,7 @@ public class CardGenerator {
 	public Card createCard(Card card, String theme, DeckIdea deckIdea) {
 		//System.out.println(cardDetailsTemplate);
 		//System.out.println("running promptbuilder");
-		String prompt = pb.buildCardPrompt(card,deckIdea.getTheme());
+		String prompt = pb.buildCardPrompt(card,deckIdea);
 
 		//System.out.println("the prompt is... "+prompt);
 		String newCardJson = gptClient.generateCompletion(prompt,2000);

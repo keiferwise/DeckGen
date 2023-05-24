@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import com.kif.deckgen.models.Card;
+import com.kif.deckgen.models.DeckIdea;
 
 @Component
 public class PromptBuilder {
@@ -33,6 +34,12 @@ public class PromptBuilder {
     //@Value("${com.kif.artifactRules}")
     private String aRules="Artifacts must have rules text, flavor text is optional. Artifacts have no power or toughness and don't have a subtype. ";
     
+    private String twoColourRules = "Since this deck is two coloured, at least half the cards should have both the mana colours in it's cost";
+    
+    private String threeColourRules = "Since this deck is Three coloured, Roughtly one third of the cards should have all the mana colours in it's cost, the others can be one or two mana colours, with at least 1 colourless artifact";
+    
+    private String multicolourRules = "Since this deck is a multicoloured deck, Roughtly one third of the cards should have all the mana colours in it's cost, the others can be one or two, or three mana colours, with at least 1 colourless artifact";
+    
 	public PromptBuilder() {
 		// TODO Auto-generated constructor stub
 	}
@@ -47,11 +54,12 @@ public class PromptBuilder {
 		return prompt;
 	}
 	
-	public String buildCardPrompt(Card card, String theme) {
+	
+	public String buildCardPrompt(Card card, DeckIdea deckIdea) {
 		//System.out.println("Base rompt is : "+ cardDetailsTemplate);
 		String prompt = cardDetailsTemplate.replace("<NAME>", card.getName());
 		prompt = prompt.replace("<TYPE>", card.getType());
-		prompt = prompt.replace("<THEME>", theme);
+		prompt = prompt.replace("<THEME>", deckIdea.getTheme());
 		prompt = prompt.replace("<MANACOST>",card.getManaCost());
 		if(card.getType().toLowerCase().contains("creature")) {
 			prompt=prompt.replace("<CARDRULES>",cRules);
@@ -77,6 +85,37 @@ public class PromptBuilder {
 			System.out.println("ERROR, CARD NOT VALID");
 		}
 		//System.out.println("The prompt is: "+prompt);
+		prompt = addManaRules(prompt,deckIdea);
+		return prompt;
+	}
+	private String addManaRules(String prompt, DeckIdea idea) {
+		int colourCounter=0;
+		if(idea.isWhite()) {colourCounter++;}
+		if(idea.isBlue()) {colourCounter++;}
+		if(idea.isBlack()) {colourCounter++;}
+		if(idea.isRed()) {colourCounter++;}
+		if(idea.isGreen()) {colourCounter++;}
+
+		if(colourCounter==0) 
+		{
+			prompt=prompt.replace("<MANARULES", "This deck is colourless, so none of the cards should have any mana cost other than colorless");
+		}
+		else if(colourCounter==1) {
+			prompt=prompt.replace("<MANARULES","");
+		}
+		else if(colourCounter==2) {
+			prompt=prompt.replace("<MANARULES",twoColourRules);
+		}
+		else if(colourCounter==3) {
+			prompt=prompt.replace("<MANARULES",threeColourRules);
+		}
+		else {
+			prompt=prompt.replace("<MANARULES",multicolourRules);
+
+		}
+		
+		
+		
 		return prompt;
 	}
 
