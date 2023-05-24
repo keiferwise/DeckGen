@@ -287,7 +287,7 @@ public class CardComposer {
 	 */
 	private String getFrame(Card card) {
 		String frameColour="";
-		String path = "D:\\deckgen\\src\\main\\resources\\images\\";
+		String path = "D:\\deckgen\\src\\main\\resources\\images\\card-frames\\";
 		int colourCounter=0;
 		//Get Colour Identity String
 		if(card.getManaCost().contains("W")) {frameColour+="white"; colourCounter++;}
