@@ -34,11 +34,11 @@ public class PromptBuilder {
     //@Value("${com.kif.artifactRules}")
     private String aRules="Artifacts must have rules text, flavor text is optional. Artifacts have no power or toughness and don't have a subtype. ";
     
-    private String twoColourRules = "Since this deck is two coloured, at least half the cards should have both the mana colours in it's cost";
+    private String twoColourRules = "Since this deck is two coloured, at least half the cards should have both <MANA> mana colours in it's cost";
     
-    private String threeColourRules = "Since this deck is Three coloured, Roughtly one third of the cards should have all the mana colours in it's cost, the others can be one or two mana colours, with at least 1 colourless artifact";
+    private String threeColourRules = "Since this deck is Three coloured, Roughtly one third of the cards should have all three of the mana colours(<MANA>) in it's cost, the others can be one or two mana colours, with at least 1 colourless artifact";
     
-    private String multicolourRules = "Since this deck is a multicoloured deck, Roughtly one third of the cards should have all the mana colours in it's cost, the others can be one or two, or three mana colours, with at least 1 colourless artifact";
+    private String multicolourRules = "Since this deck is a multicoloured deck, Roughtly one third of the cards should have all the mana colours(<MANA>) in it's cost, the others can be one or two, or three mana colours, with at least 1 colourless artifact";
     
 	public PromptBuilder() {
 		// TODO Auto-generated constructor stub
@@ -61,6 +61,9 @@ public class PromptBuilder {
 		prompt = prompt.replace("<TYPE>", card.getType());
 		prompt = prompt.replace("<THEME>", deckIdea.getTheme());
 		prompt = prompt.replace("<MANACOST>",card.getManaCost());
+		String cardColours = getDeckColours(deckIdea);
+		prompt = addManaRules(prompt,deckIdea);
+
 		if(card.getType().toLowerCase().contains("creature")) {
 			prompt=prompt.replace("<CARDRULES>",cRules);
 
@@ -85,7 +88,6 @@ public class PromptBuilder {
 			System.out.println("ERROR, CARD NOT VALID");
 		}
 		//System.out.println("The prompt is: "+prompt);
-		prompt = addManaRules(prompt,deckIdea);
 		return prompt;
 	}
 	private String addManaRules(String prompt, DeckIdea idea) {
@@ -118,5 +120,27 @@ public class PromptBuilder {
 		
 		return prompt;
 	}
+	private String getDeckColours(DeckIdea idea) {
+		String cardColour="";
+		//String path = "D:\\deckgen\\src\\main\\resources\\images\\";
+		int colourCounter=0;
+		//Get Colour Identity String
+		if(idea.isWhite()) {cardColour+="white, "; colourCounter++;}
+		if(idea.isBlue()) {cardColour+="blue, "; colourCounter++;}
+		if(idea.isBlack()) {cardColour+="black, "; colourCounter++;}
+		if(idea.isRed()) {cardColour+="red, "; colourCounter++;}
+		if(idea.isGreen()) {cardColour+="green, "; colourCounter++;}
 
+
+		//if(colourCounter>1) {
+		//	cardColour = "Multicolour";
+		//}
+		else if(colourCounter == 0) {
+			cardColour="Colourless, ";
+		}
+		//path = path + frameColour + ".png";
+
+		//System.out.println(path);
+		return cardColour.substring(0, cardColour.length()-2);
+	}
 }

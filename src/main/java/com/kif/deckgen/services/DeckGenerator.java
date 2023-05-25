@@ -8,6 +8,7 @@ import java.io.File;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.Random;
 import java.util.UUID;
 
 import javax.imageio.ImageIO;
@@ -77,6 +78,7 @@ public class DeckGenerator implements Runnable {
 		Card legend = deck.getCards().get(0);
 		legend.setName(deckIdea.getLegends());
 		legend.setType("Legendary Creature");
+		legend.setManaCost(legendManaCost(deckIdea));
 		cardDao.save(cardGenerator.createCard(legend, legend.getName(),deckIdea), deck.getDeckId());
 		
 		//deckIdea.getLegends();
@@ -146,6 +148,27 @@ public class DeckGenerator implements Runnable {
 		
 		
 
+	}
+	private String legendManaCost(DeckIdea idea) {
+		String cardManaCost="";
+		int colourlessNumber=0;
+		Random rand = new Random();
+		int colourCounter=0;
+		
+		
+		if(idea.isWhite()) {cardManaCost+="W"; colourCounter++;}
+		if(idea.isBlue()) {cardManaCost+="U"; colourCounter++;}
+		if(idea.isBlack()) {cardManaCost+="B"; colourCounter++;}
+		if(idea.isRed()) {cardManaCost+="R"; colourCounter++;}
+		if(idea.isGreen()) {cardManaCost+="G"; colourCounter++;}
+
+		colourlessNumber = rand.nextInt(0,9-colourCounter);
+
+		if(colourlessNumber != 0) {
+			cardManaCost = colourlessNumber+cardManaCost;
+		}
+		
+		return cardManaCost;
 	}
 
 }
