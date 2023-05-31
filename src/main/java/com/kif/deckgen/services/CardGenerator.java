@@ -39,13 +39,10 @@ public class CardGenerator {
 		//System.out.println("running promptbuilder");
 		String prompt = pb.buildCardPrompt(card,deckIdea);
 
-		System.out.println("the prompt is... "+prompt);
+		//System.out.println("the prompt is... "+prompt);
 		String newCardJson = gptClient.generateCompletion(prompt,2000);
-		//System.out.println("hello?");
 		//System.out.println(newCardJson);
-		//newCardJson = newCardJson.replace("/", "//");
-		//newCardJson = newCardJson.replace("\n", " ");
-		//Card newCard = jsonConverter.convertCardToObject(newCardJson); //System.getProperty("line.separator")
+
 		Card newCard=null;
 		try {
 			newCard = objectMapper.readValue(newCardJson, Card.class);
@@ -56,8 +53,6 @@ public class CardGenerator {
 		System.out.println(newCard.toString());
 		newCard.setCardId(card.getCardId());
 		newCard.setDeckId(card.getDeckId());
-		//newCard.setRulesText(newCard.getRulesText().replace("<NEWLINE>", "\n"));
-		//newCard.setFlavorText(newCard.getFlavorText().replace("<NEWLINE>", "\n"));
 		//System.out.println(card.getName());
 		return newCard;
 	}
@@ -73,7 +68,6 @@ public class CardGenerator {
 		
 		result = result.substring(0, result.length()-2);
 		
-		//System.out.println(result);
 		
 		
 		return result;

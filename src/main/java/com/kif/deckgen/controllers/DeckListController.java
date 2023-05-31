@@ -32,9 +32,6 @@ public class DeckListController {
     @Value("${com.kif.site-title}")
     private String siteTitle;
     
-    /*@Value("${com.kif.test-json}")
-    private String testJson;*/
-    
     @Autowired
     private CardNamesGenerator cardNamesGenerator;
 

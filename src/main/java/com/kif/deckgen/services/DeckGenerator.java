@@ -65,11 +65,9 @@ public class DeckGenerator implements Runnable {
 	@Override
 	public void run() {
 		// TODO Auto-generated method stub
-		//Card newCardTemp = new Card();
 		
 		for(Card card : deck.getCards()) {
 			
-			//newCardTemp = cardGenerator.createCard(card, deck.getName());
 			
 			cardDao.updateCard(cardGenerator.createCard(card, deck.getName(),deckIdea), card.getCardId());
 			
@@ -81,7 +79,6 @@ public class DeckGenerator implements Runnable {
 		legend.setManaCost(legendManaCost(deckIdea));
 		cardDao.save(cardGenerator.createCard(legend, legend.getName(),deckIdea), deck.getDeckId());
 		
-		//deckIdea.getLegends();
 		deck.setCards(cardDao.findAllByDeckId(deck.getDeckId()));
 	    System.out.println("Making art: " + makeArt);
 

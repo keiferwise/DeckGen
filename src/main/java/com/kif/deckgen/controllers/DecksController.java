@@ -51,12 +51,12 @@ public class DecksController {
 
 		//Test Deck Idea
 
-		System.out.println(currentDeckId);
+		//System.out.println(currentDeckId);
 		List<Card> cards = cardDao.findAllByDeckId(currentDeckId);
 		Deck deck = deckDao.findDeckById(currentDeckId);
 		deck.setCards(cards);
-		ArrayList<Card> finishedCards = new ArrayList<Card>();
-		ArrayList<String> legends = new ArrayList<String>();
+		//ArrayList<Card> finishedCards = new ArrayList<Card>();
+		//ArrayList<String> legends = new ArrayList<String>();
 		//legends.add("Keifer,Chief Chef");
 		DeckIdea idea = ideaDao.findByDeckId(currentDeckId);
 		

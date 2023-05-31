@@ -177,14 +177,14 @@ public class CardComposer {
 		int lineLengthMinus = 5;
 		int maxChars = textWidth/rulesFont.getSize()-lineLengthMinus;
 		int numLines =numberOfLines(rulesArray,maxChars)+numberOfLines(flavorArray,maxChars);
-		System.out.println(numLines);
+		//System.out.println(numLines);
 
 		int[] textProps = calibrateText( numLines);
 		int lineFactor = textProps[4];
 		newParagraphSize = textProps[0];
 		newlineSize= textProps[1];
 		rulesTextSize=textProps[2];
-		System.out.println(rulesTextSize);
+		//System.out.println(rulesTextSize);
 		maxChars = textProps[3];
 		rulesFont= new Font("EB Garamond Medium", Font.PLAIN, rulesTextSize);
 		Font flavorFont = new Font("EB Garamond SemiBold",Font.ITALIC,rulesTextSize-5);
@@ -193,7 +193,7 @@ public class CardComposer {
 		g2d.setFont(rulesFont);
 
 		y = getTextStartingPoint( numLines,lineFactor);
-		System.out.println(card.getName()+". There are a total of "+ numLines+" lines. Text Starting at " + y + "px.");
+		//System.out.println(card.getName()+". There are a total of "+ numLines+" lines. Text Starting at " + y + "px.");
 
 		g2d.setColor(Color.BLACK);
 		
@@ -309,7 +309,7 @@ public class CardComposer {
  
 		path = path + frameColour + ".png";
 
-		System.out.println(path);
+		//System.out.println(path);
 		return path;
 	}
 
