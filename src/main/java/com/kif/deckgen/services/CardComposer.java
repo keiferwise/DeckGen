@@ -57,8 +57,10 @@ public class CardComposer {
 		int height = 1680;
 		int newParagraphSize = 75;
 		int newlineSize = 45;
-		int textWidth = 1700;
 		int rulesTextSize=45;
+		int lineLengthMinus = 5;
+		int textWidth = 1700;
+
 		
 		card.setArtist("Dall e");
 		card.setCopyright("Wizards of the Coast 2023");
@@ -173,8 +175,7 @@ public class CardComposer {
 		flavorArray=removeBlankLines(flavorArray);
 		
 		//int maxCharsPerLine = textWidth/rulesFont.getSize()-10;
-		int maxLines = 11;
-		int lineLengthMinus = 5;
+		//int maxLines = 11;
 		int maxChars = textWidth/rulesFont.getSize()-lineLengthMinus;
 		int numLines =numberOfLines(rulesArray,maxChars)+numberOfLines(flavorArray,maxChars);
 		//System.out.println(numLines);
@@ -188,7 +189,7 @@ public class CardComposer {
 		maxChars = textProps[3];
 		rulesFont= new Font("EB Garamond Medium", Font.PLAIN, rulesTextSize);
 		Font flavorFont = new Font("EB Garamond SemiBold",Font.ITALIC,rulesTextSize-5);
-		int NewnumLines =numberOfLines(rulesArray,maxChars)+numberOfLines(flavorArray,maxChars);
+		//int NewnumLines =numberOfLines(rulesArray,maxChars)+numberOfLines(flavorArray,maxChars);
 
 		g2d.setFont(rulesFont);
 
@@ -210,8 +211,11 @@ public class CardComposer {
 			y+=newParagraphSize - newlineSize;
 		}
 
-		//Flavor Text
-		//font = new Font("Times", Font.ITALIC, 60);
+		/*
+		#################
+		## Flavor text ##
+		#################
+		*/
 		g2d.setFont(flavorFont);
 
 
@@ -458,15 +462,48 @@ public class CardComposer {
 		}
 		return lines;
 	}
+	
+	private int[] calibrateText(int lines, int font, int textWidth, int maxChars) {
+		int[] props = new int[5];
+		
+		int lineCount = lines;
+		props[0] = (int)font*(5/3);
+		props[1] = font;
+		props[2] = font;
+		props[3] = maxChars;
+		props[4] = 15;
+		
+		
+		while(lineCount>=11) {
+			props[0]--;
+			props[1]--;
+			props[2]--;
+			props[3]+=2;
+			props[4]--;
+			lineCount--;
+		}
+		
+		font = font - (lines);
+		
+		
+		return props;
+	}
+	
 	private int[] calibrateText(int lines) {
 		
 		int[] props = new int[5];
 		
+		//What is a baseline for this?
+		// font = 50
+		// para = font * 5/3
+		// nl = font
+		// factor = factor-1
+		
 		switch(lines) {
 		case 11:
-			props[0]=70;//para
-			props[1]=42;//nl
-			props[2]=42;//font
+			props[0]=73;//para
+			props[1]=44;//nl
+			props[2]=44;//font
 			props[3]=36; //maxchars
 			props[4]=14;//factor
 
