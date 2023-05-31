@@ -250,7 +250,6 @@ public class CardComposer {
 		g2d.setFont(font);
 		FontMetrics metrics = g2d.getFontMetrics(font);
 		String copyArtist=(card.getCopyright() + " | Art by " + card.getArtist());
-		//x =  width/2 - (((card.getCopyright().length()+card.getArtist().length()+10) * font.getSize())/2);
 		x =  (width/2) - (metrics.stringWidth(copyArtist)/2);
 		drawTextWithOutline( g2d, copyArtist, x,  y,font);
 		g2d.dispose();
