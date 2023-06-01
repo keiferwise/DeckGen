@@ -180,7 +180,7 @@ public class CardComposer {
 		int numLines =numberOfLines(rulesArray,maxChars)+numberOfLines(flavorArray,maxChars);
 		//System.out.println(numLines);
 
-		int[] textProps = calibrateText( numLines);
+		int[] textProps = calibrateText( numLines, rulesTextSize,  textWidth,  maxChars);
 		int lineFactor = textProps[4];
 		newParagraphSize = textProps[0];
 		newlineSize= textProps[1];
@@ -472,9 +472,10 @@ public class CardComposer {
 		props[2] = font;
 		props[3] = maxChars;
 		props[4] = 15;
-		
+		double paraAmount= props[0];
 		
 		while(lineCount>=11) {
+			paraAmount=paraAmount-((5/3)*1);
 			props[0]--;
 			props[1]--;
 			props[2]--;
@@ -482,6 +483,8 @@ public class CardComposer {
 			props[4]--;
 			lineCount--;
 		}
+		props[0]=(int) paraAmount;
+		
 		
 		font = font - (lines);
 		
