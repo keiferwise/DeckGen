@@ -56,8 +56,8 @@ public class CardComposer {
 		int width = 1200;
 		int height = 1680;
 		int newParagraphSize = 75;
-		int newlineSize = 45;
-		int rulesTextSize=45;
+		int newlineSize = 50;
+		int rulesTextSize=50;
 		int lineLengthMinus = 5;
 		int textWidth = 1700;
 
@@ -161,12 +161,18 @@ public class CardComposer {
 		 
 		x = 170;
 		g2d.setFont(rulesFont);
-
+		ArrayList<String> rulesArray = new ArrayList<String>();
 		//String[] rules =  card.getRulesText().split("<NEWLINE>");
-		ArrayList<String> rulesArray = new ArrayList(Arrays.asList(card.getRulesText().split("<NEWLINE>")));	
-		
+		if(card.getRulesText()!=null) {
+			rulesArray = new ArrayList(Arrays.asList(card.getRulesText().split("<NEWLINE>")));	
+
+		}
+		ArrayList<String> flavorArray =  new ArrayList<String>();
 		//String[] flavors =  card.getFlavorText().split("<NEWLINE>");
-		ArrayList<String> flavorArray = new ArrayList(Arrays.asList(card.getFlavorText().split("<NEWLINE>")));	
+		if(card.getFlavorText()!=null) {
+			 flavorArray = new ArrayList(Arrays.asList(card.getFlavorText().split("<NEWLINE>")));	
+
+		}
 
 		//String currentLine = new String();
 		//int lineCount = 1;
@@ -178,7 +184,7 @@ public class CardComposer {
 		//int maxLines = 11;
 		int maxChars = textWidth/rulesFont.getSize()-lineLengthMinus;
 		int numLines =numberOfLines(rulesArray,maxChars)+numberOfLines(flavorArray,maxChars);
-		//System.out.println(numLines);
+		System.out.println(numLines);
 
 		int[] textProps = calibrateText( numLines, rulesTextSize,  textWidth,  maxChars);
 		int lineFactor = textProps[4];
@@ -190,7 +196,7 @@ public class CardComposer {
 		rulesFont= new Font("EB Garamond Medium", Font.PLAIN, rulesTextSize);
 		Font flavorFont = new Font("EB Garamond SemiBold",Font.ITALIC,rulesTextSize-5);
 		//int NewnumLines =numberOfLines(rulesArray,maxChars)+numberOfLines(flavorArray,maxChars);
-
+ 
 		g2d.setFont(rulesFont);
 
 		y = getTextStartingPoint( numLines,lineFactor);
@@ -216,6 +222,8 @@ public class CardComposer {
 		## Flavor text ##
 		#################
 		*/
+		y+=newlineSize;
+
 		g2d.setFont(flavorFont);
 
 
