@@ -33,7 +33,7 @@ public class DeckGenerator implements Runnable {
 
 	//@Autowired
 	//CardGenerator cardGenerator;
-	@Value("${com.kif.generateImages}")
+	//@Value("${com.kif.generateImages}")
 	String makeArt; 
 	
 	DalleClient dalle;
@@ -73,6 +73,8 @@ public class DeckGenerator implements Runnable {
 			
 		}
 		
+		/*### THIS MEANS WE ARE MAKING ART ###*/
+		makeArt="true";
 		Card legend = deck.getCards().get(0);
 		legend.setName(deckIdea.getLegends());
 		legend.setType("Legendary Creature");
@@ -92,7 +94,7 @@ public class DeckGenerator implements Runnable {
 				BufferedImage img = null;
 		        URL url=null;
 		    	//Generate Art for cards FINISH THIS
-				if(makeArt=="true") {
+				if(makeArt.equals("true")) {
 		        
 
 			        
@@ -121,7 +123,7 @@ public class DeckGenerator implements Runnable {
 					// What we will call while we are testing
 					String artPath = "D:\\deckgen\\src\\main\\resources\\images\\img-H7MTllJItxyHXRMlnO77hB9I.png";
 			        try {
-						imgTest = ImageIO.read(new File(artPath));
+						img = ImageIO.read(new File(artPath));
 					} catch (IOException e2) {
 						// TODO Auto-generated catch block
 						e2.printStackTrace();
@@ -131,7 +133,7 @@ public class DeckGenerator implements Runnable {
 		        //Create the card
 		        BufferedImage cardImage =null;
 		        try {
-					 cardImage = composer.createImage(card, imgTest);
+					 cardImage = composer.createImage(card, img);
 				} catch (IOException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();

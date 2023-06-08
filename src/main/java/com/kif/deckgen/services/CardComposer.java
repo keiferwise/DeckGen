@@ -31,7 +31,7 @@ import com.kif.deckgen.models.Card;
 @Service
 public class CardComposer {
 	private String framePath;
-	private String artPath = "D:\\deckgen\\src\\main\\resources\\images\\img-H7MTllJItxyHXRMlnO77hB9I.png";
+	private String artPath ;//= "D:\\deckgen\\src\\main\\resources\\images\\img-H7MTllJItxyHXRMlnO77hB9I.png";
 	//@Value("${com.kif.mana-path}")
 	private String manaPath = "D:\\deckgen\\src\\main\\resources\\images\\mana-symbols\\";
 

@@ -24,8 +24,8 @@ public class DalleClient {
 	//@Autowired
     private RestTemplate restTemplate;
 	
-	@Value("${com.kif.api-key}")
-    private String API_KEY;
+	//@Value("${com.kif.api-key}")
+    private String API_KEY="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";
 	
 	
     public ImageResult generateImage(String prompt) {
@@ -37,8 +37,10 @@ public class DalleClient {
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
         headers.set("Authorization", "Bearer " + API_KEY);
-        
-        prompt = prompt + ". Baroque Fantasy Painting.";
+        System.out.println(headers.toString());
+        System.out.println(API_KEY);
+
+        prompt = prompt + ". Virtuosic baroque fantasy Painting.";
         
         
         Map<String, String> requestBody = new HashMap<>();
