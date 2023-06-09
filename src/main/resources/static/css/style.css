@@ -1,12 +1,19 @@
 .card-image {
   position: relative;
   /*text-align: center;*/
+/*  height: 1680px;
+  width:1200px;*/
   color: white;
 }
 
 /* Bottom left text */
-.rules-and-flavor {
+.rules-and-flavor-box {
   position: absolute;
-  bottom: 200px;
-  left: 16px;
+  width: 61%;
+  height: 28%;
+  border: 30;
+  border-width: 12px;
+  top: 61.5%;
+  left: 9%;
+  color: black;
 }

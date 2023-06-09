@@ -2,6 +2,9 @@
 	<link th:href="@{/css/style.css}" rel="stylesheet" />
 </head>
 <div class="card-image">
-	<img  th:src="${image.url}" style="width: 400px;height: 560px;" >
-	<div class="rules-and-flavor" th:text="${card.rulesText}"></div>
+	<img  th:src="${image.url}"  >
+	<div class="rules-and-flavor-box">
+		<div class="rules-text"  th:text="${card.rulesText}"></div>
+		<div class="flavor-text"></div>
+	</div>
 </div>
