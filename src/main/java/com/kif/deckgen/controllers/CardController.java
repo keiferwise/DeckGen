@@ -59,7 +59,7 @@ public class CardController {
     @GetMapping("/card/art/{cardId}")
     public String art(@PathVariable String cardId, Model model) {
     	
-    	Card card = cardDao.getCardById(cardId);
+    	//Card card = cardDao.getCardById(cardId);
     	//System.out.println(card.getArtDescription());
 
     	Image image = new Image();
@@ -70,11 +70,25 @@ public class CardController {
     	return "art";
     }
     
+    @GetMapping("/card/with-text/{cardId}")
+    public String cardWithText(@PathVariable String cardId, Model model) {
+    	Card card = cardDao.getCardById(cardId);
+    	//System.out.println(card.getArtDescription());
+
+    	Image image = new Image();
+    	image.setUrl(minio.getImage(cardId));
+    	model.addAttribute("image",image);
+    	model.addAttribute("card", card);
+    	
+    	
+    	
+    	return "card-with-text";
+    }
     @GetMapping("/art-test")
     public String artTest(Model model) {
     	
     	BufferedImage cardImage = null;
-        Card card = cardDao.getCardById("7a8ddf98-38b1-4a92-a710-7610cdbcd040");
+        Card card = cardDao.getCardById("fb1f9828-c42b-4f37-86a9-a92bc5c57798");
 		BufferedImage imgTest =null;
 		//TestArt
         String artPath = "D:\\deckgen\\src\\main\\resources\\images\\test-clay.png";

@@ -1,0 +1,12 @@
+.card-image {
+  position: relative;
+  /*text-align: center;*/
+  color: white;
+}
+
+/* Bottom left text */
+.rules-and-flavor {
+  position: absolute;
+  bottom: 200px;
+  left: 16px;
+}

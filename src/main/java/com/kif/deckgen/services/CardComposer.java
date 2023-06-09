@@ -91,7 +91,7 @@ public class CardComposer {
 		g2d.drawImage(frameImage, 0, 0, null);
 		
 		//Clean the mana cost of other symbols
-		card.setManaCost(card.getManaCost().replaceAll("[^WUBRG1234567890]", ""));
+		card.setManaCost(card.getManaCost().replaceAll("[^WUBRG1234567890{}]", ""));
 		//Set the initial font
 		//Font font = new Font("Arial", Font.BOLD, 30);
 		//g2d.setFont(font);
@@ -210,6 +210,9 @@ public class CardComposer {
 
 			for(String ruleLine : ruleLines) {
 				//System.out.println(ruleLine);
+				
+				
+				
 				g2d.drawString(ruleLine.trim(), x, y);
 				y+=newlineSize;
 
@@ -301,11 +304,11 @@ public class CardComposer {
 		String path = "D:\\deckgen\\src\\main\\resources\\images\\card-frames\\";
 		int colourCounter=0;
 		//Get Colour Identity String
-		if(card.getManaCost().contains("W")) {frameColour+="white"; colourCounter++;}
-		if(card.getManaCost().contains("U")) {frameColour+="blue"; colourCounter++;}
-		if(card.getManaCost().contains("B")) {frameColour+="black"; colourCounter++;}
-		if(card.getManaCost().contains("R")) {frameColour+="red"; colourCounter++;}
-		if(card.getManaCost().contains("G")) {frameColour+="green"; colourCounter++;}
+		if(card.getManaCost().contains("{W}")) {frameColour+="white"; colourCounter++;}
+		if(card.getManaCost().contains("{U}")) {frameColour+="blue"; colourCounter++;}
+		if(card.getManaCost().contains("{B}")) {frameColour+="black"; colourCounter++;}
+		if(card.getManaCost().contains("{R}")) {frameColour+="red"; colourCounter++;}
+		if(card.getManaCost().contains("{G}")) {frameColour+="green"; colourCounter++;}
 
 
 		if(colourCounter>=3) {
@@ -414,7 +417,7 @@ public class CardComposer {
 			if(isNumeric(String.valueOf(c))) {
 				
 				
-				manaArray[0] = Integer.parseInt(manaCost.replaceAll("[WUBRGwbrg]+", ""));
+				manaArray[0] = Integer.parseInt(manaCost.replaceAll("[WUBRGwbrg{}]+", ""));
 			}
 			else {
 				switch (c) {
