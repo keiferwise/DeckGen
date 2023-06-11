@@ -1,10 +1,30 @@
 <head>
 	<link th:href="@{/css/style.css}" rel="stylesheet" />
 </head>
-<div class="card-image">
-	<img  th:src="${image.url}"  >
+<p>hello world!</p>
+
+<div class="card-container">
+	<img class="image" th:src="${image.url}"  >
 	<div class="rules-and-flavor-box">
-		<div class="rules-text"  th:text="${card.rulesText}"></div>
-		<div class="flavor-text"></div>
+			<div class="rules"  th:text="${card.rulesText}"></div>
+			<div class="flavor" th:text="${card.flavorText}"></div>
+	</div>
+</div>
+
+
+<div class="card-container-small">
+	<img class="image-small" th:src="${image.url}"  >
+	<div class="rules-and-flavor-box">
+			<div class="rules"  th:text="${card.rulesText}"></div>
+			<div class="flavor" th:text="${card.flavorText}"></div>
+	</div>
+</div>
+
+
+<div class="card-container-x-small">
+	<img class="image-x-small" th:src="${image.url}"  >
+	<div class="rules-and-flavor-box">
+		<div class="rules"  th:text="${card.rulesText}"></div>
+		<div class="flavor" th:text="${card.flavorText}"></div>
 	</div>
 </div>

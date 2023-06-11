@@ -74,7 +74,7 @@ public class DeckGenerator implements Runnable {
 		}
 		
 		/*### THIS MEANS WE ARE MAKING ART ###*/
-		makeArt="false";
+		makeArt="true";
 		Card legend = deck.getCards().get(0);
 		legend.setName(deckIdea.getLegends());
 		legend.setType("Legendary Creature");
