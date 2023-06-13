@@ -128,7 +128,24 @@ public class Card {
 				+ flavorText + ", power=" + power + ", toughness=" + toughness + ", artist=" + artist + ", copyright="
 				+ copyright + ", cardId=" + cardId + "]";
 	}
-    
+    public String getRulesForTemplate() {
+    	
+    	String rt = rulesText.replaceAll("\\{W\\}", "<img src=\"images/w.png\"/>");
+    	 rt = rt.replaceAll("\\{U\\}", "<img class=\"mana-icon\"src=\"/images/u.png\"/>");
+    	 rt = rt.replaceAll("\\{T\\}", "<img class=\"mana-icon\"src=\"/images/tap.png\"/>");
+    	 rt = rt.replaceAll("\\{C\\}", "<img class=\"mana-icon\"src=\"/images/1.png\"/>");
+    	 rt = rt.replaceAll("\\{W\\}", "<img class=\"mana-icon\"src=\"/images/w.png\"/>");
+    	 rt = rt.replaceAll("\\{X\\}", "<img class=\"mana-icon\"src=\"/images/x.png\"/>");
+    	 rt = rt.replaceAll("\\{R\\}", "<img class=\"mana-icon\"src=\"/images/r.png\"/>");
+    	 rt = rt.replaceAll("\\{G\\}", "<img class=\"mana-icon\"src=\"/images/g.png\"/>");
+
+
+
+
+
+
+    	return rt;
+    }
     
     
     

@@ -158,7 +158,7 @@ public class CardComposer {
 		## Rules text ##
 		################
 		*/
-		 
+		 /*
 		x = 170;
 		g2d.setFont(rulesFont);
 		ArrayList<String> rulesArray = new ArrayList<String>();
@@ -219,12 +219,13 @@ public class CardComposer {
 			}
 			y+=newParagraphSize - newlineSize;
 		}
-
+		*/
 		/*
 		#################
 		## Flavor text ##
 		#################
 		*/
+		/*
 		y+=newlineSize;
 
 		g2d.setFont(flavorFont);
@@ -247,6 +248,7 @@ public class CardComposer {
 			y += newParagraphSize - newlineSize;
 
 		}
+		*/
 		y = height - height / 16;
 
 		if(card.getType().toLowerCase().contains("creature")) {

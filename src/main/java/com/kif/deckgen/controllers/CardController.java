@@ -54,6 +54,8 @@ public class CardController {
     	Image image = new Image();
     	image.setUrl(minio.getImage(cardId));
     	model.addAttribute("image",image);
+    	model.addAttribute("flavor", card.getFlavorText().split("<NEWLINE>"));
+    	model.addAttribute("rules", card.getRulesForTemplate().split("<NEWLINE>"));
         return "card";
     }
     @GetMapping("/card/art/{cardId}")
@@ -78,7 +80,9 @@ public class CardController {
     	Image image = new Image();
     	image.setUrl(minio.getImage(cardId));
     	model.addAttribute("image",image);
-    	model.addAttribute("card", card);
+    	model.addAttribute("flavor", card.getFlavorText().split("<NEWLINE>"));
+    	model.addAttribute("rules", card.getRulesText().split("<NEWLINE>"));
+
     	
     	
     	

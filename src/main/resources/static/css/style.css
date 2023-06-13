@@ -1,82 +1,93 @@
 .card-container {
-  position: relative;
-  /*text-align: center;*/
-  height: 1680px;
-  width: 1200px;
-  color: white;
-  margin: 3%;
-  font-size: 50px;
+	position: relative;
+	/*text-align: center;*/
+	height: 1680px;
+	width: 1200px;
+	color: white;
+	margin: 3%;
+	font-size: 50px;
 }
-.card-container-small{
-	  position: relative;
-  /*text-align: center;*/
-  height: 840px;
-  width: 600px;
-  color: white;
-  margin: 3%;
-  font-size: 25px;
+
+.card-container-small {
+	position: relative;
+	/*text-align: center;*/
+	height: 840px;
+	width: 600px;
+	color: white;
+	margin: 3%;
+	font-size: 25px;
 }
-.card-container-x-small{
-	  position: relative;
-  /*text-align: center;*/
-  height: 420px;
-  width: 300px;
-  color: white;
-  margin: 3%;
-  font-size: 12.5px;
+
+.card-container-x-small {
+	position: relative;
+	/*text-align: center;*/
+	height: 420px;
+	width: 300px;
+	color: white;
+	margin: 3%;
+	font-size: 12.5px;
 }
 
 /* Bottom left text */
 .rules-and-flavor-box {
-  position: absolute;
-  width: 76%;
-  height: 28%;
-  border: solid;
-  border-width: 2px;
-  top: 61.5%;
-  left: 12%;
-  right:12%;
-  color: pink;
-  /*font-size: 45px;*/
-  	 display:flex;
-	 flex-wrap:nowrap;
-	 flex-direction: column;
-	 justify-content: center;
+	position: absolute;
+	width: 76%;
+	height: 28%;
+	/*border: solid;
+	border-width: 2px;*/
+	top: 61.5%;
+	left: 12%;
+	right: 12%;
+	color: black;
+	/*font-size: 45px;*/
+	display: flex;
+	flex-wrap: nowrap;
+	flex-direction: column;
+	justify-content: center;
 }
-.rules{
-	margin:1%;
-	padding:1%;
-	  border: dotted;
-  border-width: 2px;
-  border-color: red;
-	
-}
-.flavor{
-	margin:1%;
-	padding:1%;
-		  border: dashed;
-color: aquamarine;
-	  border-width: 2px;
-  border-color: aqua;
-  font-style: italic;
-}
-.rules-and-flavor-text{
-	 display:flex;
-	 flex-wrap:nowrap;
-	 flex-direction: column;
-	 align-content: center;
+
+.rules {
+	margin: 0.5%;
+	padding: 0.5%;
+	/*border: dotted;
+	border-width: 2px;
+	border-color: red;*/
 
 }
 
-.image-small{
-	width:1200px;
-	height:1680px;
+.flavor {
+	margin: 0.5%;
+	padding: 0.5%;
+	/*border: dashed;
+	color: aquamarine;
+	border-width: 2px;
+	border-color: aqua;*/
+	font-style: italic;
 }
-.image-small{
-	width:600px;
-	height:840px;
+
+.rules-and-flavor-text {
+	display: flex;
+	flex-wrap: nowrap;
+	flex-direction: column;
+	align-content: center;
+
 }
-.image-x-small{
-	width:300px;
-	height:420px;
+
+.image-small {
+	width: 1200px;
+	height: 1680px;
+}
+
+.image-small {
+	width: 600px;
+	height: 840px;
+}
+
+.image-x-small {
+	width: 300px;
+	height: 420px;
+}
+.mana-icon{
+	width: 20px;
+	height: 20px;
 }
