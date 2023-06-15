@@ -1,6 +1,8 @@
 package com.kif.deckgen.controllers;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -102,14 +104,22 @@ public class DecksController {
 	*/
 	@GetMapping("/deck/allcards/{deckId}")
 	public String deckCardGrid(@PathVariable String deckId, Model model) {
-
+		HashMap<String,String[]> cardMap = new HashMap<String,String[]>(); 
+		ArrayList<HashMap<String,String[]>> imageList = new ArrayList<HashMap<String,String[]>>();
 		//Deck deck = deckDao.findDeckById(deckId);
 		//model.addAttribute("cards",deck.getCards());
 		ArrayList<String> images = new ArrayList<String>();
 		for(Card c : deckDao.findDeckById(deckId).getCards()) {
+			cardMap = new HashMap<String,String[]>();
+			cardMap.put("rules", c.getRulesForTemplate().split("<NEWLINE>"));
+			cardMap.put("flavor", c.getFlavorText().split("<NEWLINE>"));
+			cardMap.put("image", new String[] {minio.getImage(c.getCardId())});
+			imageList.add(cardMap);
 			images.add(minio.getImage(c.getCardId()));
 		}
+		
 		model.addAttribute("images",images);
+		model.addAttribute("imageList",imageList);
 
 		return "card-grid";
 	}

@@ -1,9 +1,26 @@
 <div th:replace="fragments/header">...</div>
 <div th:replace="fragments/menu">...</div>
 
+<head>
+	<link th:href="@{/css/style.css}" rel="stylesheet" />
+</head>
+
+
+
 
 <table>
-	<tr th:each="image : ${images}">
-		<td><img th:src="${image}" style="width: 400px;height: 560px;" ></td>
+	<tr th:each="map : ${imageList}">
+		<div class="card-container-small">
+			<img class="image-small" th:src="${map.get('image')[0]}">
+			<div class="rules-and-flavor-box">
+				<div class="rules" th:each="rule : ${map.get('rules')}">
+					<div th:utext="${rule}"></div>
+				</div>
+				<div class="flavor" th:each="flavorLine : ${map.get('flavor')}">
+					<div th:text="${flavorLine}"></div>
+				</div>
+			</div>
+		</div>
+
 	</tr>
 </table>
