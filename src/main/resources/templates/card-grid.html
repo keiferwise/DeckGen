@@ -6,12 +6,10 @@
 </head>
 
 
-
-
 <table>
 	<tr th:each="map : ${imageList}">
-		<div class="card-container-small">
-			<img class="image-small" th:src="${map.get('image')[0]}">
+		<div class="card-container">
+			<img class="image" th:src="${map.get('image')[0]}">
 			<div class="rules-and-flavor-box">
 				<div class="rules" th:each="rule : ${map.get('rules')}">
 					<div th:utext="${rule}"></div>

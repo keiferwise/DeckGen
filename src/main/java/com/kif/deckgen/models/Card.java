@@ -1,6 +1,8 @@
 package com.kif.deckgen.models;
 
 
+import java.util.ArrayList;
+
 import org.springframework.stereotype.Component;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -130,27 +132,140 @@ public class Card {
 	}
     public String getRulesForTemplate() {
     	
-    	String rt = rulesText.replaceAll("\\{W\\}", "<img src=\"images/w.png\"/>");
+    	String rt = rulesText.replaceAll("\\{W\\}", "<img class=\"mana-icon\" src=\"/images/w.png\"/>");
     	 rt = rt.replaceAll("\\{U\\}", "<img class=\"mana-icon\"src=\"/images/u.png\"/>");
     	 rt = rt.replaceAll("\\{T\\}", "<img class=\"mana-icon\"src=\"/images/tap.png\"/>");
+    	 rt = rt.replaceAll("\\{Tap\\}", "<img class=\"mana-icon\"src=\"/images/2.png\"/>");
+    	 rt = rt.replaceAll("\\{TAP\\}", "<img class=\"mana-icon\"src=\"/images/2.png\"/>");
     	 rt = rt.replaceAll("\\{C\\}", "<img class=\"mana-icon\"src=\"/images/1.png\"/>");
     	 rt = rt.replaceAll("\\{W\\}", "<img class=\"mana-icon\"src=\"/images/w.png\"/>");
     	 rt = rt.replaceAll("\\{X\\}", "<img class=\"mana-icon\"src=\"/images/x.png\"/>");
     	 rt = rt.replaceAll("\\{R\\}", "<img class=\"mana-icon\"src=\"/images/r.png\"/>");
     	 rt = rt.replaceAll("\\{G\\}", "<img class=\"mana-icon\"src=\"/images/g.png\"/>");
     	 rt = rt.replaceAll("\\{2\\}", "<img class=\"mana-icon\"src=\"/images/2.png\"/>");
-
-
-
-
-
-
+    	 rt = rt.replaceAll("\\{3\\}", "<img class=\"mana-icon\"src=\"/images/3.png\"/>");
+    	 rt = rt.replaceAll("\\{4\\}", "<img class=\"mana-icon\"src=\"/images/4.png\"/>");
+    	 rt = rt.replaceAll("\\{5\\}", "<img class=\"mana-icon\"src=\"/images/5.png\"/>");
+    	 rt = rt.replaceAll("\\{6\\}", "<img class=\"mana-icon\"src=\"/images/6.png\"/>");
+    	 rt = rt.replaceAll("\\{7\\}", "<img class=\"mana-icon\"src=\"/images/7.png\"/>");
+    	 rt = rt.replaceAll("\\{8\\}", "<img class=\"mana-icon\"src=\"/images/8.png\"/>");
+    	 rt = rt.replaceAll("\\{9\\}", "<img class=\"mana-icon\"src=\"/images/9.png\"/>");
+    	 rt = rt.replaceAll("\\{10\\}", "<img class=\"mana-icon\"src=\"/images/10.png\"/>");
 
     	return rt;
     }
-    
-    
-    
-	
+    public String getTextSize(String cardSize) {
+    	int maxChars=45;
+		ArrayList<String> rulesArray = new ArrayList<String>();
+		ArrayList<String> flavorArray =  new ArrayList<String>();
+		rulesArray=removeBlankLines(rulesArray);
+		flavorArray=removeBlankLines(flavorArray);
+		
+		int numLines =numberOfLines(rulesArray,maxChars)+numberOfLines(flavorArray,maxChars);
+    	String fontSize="";
+    	if(cardSize.equals("small")) {
+    		if(numLines<9) {
+    			fontSize="12.5";
+    		}
+    		else if (numLines==10) {
+    			fontSize="11.5";
 
+    		}
+    		else if (numLines==11) {
+    			fontSize="10.5";
+
+    		}
+    		else if (numLines==12) {
+    			fontSize="9.5";
+
+    		}
+    		else {
+    			fontSize="8.5";
+
+    		}
+    		
+    	}
+    	else if(cardSize.equals("mid")) {
+    		if(numLines<9) {
+    			fontSize="25px";
+    		}
+    		else if (numLines==10) {
+    			fontSize="23";
+
+    		}
+    		else if (numLines==11) {
+    			fontSize="21";
+
+    		}
+    		else if (numLines==12) {
+    			fontSize="19";
+
+    		}
+    		else {
+    			fontSize="17";
+
+    		}
+    	}
+    	else if (cardSize.equals("large")) {
+    		if(numLines<9) {
+    			fontSize="50px";
+    		}
+    		else if (numLines==10) {
+    			fontSize="46";
+
+    		}
+    		else if (numLines==11) {
+    			fontSize="42";
+
+    		}
+    		else if (numLines==12) {
+    			fontSize="38";
+
+    		}
+    		else {
+    			fontSize="34";
+
+    		}
+    	}
+    	
+    	
+    	return fontSize;
+    }
+    
+    
+	private int numberOfLines(ArrayList<String> textList,int charLimit) {
+
+		int length=0;
+		int wordCount=0;
+		int lineCount = 0;
+		for (String text : textList) {
+			String[] splitText =  text.split(" ");
+			//ArrayList<String> lines = new ArrayList<String>();
+
+			//String temp = "";
+			for(String word : splitText) {
+				wordCount++;
+				length+=word.length();
+				//temp = temp + " " + word;
+				if(length>=charLimit || splitText.length==wordCount ) {
+					//lines.add(temp);
+					lineCount+=45;
+					length=0;
+					//temp="";
+				} 
+			}
+
+		}
+		return (lineCount+(textList.size()*75))/45;
+
+	}
+	
+	private ArrayList<String> removeBlankLines(ArrayList<String> lines) {
+		for(int r=0;r<lines.size();r++) {
+			if(lines.get(r).isBlank()) {
+				lines.remove(r);
+			}
+		}
+		return lines;
+	}
 }

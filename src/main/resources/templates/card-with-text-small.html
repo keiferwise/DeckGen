@@ -2,8 +2,8 @@
 	<link th:href="@{/css/style.css}" rel="stylesheet" />
 </head>
 
-<div class="card-container-large">
-	<img class="image-large" th:src="${image.url}"  >
+<div class="card-container-small">
+	<img class="image-small" th:src="${image.url}"  >
 	<div class="rules-and-flavor-box">
 			<div class="rules" th:each="rule : ${rules}" >
 				<div th:utext="${rule}"></div>
