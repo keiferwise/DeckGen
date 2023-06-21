@@ -130,7 +130,7 @@ public class Card {
 				+ flavorText + ", power=" + power + ", toughness=" + toughness + ", artist=" + artist + ", copyright="
 				+ copyright + ", cardId=" + cardId + "]";
 	}
-    public String getRulesForTemplate() {
+    public String getRulesForTemplate(String size) {
     	
     	String rt = rulesText.replaceAll("\\{W\\}", "<img class=\"mana-icon\" src=\"/images/w.png\"/>");
     	 rt = rt.replaceAll("\\{U\\}", "<img class=\"mana-icon\"src=\"/images/u.png\"/>");
@@ -152,6 +152,15 @@ public class Card {
     	 rt = rt.replaceAll("\\{9\\}", "<img class=\"mana-icon\"src=\"/images/9.png\"/>");
     	 rt = rt.replaceAll("\\{10\\}", "<img class=\"mana-icon\"src=\"/images/10.png\"/>");
 
+    	 if(size.equals("small")) {
+    		 rt=rt.replaceAll("mana-icon", "mana-icon-small");
+    	 }
+    	 else if(size.equals("large")) {
+    		 rt= rt.replaceAll("mana-icon", "mana-icon-large");
+    	 }
+    	 System.out.println(rt);
+    	 
+    	 
     	return rt;
     }
     public String getTextSize(String cardSize) {

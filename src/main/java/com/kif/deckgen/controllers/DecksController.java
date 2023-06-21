@@ -111,7 +111,7 @@ public class DecksController {
 		ArrayList<String> images = new ArrayList<String>();
 		for(Card c : deckDao.findDeckById(deckId).getCards()) {
 			cardMap = new HashMap<String,String[]>();
-			cardMap.put("rules", c.getRulesForTemplate().split("<NEWLINE>"));
+			cardMap.put("rules", c.getRulesForTemplate("mid").split("<NEWLINE>"));
 			cardMap.put("flavor", c.getFlavorText().split("<NEWLINE>"));
 			cardMap.put("image", new String[] {minio.getImage(c.getCardId())});
 			imageList.add(cardMap);
