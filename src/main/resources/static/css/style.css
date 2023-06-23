@@ -1,3 +1,7 @@
+@font-face{
+	font-family:"goudy";
+	src: url('/fonts/Goudy-Mediaeval-Regular.ttf') format('truetype');
+}
 .card-container-large {
 	position: relative;
 	/*text-align: center;*/
@@ -98,4 +102,23 @@
 .mana-icon-large{
 	width: 40px;
 	height: 40px;
+}
+.dg-bg{
+		background-image: url("/images/bg/header-leather.png");
+	background-repeat: repeat;
+}
+.dg-header-title {
+	font-size: 60px;
+	font-family: "goudy";
+	padding: 10px;
+}
+.dg-header-frame{
+	border-style: solid;
+	border-width: 10px;
+	border-top-color: grey;
+	border-left-color: sandybrown;
+	border-right-color: saddlebrown;
+	border-bottom-color: darkred;
+	background-image: url("/images/bg/parchment-2.png");
+	background-repeat: repeat-x;
 }
