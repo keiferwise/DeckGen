@@ -106,9 +106,10 @@
 .dg-bg{
 		background-image: url("/images/bg/header-leather.png");
 	background-repeat: repeat;
+	height:100%;
 }
 .dg-header-title {
-	font-size: 60px;
+	font-size: 40px;
 	font-family: "goudy";
 	padding: 10px;
 }
@@ -121,4 +122,17 @@
 	border-bottom-color: darkred;
 	background-image: url("/images/bg/parchment-2.png");
 	background-repeat: repeat-x;
+	margin: 20px;
+}
+.dg-button{
+		border-style: solid;
+	border-width: 10px;
+	border-top-color: darkgrey;
+	border-left-color:slategrey;
+	border-right-color: gray;
+	border-bottom-color: slategrey;
+	background-image: url("/images/bg/parchment-2.png");
+	margin: 20px;
+	font-family: "goudy";
+
 }
