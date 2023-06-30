@@ -25,7 +25,11 @@ import com.kif.deckgen.daos.CardDao;
 import com.kif.deckgen.daos.MinioDao;
 
 
-
+/**
+ * This Controller is for viewing cards and the card page.  
+ * @author Keifer
+ * 
+ */
 @Controller
 public class CardController {
 

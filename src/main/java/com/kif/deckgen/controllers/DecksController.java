@@ -27,7 +27,12 @@ import com.kif.deckgen.services.CardGenerator;
 import com.kif.deckgen.services.DalleClient;
 import com.kif.deckgen.services.DeckGenerator;
 
-//TODO This page should list all the Decks, Eventually filtered by user, should show the status of the deck(Queued, InProgress, Completed)
+
+/**
+ * This is the controler for decks
+ * @author Keifer
+ * 
+ */
 @Controller
 public class DecksController {
 	@Autowired
@@ -41,9 +46,12 @@ public class DecksController {
 	@Autowired
 	CardGenerator cardGenerator;
 	
-	//@Autowired
-	//DeckGenerator deckGenerator;
-	
+	/**
+	 * This is for submitting the parameters.
+	 * @param currentDeckId
+	 * @param model
+	 * @return
+	 */
 	@PostMapping("/submit-deck")
 	public String generateDeck(@RequestParam("deckId") String currentDeckId,Model model){
 		
@@ -78,6 +86,11 @@ public class DecksController {
 	}
 	
 	// this controller shows a list of decks
+	/**
+	 * List all the decks
+	 * @param model
+	 * @return
+	 */
 	@GetMapping("/decks")
 	public String decks(Model model) {
 		
@@ -87,7 +100,14 @@ public class DecksController {
 		
 		return "decks";
 	}
-	// this controller lists the cards in the the deck and provides links to each
+	// 
+	/**
+	 * Show all the cards in the deck.
+	 * this controller lists the cards in the the deck and provides links to each
+	 * @param deckId
+	 * @param model
+	 * @return
+	 */
 	@GetMapping("/deck/{deckId}")
 	public String deck(@PathVariable String deckId, Model model) {
 		//System.out.println(deckId);
@@ -99,9 +119,13 @@ public class DecksController {
 		//System.out.println(cards.isEmpty());
 		return "deck";
 	}
-	/*
-	this controller shows all the cards as images
-	*/
+	/**
+	 * 	this controller shows all the cards as images
+
+	 * @param deckId
+	 * @param model
+	 * @return
+	 */
 	@GetMapping("/deck/allcards/{deckId}")
 	public String deckCardGrid(@PathVariable String deckId, Model model) {
 		HashMap<String,String[]> cardMap = new HashMap<String,String[]>(); 
