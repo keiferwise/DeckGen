@@ -1,15 +1,22 @@
 <div th:replace="fragments/header">...</div>
 <div th:replace="fragments/menu">...</div>
+<div class="container">
+<div class="dg-deck-input-box">
 <h1 th:text="${deck.name}"></h1>
-
-
-<table>
+</div>
+</div>
+<div class="container">
+<table class="dg-deck-input-box table">
+	<tr>
+		<th>Card Name</th>
+		<th>CMC</th>
+		
+	</tr>
 	<tr th:each="card : ${cards}" >
 		<td><a th:text="${card.name}" th:href="@{/card/{id}(id=${card.cardId})}"></a></td>
 		<td th:text="${card.manaCost}"></td>
-		<td></td>
 	</tr>
 	
-	
 </table>
+</div>
 <a th:href="@{/deck/allcards/{id}(id=${deck.deckId})}">All Cards</a>

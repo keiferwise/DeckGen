@@ -1,7 +1,6 @@
 <head>
 	<link th:href="@{/css/style.css}" rel="stylesheet" />
 </head>
-<p>hello world!</p>
 
 <div class="card-container-small">
 	<img class="image-small" th:src="${image.url}"  >
@@ -14,27 +13,3 @@
 			</div>
 	</div>
 </div>
-<!--
-<div class="card-container">
-	<img class="image" th:src="${image.url}"  >
-	<div class="rules-and-flavor-box">
-			<div class="rules" th:each="rule : ${rules}" >
-				<div th:utext="${rule}"></div>
-			</div> 
-			<div class="flavor" th:each="flavorLine : ${flavor}">
-				<div th:text="${flavorLine}"></div>
-			</div>
-	</div>
-</div>
-
-<div class="card-container-large">
-	<img class="image-large" th:src="${image.url}"  >
-	<div class="rules-and-flavor-box">
-			<div class="rules" th:each="rule : ${rules}" >
-				<div th:utext="${rule}"></div>
-			</div> 
-			<div class="flavor" th:each="flavorLine : ${flavor}">
-				<div th:text="${flavorLine}"></div>
-			</div>
-	</div>
-</div>-->

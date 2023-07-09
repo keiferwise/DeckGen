@@ -1,8 +1,9 @@
 <div th:replace="fragments/header">...</div>
 <div th:replace="fragments/menu">...</div>
-<h1>Card</h1>
 
-<table>
+<div class="container">
+  <div class="row align-items-start">
+<table class="table dg-deck-input-box col">
 <tr>
     <td>Name</td>
     <td th:text="${card.name}"></td>
@@ -44,10 +45,10 @@
     <td>Toughness</td>
     <td th:text="${card.toughness}"></td>
 </tr>
+
 </table>
-
-<div th:replace="card-with-text-test">...</div>
-
-<!--<img th:src="${image.url}" style="width: 400px;height: 560px;" >
-
-<a th:href="@{/card/art/{id}(id=${card.cardId})}">Full Sized Art</a>-->
+<div class="col">
+<div  th:replace="card-with-text-test">...</div>
+</div>
+</div>
+</div>
