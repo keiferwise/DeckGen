@@ -1,3 +1,3 @@
 function scaleContent() {
-  console.log("hello?");
+    console.log("hello?");
 }
