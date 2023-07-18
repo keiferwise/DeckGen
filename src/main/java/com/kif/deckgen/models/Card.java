@@ -142,6 +142,7 @@ public class Card {
     	 rt = rt.replaceAll("\\{X\\}", "<img class=\"mana-icon\"src=\"/images/x.png\"/>");
     	 rt = rt.replaceAll("\\{R\\}", "<img class=\"mana-icon\"src=\"/images/r.png\"/>");
     	 rt = rt.replaceAll("\\{G\\}", "<img class=\"mana-icon\"src=\"/images/g.png\"/>");
+    	 rt = rt.replaceAll("\\{1\\}", "<img class=\"mana-icon\"src=\"/images/1.png\"/>");
     	 rt = rt.replaceAll("\\{2\\}", "<img class=\"mana-icon\"src=\"/images/2.png\"/>");
     	 rt = rt.replaceAll("\\{3\\}", "<img class=\"mana-icon\"src=\"/images/3.png\"/>");
     	 rt = rt.replaceAll("\\{4\\}", "<img class=\"mana-icon\"src=\"/images/4.png\"/>");
