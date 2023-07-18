@@ -60,6 +60,8 @@ body {
 	/*border: dotted;
 	border-width: 2px;
 	border-color: red;*/
+		font-family: Georgia, 'Times New Roman', Times, serif;
+
 
 }
 
@@ -71,6 +73,7 @@ body {
 	border-width: 2px;
 	border-color: aqua;*/
 	font-style: italic;
+	font-family: Georgia, 'Times New Roman', Times, serif;
 }
 
 .rules-and-flavor-text {

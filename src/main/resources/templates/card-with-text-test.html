@@ -1,21 +1,19 @@
 <head>
 	<link th:href="@{/css/style.css}" rel="stylesheet" />
 </head>
-
 <div class="card-container-small">
 	<img class="image-small" th:src="${image.url}"  >
 	<div class="rules-and-flavor-box" id="myOutput" >
 			<div class="rules" th:each="rule : ${rules}" >
 				<div th:utext="${rule}"></div>
 			</div> 
-			<div class="flavor" th:each="flavorLine : ${flavor}">
+			<div class="flavor" th:each="flavorLine : ${flavor}" >
 				<div th:text="${flavorLine}"></div>
 			</div>
 	</div>
 </div>
-
-
 <div>
 	<button id="myButton">Scale Down</button>
+	<button id="scaleUpButton">Scale Up</button>
 </div>
 	<script type="text/javascript" th:src="@{/js/script.js}"></script>
