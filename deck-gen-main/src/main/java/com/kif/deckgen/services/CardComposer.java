@@ -33,7 +33,7 @@ public class CardComposer {
 	private String framePath;
 	private String artPath ;//= "D:\\deckgen\\src\\main\\resources\\images\\img-H7MTllJItxyHXRMlnO77hB9I.png";
 	//@Value("${com.kif.mana-path}")
-	private String manaPath = "D:\\deckgen\\src\\main\\resources\\images\\mana-symbols\\";
+	private String manaPath = "D:\\deckgen\\deck-gen-main\\src\\main\\resources\\images\\mana-symbols\\";
 
 
 
@@ -65,10 +65,10 @@ public class CardComposer {
 		card.setArtist("Dall e");
 		card.setCopyright("Wizards of the Coast 2023");
 
-		registerFont("D:\\deckgen\\src\\main\\resources\\fonts\\EBGaramond-Medium.ttf");
-		registerFont("D:\\deckgen\\src\\main\\resources\\fonts\\GoudyMediaevalRegular.ttf");
-		registerFont("D:\\deckgen\\src\\main\\resources\\fonts\\EBGaramond-Italic.ttf");
-		registerFont("D:\\deckgen\\src\\main\\resources\\fonts\\EBGaramond-SemiBoldItalic.ttf");
+		registerFont("D:\\deckgen\\deck-gen-main\\src\\main\\resources\\fonts\\EBGaramond-Medium.ttf");
+		registerFont("D:\\deckgen\\deck-gen-main\\src\\main\\resources\\fonts\\GoudyMediaevalRegular.ttf");
+		registerFont("D:\\deckgen\\deck-gen-main\\src\\main\\resources\\fonts\\EBGaramond-Italic.ttf");
+		registerFont("D:\\deckgen\\deck-gen-main\\src\\main\\resources\\fonts\\EBGaramond-SemiBoldItalic.ttf");
 		
 		Font rulesFont = new Font("EB Garamond Medium", Font.PLAIN, rulesTextSize);
 		Font nameFont = new Font("Goudy Mediaeval",Font.PLAIN,65 );
