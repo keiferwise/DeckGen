@@ -1,9 +1,9 @@
-const myButton = document.getElementById('myButton') as HTMLButtonElement;
+const scaleDownButton = document.getElementById('myButton') as HTMLButtonElement;
 const scaleUpButton = document.getElementById('scaleUpButton') as HTMLButtonElement;
 
 const myOutput = document.getElementById('myOutput') as HTMLDivElement;
 let fontSize = 12.5; // Initial font size
-myButton.addEventListener('click', () => {
+scaleDownButton.addEventListener('click', () => {
     fontSize -= 0.5; // Increase font size by 1 pixel
     myOutput.style.fontSize = `${fontSize}px`;
 

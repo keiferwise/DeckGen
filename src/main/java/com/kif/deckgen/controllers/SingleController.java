@@ -14,5 +14,13 @@ public class SingleController {
 	public SingleController() {
 		// TODO Auto-generated constructor stub
 	}
+	
+	@GetMapping("/new-single")
+	public String newSingle() {
+		return "Single";
+	}
+	
+	
+	
 
 }
