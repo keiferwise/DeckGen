@@ -1,26 +1,33 @@
 package com.kif.deckgenmodels;
 
-//import org.springframework.stereotype.Component;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
-//@Component
 public class DeckIdea {
 	
 	// The Theme
+	@JsonProperty("theme")
 	private String Theme;
 	
 	//Let the user define the name of a Legendary Creature that will be in the deck
+	@JsonProperty("legends")
 	private String Legends;
 	
 	//Allow the user to choose preferred colours
+	@JsonProperty("red")
 	private boolean red;
+	@JsonProperty("green")
 	private boolean green;
+	@JsonProperty("black")
 	private boolean black;
+	@JsonProperty("blue")
 	private boolean blue;
+	@JsonProperty("white")
 	private boolean white;
-	
+	@JsonProperty("deck-id")
 	private String deckId;
+	@JsonProperty("deck-idea-id")
 	private String deckIdeaId;
-	
+	@JsonProperty("vibe")
 	private String vibe;
 
 	

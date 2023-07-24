@@ -68,7 +68,7 @@ public class DeckGenerator implements Runnable {
 		
 		for(Card card : deck.getCards()) {
 			
-			
+			//Change this to call the microservice
 			cardDao.updateCard(cardGenerator.createCard(card, deck.getName(),deckIdea), card.getCardId());
 			
 		}
