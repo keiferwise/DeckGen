@@ -13,11 +13,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import com.kif.deckgen.models.Card;
-import com.kif.deckgen.models.Image;
-import com.kif.deckgen.models.ImageResult;
+
 import com.kif.deckgen.services.CardComposer;
 import com.kif.deckgen.services.DalleClient;
+import com.kif.deckgenmodels.Card;
+import com.kif.deckgenmodels.Image;
+import com.kif.deckgenmodels.ImageResult;
 
 import io.minio.MinioClient;
 

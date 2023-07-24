@@ -46,7 +46,11 @@
 			<groupId>org.thymeleaf.extras</groupId>
 			<artifactId>thymeleaf-extras-springsecurity6</artifactId>
 		</dependency>
-
+		<dependency>
+        <groupId>com.kif</groupId> <!-- Replace with your shared model project's groupId -->
+        <artifactId>deckgenmodels</artifactId> <!-- Replace with your shared model project's artifactId -->
+        <version>0.0.1-SNAPSHOT</version> <!-- Replace with the appropriate version -->
+    </dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-devtools</artifactId>

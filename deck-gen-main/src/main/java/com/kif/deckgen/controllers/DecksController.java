@@ -19,13 +19,13 @@ import com.kif.deckgen.daos.CardDao;
 import com.kif.deckgen.daos.DeckDao;
 import com.kif.deckgen.daos.DeckIdeaDao;
 import com.kif.deckgen.daos.MinioDao;
-import com.kif.deckgen.models.Card;
-import com.kif.deckgen.models.Deck;
-import com.kif.deckgen.models.DeckIdea;
 import com.kif.deckgen.services.CardComposer;
 import com.kif.deckgen.services.CardGenerator;
 import com.kif.deckgen.services.DalleClient;
 import com.kif.deckgen.services.DeckGenerator;
+import com.kif.deckgenmodels.Card;
+import com.kif.deckgenmodels.Deck;
+import com.kif.deckgenmodels.DeckIdea;
 
 
 /**

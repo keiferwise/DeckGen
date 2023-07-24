@@ -7,8 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
-import com.kif.deckgen.models.Deck;
-import com.kif.deckgen.models.DeckIdea;
+import com.kif.deckgenmodels.DeckIdea;
 
 @Repository
 public class DeckIdeaDao {

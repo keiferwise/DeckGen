@@ -9,8 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Component;
 
-import com.kif.deckgen.models.Card;
-import com.kif.deckgen.models.Deck;
+import com.kif.deckgenmodels.Card;
+import com.kif.deckgenmodels.Deck;
 
 @Component
 public class DeckRowMapper implements RowMapper<Deck> {

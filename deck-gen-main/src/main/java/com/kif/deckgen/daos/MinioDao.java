@@ -14,7 +14,7 @@ import javax.imageio.ImageIO;
 
 import org.springframework.stereotype.Service;
 
-import com.kif.deckgen.models.Image;
+import com.kif.deckgenmodels.Image;
 
 import io.minio.BucketExistsArgs;
 import io.minio.GetPresignedObjectUrlArgs;

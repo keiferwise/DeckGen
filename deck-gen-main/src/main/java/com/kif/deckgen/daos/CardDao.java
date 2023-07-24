@@ -9,7 +9,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
 
-import com.kif.deckgen.models.Card;
+import com.kif.deckgenmodels.Card;
 
 @Repository
 public class CardDao {

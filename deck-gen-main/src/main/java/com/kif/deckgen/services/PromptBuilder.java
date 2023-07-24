@@ -3,8 +3,8 @@ package com.kif.deckgen.services;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
-import com.kif.deckgen.models.Card;
-import com.kif.deckgen.models.DeckIdea;
+import com.kif.deckgenmodels.Card;
+import com.kif.deckgenmodels.DeckIdea;
 
 @Component
 public class PromptBuilder {

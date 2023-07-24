@@ -6,7 +6,7 @@ import java.sql.SQLException;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Component;
 
-import com.kif.deckgen.models.DeckIdea;
+import com.kif.deckgenmodels.DeckIdea;
 
 @Component
 public class DeckIdeaRowMapper implements RowMapper<DeckIdea> {

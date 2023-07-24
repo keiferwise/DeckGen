@@ -9,9 +9,9 @@ import org.springframework.stereotype.Service;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.kif.deckgen.models.Card;
-import com.kif.deckgen.models.Deck;
-import com.kif.deckgen.models.DeckIdea;
+import com.kif.deckgenmodels.Card;
+import com.kif.deckgenmodels.Deck;
+import com.kif.deckgenmodels.DeckIdea;
 /**
  * 
  * @author Keifer

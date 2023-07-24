@@ -16,7 +16,7 @@ import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
 
-import com.kif.deckgen.models.ImageResult;
+import com.kif.deckgenmodels.ImageResult;
 
 @Service 
 public class DalleClient {
