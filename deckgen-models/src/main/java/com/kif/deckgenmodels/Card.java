@@ -3,11 +3,11 @@ package com.kif.deckgenmodels;
 
 import java.util.ArrayList;
 
-//import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Component;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-//@Component
+@Component
 public class Card {
 	@JsonProperty("deck_id")
 	private String deckId;

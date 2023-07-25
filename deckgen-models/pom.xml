@@ -2,7 +2,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>com.kif</groupId>
   <artifactId>deckgenmodels</artifactId>
-  <version>0.0.1</version>
+  <version>0.0.1-SNAPSHOT</version>
   <name>deckgenmodels</name>
   <description>models for deckgen</description>
   	<properties>
@@ -19,7 +19,11 @@
     <artifactId>jackson-annotations</artifactId>
     <version>2.15.2</version>
 </dependency>
-
+    <dependency>
+        <groupId>org.springframework</groupId>
+        <artifactId>spring-context</artifactId>
+        <version>5.3.10</version> <!-- Use the latest version available -->
+    </dependency>
 
   </dependencies>
 </project>

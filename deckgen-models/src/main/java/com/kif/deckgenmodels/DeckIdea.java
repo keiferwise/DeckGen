@@ -1,7 +1,9 @@
 package com.kif.deckgenmodels;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
+import org.springframework.stereotype.Component;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+@Component
 public class DeckIdea {
 	
 	// The Theme

@@ -1,12 +1,12 @@
 package com.kif.deckgen;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.annotation.ComponentScan;
 
-import com.kif.deckgen.daos.MinioDao;
 
 @SpringBootApplication
+@ComponentScan({"com.kif.deckgen", "com.kif.deckgenmodels"})
 public class DeckgenApplication {
 
 

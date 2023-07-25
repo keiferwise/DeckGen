@@ -1,5 +1,7 @@
 package com.kif.deckgenmodels;
+import org.springframework.stereotype.Component;
 
+@Component
 public class Image {
 	String url;
 

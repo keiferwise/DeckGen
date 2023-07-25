@@ -14,8 +14,9 @@ public class CardController {
 	
 	@PostMapping("/create-card")
 	public ResponseEntity<String> createCard(@RequestBody String requestBody) {
-		System.out.println("createing card");
-		
+		System.out.println("creating card");
+		System.out.println(requestBody.toString());
+
 		return ResponseEntity.ok("Request received successfully!");
 	}
 
