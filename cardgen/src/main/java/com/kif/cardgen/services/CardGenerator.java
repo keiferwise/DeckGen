@@ -8,6 +8,8 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.kif.deckgenmodels.Card;
 import com.kif.deckgenmodels.DeckIdea;
+import com.kif.cardgen.daos.CardDao;
+import com.kif.cardgen.daos.DeckIdeaDao;
 import com.kif.cardgen.services.*;
 
 /**
@@ -29,14 +31,21 @@ public class CardGenerator {
 	ChatGPTClient gptClient;
 	@Autowired 
 	PromptBuilder pb;
+	@Autowired
+	CardDao cardDao;
+	@Autowired
+	DeckIdeaDao ideaDao;
 	
 	
 
 	
 	//TODO take a card object with only a name and type and fill out the details
-	public Card createCard(Card card, String theme, DeckIdea deckIdea) {
+	public Card createCard(String cardid, String theme, String deckIdeaId) {
 		//System.out.println(cardDetailsTemplate);
 		//System.out.println("running promptbuilder");
+		Card card = cardDao.getCardById(cardid);
+		DeckIdea deckIdea = ideaDao.findByDeckId(deckIdeaId);
+		
 		String prompt = pb.buildCardPrompt(card,deckIdea);
 
 		//System.out.println("the prompt is... "+prompt);
