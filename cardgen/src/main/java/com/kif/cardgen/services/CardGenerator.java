@@ -106,6 +106,11 @@ public class CardGenerator {
 		return cardColour.substring(0, cardColour.length()-2);
 	}
 
+	public void createSingleCard() {
+		// TODO Auto-generated method stub
+		
+	}
+
 
 
 

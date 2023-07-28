@@ -35,7 +35,7 @@ public class CardController {
 	public ResponseEntity<String> createCard(@RequestBody String requestBody) {
 		System.out.println("creating card");
 		System.out.println(requestBody.toString());
-		//createCard(Card card, String theme, DeckIdea deckIdea)
+		cardGenerator.createSingleCard( );
 		return ResponseEntity.ok("Request received successfully!");
 	}
 
