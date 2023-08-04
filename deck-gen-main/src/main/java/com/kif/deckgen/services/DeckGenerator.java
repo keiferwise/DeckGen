@@ -12,7 +12,7 @@ import java.util.Random;
 
 import javax.imageio.ImageIO;
 
-
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.kif.deckgen.daos.CardDao;
@@ -39,7 +39,8 @@ public class DeckGenerator implements Runnable {
 	
 	MinioDao minio;
 	
-	
+
+
 	CardComposer composer;
 	
 	CardDao cardDao;
@@ -70,6 +71,10 @@ public class DeckGenerator implements Runnable {
 			cardDao.updateCard(cardGenerator.createCard(card, deck.getName(),deckIdea), card.getCardId());
 			
 		}
+		
+		/* test microservice */
+		//cardService.createCard();
+		
 		
 		/*### THIS MEANS WE ARE MAKING ART ###*/
 		makeArt="false";

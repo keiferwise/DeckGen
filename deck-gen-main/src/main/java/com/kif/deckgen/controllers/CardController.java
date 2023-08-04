@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
 import com.kif.deckgen.services.CardComposer;
+import com.kif.deckgen.services.CardService;
 import com.kif.deckgen.services.DalleClient;
 import com.kif.deckgenmodels.Card;
 import com.kif.deckgenmodels.Image;
@@ -34,6 +35,9 @@ import com.kif.deckgen.daos.MinioDao;
 @Controller
 public class CardController {
 
+	@Autowired
+	CardService cardService;
+	
 	@Autowired 
 	CardDao cardDao;
 	
@@ -51,7 +55,7 @@ public class CardController {
 	
     @GetMapping("/card/{cardId}")
     public String Card(@PathVariable String cardId, Model model) {
-    	
+    	cardService.createCard().blockOptional();
     	Card card = cardDao.getCardById(cardId);
     	
     	model.addAttribute(card);

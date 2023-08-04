@@ -18,8 +18,11 @@ public class CardService {
 	
 
 	public Mono<String> createCard() {
-		 return webClient.get()
+		System.out.println("sending request to card microservice");
+		String requestBody = "{\"thing\":\"thing\";)";
+		 return webClient.post()
 		            .uri("/create-card-for-deck")
+		            .bodyValue(requestBody)
 		            .retrieve()
 		            .bodyToMono(String.class);
 		
