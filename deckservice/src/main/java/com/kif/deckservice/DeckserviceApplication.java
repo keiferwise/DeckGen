@@ -1,13 +1,13 @@
-package com.kif.deckgen;
+package com.kif.deckservice;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class DeckgenApplication {
+public class DeckserviceApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(DeckgenApplication.class, args);
+		SpringApplication.run(DeckserviceApplication.class, args);
 	}
 
 }

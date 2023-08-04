@@ -9,10 +9,10 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.kif</groupId>
-	<artifactId>deckgen</artifactId>
+	<artifactId>deckservice</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>deckgen</name>
-	<description>Microservice</description>
+	<name>deckservice</name>
+	<description>Microservice for makindg decks</description>
 	<properties>
 		<java.version>17</java.version>
 	</properties>
