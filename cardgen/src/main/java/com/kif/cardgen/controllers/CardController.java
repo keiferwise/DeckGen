@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.kif.cardgen.daos.CardDao;
 import com.kif.cardgen.services.CardGenerator;
 import com.kif.deckgenmodels.Card;
+import com.kif.deckgenmodels.CardRequest;
 import com.kif.deckgenmodels.DeckIdea;
 
 import org.springframework.web.bind.annotation.RequestBody;
@@ -24,10 +25,12 @@ public class CardController {
 	}
 	
 	@PostMapping("/create-card-for-deck")
-	public ResponseEntity<String> createCardForDeck(@RequestBody String requestBody) {
+	public ResponseEntity<String> createCardForDeck(@RequestBody CardRequest cr) {
 		System.out.println("creating card");
-		System.out.println(requestBody.toString());
-		//createCard(Card card, String theme, DeckIdea deckIdea)
+		System.out.println(cr.toString());
+		// Create something to 
+		
+		// CreateCard(Card card, String theme, DeckIdea deckIdea)
 		return ResponseEntity.ok("Request received successfully!");
 	}
 	

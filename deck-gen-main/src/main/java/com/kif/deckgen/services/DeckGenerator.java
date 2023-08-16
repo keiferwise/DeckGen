@@ -22,6 +22,10 @@ import com.kif.deckgenmodels.Deck;
 import com.kif.deckgenmodels.DeckIdea;
 import com.kif.deckgenmodels.Image;
 
+import org.springframework.web.reactive.function.client.WebClient;
+import org.springframework.web.reactive.function.client.WebClient.Builder;
+
+
 /**
  * @author Keifer
  *
@@ -39,7 +43,6 @@ public class DeckGenerator implements Runnable {
 	
 	MinioDao minio;
 	
-
 
 	CardComposer composer;
 	
@@ -60,20 +63,21 @@ public class DeckGenerator implements Runnable {
 		this.composer = cardComposer;
 		this.dalle = dalleClient;
 	}
+	
 
 	@Override
 	public void run() {
 		// TODO Auto-generated method stub
-		
+		CardService cs = new CardService(WebClient.builder());
 		for(Card card : deck.getCards()) {
 			
 			//Change this to call the microservice
 			cardDao.updateCard(cardGenerator.createCard(card, deck.getName(),deckIdea), card.getCardId());
-			
+			cs.createCard(card.getCardId(),deckIdea.getTheme(),deckIdea.getDeckIdeaId());
+
 		}
 		
 		/* test microservice */
-		//cardService.createCard();
 		
 		
 		/*### THIS MEANS WE ARE MAKING ART ###*/
@@ -123,8 +127,8 @@ public class DeckGenerator implements Runnable {
 		        
 				}
 				else {
-					// What we will call while we are testing
-					String artPath = "D:\\deckgen\\src\\main\\resources\\images\\img-H7MTllJItxyHXRMlnO77hB9I.png";
+					// What we will call while we are testing ""
+					String artPath = "D:\\deckgen\\deck-gen-main\\src\\main\\resources\\images\\img-H7MTllJItxyHXRMlnO77hB9I.png";
 			        try {
 						img = ImageIO.read(new File(artPath));
 					} catch (IOException e2) {

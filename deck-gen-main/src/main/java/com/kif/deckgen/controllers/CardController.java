@@ -55,7 +55,7 @@ public class CardController {
 	
     @GetMapping("/card/{cardId}")
     public String Card(@PathVariable String cardId, Model model) {
-    	cardService.createCard().blockOptional();
+    	//cardService.createCard().blockOptional();
     	Card card = cardDao.getCardById(cardId);
     	
     	model.addAttribute(card);
