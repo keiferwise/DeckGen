@@ -23,13 +23,14 @@ public class CardService {
 	public Mono<String> createCard(String cardId, String theme, String deckId) {
 		System.out.println("sending request to card microservice");
 		
-		System.out.println(cardId + " "+theme+ " "+deckId);
+		System.out.println("Trying to make this into a request JSON: "+cardId + " "+theme+ " "+deckId);
 		ObjectMapper mapper = new ObjectMapper();
 		
 		CardRequest cr = new CardRequest(cardId, theme, deckId);
 		String requestBody="{\"cardId\":\""+cardId+"\",\"theme\":"+theme+",\"deckIdeaId\":\""+deckId+"}";
 		try {
 			 requestBody=mapper.writeValueAsString(cr);
+			 System.out.println("Object converted to JSON String: " + requestBody.toString());
 		} catch (JsonProcessingException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

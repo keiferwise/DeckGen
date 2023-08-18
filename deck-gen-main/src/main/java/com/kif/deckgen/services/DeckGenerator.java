@@ -76,13 +76,12 @@ public class DeckGenerator implements Runnable {
 			System.out.println(card.getCardId());
 			cs.createCard(card.getCardId(),deckIdea.getTheme(),deckIdea.getDeckIdeaId()).subscribe(response -> {
 			    // Handle the response string here.
-			    System.out.println("Response: " + response);
+			    System.out.println("Response: " + response + "... Awesome!");
 			});
 
 		}
 		
 		/* test microservice */
-		
 		
 		/*### THIS MEANS WE ARE MAKING ART ###*/
 		makeArt="false";
