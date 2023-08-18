@@ -73,7 +73,11 @@ public class DeckGenerator implements Runnable {
 			
 			//Change this to call the microservice
 			cardDao.updateCard(cardGenerator.createCard(card, deck.getName(),deckIdea), card.getCardId());
-			cs.createCard(card.getCardId(),deckIdea.getTheme(),deckIdea.getDeckIdeaId());
+			System.out.println(card.getCardId());
+			cs.createCard(card.getCardId(),deckIdea.getTheme(),deckIdea.getDeckIdeaId()).subscribe(response -> {
+			    // Handle the response string here.
+			    System.out.println("Response: " + response);
+			});
 
 		}
 		
@@ -87,7 +91,7 @@ public class DeckGenerator implements Runnable {
 		legend.setType("Legendary Creature");
 		legend.setManaCost(legendManaCost(deckIdea));
 		cardDao.save(cardGenerator.createCard(legend, legend.getName(),deckIdea), deck.getDeckId());
-		
+	
 		deck.setCards(cardDao.findAllByDeckId(deck.getDeckId()));
 	    System.out.println("Making art: " + makeArt);
 

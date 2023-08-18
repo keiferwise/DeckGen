@@ -1,6 +1,7 @@
 package com.kif.cardgen.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -24,7 +25,7 @@ public class CardController {
 		// TODO Auto-generated constructor stub
 	}
 	
-	@PostMapping("/create-card-for-deck")
+	@PostMapping(value = "/create-card-for-deck", consumes = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<String> createCardForDeck(@RequestBody CardRequest cr) {
 		System.out.println("creating card");
 		System.out.println(cr.toString());
