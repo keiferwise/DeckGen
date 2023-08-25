@@ -19,6 +19,24 @@ public class CardRequest {
 	String theme;
 	@JsonProperty("deckIdeaId")
 	String deckIdeaId;
+	public String getCardId() {
+		return cardId;
+	}
+	public void setCardId(String cardId) {
+		this.cardId = cardId;
+	}
+	public String getTheme() {
+		return theme;
+	}
+	public void setTheme(String theme) {
+		this.theme = theme;
+	}
+	public String getDeckIdeaId() {
+		return deckIdeaId;
+	}
+	public void setDeckIdeaId(String deckIdeaId) {
+		this.deckIdeaId = deckIdeaId;
+	}
 	
 	
 

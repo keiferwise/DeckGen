@@ -45,6 +45,16 @@
 			<artifactId>reactor-test</artifactId>
 			<scope>test</scope>
 		</dependency>
+		<dependency>
+        	<groupId>com.kif</groupId> 
+        	<artifactId>deckgenmodels</artifactId> 
+        	<version>0.0.1-SNAPSHOT</version> 
+    	</dependency>
+    	<dependency>
+		  <groupId>io.minio</groupId>
+		  <artifactId>minio</artifactId>
+		  <version>8.5.2</version>
+		</dependency>
 	</dependencies>
 
 	<build>
