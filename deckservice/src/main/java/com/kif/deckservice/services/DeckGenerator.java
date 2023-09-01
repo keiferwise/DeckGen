@@ -8,7 +8,7 @@ import java.util.Random;
 import org.springframework.stereotype.Component;
 import org.springframework.web.reactive.function.client.WebClient;
 
-import com.kif.deckgen.services.CardService;
+import com.kif.deckservice.services.CardService;
 import com.kif.deckgenmodels.Card;
 import com.kif.deckgenmodels.Deck;
 import com.kif.deckgenmodels.DeckIdea;
@@ -111,7 +111,7 @@ public class DeckGenerator {
 	 * //minio.saveImage(cardImage, card.getCardId()); }
 	 */
 
-	}
+	//}
 
 	private String legendManaCost(DeckIdea idea) {
 		String cardManaCost = "";
