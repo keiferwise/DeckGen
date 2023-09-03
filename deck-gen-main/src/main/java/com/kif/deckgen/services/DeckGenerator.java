@@ -25,7 +25,6 @@ import com.kif.deckgenmodels.Image;
 import org.springframework.web.reactive.function.client.WebClient;
 import org.springframework.web.reactive.function.client.WebClient.Builder;
 
-
 /**
  * @author Keifer
  *
@@ -33,19 +32,17 @@ import org.springframework.web.reactive.function.client.WebClient.Builder;
 @Component
 public class DeckGenerator implements Runnable {
 
-	//@Autowired
-	//CardGenerator cardGenerator;
-	//@Value("${com.kif.generateImages}")
-	String makeArt; 
-	
+	// @Autowired
+	// CardGenerator cardGenerator;
+	// @Value("${com.kif.generateImages}")
+	String makeArt;
+
 	DalleClient dalle;
-	
-	
+
 	MinioDao minio;
-	
 
 	CardComposer composer;
-	
+
 	CardDao cardDao;
 	/**
 	 * 
@@ -53,7 +50,9 @@ public class DeckGenerator implements Runnable {
 	Deck deck;
 	DeckIdea deckIdea;
 	CardGenerator cardGenerator;
-	public DeckGenerator(Deck deck, DeckIdea deckIdea, CardGenerator cardGenerator,CardDao cardDao,MinioDao minioDao, CardComposer cardComposer, DalleClient dalleClient) {
+
+	public DeckGenerator(Deck deck, DeckIdea deckIdea, CardGenerator cardGenerator, CardDao cardDao, MinioDao minioDao,
+			CardComposer cardComposer, DalleClient dalleClient) {
 		// TODO Auto-generated constructor stub
 		this.deck = deck;
 		this.deckIdea = deckIdea;
@@ -63,120 +62,123 @@ public class DeckGenerator implements Runnable {
 		this.composer = cardComposer;
 		this.dalle = dalleClient;
 	}
-	
 
 	@Override
 	public void run() {
 		// TODO Auto-generated method stub
 		CardService cs = new CardService(WebClient.builder());
-		for(Card card : deck.getCards()) {
-			
-			//Change this to call the microservice
-			cardDao.updateCard(cardGenerator.createCard(card, deck.getName(),deckIdea), card.getCardId());
+		for (Card card : deck.getCards()) {
+
+			// Change this to call the microservice
+			cardDao.updateCard(cardGenerator.createCard(card, deck.getName(), deckIdea), card.getCardId());
 			System.out.println(card.getCardId());
-			cs.createCard(card.getCardId(),deckIdea.getTheme(),deckIdea.getDeckIdeaId()).subscribe(response -> {
-			    // Handle the response string here.
-			    System.out.println("Response: " + response + "... Awesome!");
+			cs.createCard(card.getCardId(), deckIdea.getTheme(), deckIdea.getDeckIdeaId()).subscribe(response -> {
+				// Handle the response string here.
+				System.out.println("Response: " + response + "... Awesome!");
 			});
 
 		}
-		
+
 		/* test microservice */
+
+		/* ### THIS MEANS WE ARE MAKING ART ### */
+		makeArt = "false";
 		
-		/*### THIS MEANS WE ARE MAKING ART ###*/
-		makeArt="false";
+		/* Ceate the Deck's legend*/
 		Card legend = deck.getCards().get(0);
 		legend.setName(deckIdea.getLegends());
 		legend.setType("Legendary Creature");
 		legend.setManaCost(legendManaCost(deckIdea));
-		cardDao.save(cardGenerator.createCard(legend, legend.getName(),deckIdea), deck.getDeckId());
-	
+		cardDao.save(cardGenerator.createCard(legend, legend.getName(), deckIdea), deck.getDeckId());
+
 		deck.setCards(cardDao.findAllByDeckId(deck.getDeckId()));
-	    System.out.println("Making art: " + makeArt);
+		System.out.println("Making art: " + makeArt);
 
-		
-		
-	
-			
-			for (Card card : deck.getCards()) {
-				
-				BufferedImage imgTest =null;
-				BufferedImage img = null;
-		        URL url=null;
-		    	//Generate Art for cards FINISH THIS
-				if(makeArt.equals("true")) {
-		        
+		for (Card card : deck.getCards()) {
 
-			        
-			        //######################################################
-					//#### What we will call when we are generating art ####
-					//######################################################
-					 
-					Image art = dalle.generateImage(card.getArtDescription()).getData().get(0);
-			        //get the art from Dall-E URL
-					try {
-						url = new URL(art.getUrl());
-					} catch (MalformedURLException e1) {
-						// TODO Auto-generated catch block
-						e1.printStackTrace();
-					}
-			        try {
-						img = ImageIO.read(url);
-					} catch (IOException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
-			        
-		        
+			BufferedImage imgTest = null;
+			BufferedImage img = null;
+			URL url = null;
+			// Generate Art for cards FINISH THIS
+			if (makeArt.equals("true")) {
+
+				// ######################################################
+				// #### What we will call when we are generating art ####
+				// ######################################################
+
+				Image art = dalle.generateImage(card.getArtDescription()).getData().get(0);
+				// get the art from Dall-E URL
+				try {
+					url = new URL(art.getUrl());
+				} catch (MalformedURLException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
 				}
-				else {
-					// What we will call while we are testing ""
-					String artPath = "D:\\deckgen\\deck-gen-main\\src\\main\\resources\\images\\img-H7MTllJItxyHXRMlnO77hB9I.png";
-			        try {
-						img = ImageIO.read(new File(artPath));
-					} catch (IOException e2) {
-						// TODO Auto-generated catch block
-						e2.printStackTrace();
-					}
-					
-				}
-		        //Create the card
-		        BufferedImage cardImage =null;
-		        try {
-					 cardImage = composer.createImage(card, img);
+				try {
+					img = ImageIO.read(url);
 				} catch (IOException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
-		        
-				minio.saveImage(cardImage, card.getCardId());
+
+			} else {
+				// What we will call while we are testing ""
+				String artPath = "D:\\deckgen\\deck-gen-main\\src\\main\\resources\\images\\img-H7MTllJItxyHXRMlnO77hB9I.png";
+				try {
+					img = ImageIO.read(new File(artPath));
+				} catch (IOException e2) {
+					// TODO Auto-generated catch block
+					e2.printStackTrace();
+				}
+
 			}
-			
-			
-		
-		
-		
+			// Create the card
+			BufferedImage cardImage = null;
+			try {
+				cardImage = composer.createImage(card, img);
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+
+			minio.saveImage(cardImage, card.getCardId());
+		}
 
 	}
+
 	private String legendManaCost(DeckIdea idea) {
-		String cardManaCost="";
-		int colourlessNumber=0;
+		String cardManaCost = "";
+		int colourlessNumber = 0;
 		Random rand = new Random();
-		int colourCounter=0;
-		
-		
-		if(idea.isWhite()) {cardManaCost+="W"; colourCounter++;}
-		if(idea.isBlue()) {cardManaCost+="U"; colourCounter++;}
-		if(idea.isBlack()) {cardManaCost+="B"; colourCounter++;}
-		if(idea.isRed()) {cardManaCost+="R"; colourCounter++;}
-		if(idea.isGreen()) {cardManaCost+="G"; colourCounter++;}
+		int colourCounter = 0;
 
-		colourlessNumber = rand.nextInt(0,9-colourCounter);
-
-		if(colourlessNumber != 0) {
-			cardManaCost = colourlessNumber+cardManaCost;
+		if (idea.isWhite()) {
+			cardManaCost += "W";
+			colourCounter++;
 		}
-		
+		if (idea.isBlue()) {
+			cardManaCost += "U";
+			colourCounter++;
+		}
+		if (idea.isBlack()) {
+			cardManaCost += "B";
+			colourCounter++;
+		}
+		if (idea.isRed()) {
+			cardManaCost += "R";
+			colourCounter++;
+		}
+		if (idea.isGreen()) {
+			cardManaCost += "G";
+			colourCounter++;
+		}
+
+		colourlessNumber = rand.nextInt(0, 9 - colourCounter);
+
+		if (colourlessNumber != 0) {
+			cardManaCost = colourlessNumber + cardManaCost;
+		}
+
 		return cardManaCost;
 	}
 

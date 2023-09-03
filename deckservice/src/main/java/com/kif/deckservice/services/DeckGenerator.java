@@ -5,9 +5,12 @@ package com.kif.deckservice.services;
 
 import java.util.Random;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.web.reactive.function.client.WebClient;
 
+import com.kif.deckservice.daos.DeckDao;
+import com.kif.deckservice.daos.DeckIdeaDao;
 import com.kif.deckservice.services.CardService;
 import com.kif.deckgenmodels.Card;
 import com.kif.deckgenmodels.Deck;
@@ -23,10 +26,12 @@ public class DeckGenerator {
 	// @Autowired
 	// CardGenerator cardGenerator;
 	// @Value("${com.kif.generateImages}")
-	String makeArt;
 
-	DalleClient dalle;
-
+	@Autowired
+	DeckDao deckDao;
+	
+	@Autowired
+	DeckIdeaDao did;
 	// MinioDao minio;
 
 	// CardComposer composer;
@@ -35,26 +40,26 @@ public class DeckGenerator {
 	/**
 	 * 
 	 */
-	Deck deck;
-	DeckIdea deckIdea;
+
 
 	// CardGenerator cardGenerator;
 	public DeckGenerator(Deck deck, DeckIdea deckIdea) {
 		// TODO Auto-generated constructor stub
-		this.deck = deck;
-		this.deckIdea = deckIdea;
+
 		// this.cardGenerator = cardGenerator;
 
 	}
 
-	public void makeDeck() {
+	public void makeDeck(String deckId,String deckIdeaId) {
 		// TODO Auto-generated method stub
 		// CardService cs = new CardService(WebClient.builder());
 		CardService cs = new CardService(WebClient.builder());
 
+		Deck deck = deckDao.findDeckById(deckId);
+		DeckIdea deckIdea = did.findByDeckId(deckIdeaId);
+		//Fill out card text detail
 		for (Card card : deck.getCards()) {
 
-			// Change this to call the microservice
 
 			// Change this to call the microservice
 			System.out.println(card.getCardId());

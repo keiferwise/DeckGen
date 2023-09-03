@@ -31,6 +31,8 @@ public class CardController {
 		System.out.println(cr.toString());
 		// Create something to 
 		
+		cardGenerator.createCard(cr.getCardId(), cr.getTheme(), cr.getDeckIdeaId());
+		
 		// CreateCard(Card card, String theme, DeckIdea deckIdea)
 		return ResponseEntity.ok("Request received successfully!");
 	}

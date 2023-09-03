@@ -36,7 +36,6 @@ public class CardGenerator {
 	@Autowired
 	DeckIdeaDao ideaDao;
 	
-	
 
 	
 	//TODO take a card object with only a name and type and fill out the details
@@ -63,6 +62,13 @@ public class CardGenerator {
 		newCard.setCardId(card.getCardId());
 		newCard.setDeckId(card.getDeckId());
 		//System.out.println(card.getName());
+		
+		
+		//TODO Make this call the card composer to make the art.
+		
+		//TODO push this card to the Object store
+		
+		
 		return newCard;
 	}
 	
