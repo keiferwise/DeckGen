@@ -54,8 +54,23 @@ public class CardGenerator {
 	
 	// TODO take a card object with only a name and type and fill out the details
 	public Card createCard(String cardid, String theme, String deckIdeaId) {
-		// System.out.println(cardDetailsTemplate);
-		// System.out.println("running promptbuilder");
+		
+		 
+		
+		//  Call createCardText method 
+		Card cardWithAllText = createCardText(cardid, theme, deckIdeaId);
+		cardDao.updateCard(cardWithAllText, cardWithAllText.getCardId());
+			
+		// call the card composer to make the art.
+		createCardArt(cardWithAllText);
+
+		
+		
+		return cardWithAllText;
+	}
+
+	
+	private Card createCardText(String cardid, String theme, String deckIdeaId) {
 		Card card = cardDao.getCardById(cardid);
 		DeckIdea deckIdea = ideaDao.findByDeckId(deckIdeaId);
 
@@ -76,7 +91,11 @@ public class CardGenerator {
 		newCard.setCardId(card.getCardId());
 		newCard.setDeckId(card.getDeckId());
 		// System.out.println(card.getName());
+		return newCard;
+	}
 
+	
+	private int createCardArt(Card card) {
 		/* ### THIS decides if WE ARE MAKING ART ### */
 		String makeArt = "false";
 
@@ -127,16 +146,19 @@ public class CardGenerator {
 			e.printStackTrace();
 		}
 
-		minio.saveImage(cardImage, card.getCardId());
+		return minio.saveImage(cardImage, card.getCardId());
 
-		// TODO Make this call the card composer to make the art.
-
-		// TODO push this card to the Object store
-
-		return newCard;
 	}
+	
 
-	private String manaColour(DeckIdea idea) {
+	public void createSingleCard() {
+		// TODO Auto-generated method stub
+
+	}
+}
+//THERE IS THREE METHODS WE DON'T SEEM TO BE USING HERE
+	/* This translates the boolean fields in the deckidea into a human/LLM readable list */
+	/*private String manaColour(DeckIdea idea) {
 
 		String result = " ";
 		if (idea.isBlack()) {
@@ -163,9 +185,9 @@ public class CardGenerator {
 		result = result.substring(0, result.length() - 2);
 
 		return result;
-	}
+	}*/
 
-	private String getCardColours(Card card) {
+	/*private String getCardColours(Card card) {
 		String cardColour = "";
 		// String path = "D:\\deckgen\\src\\main\\resources\\images\\";
 		int colourCounter = 0;
@@ -203,11 +225,10 @@ public class CardGenerator {
 		return cardColour.substring(0, cardColour.length() - 2);
 	}
 
-	public void createSingleCard() {
-		// TODO Auto-generated method stub
+	*/
 
-	}
-
+	/* This Generates a manacost to use for the Legend*/
+	/*
 	private String legendManaCost(DeckIdea idea) {
 		String cardManaCost = "";
 		int colourlessNumber = 0;
@@ -244,14 +265,80 @@ public class CardGenerator {
 		return cardManaCost;
 	}
 
-	// TODO
-	private void createCardText(String cardid, String theme, String deckIdeaId) {
+}
+*/
 
+/* OLD CODE AS REFRENCE FOR IF WE HAVE ISSUE LATER
+Card card = cardDao.getCardById(cardid);
+DeckIdea deckIdea = ideaDao.findByDeckId(deckIdeaId);
+
+String prompt = pb.buildCardPrompt(card, deckIdea);
+
+// System.out.println("the prompt is... "+prompt);
+String newCardJson = gptClient.generateCompletion(prompt, 2000);
+// System.out.println(newCardJson);
+
+Card newCard = null;
+try {
+	newCard = objectMapper.readValue(newCardJson, Card.class);
+} catch (JsonProcessingException e) {
+	// TODO Auto-generated catch block
+	e.printStackTrace();
+}
+System.out.println(newCard.toString());
+newCard.setCardId(card.getCardId());
+newCard.setDeckId(card.getDeckId());
+// System.out.println(card.getName());
+
+// ### THIS decides if WE ARE MAKING ART ### 
+String makeArt = "false";
+
+System.out.println("Making art: " + makeArt);
+
+BufferedImage imgTest = null;
+BufferedImage img = null;
+URL url = null;
+// Generate Art for cards FINISH THIS
+if (makeArt.equals("true")) {
+
+	// ######################################################
+	// #### What we will call when we are generating art ####
+	// ######################################################
+
+	Image art = dalle.generateImage(card.getArtDescription()).getData().get(0);
+	// get the art from Dall-E URL
+	try {
+		url = new URL(art.getUrl());
+	} catch (MalformedURLException e1) {
+		// TODO Auto-generated catch block
+		e1.printStackTrace();
+	}
+	try {
+		img = ImageIO.read(url);
+	} catch (IOException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
 	}
 
-	// TODO
-	private void createCardArt() {
-
+} else {
+	// What we will call while we are testing ""
+	String artPath = "D:\\deckgen\\deck-gen-main\\src\\main\\resources\\images\\img-H7MTllJItxyHXRMlnO77hB9I.png";
+	try {
+		img = ImageIO.read(new File(artPath));
+	} catch (IOException e2) {
+		// TODO Auto-generated catch block
+		e2.printStackTrace();
 	}
 
 }
+// Create the card
+BufferedImage cardImage = null;
+try {
+	cardImage = composer.createImage(card, img);
+} catch (IOException e) {
+	// TODO Auto-generated catch block
+	e.printStackTrace();
+}
+
+minio.saveImage(cardImage, card.getCardId());
+ */

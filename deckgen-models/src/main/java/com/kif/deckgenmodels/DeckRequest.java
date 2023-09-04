@@ -21,5 +21,8 @@ public class DeckRequest {
 	public DeckRequest() {
 		// TODO Auto-generated constructor stub
 	}
+	public DeckRequest(String deckIdeaId, String deckId) {
+		this.deckId = deckId;
+		this.deckIdeaId = deckIdeaId;	}
 
 }

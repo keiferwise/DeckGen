@@ -31,7 +31,8 @@ public class DeckIdea {
 	private String deckIdeaId;
 	@JsonProperty("vibe")
 	private String vibe;
-
+	@JsonProperty("art-style")
+	private String artStyle;
 	
 	
 
@@ -41,7 +42,7 @@ public class DeckIdea {
 
 	
 	public DeckIdea(String theme, String legends, boolean red, boolean green, boolean black, boolean blue,
-			boolean white, String deckId, String deckIdeaId, String vibe) {
+			boolean white, String deckId, String deckIdeaId, String vibe, String artStyle) {
 		super();
 		Theme = theme;
 		Legends = legends;
@@ -53,6 +54,17 @@ public class DeckIdea {
 		this.deckId = deckId;
 		this.deckIdeaId = deckIdeaId;
 		this.vibe = vibe;
+		this.artStyle = artStyle;
+	}
+
+
+	public String getArtStyle() {
+		return artStyle;
+	}
+
+
+	public void setArtStyle(String artStyle) {
+		this.artStyle = artStyle;
 	}
 
 

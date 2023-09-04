@@ -64,11 +64,12 @@ public class DeckListController {
     		@RequestParam("vibe") String vibe,
     		Model model) {
     	
+    	String artStyle = "Virtuosic baroque fantasy Painting";
     	ArrayList<String> manaArray = new ArrayList<String>();
     	Collections.addAll(manaArray, mana);
         UUID deck_idea_id = UUID.randomUUID();
     	UUID deck_id=UUID.randomUUID();
-    	DeckIdea deckIdea = new DeckIdea(theme, legend, manaArray.contains("red"), manaArray.contains("green"),manaArray.contains("black"),manaArray.contains("blue"),manaArray.contains("white"),deck_id.toString(),deck_idea_id.toString(),vibe);
+    	DeckIdea deckIdea = new DeckIdea(theme, legend, manaArray.contains("red"), manaArray.contains("green"),manaArray.contains("black"),manaArray.contains("blue"),manaArray.contains("white"),deck_id.toString(),deck_idea_id.toString(),vibe,artStyle);
     	Deck deck = cardNamesGenerator.generateCardNames(theme,deckIdea);// TODO Add other parameters
     	ideaDao.save(deckIdea);
     	deck.setDeckId(deck_id.toString());

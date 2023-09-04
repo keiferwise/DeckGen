@@ -70,10 +70,8 @@ public class DecksController {
 		//legends.add("Keifer,Chief Chef");
 		DeckIdea idea = ideaDao.findByDeckId(currentDeckId);
 		
-		//TODO Generate the deck
+		//TODO MOVE THIS TO THE MICROSERVICE
 		DeckGenerator deckGenerator = new DeckGenerator(deck,idea,cardGenerator,cardDao, new MinioDao(),new CardComposer(),new DalleClient());
-		
-		//deckGenerator.run();
 		ExecutorService executor = Executors.newSingleThreadExecutor();
 
 		
