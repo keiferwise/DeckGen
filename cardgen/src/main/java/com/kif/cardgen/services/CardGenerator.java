@@ -72,7 +72,7 @@ public class CardGenerator {
 	
 	private Card createCardText(String cardid, String theme, String deckIdeaId) {
 		Card card = cardDao.getCardById(cardid);
-		DeckIdea deckIdea = ideaDao.findByDeckId(deckIdeaId);
+		DeckIdea deckIdea = ideaDao.findByDeckId(card.getDeckId());
 
 		String prompt = pb.buildCardPrompt(card, deckIdea);
 

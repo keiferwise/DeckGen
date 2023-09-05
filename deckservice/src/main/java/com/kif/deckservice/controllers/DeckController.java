@@ -7,7 +7,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.kif.deckgenmodels.CardRequest;
 import com.kif.deckgenmodels.DeckRequest;
 import com.kif.deckservice.services.DeckGenerator;
 
@@ -22,8 +21,9 @@ public class DeckController {
 	@PostMapping(value = "/create-deck", consumes = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<String> createDeck(@RequestBody DeckRequest dr) {
 		System.out.println("creating Deck");
-		System.out.println(dr.toString());
-		
+		System.out.println("deck Idea: "+dr.getDeckIdeaId().toString());
+		System.out.println("deck: "+dr.getDeckId().toString());
+
 		deckGenerator.makeDeck(dr.getDeckId(),dr.getDeckIdeaId());
 		// Create something to 
 		

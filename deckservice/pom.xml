@@ -46,10 +46,10 @@
 			<scope>test</scope>
 		</dependency>
 		<dependency>
-        	<groupId>com.kif</groupId> 
-        	<artifactId>deckgenmodels</artifactId> 
-        	<version>0.0.1-SNAPSHOT</version> 
-    	</dependency>
+        <groupId>com.kif</groupId> <!-- Replace with your shared model project's groupId -->
+        <artifactId>deckgenmodels</artifactId> <!-- Replace with your shared model project's artifactId -->
+        <version>0.0.1-SNAPSHOT</version> <!-- Replace with the appropriate version -->
+    </dependency>
     	<dependency>
 		  <groupId>io.minio</groupId>
 		  <artifactId>minio</artifactId>

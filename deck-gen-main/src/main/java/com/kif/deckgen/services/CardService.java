@@ -1,6 +1,5 @@
 package com.kif.deckgen.services;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
@@ -27,7 +26,7 @@ public class CardService {
 		ObjectMapper mapper = new ObjectMapper();
 		
 		CardRequest cr = new CardRequest(cardId, theme, deckId);
-		String requestBody="{\"cardId\":\""+cardId+"\",\"theme\":"+theme+",\"deckIdeaId\":\""+deckId+"}";
+		String requestBody=null;//"{\"cardId\":\""+cardId+"\",\"theme\":"+theme+",\"deckIdeaId\":\""+deckId+"}";
 		try {
 			 requestBody=mapper.writeValueAsString(cr);
 			 System.out.println("Object converted to JSON String: " + requestBody.toString());

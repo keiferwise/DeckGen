@@ -38,7 +38,7 @@ public class DeckService {
 
 		System.out.println(requestBody);
 		return webClient.post()
-		            .uri("/create-card-for-deck")
+		            .uri("/create-deck")
 		            .header(HttpHeaders.CONTENT_TYPE, "application/json") // Set the Content-Type header
 		            .bodyValue(requestBody)
 		            .retrieve()

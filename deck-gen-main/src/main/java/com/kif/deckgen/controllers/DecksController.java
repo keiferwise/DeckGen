@@ -23,6 +23,7 @@ import com.kif.deckgen.services.CardComposer;
 import com.kif.deckgen.services.CardGenerator;
 import com.kif.deckgen.services.DalleClient;
 import com.kif.deckgen.services.DeckGenerator;
+import com.kif.deckgen.services.DeckService;
 import com.kif.deckgenmodels.Card;
 import com.kif.deckgenmodels.Deck;
 import com.kif.deckgenmodels.DeckIdea;
@@ -45,6 +46,8 @@ public class DecksController {
 	MinioDao minio;
 	@Autowired
 	CardGenerator cardGenerator;
+	@Autowired
+	DeckService deckService;
 	
 	/**
 	 * This is for submitting the parameters.
@@ -71,11 +74,12 @@ public class DecksController {
 		DeckIdea idea = ideaDao.findByDeckId(currentDeckId);
 		
 		//TODO MOVE THIS TO THE MICROSERVICE
-		DeckGenerator deckGenerator = new DeckGenerator(deck,idea,cardGenerator,cardDao, new MinioDao(),new CardComposer(),new DalleClient());
-		ExecutorService executor = Executors.newSingleThreadExecutor();
-
+		//DeckGenerator deckGenerator = new DeckGenerator(deck,idea,cardGenerator,cardDao, new MinioDao(),new CardComposer(),new DalleClient());
+		//ExecutorService executor = Executors.newSingleThreadExecutor();
+		//TODO MICROSERVICE CALL
+		deckService.createDeck(idea.getDeckIdeaId(), currentDeckId).subscribe();
 		
-		executor.execute(deckGenerator);
+		//executor.execute(deckGenerator);
 		
 		//Add the finished cards so you can display them.
 		//model.addAttribute( finishedCards );

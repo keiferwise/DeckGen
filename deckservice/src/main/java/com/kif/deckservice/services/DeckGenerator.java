@@ -56,7 +56,7 @@ public class DeckGenerator {
 		CardService cs = new CardService(WebClient.builder());
 
 		Deck deck = deckDao.findDeckById(deckId);
-		DeckIdea deckIdea = did.findByDeckId(deckIdeaId);
+		DeckIdea deckIdea = did.findByDeckId(deckId);
 		//Fill out card text detail
 		for (Card card : deck.getCards()) {
 
