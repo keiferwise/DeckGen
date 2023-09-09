@@ -15,10 +15,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.kif.deckgen.daos.CardDao;
-import com.kif.deckgen.daos.DeckDao;
-import com.kif.deckgen.daos.DeckIdeaDao;
-import com.kif.deckgen.daos.MinioDao;
 import com.kif.deckgen.services.CardComposer;
 import com.kif.deckgen.services.CardGenerator;
 import com.kif.deckgen.services.DalleClient;
@@ -27,6 +23,10 @@ import com.kif.deckgen.services.DeckService;
 import com.kif.deckgenmodels.Card;
 import com.kif.deckgenmodels.Deck;
 import com.kif.deckgenmodels.DeckIdea;
+import com.kif.deckgenmodels.daos.CardDao;
+import com.kif.deckgenmodels.daos.DeckDao;
+import com.kif.deckgenmodels.daos.DeckIdeaDao;
+import com.kif.deckgenmodels.daos.MinioDao;
 
 
 /**

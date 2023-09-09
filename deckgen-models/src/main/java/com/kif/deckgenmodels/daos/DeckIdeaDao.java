@@ -1,4 +1,4 @@
-package com.kif.deckservice.daos;
+package com.kif.deckgenmodels.daos;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -43,6 +43,16 @@ public class DeckIdeaDao {
 		return deckIdeas.get(0);
 	}
 	
+	//Get Deck Idea by Deck_id
+		public DeckIdea findByDeckIdeaId(String deckIdeaId) {
+			List<DeckIdea> deckIdeas = new ArrayList<DeckIdea>();
+	        String sql = "SELECT * FROM deck_idea WHERE deck_idea_id = ?";
+	        
+	        deckIdeas = jdbcTemplate.query(sql, deckIdeaRowMapper,deckIdeaId);
+	        
+			return deckIdeas.get(0);
+		}
+		
 	
 	
 

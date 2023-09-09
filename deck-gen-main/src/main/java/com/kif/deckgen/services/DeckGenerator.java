@@ -15,12 +15,12 @@ import javax.imageio.ImageIO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import com.kif.deckgen.daos.CardDao;
-import com.kif.deckgen.daos.MinioDao;
 import com.kif.deckgenmodels.Card;
 import com.kif.deckgenmodels.Deck;
 import com.kif.deckgenmodels.DeckIdea;
 import com.kif.deckgenmodels.Image;
+import com.kif.deckgenmodels.daos.CardDao;
+import com.kif.deckgenmodels.daos.MinioDao;
 
 import org.springframework.web.reactive.function.client.WebClient;
 import org.springframework.web.reactive.function.client.WebClient.Builder;

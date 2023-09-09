@@ -1,4 +1,4 @@
-package com.kif.deckservice.daos;
+package com.kif.deckgenmodels.daos;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;

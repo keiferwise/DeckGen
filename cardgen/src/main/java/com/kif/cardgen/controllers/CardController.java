@@ -6,7 +6,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.kif.cardgen.daos.CardDao;
+import com.kif.deckgenmodels.daos.CardDao;
 import com.kif.cardgen.services.CardGenerator;
 import com.kif.deckgenmodels.Card;
 import com.kif.deckgenmodels.CardRequest;

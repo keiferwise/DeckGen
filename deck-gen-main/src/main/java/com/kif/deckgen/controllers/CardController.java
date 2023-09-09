@@ -20,11 +20,10 @@ import com.kif.deckgen.services.DalleClient;
 import com.kif.deckgenmodels.Card;
 import com.kif.deckgenmodels.Image;
 import com.kif.deckgenmodels.ImageResult;
+import com.kif.deckgenmodels.daos.CardDao;
+import com.kif.deckgenmodels.daos.MinioDao;
 
 import io.minio.MinioClient;
-
-import com.kif.deckgen.daos.CardDao;
-import com.kif.deckgen.daos.MinioDao;
 
 
 /**

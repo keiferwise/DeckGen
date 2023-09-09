@@ -18,9 +18,9 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.kif.deckgenmodels.Card;
 import com.kif.deckgenmodels.DeckIdea;
 import com.kif.deckgenmodels.Image;
-import com.kif.cardgen.daos.CardDao;
-import com.kif.cardgen.daos.DeckIdeaDao;
-import com.kif.cardgen.daos.MinioDao;
+import com.kif.deckgenmodels.daos.CardDao;
+import com.kif.deckgenmodels.daos.DeckIdeaDao;
+import com.kif.deckgenmodels.daos.MinioDao;
 import com.kif.cardgen.services.*;
 
 /**
@@ -72,7 +72,7 @@ public class CardGenerator {
 	
 	private Card createCardText(String cardid, String theme, String deckIdeaId) {
 		Card card = cardDao.getCardById(cardid);
-		DeckIdea deckIdea = ideaDao.findByDeckId(card.getDeckId());
+		DeckIdea deckIdea = ideaDao.findByDeckIdeaId(deckIdeaId);
 
 		String prompt = pb.buildCardPrompt(card, deckIdea);
 
@@ -97,7 +97,7 @@ public class CardGenerator {
 	
 	private int createCardArt(Card card) {
 		/* ### THIS decides if WE ARE MAKING ART ### */
-		String makeArt = "false";
+		String makeArt = "true";
 
 		System.out.println("Making art: " + makeArt);
 
@@ -128,9 +128,9 @@ public class CardGenerator {
 
 		} else {
 			// What we will call while we are testing ""
-			String artPath = "D:\\deckgen\\deck-gen-main\\src\\main\\resources\\images\\img-H7MTllJItxyHXRMlnO77hB9I.png";
+			String artPath = "D:\\deckgen\\cardgen\\src\\main\\resources\\images\\test-clay.png";
 			try {
-				img = ImageIO.read(new File(artPath));
+				img = ImageIO.read(new File(artPath));//
 			} catch (IOException e2) {
 				// TODO Auto-generated catch block
 				e2.printStackTrace();

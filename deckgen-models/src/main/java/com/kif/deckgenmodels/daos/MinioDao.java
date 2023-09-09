@@ -1,4 +1,4 @@
-package com.kif.deckgen.daos;
+package com.kif.deckgenmodels.daos;
 
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
