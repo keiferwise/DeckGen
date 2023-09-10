@@ -1,0 +1,8 @@
+com\kif\deckgenmodels\DeckIdea.class
+com\kif\deckgenmodels\Deck.class
+com\kif\deckgenmodels\User.class
+com\kif\deckgenmodels\CardRequest.class
+com\kif\deckgenmodels\DeckRequest.class
+com\kif\deckgenmodels\ImageResult.class
+com\kif\deckgenmodels\Card.class
+com\kif\deckgenmodels\Image.class
