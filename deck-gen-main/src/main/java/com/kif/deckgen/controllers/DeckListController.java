@@ -62,9 +62,12 @@ public class DeckListController {
     		@RequestParam("legend") String legend,
     		@RequestParam("mana") String[]	 mana,
     		@RequestParam("vibe") String vibe,
+    		@RequestParam("artStyle") String artStyle,
     		Model model) {
     	
-    	String artStyle = "Virtuosic baroque fantasy Painting";
+    	if (artStyle.isEmpty() || artStyle.isBlank()) {
+        	artStyle = "Virtuosic baroque fantasy Painting";
+    	}
     	ArrayList<String> manaArray = new ArrayList<String>();
     	Collections.addAll(manaArray, mana);
         UUID deck_idea_id = UUID.randomUUID();

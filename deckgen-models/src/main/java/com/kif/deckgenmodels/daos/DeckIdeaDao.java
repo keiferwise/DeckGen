@@ -28,8 +28,8 @@ public class DeckIdeaDao {
 	public int save(DeckIdea deckIdea) {
 		
 		int result = jdbcTemplate.update(
-                "insert into deck_idea (deck_idea_id,legends,theme,black,blue,green,red,white,deck_id,vibe) values(?,?,?,?,?,?,?,?,?,?)",
-                deckIdea.getDeckIdeaId(), deckIdea.getLegends(),deckIdea.getTheme(), deckIdea.isBlack(), deckIdea.isBlue(), deckIdea.isGreen(),deckIdea.isRed(),deckIdea.isWhite(), deckIdea.getDeckId(),deckIdea.getVibe());
+                "insert into deck_idea (deck_idea_id,legends,theme,black,blue,green,red,white,deck_id,vibe,art_style) values(?,?,?,?,?,?,?,?,?,?,?)",
+                deckIdea.getDeckIdeaId(), deckIdea.getLegends(),deckIdea.getTheme(), deckIdea.isBlack(), deckIdea.isBlue(), deckIdea.isGreen(),deckIdea.isRed(),deckIdea.isWhite(), deckIdea.getDeckId(),deckIdea.getVibe(),deckIdea.getArtStyle());
 		return result;
 	}
 	

@@ -1,3 +1,5 @@
+drop table deck_idea;
+
 use deckgendb;
 
 CREATE TABLE `deck_idea` (
@@ -11,6 +13,7 @@ CREATE TABLE `deck_idea` (
   `white` boolean NOT NULL,
   `deck_id` varchar(36),
   `vibe` varchar(50),
+  `art_style` varchar(255),
   PRIMARY KEY (`deck_idea_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
