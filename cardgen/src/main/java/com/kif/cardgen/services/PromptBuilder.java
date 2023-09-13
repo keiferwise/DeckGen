@@ -61,6 +61,8 @@ public class PromptBuilder {
 		prompt = prompt.replace("<TYPE>", card.getType());
 		prompt = prompt.replace("<THEME>", deckIdea.getTheme());
 		prompt = prompt.replace("<MANACOST>",card.getManaCost());
+		//prompt = prompt.replace("<ARTSTYLE>", deckIdea.getArtStyle());
+		
 		String cardColours = getDeckColours(deckIdea);
 		prompt = addManaRules(prompt,deckIdea);
 

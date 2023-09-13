@@ -62,7 +62,7 @@ public class CardGenerator {
 		cardDao.updateCard(cardWithAllText, cardWithAllText.getCardId());
 			
 		// call the card composer to make the art.
-		createCardArt(cardWithAllText);
+		createCardArt(cardWithAllText,ideaDao.findByDeckIdeaId(deckIdeaId).getArtStyle());
 
 		
 		
@@ -95,7 +95,7 @@ public class CardGenerator {
 	}
 
 	
-	private int createCardArt(Card card) {
+	private int createCardArt(Card card, String artStyle) {
 		/* ### THIS decides if WE ARE MAKING ART ### */
 		String makeArt = "true";
 
@@ -111,7 +111,7 @@ public class CardGenerator {
 			// #### What we will call when we are generating art ####
 			// ######################################################
 
-			Image art = dalle.generateImage(card.getArtDescription()).getData().get(0);
+			Image art = dalle.generateImage(card.getArtDescription() + ". " +artStyle ).getData().get(0);
 			// get the art from Dall-E URL
 			try {
 				url = new URL(art.getUrl());

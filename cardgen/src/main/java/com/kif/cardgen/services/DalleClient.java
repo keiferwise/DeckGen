@@ -36,7 +36,7 @@ public class DalleClient {
         System.out.println(headers.toString());
         System.out.println(API_KEY);
 
-        prompt = prompt + ". Virtuosic baroque fantasy Painting.";
+        //prompt = prompt + ". Virtuosic baroque fantasy Painting.";
         
         
         Map<String, String> requestBody = new HashMap<>();

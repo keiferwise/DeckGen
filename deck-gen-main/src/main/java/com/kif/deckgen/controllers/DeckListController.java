@@ -68,6 +68,7 @@ public class DeckListController {
     	if (artStyle.isEmpty() || artStyle.isBlank()) {
         	artStyle = "Virtuosic baroque fantasy Painting";
     	}
+    	System.out.println(artStyle);
     	ArrayList<String> manaArray = new ArrayList<String>();
     	Collections.addAll(manaArray, mana);
         UUID deck_idea_id = UUID.randomUUID();
