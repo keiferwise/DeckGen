@@ -150,4 +150,33 @@ public class DecksController {
 		return "card-grid";
 	}
 
+	/**
+	 * 	this controller shows all the cards as images
+
+	 * @param deckId
+	 * @param model
+	 * @return
+	 */
+	@GetMapping("/deck/printable-nine/{deckId}")
+	public String deckCardPrintableNine(@PathVariable String deckId, Model model) {
+		HashMap<String,String[]> cardMap = new HashMap<String,String[]>(); 
+		ArrayList<HashMap<String,String[]>> imageList = new ArrayList<HashMap<String,String[]>>();
+		//Deck deck = deckDao.findDeckById(deckId);
+		//model.addAttribute("cards",deck.getCards());
+		ArrayList<String> images = new ArrayList<String>();
+		for(Card c : deckDao.findDeckById(deckId).getCards()) {
+			cardMap = new HashMap<String,String[]>();
+			cardMap.put("rules", c.getRulesForTemplate("mid").split("<NEWLINE>"));
+			cardMap.put("flavor", c.getFlavorText().split("<NEWLINE>"));
+			cardMap.put("image", new String[] {minio.getImage(c.getCardId())});
+			imageList.add(cardMap);
+			images.add(minio.getImage(c.getCardId()));
+		}
+		
+		model.addAttribute("images",images);
+		model.addAttribute("imageList",imageList);
+
+		return "printable-nine";
+	}
+	
 }
