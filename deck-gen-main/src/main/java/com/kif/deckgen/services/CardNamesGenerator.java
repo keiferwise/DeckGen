@@ -12,6 +12,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.kif.deckgenmodels.Card;
 import com.kif.deckgenmodels.Deck;
 import com.kif.deckgenmodels.DeckIdea;
+import com.kif.deckgenmodels.services.ChatGPTClient;
 /**
  * 
  * @author Keifer
@@ -38,7 +39,6 @@ public Deck generateCardNames(String inputText, DeckIdea deckIdea) {
 		String mana = manaColour(deckIdea);
     	String prompt = promptTemplate.replace("<MYTHEME>", inputText);
     	prompt = prompt.replace("<MANA>", mana);
-    	//prompt = promptTemplate.replace("<VIBE>", vibe);
     	String deck = gptClient.generateCompletion(prompt, 1500);
     	Deck deckObject = new Deck();
     	

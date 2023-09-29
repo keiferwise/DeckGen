@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.kif.deckgen.services.CardComposer;
 import com.kif.deckgen.services.CardGenerator;
-import com.kif.deckgen.services.DalleClient;
+import com.kif.deckgenmodels.services.DalleClient;
 import com.kif.deckgen.services.DeckGenerator;
 import com.kif.deckgen.services.DeckService;
 import com.kif.deckgenmodels.Card;

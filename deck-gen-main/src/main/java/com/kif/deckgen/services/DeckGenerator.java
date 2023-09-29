@@ -21,6 +21,7 @@ import com.kif.deckgenmodels.DeckIdea;
 import com.kif.deckgenmodels.Image;
 import com.kif.deckgenmodels.daos.CardDao;
 import com.kif.deckgenmodels.daos.MinioDao;
+import com.kif.deckgenmodels.services.DalleClient;
 
 import org.springframework.web.reactive.function.client.WebClient;
 import org.springframework.web.reactive.function.client.WebClient.Builder;
@@ -34,7 +35,6 @@ public class DeckGenerator implements Runnable {
 
 	// @Autowired
 	// CardGenerator cardGenerator;
-	// @Value("${com.kif.generateImages}")
 	String makeArt;
 
 	DalleClient dalle;

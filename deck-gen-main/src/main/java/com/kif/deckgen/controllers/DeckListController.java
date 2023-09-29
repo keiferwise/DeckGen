@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.kif.deckgen.services.ChatGPTClient;
+import com.kif.deckgenmodels.services.ChatGPTClient;
 import com.kif.deckgenmodels.Card;
 import com.kif.deckgenmodels.Deck;
 import com.kif.deckgenmodels.DeckIdea;

@@ -18,10 +18,14 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.kif.deckgenmodels.Card;
 import com.kif.deckgenmodels.DeckIdea;
 import com.kif.deckgenmodels.Image;
+import com.kif.deckgenmodels.services.ChatGPTClient;
+import com.kif.deckgenmodels.services.DalleClient;
+
 import com.kif.deckgenmodels.daos.CardDao;
 import com.kif.deckgenmodels.daos.DeckIdeaDao;
 import com.kif.deckgenmodels.daos.MinioDao;
-import com.kif.cardgen.services.*;
+
+
 
 /**
  * 

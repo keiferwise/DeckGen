@@ -1,10 +1,13 @@
 com\kif\deckgenmodels\daos\MinioDao.class
 com\kif\deckgenmodels\DeckIdea.class
 com\kif\deckgenmodels\daos\package-info.class
+com\kif\deckgenmodels\services\ChatGPTClient.class
 com\kif\deckgenmodels\User.class
 com\kif\deckgenmodels\daos\DeckIdeaDao.class
+com\kif\deckgenmodels\services\package-info.class
 com\kif\deckgenmodels\Image.class
 com\kif\deckgenmodels\package-info.class
+com\kif\deckgenmodels\services\DalleClient.class
 com\kif\deckgenmodels\daos\CardRowMapper.class
 com\kif\deckgenmodels\Deck.class
 com\kif\deckgenmodels\daos\CardDao.class

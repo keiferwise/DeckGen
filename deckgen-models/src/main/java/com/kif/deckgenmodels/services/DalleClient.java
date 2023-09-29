@@ -1,4 +1,4 @@
-package com.kif.cardgen.services;
+package com.kif.deckgenmodels.services;
 
 
 import java.util.HashMap;

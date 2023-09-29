@@ -1,4 +1,4 @@
-package com.kif.deckservice.services;
+package com.kif.deckgenmodels.services;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import org.springframework.context.annotation.PropertySource;
