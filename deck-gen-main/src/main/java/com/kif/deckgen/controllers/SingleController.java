@@ -12,7 +12,7 @@ public class SingleController {
 	
 	@GetMapping("/new-single")
 	public String newSingle() {
-		return "Single";
+		return "card-gen";
 	}
 	
 	

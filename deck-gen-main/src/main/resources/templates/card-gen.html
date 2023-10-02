@@ -14,15 +14,15 @@
 <div class="dg-deck-input-box row">
 	<form method="post" th:action="@{/submit-card}">
 		<div>
-			<label for="theme">What is the theme of your deck:</label>
+			<label for="theme">What is the theme of your Card:</label>
 			<input type="text" id="theme" name="theme">
 		</div>
 		<div>
-			<label for="cardName">Name your deck:</label>
+			<label for="cardName">Card Name:</label>
 			<input type="text" id="cardName" name="cardName">
 		</div>
 		<div>
-			<label for="type">Add a Legend</label>
+			<label for="type">Card Type</label>
 			<input type="text" id="type" name="type">
 		</div>
 				<div>
@@ -30,25 +30,29 @@
 			<input type="text" id="artStyle" name="artStyle">
 		</div>
 
-		<div id="checkboxdiv">
-			<label for="checkboxdiv">Choose mana colours</label>
-
-			<input type="checkbox" id="red" name="mana" th:value="red" />
+	
+<div>
 			<label for="red">Red</label>
+						<input type="number" id="red" name="red"  />
 
-			<input type="checkbox" id="blue" name="mana" th:value="blue" />
+</div>
 			<label for="blue">Blue</label>
+						<input type="number" id="blue" name="blue"  />
 
-			<input type="checkbox" id="green" name="mana" th:value="green" />
+<div>
 			<label for="green">Green</label>
+						<input type="number" id="green" name="green"  />
 
-			<input type="checkbox" id="white" name="mana" th:value="white" />
+</div>
 			<label for="white">White</label>
-
-			<input type="checkbox" id="black" name="mana" th:value="black" />
-			<label for="black">Black</label>
-		</div>
-
+			<input type="number" id="white" name="white"  />
+<div>
+				<label for="black">Black</label>
+			<input type="number" id="black" name="black"  />
+</div>
+		
+        <label for="colourless">Colourless</label>
+       	<input type="number" id="colourless" name="colourless">
 
 		<div id="tone-selector">
 			<label for="tone-selector">
@@ -77,10 +81,8 @@
 			</label>
 		</div>
 
-		<!--/*	
-        <label for=""></label>
-       	<input type="" id="" name="">
-       	
+
+       	<!--/*	
         <label for=""></label>
        	<input type="" id="" name="">
        	
