@@ -38,6 +38,16 @@ public class CardDao {
 		return cards;
 		
 	}
+	public List<Card> nineRandom(){
+		
+		List<Card> cards = new ArrayList<Card>();
+        String sql = "SELECT * FROM card ORDER BY RAND() LIMIT 9";
+        
+        cards = jdbcTemplate.query(sql, cardRowMapper);
+        //System.out.println(cards.isEmpty());
+		return cards;
+		
+	}
 	
 	public int saveAll( List<Card> list, UUID myUuid) {
 		int result=0;

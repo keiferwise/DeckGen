@@ -49,6 +49,12 @@ public class DeckListController {
     private DeckIdeaDao ideaDao;
     
     @GetMapping("/")
+    public String home() {
+    	minioDao.testBucket();
+        return "home";
+    }
+    
+    @GetMapping("/deck-gen")
     public String showInputPage() {
     	minioDao.testBucket();
         return "deck-gen";
