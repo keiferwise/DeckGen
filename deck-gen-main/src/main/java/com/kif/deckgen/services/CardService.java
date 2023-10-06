@@ -27,7 +27,7 @@ public class CardService {
     	
     	
 		return webClient.post()
-	            .uri("/create-card-for-deck")
+	            .uri("/create-card")
 	            .header(HttpHeaders.CONTENT_TYPE, "application/json") // Set the Content-Type header
 	            .bodyValue(requestBody)
 	            .retrieve()

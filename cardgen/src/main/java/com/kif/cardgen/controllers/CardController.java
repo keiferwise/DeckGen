@@ -11,6 +11,7 @@ import com.kif.cardgen.services.CardGenerator;
 import com.kif.deckgenmodels.Card;
 import com.kif.deckgenmodels.CardRequest;
 import com.kif.deckgenmodels.DeckIdea;
+import com.kif.deckgenmodels.SingleRequest;
 
 import org.springframework.web.bind.annotation.RequestBody;
 
@@ -38,11 +39,17 @@ public class CardController {
 	}
 	
 	@PostMapping("/create-card")
-	public ResponseEntity<String> createCard(@RequestBody String requestBody) {
+	public ResponseEntity<String> createCard(@RequestBody SingleRequest sr) {
 		System.out.println("creating SINGLE card");
-		System.out.println(requestBody.toString());
+		System.out.println(sr.toString());
 		// PARAMETERS: name,
+		
+		Card nc = new Card();
+		
+		
 		cardGenerator.createSingleCard( );
+		
+		
 		return ResponseEntity.ok("Request received successfully!");
 	}
 
