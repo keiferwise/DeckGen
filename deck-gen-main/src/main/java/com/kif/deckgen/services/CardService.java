@@ -19,6 +19,22 @@ public class CardService {
     }
 	
 
+    public Mono<String> createSingle(String name, String type, String theme,String artStyle,String vibe, String mana){
+    	
+    	
+    	String requestBody= "1";
+    	
+    	
+    	
+		return webClient.post()
+	            .uri("/create-card-for-deck")
+	            .header(HttpHeaders.CONTENT_TYPE, "application/json") // Set the Content-Type header
+	            .bodyValue(requestBody)
+	            .retrieve()
+	            .bodyToMono(String.class);
+    }
+    
+    
 	public Mono<String> createCard(String cardId, String theme, String deckId) {
 		System.out.println("sending request to card microservice");
 		

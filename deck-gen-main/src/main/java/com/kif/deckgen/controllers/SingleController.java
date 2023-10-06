@@ -4,18 +4,23 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.UUID;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.kif.deckgen.services.CardService;
 import com.kif.deckgenmodels.Deck;
 import com.kif.deckgenmodels.DeckIdea;
 
 @Controller
 public class SingleController {
 
+	@Autowired
+	CardService cs;
+	
 	public SingleController() {
 		// TODO Auto-generated constructor stub
 	}
