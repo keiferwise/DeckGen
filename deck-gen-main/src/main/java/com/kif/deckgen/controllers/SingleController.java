@@ -34,7 +34,7 @@ public class SingleController {
 	
 
     @PostMapping("/submit-card")
-    public String processInput(
+    public String makeSingle(
     		@RequestParam("cardName") String name, 
     		@RequestParam("theme") String theme, 
     		@RequestParam("type") String type,
@@ -48,7 +48,7 @@ public class SingleController {
     		@RequestParam("artStyle") String artStyle,
     		Model model) {
     	System.out.println(name + ", "+ theme + ", "+type + ", "+white + ", "+ blue + ", "+black + ", "+red + ", "+ green+ ", "+ colourless + ", "+ vibe+ ", "+ artStyle);
-
+    	cs.createSingle(name, type, theme, artStyle, vibe, artStyle);
         return "decks";
     }
 	

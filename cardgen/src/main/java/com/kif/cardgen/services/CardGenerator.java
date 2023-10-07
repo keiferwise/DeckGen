@@ -18,6 +18,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.kif.deckgenmodels.Card;
 import com.kif.deckgenmodels.DeckIdea;
 import com.kif.deckgenmodels.Image;
+import com.kif.deckgenmodels.SingleRequest;
 import com.kif.deckgenmodels.services.ChatGPTClient;
 import com.kif.deckgenmodels.services.DalleClient;
 
@@ -77,23 +78,17 @@ public class CardGenerator {
 	private Card createCardText(String cardid, String theme, String deckIdeaId) {
 		Card card = cardDao.getCardById(cardid);
 		DeckIdea deckIdea = ideaDao.findByDeckIdeaId(deckIdeaId);
+		Card newCard = null;
 
+		
+		
 		String prompt = pb.buildCardPrompt(card, deckIdea);
 
-		// System.out.println("the prompt is... "+prompt);
-		String newCardJson = gptClient.generateCompletion(prompt, 2000);
-		// System.out.println(newCardJson);
-
-		Card newCard = null;
-		try {
-			newCard = objectMapper.readValue(newCardJson, Card.class);
-		} catch (JsonProcessingException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		newCard = sendPromptToGpt(prompt);
+	
 		System.out.println(newCard.toString());
-		newCard.setCardId(card.getCardId());
-		newCard.setDeckId(card.getDeckId());
+		//newCard.setCardId(card.getCardId());
+		//newCard.setDeckId(card.getDeckId());
 		// System.out.println(card.getName());
 		return newCard;
 	}
@@ -154,10 +149,49 @@ public class CardGenerator {
 
 	}
 	
+	public Card createSingleCard(SingleRequest sr) {
+		Card newCard = createSingleCardText(sr);
+		createCardArt(newCard,sr.getArtStyle());
+		return newCard;
+		
+	}
 
-	public void createSingleCard() {
+	public Card createSingleCardText(SingleRequest sr) {
 		// TODO Auto-generated method stub
+		
+		Card card = new Card();
+		DeckIdea idea = new DeckIdea();
+		card.setName(sr.getName());
+		card.setManaCost(sr.getMana());
+		card.setType(sr.getType());
+		idea.setArtStyle(sr.getArtStyle());
+		idea.setTheme(sr.getTheme());
+		idea.setVibe(sr.getVibe());
+		String prompt = pb.buildCardPrompt(null, null);
+		
+		return  sendPromptToGpt(prompt);
 
+
+	}
+	
+	
+	private Card sendPromptToGpt(String prompt) {
+		String newCardJson = gptClient.generateCompletion(prompt, 2000);
+		// System.out.println(newCardJson);
+
+		Card newCard = null;
+		try {
+			newCard = objectMapper.readValue(newCardJson, Card.class);
+		} catch (JsonProcessingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		System.out.println(newCard.toString());
+		//newCard.setCardId(card.getCardId());
+		//newCard.setDeckId(card.getDeckId());
+		// System.out.println(card.getName());
+		return newCard;
+		
 	}
 }
 //THERE IS THREE METHODS WE DON'T SEEM TO BE USING HERE

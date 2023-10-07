@@ -22,9 +22,17 @@ public class CardService {
     public Mono<String> createSingle(String name, String type, String theme,String artStyle,String vibe, String mana){
     	
     	
-    	String requestBody= "1";
+    	String requestBody;
     	
+    	SingleRequest sr = new SingleRequest();
+    	sr.setArtStyle(artStyle);
+    	sr.setMana(mana);
+    	sr.setName(name);
+    	sr.setTheme(theme);
+    	sr.setType(type);
+    	sr.setVibe(vibe);
     	
+    	requestBody = convertSingleToJson(sr);
     	
 		return webClient.post()
 	            .uri("/create-card")
@@ -62,6 +70,19 @@ public class CardService {
 		            .retrieve()
 		            .bodyToMono(String.class);
 		
+	}
+	
+	private String convertSingleToJson(SingleRequest sr) {
+		String json="";
+		ObjectMapper mapper = new ObjectMapper();
+		try {
+			 json=mapper.writeValueAsString(sr);
+			 System.out.println("Object converted to JSON String: " + json.toString());
+		} catch (JsonProcessingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return json;
 	}
 
 }

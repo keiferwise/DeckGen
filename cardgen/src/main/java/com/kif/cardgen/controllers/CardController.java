@@ -47,7 +47,7 @@ public class CardController {
 		Card nc = new Card();
 		
 		
-		cardGenerator.createSingleCard( );
+		nc = cardGenerator.createSingleCard(sr );
 		
 		
 		return ResponseEntity.ok("Request received successfully!");
