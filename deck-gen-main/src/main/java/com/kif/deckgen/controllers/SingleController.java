@@ -2,6 +2,7 @@ package com.kif.deckgen.controllers;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.List;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -48,8 +49,29 @@ public class SingleController {
     		@RequestParam("artStyle") String artStyle,
     		Model model) {
     	System.out.println(name + ", "+ theme + ", "+type + ", "+white + ", "+ blue + ", "+black + ", "+red + ", "+ green+ ", "+ colourless + ", "+ vibe+ ", "+ artStyle);
-    	cs.createSingle(name, type, theme, artStyle, vibe, artStyle);
+    	
+    	String mana = convertManaToString(white, blue,black,red,green,colourless);
+    	System.out.println(mana);
+    	cs.createSingle(name, type, theme, artStyle, vibe, mana).subscribe();
         return "decks";
+    }
+    
+    private String convertManaToString(Integer white, Integer blue, Integer black, Integer red, Integer green, Integer colourless) {
+    	
+    	String mana  = colourless.toString();
+    	int counter=0;
+    	ArrayList<Integer> wubrg = new ArrayList<Integer>(List.of(white,blue,black,red,green));
+    	ArrayList<String> wubrgLables = new ArrayList<String>(List.of("W","U","B","R","G"));
+    	
+    	for (Integer colour : wubrg){
+    		for(int i = 0; i<colour; i++){
+    			mana = mana + wubrgLables.get(counter);
+    		}
+    		counter++;
+    	}
+    	
+    	
+    	return "WUBRG";
     }
 	
 	

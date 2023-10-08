@@ -167,7 +167,7 @@ public class CardGenerator {
 		idea.setArtStyle(sr.getArtStyle());
 		idea.setTheme(sr.getTheme());
 		idea.setVibe(sr.getVibe());
-		String prompt = pb.buildCardPrompt(null, null);
+		String prompt = pb.buildCardPrompt(card, idea);
 		
 		return  sendPromptToGpt(prompt);
 

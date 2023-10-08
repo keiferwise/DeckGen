@@ -9,6 +9,7 @@ com\kif\deckgenmodels\Image.class
 com\kif\deckgenmodels\package-info.class
 com\kif\deckgenmodels\services\DalleClient.class
 com\kif\deckgenmodels\daos\CardRowMapper.class
+com\kif\deckgenmodels\SingleRequest.class
 com\kif\deckgenmodels\Deck.class
 com\kif\deckgenmodels\daos\CardDao.class
 com\kif\deckgenmodels\CardRequest.class

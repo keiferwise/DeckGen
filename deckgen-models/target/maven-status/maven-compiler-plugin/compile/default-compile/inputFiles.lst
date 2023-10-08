@@ -1,6 +1,7 @@
 D:\deckgen\deckgen-models\src\main\java\com\kif\deckgenmodels\CardRequest.java
 D:\deckgen\deckgen-models\src\main\java\com\kif\deckgenmodels\ImageResult.java
 D:\deckgen\deckgen-models\src\main\java\com\kif\deckgenmodels\Image.java
+D:\deckgen\deckgen-models\src\main\java\com\kif\deckgenmodels\SingleRequest.java
 D:\deckgen\deckgen-models\src\main\java\com\kif\deckgenmodels\daos\DeckIdeaDao.java
 D:\deckgen\deckgen-models\src\main\java\com\kif\deckgenmodels\Deck.java
 D:\deckgen\deckgen-models\src\main\java\com\kif\deckgenmodels\User.java
