@@ -7,15 +7,15 @@ mvn clean install
 
 #build cardgen
 Set-Location ..\cardgen
-mvn clean install
+#mvn clean install
 
 #build deckservice
 Set-Location ..\deckservice
-mvn clean install
+#mvn clean install
 
 #build main
 Set-Location ..\deck-gen-main
-mvn clean install
+#mvn clean install
 
 #start the webservices
 Start-Process powershell -ArgumentList "-NoProfile -Command Set-Location 'D:\Deckgen\cardgen';  mvn spring-boot:run" -WindowStyle Normal

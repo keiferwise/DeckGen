@@ -149,8 +149,9 @@ public class CardGenerator {
 
 	}
 	
-	public Card createSingleCard(SingleRequest sr) {
+	public Card createSingleCard(SingleRequest sr,String cardId) {
 		Card newCard = createSingleCardText(sr);
+		newCard.setCardId(cardId);
 		createCardArt(newCard,sr.getArtStyle());
 		return newCard;
 		

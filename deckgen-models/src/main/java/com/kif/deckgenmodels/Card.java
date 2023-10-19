@@ -138,6 +138,8 @@ public class Card {
     	 rt = rt.replaceAll("\\{Tap\\}", "<img class=\"mana-icon\"src=\"/images/2.png\"/>");
     	 rt = rt.replaceAll("\\{TAP\\}", "<img class=\"mana-icon\"src=\"/images/2.png\"/>");
     	 rt = rt.replaceAll("\\{C\\}", "<img class=\"mana-icon\"src=\"/images/1.png\"/>");
+    	 rt = rt.replaceAll("\\{B\\}", "<img class=\"mana-icon\"src=\"/images/b.png\"/>");
+
     	 rt = rt.replaceAll("\\{W\\}", "<img class=\"mana-icon\"src=\"/images/w.png\"/>");
     	 rt = rt.replaceAll("\\{X\\}", "<img class=\"mana-icon\"src=\"/images/x.png\"/>");
     	 rt = rt.replaceAll("\\{R\\}", "<img class=\"mana-icon\"src=\"/images/r.png\"/>");

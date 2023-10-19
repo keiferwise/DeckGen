@@ -1,8 +1,11 @@
 package com.kif.cardgen.controllers;
 
+import java.util.UUID;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -46,11 +49,11 @@ public class CardController {
 		
 		Card nc = new Card();
 		
-		
-		nc = cardGenerator.createSingleCard(sr );
-		
-		
-		return ResponseEntity.ok("Request received successfully!");
+		String newCardId = UUID.randomUUID().toString();
+		nc = cardGenerator.createSingleCard(sr,newCardId);
+		cardDao.save(nc,"ac622aad-fca1-4b90-a837-026e35d3a761",newCardId); 
+
+		return ResponseEntity.ok(newCardId);
 	}
 
 }

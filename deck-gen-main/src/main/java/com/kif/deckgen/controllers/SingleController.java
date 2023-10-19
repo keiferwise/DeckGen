@@ -13,14 +13,24 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.kif.deckgen.services.CardService;
+import com.kif.deckgenmodels.Card;
 import com.kif.deckgenmodels.Deck;
 import com.kif.deckgenmodels.DeckIdea;
+import com.kif.deckgenmodels.Image;
+import com.kif.deckgenmodels.daos.CardDao;
+import com.kif.deckgenmodels.daos.MinioDao;
 
 @Controller
 public class SingleController {
 
 	@Autowired
 	CardService cs;
+	
+	@Autowired
+	MinioDao minio;
+	
+	@Autowired
+	CardDao cardDao;
 	
 	public SingleController() {
 		// TODO Auto-generated constructor stub
@@ -52,13 +62,36 @@ public class SingleController {
     	
     	String mana = convertManaToString(white, blue,black,red,green,colourless);
     	System.out.println(mana);
-    	cs.createSingle(name, type, theme, artStyle, vibe, mana).subscribe();
-        return "decks";
+    	String response  = cs.createSingle(name, type, theme, artStyle, vibe, mana).block().trim();
+    	System.out.println("#Response start#");
+
+    	System.out.println(response);
+    	
+    	System.out.println("#Response end#");
+
+		//model.addAttribute("cardId", response);
+		Card card = cardDao.getCardById(response);
+    	//System.out.println(card.getArtDescription());
+
+    	Image image = new Image();
+    	image.setUrl(minio.getImage(response));
+    	model.addAttribute("image",image);
+    	model.addAttribute("flavor", card.getFlavorText().split("<NEWLINE>"));
+    	model.addAttribute("rules", card.getRulesText().split("<NEWLINE>"));
+    	
+    	
+        return "single";
     }
     
     private String convertManaToString(Integer white, Integer blue, Integer black, Integer red, Integer green, Integer colourless) {
     	
-    	String mana  = colourless.toString();
+    	String mana = "";
+    	if(colourless.equals(0)) {
+    		
+    	}else {
+        	mana  = colourless.toString();
+
+    	}
     	int counter=0;
     	ArrayList<Integer> wubrg = new ArrayList<Integer>(List.of(white,blue,black,red,green));
     	ArrayList<String> wubrgLables = new ArrayList<String>(List.of("W","U","B","R","G"));
@@ -71,7 +104,7 @@ public class SingleController {
     	}
     	
     	
-    	return "WUBRG";
+    	return mana;
     }
 	
 	
