@@ -132,14 +132,18 @@ public class Card {
 	}
     public String getRulesForTemplate(String size) {
     	
-    	String rt = rulesText.replaceAll("\\{W\\}", "<img class=\"mana-icon\" src=\"/images/w.png\"/>");
+    	String rt = 
+    			rulesText.replaceAll("\\{W\\}", "<img class=\"mana-icon\" src=\"/images/w.png\"/>");
     	 rt = rt.replaceAll("\\{U\\}", "<img class=\"mana-icon\"src=\"/images/u.png\"/>");
+    	 rt = rt.replaceAll("\\{u\\}", "<img class=\"mana-icon\"src=\"/images/u.png\"/>");
+
     	 rt = rt.replaceAll("\\{T\\}", "<img class=\"mana-icon\"src=\"/images/tap.png\"/>");
+    	 rt = rt.replaceAll("\\{t\\}", "<img class=\"mana-icon\"src=\"/images/tap.png\"/>");
+
     	 rt = rt.replaceAll("\\{Tap\\}", "<img class=\"mana-icon\"src=\"/images/2.png\"/>");
     	 rt = rt.replaceAll("\\{TAP\\}", "<img class=\"mana-icon\"src=\"/images/2.png\"/>");
     	 rt = rt.replaceAll("\\{C\\}", "<img class=\"mana-icon\"src=\"/images/1.png\"/>");
     	 rt = rt.replaceAll("\\{B\\}", "<img class=\"mana-icon\"src=\"/images/b.png\"/>");
-
     	 rt = rt.replaceAll("\\{W\\}", "<img class=\"mana-icon\"src=\"/images/w.png\"/>");
     	 rt = rt.replaceAll("\\{X\\}", "<img class=\"mana-icon\"src=\"/images/x.png\"/>");
     	 rt = rt.replaceAll("\\{R\\}", "<img class=\"mana-icon\"src=\"/images/r.png\"/>");

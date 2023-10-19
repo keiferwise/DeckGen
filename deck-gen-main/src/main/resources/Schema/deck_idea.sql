@@ -1,4 +1,3 @@
-drop table deck_idea;
 
 use deckgendb;
 
