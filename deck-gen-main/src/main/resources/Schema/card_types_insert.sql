@@ -9,5 +9,9 @@ insert into card_type values("Legendary Creature","118");
 insert into card_type values("Legendary Artifact","119");
 insert into card_type values("Tribal Sorcery","120");
 insert into card_type values("Legendary Land","121");
+insert into card_type values("Artifact Creature","122");
+insert into card_type values("Legendary Artifact Creature","123");
+insert into card_type values("Artifact Land","124");
+
 
 commit;
