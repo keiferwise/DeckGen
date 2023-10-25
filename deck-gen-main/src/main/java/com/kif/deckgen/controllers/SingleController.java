@@ -58,16 +58,16 @@ public class SingleController {
     		@RequestParam("vibe") String vibe,
     		@RequestParam("artStyle") String artStyle,
     		Model model) {
-    	System.out.println(name + ", "+ theme + ", "+type + ", "+white + ", "+ blue + ", "+black + ", "+red + ", "+ green+ ", "+ colourless + ", "+ vibe+ ", "+ artStyle);
+    	//System.out.println(name + ", "+ theme + ", "+type + ", "+white + ", "+ blue + ", "+black + ", "+red + ", "+ green+ ", "+ colourless + ", "+ vibe+ ", "+ artStyle);
     	
     	String mana = convertManaToString(white, blue,black,red,green,colourless);
-    	System.out.println(mana);
+    	//System.out.println(mana);
     	String response  = cs.createSingle(name, type, theme, artStyle, vibe, mana).block().trim();
-    	System.out.println("#Response start#");
+    	//System.out.println("#Response start#");
 
-    	System.out.println(response);
+    	//System.out.println(response);
     	
-    	System.out.println("#Response end#");
+    	//System.out.println("#Response end#");
 
 		//model.addAttribute("cardId", response);
 		Card card = cardDao.getCardById(response);

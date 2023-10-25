@@ -62,8 +62,18 @@ public class CardController {
     	Image image = new Image();
     	image.setUrl(minio.getImage(cardId));
     	model.addAttribute("image",image);
-    	model.addAttribute("flavor", card.getFlavorText().split("<NEWLINE>"));
-    	model.addAttribute("rules", card.getRulesForTemplate("small").split("<NEWLINE>"));
+    	if(card.getFlavorText()!=null) {
+        	model.addAttribute("flavor", card.getFlavorText().split("<NEWLINE>"));
+    	}else {
+        	model.addAttribute("flavor", "");
+
+    	}
+    	if(card.getRulesText()!=null) {
+        	model.addAttribute("rules", card.getRulesForTemplate("small").split("<NEWLINE>"));
+    	}else {
+        	model.addAttribute("rules", "");
+
+    	}
     	model.addAttribute("font-size",card.getTextSize("small"));
         return "card";
     }

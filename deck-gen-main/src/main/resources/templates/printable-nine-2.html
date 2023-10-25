@@ -2,29 +2,26 @@
 	<link th:href="@{/css/style.css}" rel="stylesheet" />
 </head>
 <style>
-	.image-grid {
-		display: grid;
-		grid-template-columns: repeat(3, 600px);
-		grid-gap: 0px;
-		background-color: white;
-	}
-
-	* {
-		margin: 0;
-		padding: 0;
-	}
-
-	body {
-		background-color: white;
-	}
+        .image-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 600px);
+            grid-gap: 0px;
+            background-color: white;
+        }
+        * {
+  margin: 0;
+  padding: 0;
+}
+body {
+  	background-color:  white;
+}
 </style>
 
 <div class="image-grid">
-	<div th:each="map : ${imageList}">
-
+	<div  th:each="map : ${imageList}">
 		<div class="card-container">
 			<img class="image" th:src="${map.get('image')[0]}">
-			<div name="rfb" class="rules-and-flavor-box" id="myOutput">
+			<div class="rules-and-flavor-box">
 				<div class="rules" th:each="rule : ${map.get('rules')}">
 					<div th:utext="${rule}"></div>
 				</div>
@@ -35,6 +32,3 @@
 		</div>
 	</div>
 </div>
-
-	<!--<script type="text/javascript" th:src="@{/js/sizeText.js}"></script>-->
-		<script type="text/javascript" th:src="@{/js/isTextOverflowing2.js}"></script>

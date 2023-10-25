@@ -64,6 +64,7 @@ public class CardGenerator {
 		
 		//  Call createCardText method 
 		Card cardWithAllText = createCardText(cardid, theme, deckIdeaId);
+		System.out.println("This is the card we are about to update"+cardWithAllText.toString());
 		cardDao.updateCard(cardWithAllText, cardWithAllText.getCardId());
 			
 		// call the card composer to make the art.
@@ -87,8 +88,8 @@ public class CardGenerator {
 		newCard = sendPromptToGpt(prompt);
 	
 		System.out.println(newCard.toString());
-		//newCard.setCardId(card.getCardId());
-		//newCard.setDeckId(card.getDeckId());
+		newCard.setCardId(card.getCardId());
+		newCard.setDeckId(card.getDeckId());
 		// System.out.println(card.getName());
 		return newCard;
 	}

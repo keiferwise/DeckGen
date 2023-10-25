@@ -34,9 +34,9 @@ public class CardController {
 		System.out.println("creating card");
 		System.out.println(cr.toString());
 		// Create something to 
-		
+		System.out.println("have we lost the card ID? "+cr.getCardId());
+
 		cardGenerator.createCard(cr.getCardId(), cr.getTheme(), cr.getDeckIdeaId());
-		
 		// CreateCard(Card card, String theme, DeckIdea deckIdea)
 		return ResponseEntity.ok("Request received successfully!");
 	}

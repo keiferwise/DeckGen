@@ -165,7 +165,7 @@ public class Card {
     	 else if(size.equals("large")) {
     		 rt= rt.replaceAll("mana-icon", "mana-icon-large");
     	 }
-    	 System.out.println(rt);
+    	 //System.out.println(rt);
     	 
     	 
     	return rt;
