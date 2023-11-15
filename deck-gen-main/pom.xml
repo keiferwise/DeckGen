@@ -6,7 +6,7 @@
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
 		<version>3.1.2</version>
-		<relativePath/> <!-- lookup parent from repository -->
+		<relativePath /> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.kif</groupId>
 	<artifactId>deckgen</artifactId>
@@ -18,9 +18,13 @@
 	</properties>
 	<dependencies>
 		<dependency>
-		  <groupId>io.minio</groupId>
-		  <artifactId>minio</artifactId>
-		  <version>8.5.2</version>
+			<groupId>io.minio</groupId>
+			<artifactId>minio</artifactId>
+			<version>8.5.2</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-jdbc</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -47,10 +51,10 @@
 			<artifactId>thymeleaf-extras-springsecurity6</artifactId>
 		</dependency>
 		<dependency>
-        <groupId>com.kif</groupId> <!-- Replace with your shared model project's groupId -->
-        <artifactId>deckgenmodels</artifactId> <!-- Replace with your shared model project's artifactId -->
-        <version>0.0.1-SNAPSHOT</version> <!-- Replace with the appropriate version -->
-    </dependency>
+			<groupId>com.kif</groupId> <!-- Replace with your shared model project's groupId -->
+			<artifactId>deckgenmodels</artifactId> <!-- Replace with your shared model project's artifactId -->
+			<version>0.0.1-SNAPSHOT</version> <!-- Replace with the appropriate version -->
+		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-devtools</artifactId>
@@ -77,12 +81,11 @@
 			<artifactId>spring-security-test</artifactId>
 			<scope>test</scope>
 		</dependency>
-		    <dependency>
-      <groupId>org.springframework.boot</groupId>
-      <artifactId>spring-boot-starter-webflux</artifactId>
-    </dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-webflux</artifactId>
+		</dependency>
 	</dependencies>
-
 	<build>
 		<plugins>
 			<plugin>
@@ -91,5 +94,4 @@
 			</plugin>
 		</plugins>
 	</build>
-
 </project>
