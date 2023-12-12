@@ -44,8 +44,9 @@ public class SingleController {
 	@GetMapping("/new-single")
 	public String newSingle(Model model) {
 		
-		ArrayList<CardType> types = cardTypeDao.getCardTypes();
-		model.addAttribute(types);
+		List<CardType> types = cardTypeDao.getCardTypes();
+		System.out.println(types.toString());
+		model.addAttribute("types",types);
 		return "card-gen";
 	}
 	

@@ -19,12 +19,12 @@ public class CardTypeDao {
 		// TODO Auto-generated constructor stub
 	}
 	
-	public ArrayList<CardType> getCardTypes(){
-		ArrayList<CardType> cardTypes = new ArrayList<CardType>();
+	public List<CardType> getCardTypes(){
+		List<CardType> cardTypes = new ArrayList<CardType>();
         String sql = "SELECT * FROM card_type";
 
         
-        jdbcTemplate.query(sql, cardTypeRowMapper);
+        cardTypes = jdbcTemplate.query(sql, cardTypeRowMapper);
 		
 		System.out.println();
 		return cardTypes;
