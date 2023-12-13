@@ -5,6 +5,7 @@ public class CardRequest {
 	public CardRequest() {
 		// TODO Auto-generated constructor stub
 	}
+	
 	public CardRequest(String cardId, String theme, String deckId) {
 		// TODO Auto-generated constructor stub
 		this.cardId = cardId;

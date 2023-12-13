@@ -1,6 +1,9 @@
+drop table card_type;
+
 create table card_type (
-	type_id varchar(36),
-    type_name varchar(50)
+	
+    type_name varchar(50),
+    type_id varchar(36)
     );
     
     
