@@ -20,9 +20,9 @@ public class CardSubtypeDao {
 		// TODO Auto-generated constructor stub
 	}
 	
-	public List<CardSubtype> getCardTypes(){
+	public List<CardSubtype> getCardSubtypes(){
 		List<CardSubtype> cardSubtypes = new ArrayList<CardSubtype>();
-        String sql = "SELECT * FROM card_subtype";
+        String sql = "SELECT * FROM sub_type";
 
         
         cardSubtypes = jdbcTemplate.query(sql, cardSubtypeRowMapper);

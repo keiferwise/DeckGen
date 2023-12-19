@@ -5,6 +5,12 @@
 	<meta charset="UTF-8">
 	<title>Make a Single Card</title>
 </head>
+<script th:inline="javascript">
+  var types = /*[[${types}]]*/ [];
+  var subtypes = /*[[${subtypes}]]*/ [];
+</script>
+
+<script type="text/javascript" th:src="@{/js/typeSubtype.js}"></script>
 
 <body>
 	<div th:replace="fragments/background-open"></div>
@@ -23,14 +29,15 @@
 				</div>
 				<div>
 					<label for="type">Card Type</label>
-					<select id="type" name="type">
+					<select id="type" name="type" onchange="filterOptions()">
 						<option th:each="tp : ${types}" th:value="${tp.type_name}" th:text="${tp.type_name}"></option>
 					</select>
 				</div>
 				<div>
 					<label for="subtype">Card Subtype</label>
-					<input type="text" id="subtype" name="subtype">
-				</div>
+					<select id="subtype" name="subtype">
+						<option th:each="stp : ${subtypes}" th:value="${stp.subtype_name}" th:text="${stp.subtype_name}"></option>
+					</select>				</div>
 				<div>
 					<label for="artStyle">Choose and Art Style</label>
 					<input type="text" id="artStyle" name="artStyle">

@@ -11,6 +11,7 @@ public class CardSubtype {
 	private String subtype_id;
 	
 	
+	
 	@Override
 	public String toString() {
 		return "CardSubtype [type_id=" + type_id + ", subtype_name=" + subtype_name + ", subtype_id=" + subtype_id

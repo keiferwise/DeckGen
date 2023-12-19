@@ -20,8 +20,8 @@ public class CardSubtypeRowMapper implements RowMapper<CardSubtype> {
 		
 		CardSubtype cardSubtype = new CardSubtype();
 		cardSubtype.setType_id(rs.getString("type_id"));
-		cardSubtype.setSubtype_name(rs.getString("subtype_name"));
-		cardSubtype.setSubtype_id(rs.getString("type_id"));
+		cardSubtype.setSubtype_name(rs.getString("sub_type_name"));
+		cardSubtype.setSubtype_id(rs.getString("sub_type_id"));
 
 		return cardSubtype;
 	

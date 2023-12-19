@@ -14,11 +14,13 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.kif.deckgen.services.CardService;
 import com.kif.deckgenmodels.Card;
+import com.kif.deckgenmodels.CardSubtype;
 import com.kif.deckgenmodels.CardType;
 import com.kif.deckgenmodels.Deck;
 import com.kif.deckgenmodels.DeckIdea;
 import com.kif.deckgenmodels.Image;
 import com.kif.deckgenmodels.daos.CardDao;
+import com.kif.deckgenmodels.daos.CardSubtypeDao;
 import com.kif.deckgenmodels.daos.CardTypeDao;
 import com.kif.deckgenmodels.daos.MinioDao;
 
@@ -37,6 +39,9 @@ public class SingleController {
 	@Autowired
 	CardTypeDao cardTypeDao;
 	
+	@Autowired
+	CardSubtypeDao cardSubtypeDao;
+	
 	public SingleController() {
 		// TODO Auto-generated constructor stub
 	}
@@ -45,8 +50,12 @@ public class SingleController {
 	public String newSingle(Model model) {
 		
 		List<CardType> types = cardTypeDao.getCardTypes();
+		List<CardSubtype> subtypes = cardSubtypeDao.getCardSubtypes();
+
 		System.out.println(types.toString());
 		model.addAttribute("types",types);
+		model.addAttribute("subtypes",subtypes);
+
 		return "card-gen";
 	}
 	
