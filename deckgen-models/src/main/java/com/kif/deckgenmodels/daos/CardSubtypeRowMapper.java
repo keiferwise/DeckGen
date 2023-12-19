@@ -18,6 +18,7 @@ public class CardSubtypeRowMapper implements RowMapper<CardSubtype> {
 	@Override
 	public CardSubtype mapRow(ResultSet rs, int rowNum) throws SQLException {
 		
+		
 		CardSubtype cardSubtype = new CardSubtype();
 		cardSubtype.setType_id(rs.getString("type_id"));
 		cardSubtype.setSubtype_name(rs.getString("sub_type_name"));
