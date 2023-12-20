@@ -3,11 +3,30 @@ function filterOptions() {
     var cardSubtype = document.getElementById('subtype');
     var selectedCategory = cardType.value;
     var cardSubtypeOptions = [];
-    subtypes.forEach(function (subtype) {
-        console.log(subtype.type_id);
-        console.log(subtype.subtype_id);
-        console.log(subtype.subtype_name);
+    var currentTypeName = cardType.value;
+    console.log(currentTypeName);
+    var currentTypeId = '';
+    types.forEach(function (t) {
+        if (t.type_name == currentTypeName) {
+            currentTypeId = t.type_id;
+        }
     });
+    while (cardSubtype.options.length > 0) {
+        cardSubtype.remove(0);
+    }
+    subtypes.forEach(function (e) {
+        if (e.type_id == currentTypeId) {
+            var option = document.createElement('option');
+            option.value = e.sub_type_id;
+            option.text = e.sub_type_name;
+            cardSubtype.add(option);
+        }
+    });
+    //subtypes.forEach((subtype) => {
+    //  console.log(subtype.type_id);
+    //  console.log(subtype.sub_type_id);
+    //  console.log(subtype.sub_type_name);
+    //});
     //for (let i = 0; i < cardSubtype.options.length; i++) {
     //  cardSubtypeOptions.push(cardSubtype.options[i]);
     //  console.log(cardSubtype.options[i]);
