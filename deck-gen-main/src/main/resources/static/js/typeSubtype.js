@@ -15,10 +15,12 @@ function filterOptions() {
         cardSubtype.remove(0);
     }
     subtypes.forEach(function (e) {
+        console.log(e.type_id + ", " + e.subtype_name + ", " + e.subtype_id);
         if (e.type_id == currentTypeId) {
             var option = document.createElement('option');
-            option.value = e.sub_type_id;
-            option.text = e.sub_type_name;
+            option.value = e.subtype_id;
+            option.text = e.subtype_name;
+            console.log(e.subtype_id);
             cardSubtype.add(option);
         }
     });

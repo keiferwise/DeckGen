@@ -1,8 +1,8 @@
 // script.ts
 interface subtype {
   type_id: string;
-	sub_type_name: string;
-	sub_type_id: string;
+	subtype_name: string;
+	subtype_id: string;
 }
 interface type {
   type_id: string;
@@ -32,14 +32,16 @@ while (cardSubtype.options.length > 0) {
   cardSubtype.remove(0);
 }
 subtypes.forEach(e => {
+  console.log(e.type_id + ", " +e.subtype_name + ", "+ e.subtype_id);
+
   if(e.type_id==currentTypeId){
     
     const option = document.createElement('option');
     
-    option.value = e.sub_type_id;
+    option.value = e.subtype_id;
     
-    option.text = e.sub_type_name;
-    
+    option.text = e.subtype_name;
+    console.log(e.subtype_id);
     cardSubtype.add(option);
 
   }
