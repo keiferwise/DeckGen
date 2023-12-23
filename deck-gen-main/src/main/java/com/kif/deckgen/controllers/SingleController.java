@@ -80,6 +80,16 @@ public class SingleController {
     	
     	String mana = convertManaToString(white, blue,black,red,green,colourless);
     	//System.out.println(mana);
+    	
+    	String typeSubtype = null;
+    	
+    	if( !(subtype.isBlank() || subtype.isEmpty()) ) {
+    		typeSubtype = type + " - " + subtype;
+    	}
+    	else {
+    		typeSubtype = type;
+    	}
+    	
     	String response  = cs.createSingle(name, type, theme, artStyle, vibe, mana).block().trim();
     	//System.out.println("#Response start#");
 
