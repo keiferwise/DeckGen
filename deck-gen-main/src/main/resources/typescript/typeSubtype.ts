@@ -15,6 +15,7 @@ function filterOptions() {
   
   const cardType = document.getElementById('type') as HTMLSelectElement;
   const cardSubtype = document.getElementById('subtype') as HTMLSelectElement;
+  const cardSubtypeLabel = document.getElementById("subtypeLabel") as HTMLLabelElement;
   const selectedCategory = cardType.value;
 
   const cardSubtypeOptions: HTMLOptionElement[] = [];
@@ -47,8 +48,15 @@ subtypes.forEach(e => {
   }
 });
 
+if(cardSubtype.options.length===0){
+  cardSubtype.style.display = "none";
+  cardSubtypeLabel.style.display = "none";
+}
+else{
+  cardSubtype.style.display = "inline";
+  cardSubtypeLabel.style.display = "inline";
 
-
+}
   //subtypes.forEach((subtype) => {
   //  console.log(subtype.type_id);
   //  console.log(subtype.sub_type_id);

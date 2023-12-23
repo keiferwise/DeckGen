@@ -1,6 +1,7 @@
 function filterOptions() {
     var cardType = document.getElementById('type');
     var cardSubtype = document.getElementById('subtype');
+    var cardSubtypeLabel = document.getElementById("subtypeLabel");
     var selectedCategory = cardType.value;
     var cardSubtypeOptions = [];
     var currentTypeName = cardType.value;
@@ -24,6 +25,14 @@ function filterOptions() {
             cardSubtype.add(option);
         }
     });
+    if (cardSubtype.options.length === 0) {
+        cardSubtype.style.display = "none";
+        cardSubtypeLabel.style.display = "none";
+    }
+    else {
+        cardSubtype.style.display = "inline";
+        cardSubtypeLabel.style.display = "inline";
+    }
     //subtypes.forEach((subtype) => {
     //  console.log(subtype.type_id);
     //  console.log(subtype.sub_type_id);

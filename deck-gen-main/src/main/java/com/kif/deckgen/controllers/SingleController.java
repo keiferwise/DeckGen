@@ -66,6 +66,7 @@ public class SingleController {
     		@RequestParam("cardName") String name, 
     		@RequestParam("theme") String theme, 
     		@RequestParam("type") String type,
+    		@RequestParam("subtype") String subtype,
     		@RequestParam("white") Integer white,
     		@RequestParam("blue") Integer blue,
     		@RequestParam("black") Integer black,

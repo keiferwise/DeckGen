@@ -34,7 +34,7 @@
 					</select>
 				</div>
 				<div>
-					<label for="subtype">Card Subtype</label>
+					<label id="subtypeLabel" for="subtype">Card Subtype</label>
 					<select id="subtype" name="subtype">
 						<option th:each="stp : ${subtypes}" th:value="${stp.subtype_name}" th:text="${stp.subtype_name}"></option>
 					</select>				</div>
