@@ -79,7 +79,7 @@ public class SingleController {
     	//System.out.println(name + ", "+ theme + ", "+type + ", "+white + ", "+ blue + ", "+black + ", "+red + ", "+ green+ ", "+ colourless + ", "+ vibe+ ", "+ artStyle);
     	
     	String mana = convertManaToString(white, blue,black,red,green,colourless);
-    	//System.out.println(mana);
+    	System.out.println(type + " - " + subtype);
     	
     	String typeSubtype = null;
     	
@@ -90,7 +90,7 @@ public class SingleController {
     		typeSubtype = type;
     	}
     	
-    	String response  = cs.createSingle(name, type, theme, artStyle, vibe, mana).block().trim();
+    	String response  = cs.createSingle(name, typeSubtype, theme, artStyle, vibe, mana).block().trim();
     	//System.out.println("#Response start#");
 
     	//System.out.println(response);

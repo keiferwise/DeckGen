@@ -19,7 +19,7 @@ function filterOptions() {
         console.log(e.type_id + ", " + e.subtype_name + ", " + e.subtype_id);
         if (e.type_id == currentTypeId) {
             var option = document.createElement('option');
-            option.value = e.subtype_id;
+            option.value = e.subtype_name;
             option.text = e.subtype_name;
             console.log(e.subtype_id);
             cardSubtype.add(option);

@@ -39,7 +39,7 @@ subtypes.forEach(e => {
     
     const option = document.createElement('option');
     
-    option.value = e.subtype_id;
+    option.value = e.subtype_name;
     
     option.text = e.subtype_name;
     console.log(e.subtype_id);
