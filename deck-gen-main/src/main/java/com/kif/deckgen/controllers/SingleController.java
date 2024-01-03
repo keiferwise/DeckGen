@@ -83,7 +83,7 @@ public class SingleController {
     	
     	String typeSubtype = null;
     	
-    	if( !(subtype.isBlank() || subtype.isEmpty()) ) {
+    	if( !(subtype.isBlank() || subtype.isEmpty() || subtype.equalsIgnoreCase("<none>")) ) {
     		typeSubtype = type + " - " + subtype;
     	}
     	else {
