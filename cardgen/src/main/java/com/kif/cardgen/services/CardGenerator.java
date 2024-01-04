@@ -111,7 +111,7 @@ public class CardGenerator {
 			// #### What we will call when we are generating art ####
 			// ######################################################
 
-			Image art = dalle.generateImage(card.getArtDescription() + ". " +artStyle ).getData().get(0);
+			Image art = dalle.generateImage(card.getArtDescription() + ". In this art style: " +artStyle ).getData().get(0);
 			// get the art from Dall-E URL
 			try {
 				url = new URL(art.getUrl());
