@@ -3,6 +3,7 @@ package com.kif.deckgen.controllers;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,12 +14,14 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.kif.deckgen.services.CardService;
+import com.kif.deckgenmodels.ArtStyle;
 import com.kif.deckgenmodels.Card;
 import com.kif.deckgenmodels.CardSubtype;
 import com.kif.deckgenmodels.CardType;
 import com.kif.deckgenmodels.Deck;
 import com.kif.deckgenmodels.DeckIdea;
 import com.kif.deckgenmodels.Image;
+import com.kif.deckgenmodels.daos.ArtStyleDao;
 import com.kif.deckgenmodels.daos.CardDao;
 import com.kif.deckgenmodels.daos.CardSubtypeDao;
 import com.kif.deckgenmodels.daos.CardTypeDao;
@@ -42,6 +45,9 @@ public class SingleController {
 	@Autowired
 	CardSubtypeDao cardSubtypeDao;
 	
+	@Autowired 
+	ArtStyleDao artDao;
+	
 	public SingleController() {
 		// TODO Auto-generated constructor stub
 	}
@@ -52,7 +58,9 @@ public class SingleController {
 		List<CardType> types = cardTypeDao.getCardTypes();
 		List<CardSubtype> subtypes = cardSubtypeDao.getCardSubtypes();
 
+		List<ArtStyle> artStyles = artDao.findAll();	
 		System.out.println(types.toString());
+		model.addAttribute("artStyles",artStyles);
 		model.addAttribute("types",types);
 		model.addAttribute("subtypes",subtypes);
 
@@ -66,7 +74,7 @@ public class SingleController {
     		@RequestParam("cardName") String name, 
     		@RequestParam("theme") String theme, 
     		@RequestParam("type") String type,
-    		@RequestParam("subtype") String subtype,
+    		@RequestParam(name="subtype", defaultValue = "none") String subtype,
     		@RequestParam("white") Integer white,
     		@RequestParam("blue") Integer blue,
     		@RequestParam("black") Integer black,

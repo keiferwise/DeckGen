@@ -7,7 +7,6 @@ import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Component;
 
 import com.kif.deckgenmodels.ArtStyle;
-import com.kif.deckgenmodels.Card;
 
 @Component
 public class ArtStyleRowMapper implements RowMapper<ArtStyle> {
@@ -22,7 +21,7 @@ public class ArtStyleRowMapper implements RowMapper<ArtStyle> {
 		ArtStyle as = new ArtStyle();
 		
 		as.setShortName(rs.getString(1));
-		as.setShortName(rs.getString(2));
+		as.setDescription(rs.getString(2));
 		
 		return as;
 	}

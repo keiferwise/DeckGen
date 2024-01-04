@@ -37,10 +37,14 @@
 					<label id="subtypeLabel" for="subtype">Card Subtype</label>
 					<select id="subtype" name="subtype">
 						<option th:each="stp : ${subtypes}" th:value="${stp.subtype_name}" th:text="${stp.subtype_name}"></option>
-					</select>				</div>
+					</select>				
+					</div>
 				<div>
 					<label for="artStyle">Choose and Art Style</label>
-					<input type="text" id="artStyle" name="artStyle">
+					<select id="artStyle" name="artStyle">
+						<option th:each="as : ${artStyles}" th:value="${as.shortName}" th:text="${as.shortName}"></option>
+					</select>	
+					
 				</div>
 				<div>
 					<label for="red">Red</label>
@@ -96,16 +100,7 @@
 				</div>
 
 
-				<!--/*	
-        <label for=""></label>
-       	<input type="" id="" name="">
-       	
-        <label for=""></label>
-       	<input type="" id="" name="">
-       	
-        <label for=""></label>
-       	<input type="" id="" name="">       	       	       	       	
-        */-->
+				
 				<button type="submit">Submit</button>
 			</form>
 		</div>

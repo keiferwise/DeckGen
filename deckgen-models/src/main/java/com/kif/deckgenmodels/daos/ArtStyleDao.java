@@ -22,7 +22,7 @@ public class ArtStyleDao {
 	}
 	public List<ArtStyle> findAll() {
 		List<ArtStyle> artStyle = new ArrayList<ArtStyle>();
-        String sql = "SELECT * FROM ArtStyle";
+        String sql = "SELECT * FROM art_style";
         
         artStyle = jdbcTemplate.query(sql, artStyleMapper);
         
