@@ -27,7 +27,9 @@
 		</div>
 				<div>
 			<label for="artStyle">Choose and Art Style</label>
-			<input type="text" id="artStyle" name="artStyle">
+			<select id="artStyle" name="artStyle">
+				<option th:each="as : ${artStyles}" th:value="${as.shortName}" th:text="${as.shortName}"></option>
+			</select>	
 		</div>
 
 		<div id="checkboxdiv">

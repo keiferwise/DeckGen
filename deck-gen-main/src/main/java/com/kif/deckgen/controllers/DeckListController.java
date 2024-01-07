@@ -16,9 +16,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.kif.deckgenmodels.services.ChatGPTClient;
+import com.kif.deckgenmodels.ArtStyle;
 import com.kif.deckgenmodels.Card;
 import com.kif.deckgenmodels.Deck;
 import com.kif.deckgenmodels.DeckIdea;
+import com.kif.deckgenmodels.daos.ArtStyleDao;
 import com.kif.deckgenmodels.daos.CardDao;
 import com.kif.deckgenmodels.daos.DeckDao;
 import com.kif.deckgenmodels.daos.DeckIdeaDao;
@@ -44,6 +46,8 @@ public class DeckListController {
     @Autowired
     private MinioDao minioDao;
     
+    @Autowired
+    private ArtStyleDao artDao;
     
     @Autowired
     private DeckIdeaDao ideaDao;
@@ -55,7 +59,10 @@ public class DeckListController {
     }
     
     @GetMapping("/deck-gen")
-    public String showInputPage() {
+    public String showInputPage(Model model) {
+		List<ArtStyle> artStyles = artDao.findAll();	
+		model.addAttribute("artStyles",artStyles);
+
     	minioDao.testBucket();
         return "deck-gen";
     }
