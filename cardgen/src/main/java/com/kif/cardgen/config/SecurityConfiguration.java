@@ -10,12 +10,10 @@ public class SecurityConfiguration {
 
     @Bean
     WebSecurityCustomizer webSecurityCustomizer() {
-        StrictHttpFirewall firewall = new StrictHttpFirewall();
-        firewall.setAllowedHostnames(hostName ->             
-        hostName.equals("localhost"));
+
         return (webSecurity) -> webSecurity.ignoring().requestMatchers("/create-card","/create-card-for-deck");
     }
-    /*
+    
     @Bean
     StrictHttpFirewall httpFirewall() {
       StrictHttpFirewall strictHttpFireWall = new StrictHttpFirewall();
@@ -27,6 +25,6 @@ public class SecurityConfiguration {
       //strictHttpFireWall.setAllowedHostnames(hostName ->             
       //hostName.equals("127.0.0.1"));
       return strictHttpFireWall;
-    }*/
+    }
 
 }
