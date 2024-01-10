@@ -19,6 +19,7 @@ import com.kif.deckgenmodels.Card;
 import com.kif.deckgenmodels.DeckIdea;
 import com.kif.deckgenmodels.Image;
 import com.kif.deckgenmodels.SingleRequest;
+import com.kif.deckgenmodels.services.ChatApiClient;
 import com.kif.deckgenmodels.services.ChatGPTClient;
 import com.kif.deckgenmodels.services.DalleClient;
 
@@ -44,6 +45,8 @@ public class CardGenerator {
 	ObjectMapper objectMapper;
 	@Autowired
 	ChatGPTClient gptClient;
+	@Autowired
+	ChatApiClient chatApiClient;
 	@Autowired
 	PromptBuilder pb;
 	@Autowired
@@ -173,12 +176,11 @@ public class CardGenerator {
 		
 		return  sendPromptToGpt(prompt);
 
-
 	}
 	
-	
 	private Card sendPromptToGpt(String prompt) {
-		String newCardJson = gptClient.generateCompletion(prompt, 2000);
+		//String newCardJson = gptClient.generateCompletion(prompt, 2000);
+		String newCardJson = chatApiClient.chat(prompt);
 		// System.out.println(newCardJson);
 
 		Card newCard = null;

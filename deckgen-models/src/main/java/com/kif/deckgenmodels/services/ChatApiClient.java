@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.client.RestTemplate;
 
 import com.kif.deckgenmodels.ChatRequest;
+import com.kif.deckgenmodels.ChatResponse;
 
 public class ChatApiClient {
 
