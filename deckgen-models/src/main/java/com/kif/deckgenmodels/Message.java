@@ -20,6 +20,7 @@ public class Message {
 		super();
 		this.role = role;
 		this.content = content;
+		//System.out.println(role +" + " +content);
 	}
 
 }

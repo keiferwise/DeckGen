@@ -179,8 +179,8 @@ public class CardGenerator {
 	}
 	
 	private Card sendPromptToGpt(String prompt) {
-		//String newCardJson = gptClient.generateCompletion(prompt, 2000);
-		String newCardJson = chatApiClient.chat(prompt);
+		String newCardJson = gptClient.generateCompletion(prompt, 2000);
+		//String newCardJson = chatApiClient.chat(prompt);
 		// System.out.println(newCardJson);
 
 		Card newCard = null;
