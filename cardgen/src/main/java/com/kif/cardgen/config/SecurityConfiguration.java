@@ -13,7 +13,7 @@ public class SecurityConfiguration {
 
         return (webSecurity) -> webSecurity.ignoring().requestMatchers("/create-card","/create-card-for-deck");
     }
-    
+    /*
     @Bean
     StrictHttpFirewall httpFirewall() {
       StrictHttpFirewall strictHttpFireWall = new StrictHttpFirewall();
@@ -26,5 +26,5 @@ public class SecurityConfiguration {
       //hostName.equals("127.0.0.1"));
       return strictHttpFireWall;
     }
-
+*/
 }

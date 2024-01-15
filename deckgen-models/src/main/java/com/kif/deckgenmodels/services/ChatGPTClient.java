@@ -40,7 +40,7 @@ public class ChatGPTClient {
     }
 
     public String generateCompletion(String prompt, int maxTokens) {
-	    String model = "gpt-3.5-turbo-1106";
+	    String model = "gpt-3.5-turbo";
 
     	ChatRequest request = new ChatRequest(model, prompt);
     	
@@ -102,9 +102,9 @@ public class ChatGPTClient {
         headers.setContentType(MediaType.APPLICATION_JSON);
         headers.setAccept(Collections.singletonList(MediaType.APPLICATION_JSON));
         headers.set("Authorization", "Bearer " + API_KEY);
+        //System.out.println(API_KEY);
 
-
-        ChatRequest request = new ChatRequest(model, prompt);
+        //ChatRequest request = new ChatRequest(model, prompt);
         List<Message> messages = new ArrayList<>();
         messages.add(new Message("user", prompt));
 
