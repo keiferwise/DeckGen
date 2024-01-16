@@ -1,4 +1,4 @@
-package com.kif.deckservice.config;
+/*package com.kif.deckservice.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -12,4 +12,4 @@ public class SecurityConfiguration {
         return (webSecurity) -> webSecurity.ignoring().requestMatchers("/create-deck");
     }
 
-}
+}*/

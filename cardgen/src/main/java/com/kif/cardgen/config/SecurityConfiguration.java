@@ -1,3 +1,4 @@
+
 package com.kif.cardgen.config;
 
 import org.springframework.context.annotation.Bean;
@@ -13,6 +14,7 @@ public class SecurityConfiguration {
 
         return (webSecurity) -> webSecurity.ignoring().requestMatchers("/create-card","/create-card-for-deck");
     }
+    
     /*
     @Bean
     StrictHttpFirewall httpFirewall() {
@@ -26,5 +28,5 @@ public class SecurityConfiguration {
       //hostName.equals("127.0.0.1"));
       return strictHttpFireWall;
     }
-*/
+    */
 }
