@@ -18,7 +18,7 @@ public class DeckController {
 	public DeckController() {
 		// TODO Auto-generated constructor stub
 	}
-	@PostMapping(value = "/create-deck", consumes = MediaType.APPLICATION_JSON_VALUE)
+	@PostMapping(value = "/create-deck")
 	public ResponseEntity<String> createDeck(@RequestBody DeckRequest dr) {
 		System.out.println("creating Deck");
 		System.out.println("deck Idea: "+dr.getDeckIdeaId().toString());

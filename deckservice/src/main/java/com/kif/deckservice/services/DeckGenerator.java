@@ -51,6 +51,7 @@ public class DeckGenerator {
 	}
 
 	public void makeDeck(String deckId,String deckIdeaId) {
+		System.out.println("making deck: " + deckId);
 		// TODO Auto-generated method stub
 		// CardService cs = new CardService(WebClient.builder());
 		CardService cs = new CardService(WebClient.builder());

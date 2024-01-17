@@ -63,7 +63,7 @@ public class DeckListController {
 		List<ArtStyle> artStyles = artDao.findAll();	
 		model.addAttribute("artStyles",artStyles);
 
-    	minioDao.testBucket();
+    	//minioDao.testBucket();
         return "deck-gen";
     }
 

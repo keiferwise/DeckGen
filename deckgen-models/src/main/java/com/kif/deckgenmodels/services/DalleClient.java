@@ -4,6 +4,7 @@ package com.kif.deckgenmodels.services;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -20,8 +21,8 @@ public class DalleClient {
 	//@Autowired
     private RestTemplate restTemplate;
 	
-	//@Value("${com.kif.api-key}")
-    private String API_KEY="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";
+	@Value("${com.kif.api-key}")
+    private String API_KEY;
 	
 	
     public ImageResult generateImage(String prompt) {
