@@ -52,7 +52,7 @@ public class CardController {
 		
 		String newCardId = UUID.randomUUID().toString();
 		nc = cardGenerator.createSingleCard(sr,newCardId);
-		cardDao.save(nc,"ac622aad-fca1-4b90-a837-026e35d3a761",newCardId); 
+		cardDao.save(nc,"e608db2a-b816-4163-a56e-d2cc2d3b4c42",newCardId); 
 
 		return ResponseEntity.ok(newCardId);
 	}
