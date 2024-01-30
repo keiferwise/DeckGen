@@ -23,11 +23,17 @@ Majik: The Generating Allows users to create original Magic: The Gathering cards
 ![MajikTG-ss-1-frog-detail](https://github.com/keiferwise/DeckGen/assets/26557443/6e2888a4-0a39-4213-924e-4aed2635d56b)
 
 
-## To Do
-* Microservice Security
+## To Do - MVP
+* Authorization
 * Finish user account functionality
-* input validation
-* deploy to cloud
+* Deploy to cloud
+* Microservice Security
+* Input validation
+* New Front-end
+* User Registration. 
+* Booster pack page
+* Deck Type config
+* 
 
 ### known bugs to fix
 * some pages fail on empty flavor text
