@@ -45,7 +45,7 @@ public class SecurityConfiguration {
         auth.jdbcAuthentication().passwordEncoder(new BCryptPasswordEncoder())
             .dataSource(dataSource)
             .usersByUsernameQuery("select username, password, enabled from users where username=?")
-            .authoritiesByUsernameQuery("select username, role from users where username=?")
+            .authoritiesByUsernameQuery("select username, role,user_id from users where username=?")
         ;
     }
 	

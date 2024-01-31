@@ -8,6 +8,8 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -95,7 +97,8 @@ public class DecksController {
 	 */
 	@GetMapping("/decks")
 	public String decks(Model model) {
-		
+		final Authentication currentUserName = SecurityContextHolder.getContext().getAuthentication();
+		System.out.println(currentUserName.getName());
 		List<Deck> myDecks = deckDao.findAll();
 		//System.out.println(myDecks.toString());
 		model.addAttribute("myDecks",myDecks);

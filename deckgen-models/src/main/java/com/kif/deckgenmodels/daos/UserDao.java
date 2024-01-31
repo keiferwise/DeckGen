@@ -5,7 +5,7 @@ import java.util.UUID;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-
+import com.kif.deckgenmodels.User;
 import com.kif.deckgenmodels.Card;
 
 public class UserDao {
@@ -18,6 +18,11 @@ public class UserDao {
 		// TODO Auto-generated constructor stub
 	}
 
+	public User findUserByName() {
+	
+		result = jdbcTamplate.
+		
+	}
 	
 	public int save(String username,String password, String deckId) {
 		int result=0;
