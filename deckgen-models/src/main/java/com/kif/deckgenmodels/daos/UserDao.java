@@ -8,9 +8,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowCallbackHandler;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.stereotype.Repository;
+
 import com.kif.deckgenmodels.User;
 import com.kif.deckgenmodels.Card;
 
+@Repository
 public class UserDao {
 
 	@Autowired 
@@ -26,7 +29,7 @@ public class UserDao {
 
 	public User findUserByName(String username) {
 		ArrayList<User> users = new ArrayList<User>();
-		String sql = "select * from USERS where username=?";
+		String sql = "select * from users where username=?";
 		
 		//result = jdbcTemplate.execute();
 		return 	jdbcTemplate.query(sql,userRowMapper,username).get(0);

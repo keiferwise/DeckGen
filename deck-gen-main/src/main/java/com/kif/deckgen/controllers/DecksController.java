@@ -25,10 +25,12 @@ import com.kif.deckgen.services.DeckService;
 import com.kif.deckgenmodels.Card;
 import com.kif.deckgenmodels.Deck;
 import com.kif.deckgenmodels.DeckIdea;
+import com.kif.deckgenmodels.User;
 import com.kif.deckgenmodels.daos.CardDao;
 import com.kif.deckgenmodels.daos.DeckDao;
 import com.kif.deckgenmodels.daos.DeckIdeaDao;
 import com.kif.deckgenmodels.daos.MinioDao;
+import com.kif.deckgenmodels.daos.UserDao;
 
 
 /**
@@ -50,6 +52,8 @@ public class DecksController {
 	CardGenerator cardGenerator;
 	@Autowired
 	DeckService deckService;
+	@Autowired
+	UserDao userDao;
 	
 	/**
 	 * This is for submitting the parameters.
@@ -100,7 +104,8 @@ public class DecksController {
 		final Authentication currentUserName = SecurityContextHolder.getContext().getAuthentication();
 		System.out.println(currentUserName.getName());
 		List<Deck> myDecks = deckDao.findAll();
-		//System.out.println(myDecks.toString());
+		User cu = userDao.findUserByName(currentUserName.getName());
+		System.out.println(cu.getUserId());
 		model.addAttribute("myDecks",myDecks);
 		
 		return "decks";
