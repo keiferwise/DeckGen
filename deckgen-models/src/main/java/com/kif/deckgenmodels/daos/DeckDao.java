@@ -2,6 +2,7 @@ package com.kif.deckgenmodels.daos;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -23,6 +24,15 @@ public class DeckDao {
                 "insert into deck (deck_name, job_status, deck_id, user_id) values(?,?,?,?)",
                 deck.getName(), deck.getStatus(), deck.getDeckId(),deck.getUser_id());
 		return result;
+	}
+	
+	public String insertDefaultDeck(String userId) {
+		String deckId = UUID.randomUUID().toString();
+
+		int result = jdbcTemplate.update(
+                "insert into deck (deck_name, job_status, deck_id, user_id) values(?,?,?,?)",
+                "Collection","COMPLETE",deckId,userId);
+		return deckId;
 	}
 	
 	public Deck findDeckById(String deckId) {

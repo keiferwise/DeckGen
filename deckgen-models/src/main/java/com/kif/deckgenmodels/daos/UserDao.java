@@ -36,16 +36,16 @@ public class UserDao {
 
 	}
 	
-	public int save(String username,String password, String deckId) {
+	public String save(String username,String password, String deckId,String email,boolean admin,String name) {
 		int result=0;
 		BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
 		
-		String EncodedPassword = new BCryptPasswordEncoder().encode(password);
-		
+		String encodedPassword = new BCryptPasswordEncoder().encode(password);
+		String userId = UUID.randomUUID().toString();
 		result = jdbcTemplate.update(
                 "insert into users (user_id,username,email,admin,name,password) values(?,?,?,?,?,?)",
-                UUID.randomUUID().toString());	
+                userId,username,email,admin,name,encodedPassword);	
 		
-		return result;
+		return userId;
 	}
 }
