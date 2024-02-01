@@ -103,9 +103,10 @@ public class DecksController {
 	public String decks(Model model) {
 		final Authentication currentUserName = SecurityContextHolder.getContext().getAuthentication();
 		System.out.println(currentUserName.getName());
-		List<Deck> myDecks = deckDao.findAll();
 		User cu = userDao.findUserByName(currentUserName.getName());
-		System.out.println(cu.getUserId());
+		List<Deck> myDecks = deckDao.findDecksByUserId(cu.getUserId());
+
+		System.out.println(cu.getUserId() + ", " + cu.toString() );
 		model.addAttribute("myDecks",myDecks);
 		
 		return "decks";

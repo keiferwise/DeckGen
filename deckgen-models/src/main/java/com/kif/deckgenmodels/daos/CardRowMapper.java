@@ -29,20 +29,7 @@ public class CardRowMapper implements RowMapper<Card> {
 		card.setArtist(rs.getString("artist"));
 		card.setCopyright(rs.getString("copyright"));
 		return card;
-		/*
-card_id
-card_name
-mana_cost
-art_description
-card_type
-card_subtype
-rarity
-rules_text
-flavor_text
-power
-toughness
-artist
-copyright*/
+
 	}
 
 }

@@ -1,5 +1,6 @@
 package com.kif.deckgenmodels;
 
+import java.math.BigInteger;
 
 public class User {
 	
@@ -10,20 +11,22 @@ public class User {
 	
 	private String email;
 	
-	private String firstName;
-	
-	private String lastName;
-	
+	private String name;
+		
 	private boolean admin;
 	
-	private String password;
-
+	private boolean enabled;
 	
+	private BigInteger tokens;
+	
+	private String role;
+	
+	private String password;
 	
 	@Override
 	public String toString() {
-		return "User [userId=" + userId + ", userName=" + userName + ", email=" + email + ", firstName=" + firstName
-				+ ", lastName=" + lastName + ", admin=" + admin + ", password=" + password + "]";
+		return "User [userId=" + userId + ", userName=" + userName + ", email=" + email + ", firstName=" + name
+				+ ", lastName=" + name + ", admin=" + admin + ", password=" + password + "]";
 	}
 
 	public String getUserId() {
@@ -51,19 +54,11 @@ public class User {
 	}
 
 	public String getFirstName() {
-		return firstName;
+		return name;
 	}
 
 	public void setFirstName(String firstName) {
-		this.firstName = firstName;
-	}
-
-	public String getLastName() {
-		return lastName;
-	}
-
-	public void setLastName(String lastName) {
-		this.lastName = lastName;
+		this.name = firstName;
 	}
 
 	public boolean getAdmin() {
@@ -81,7 +76,29 @@ public class User {
 	public void setPassword(String password) {
 		this.password = password;
 	}
-	
-	//TODO Figure out Spring Security and integrate it.
 
+	public String getRole() {
+		return role;
+	}
+
+	public void setRole(String role) {
+		this.role = role;
+	}
+
+	public boolean isEnabled() {
+		return enabled;
+	}
+
+	public void setEnabled(boolean enabled) {
+		this.enabled = enabled;
+	}
+
+	public BigInteger getTokens() {
+		return tokens;
+	}
+
+	public void setTokens(BigInteger tokens) {
+		this.tokens = tokens;
+	}
+	
 }

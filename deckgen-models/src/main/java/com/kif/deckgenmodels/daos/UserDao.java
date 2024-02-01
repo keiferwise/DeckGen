@@ -29,7 +29,7 @@ public class UserDao {
 
 	public User findUserByName(String username) {
 		ArrayList<User> users = new ArrayList<User>();
-		String sql = "select * from users where username=?";
+		String sql = "select * from users where username = ?";
 		
 		//result = jdbcTemplate.execute();
 		return 	jdbcTemplate.query(sql,userRowMapper,username).get(0);
