@@ -44,8 +44,11 @@ public Deck generateCardNames(String inputText, DeckIdea deckIdea) {
     	
     	List<Card> cards = null;
 		try {
+			System.out.println(deck);
+			deck = deck.substring(12);
+			deck = deck.substring(0, deck.length() - 1);
 			cards = objectMapper.readValue(deck, new TypeReference<List<Card>>() {}); //THIS IS A PROBLEM, I THINK I AM DESERIALIZING THE CARD BUT I AM NOT
-			System.out.println(cards.get(0).getClass());
+			//System.out.println(cards.get(0).getClass());
 		} catch (JsonProcessingException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

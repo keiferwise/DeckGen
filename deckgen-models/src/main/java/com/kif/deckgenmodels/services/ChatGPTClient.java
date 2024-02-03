@@ -40,7 +40,7 @@ public class ChatGPTClient {
     }
 
     public String generateCompletion(String prompt, int maxTokens) {
-	    String model = "gpt-3.5-turbo";
+	    String model = "gpt-3.5-turbo-1106";
 
     	ChatRequest request = new ChatRequest(model, prompt);
     	
@@ -72,7 +72,7 @@ public class ChatGPTClient {
             return null;
         }
     }
-
+/*
     private HttpEntity<String> createRequestEntity(String prompt, int maxTokens) {
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
@@ -95,7 +95,7 @@ public class ChatGPTClient {
             return null;
         }
     }
-    
+    */
 
     private HttpEntity<String> createRequestEntity2(String prompt,String role,String model) {
         HttpHeaders headers = new HttpHeaders();
@@ -107,8 +107,8 @@ public class ChatGPTClient {
         //ChatRequest request = new ChatRequest(model, prompt);
         List<Message> messages = new ArrayList<>();
         messages.add(new Message("user", prompt));
-
-        
+        Map<String, String> responseFormat = new HashMap<>();
+        responseFormat.put("type", "json_object");        
         try {
             Map<String, Object> requestBody = new HashMap<>();
             //requestBody.put("prompt", prompt);
@@ -119,7 +119,7 @@ public class ChatGPTClient {
             //requestBody.put("model", "text-davinci-003"); // Number of completions to generate
             requestBody.put("model", model);
             requestBody.put("messages", messages);
-            //requestBody.put("response_format", " {\"type\": \"json_object\"}");
+            requestBody.put("response_format", responseFormat);
             String jsonBody = objectMapper.writeValueAsString(requestBody);
             return new HttpEntity<>(jsonBody, headers);
         } catch (Exception e) {
