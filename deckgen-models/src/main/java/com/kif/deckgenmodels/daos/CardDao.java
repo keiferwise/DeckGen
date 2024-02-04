@@ -106,5 +106,29 @@ public class CardDao {
 		int rowsUpdated = jdbcTemplate.update(sql, card.getName(), card.getManaCost(), card.getArtDescription(), card.getType(), card.getSubtype(), card.getRarity(), card.getRulesText(), card.getFlavorText(), card.getPower(), card.getToughness(), cardId);
 		return rowsUpdated;
 	}
+
+	public int updateStatusInProgress(String cardId) {
+		return updateStatus(cardId,"INPROGRESS");
+	}
+	public int updateStatusComplete(String cardId) {
+		return updateStatus(cardId,"COMPLETE");
+	}
+	public int updateStatusFailed(String cardId) {
+		return updateStatus(cardId,"FAILED");
+	}
+	public int updateStatusNew(String cardId) {
+		return updateStatus(cardId,"NEW");
+	}
+	
+	
+	public int updateStatus(String cardId,String status) {
+		
+		String sql = "update card set status=? where cardId=?";
+		int result = jdbcTemplate.update(
+                sql,
+                status,cardId);
+		
+		return result;
+	}
 	
 }

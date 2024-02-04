@@ -80,7 +80,7 @@ public class DeckDao {
 	
 	public int updateStatus(String deckId,String status) {
 		
-		String sql = "update table deck set status=? where deckId=?";
+		String sql = "update deck set status=? where deckId=?";
 		int result = jdbcTemplate.update(
                 sql,
                 status,deckId);
