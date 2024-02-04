@@ -28,9 +28,9 @@ public class DeckDao {
 	
 	public String insertDefaultDeck(String userId) {
 		String deckId = UUID.randomUUID().toString();
-
+		String sql = "insert into deck (deck_name, job_status, deck_id, user_id) values(?,?,?,?)";
 		int result = jdbcTemplate.update(
-                "insert into deck (deck_name, job_status, deck_id, user_id) values(?,?,?,?)",
+                sql,
                 "Collection","COMPLETE",deckId,userId);
 		return deckId;
 	}
@@ -62,6 +62,30 @@ public class DeckDao {
         decks = jdbcTemplate.query(sql, deckRowMapper,userId);
 		
 		return decks;
+	}
+	
+	public int updateStatusInProgress(String deckId) {
+		return updateStatus(deckId,"INPROGRESS");
+	}
+	public int updateStatusComplete(String deckId) {
+		return updateStatus(deckId,"COMPLETE");
+	}
+	public int updateStatusFailed(String deckId) {
+		return updateStatus(deckId,"FAILED");
+	}
+	public int updateStatusNew(String deckId) {
+		return updateStatus(deckId,"NEW");
+	}
+	
+	
+	public int updateStatus(String deckId,String status) {
+		
+		String sql = "update table deck set status=? where deckId=?";
+		int result = jdbcTemplate.update(
+                sql,
+                status,deckId);
+		
+		return result;
 	}
 
 }

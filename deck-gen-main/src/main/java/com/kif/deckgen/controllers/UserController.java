@@ -35,7 +35,8 @@ public class UserController {
     		@RequestParam("password") String password,
     		@RequestParam("role") String role,
     		@RequestParam("admin") boolean admin,
-    		@RequestParam("enabled") boolean enabled) 
+    		@RequestParam("enabled") boolean enabled, 
+			@RequestParam("tokens") Integer tokens)
 	{
 		
 		
