@@ -2,6 +2,7 @@ package com.kif.deckgenmodels.daos;
 
 import java.sql.ResultSet;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -47,5 +48,9 @@ public class UserDao {
                 userId,username,email,admin,name,encodedPassword);	
 		
 		return userId;
+	}
+	public List<User> allUsers(){
+		String sql = "select * from users";
+		return 	jdbcTemplate.query(sql,userRowMapper);		
 	}
 }

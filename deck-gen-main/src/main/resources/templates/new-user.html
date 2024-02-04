@@ -20,7 +20,7 @@
 
 	<div class="form-element">
 		<label for="role">Role:</label>
-		<select id="role" name="Role">
+		<select id="role" name="role">
 			<option th:value="ROLE_ADMIN" th:text="Admin"></option>
 			<option th:value="ROLE_USER" th:text="User"></option>
 		</select>	
@@ -30,7 +30,11 @@
 		<label for="enabled">Enabled:</label>
 		<input type="checkbox" id="enabled" name="enabled">
 	</div>
-	
+		
+	<div class="form-element">
+		<label for="admin">Admin:</label>
+		<input type="checkbox" id="adin" name="admin">
+	</div>
 	<div class="form-element">
 		<label for="tokens">Tokens:</label>
 		<input type="number" id="tokens" name="tokens">
