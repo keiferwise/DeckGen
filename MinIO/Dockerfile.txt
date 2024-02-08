@@ -1,0 +1,13 @@
+# Use the official MinIO image as the base image
+FROM minio/minio
+
+# Set environment variables for MinIO
+ENV MINIO_ROOT_USER=minio99
+ENV MINIO_ROOT_PASSWORD=minio123
+
+# Expose ports 9000 and 9001 for MinIO
+EXPOSE 9000
+EXPOSE 9001
+
+# Set the command to start MinIO server
+CMD ["server", "--console-address", ":9001", "/data"]
