@@ -6,7 +6,6 @@ Majik: The Generating Allows users to create original Magic: The Gathering cards
 
 ![MajikTG-ss-1-fargmet](https://github.com/keiferwise/DeckGen/assets/26557443/03fc529a-ae45-4bd6-86cf-6d06f2a00378)
 
-![MajikTG-ss-1-laughingarmay](https://github.com/keiferwise/DeckGen/assets/26557443/cc41b7e9-8c1b-4cc1-9bea-d35bad95f314)
 
 #### Deck Creation page, user fills out these fields and the application will generate 9 cards based on the prompt.
 
