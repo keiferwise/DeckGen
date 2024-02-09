@@ -103,7 +103,7 @@ public class DeckListController {
     	deck.setName(name);
     	deckDao.save(deck);
     	cardDao.saveAll(deck.getCards(),deck_id);
-    	
+    	deckDao.updateStatusInProgress(deck_id.toString());
     	
         model.addAttribute("cardList", deck.getCards());
         model.addAttribute("deck",deck);

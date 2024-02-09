@@ -37,14 +37,14 @@ public class UserDao {
 
 	}
 	
-	public String save(String username,String password, String deckId,String email,boolean admin,String name) {
+	public String save(String username,String password, String deckId,String email,boolean admin,String name,String role) {
 		int result=0;
 		BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
 		
 		String encodedPassword = new BCryptPasswordEncoder().encode(password);
 		String userId = UUID.randomUUID().toString();
 		result = jdbcTemplate.update(
-                "insert into users (user_id,username,email,admin,name,password) values(?,?,?,?,?,?)",
+                "insert into users (user_id,username,email,admin,name,password,ROLE) values(?,?,?,?,?,?,?)",
                 userId,username,email,admin,name,encodedPassword);	
 		
 		return userId;

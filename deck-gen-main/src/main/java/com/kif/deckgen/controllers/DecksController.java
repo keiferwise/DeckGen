@@ -80,8 +80,7 @@ public class DecksController {
 		DeckIdea idea = ideaDao.findByDeckId(currentDeckId);
 		
 		//TODO MOVE THIS TO THE MICROSERVICE
-		//DeckGenerator deckGenerator = new DeckGenerator(deck,idea,cardGenerator,cardDao, new MinioDao(),new CardComposer(),new DalleClient());
-		//ExecutorService executor = Executors.newSingleThreadExecutor();
+		
 		//TODO MICROSERVICE CALL
 		deckService.createDeck(idea.getDeckIdeaId(), currentDeckId).subscribe();
 		

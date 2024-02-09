@@ -40,7 +40,7 @@ public class UserController {
 	{
 		
 		
-		userDao.save(usernam, password, role, email, admin, name);
+		userDao.save(usernam, password, role, email, admin, name,role);
 		return "/user-list";
 	}
 	@GetMapping("/user-list")
