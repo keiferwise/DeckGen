@@ -73,52 +73,6 @@ public class DeckGenerator {
 
 	}
 
-	/* test microservice */
-
-	/* ### THIS MEANS WE ARE MAKING ART ### */
-	/*
-	 * makeArt="false"; Card legend = deck.getCards().get(0);
-	 * legend.setName(deckIdea.getLegends()); legend.setType("Legendary Creature");
-	 * legend.setManaCost(legendManaCost(deckIdea));
-	 */
-	// cardDao.save(cardGenerator.createCard(legend, legend.getName(),deckIdea),
-	// deck.getDeckId());
-
-	// deck.setCards(cardDao.findAllByDeckId(deck.getDeckId()));
-	// System.out.println("Making art: " + makeArt);
-
-	/*
-	 * for (Card card : deck.getCards()) {
-	 * 
-	 * BufferedImage imgTest =null; BufferedImage img = null; URL url=null;
-	 * //Generate Art for cards FINISH THIS if(makeArt.equals("true")) {
-	 * 
-	 * 
-	 * 
-	 * //###################################################### //#### What we will
-	 * call when we are generating art ####
-	 * //###################################################### /* Image art =
-	 * dalle.generateImage(card.getArtDescription()).getData().get(0); //get the art
-	 * from Dall-E URL try { url = new URL(art.getUrl()); } catch
-	 * (MalformedURLException e1) { // TODO Auto-generated catch block
-	 * e1.printStackTrace(); } try { img = ImageIO.read(url); } catch (IOException
-	 * e) { // TODO Auto-generated catch block e.printStackTrace(); }
-	 * 
-	 * 
-	 * } else { // What we will call while we are testing "" String artPath =
-	 * "D:\\deckgen\\deck-gen-main\\src\\main\\resources\\images\\img-H7MTllJItxyHXRMlnO77hB9I.png";
-	 * try { img = ImageIO.read(new File(artPath)); } catch (IOException e2) { //
-	 * TODO Auto-generated catch block e2.printStackTrace(); }
-	 * 
-	 * } //Create the card BufferedImage cardImage =null; // try { //cardImage =
-	 * composer.createImage(card, img); // } catch (IOException e) { // // TODO
-	 * Auto-generated catch block //e.printStackTrace(); //}
-	 * 
-	 * //minio.saveImage(cardImage, card.getCardId()); }
-	 */
-
-	//}
-
 	private String legendManaCost(DeckIdea idea) {
 		String cardManaCost = "";
 		int colourlessNumber = 0;

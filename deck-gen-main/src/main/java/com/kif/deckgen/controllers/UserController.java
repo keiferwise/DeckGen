@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.kif.deckgenmodels.User;
+import com.kif.deckgenmodels.daos.DeckDao;
 import com.kif.deckgenmodels.daos.UserDao;
 @Controller
 public class UserController {
@@ -17,6 +18,8 @@ public class UserController {
 	@Autowired
 	UserDao userDao;
 
+	@Autowired
+	DeckDao deckDao;
 	public UserController() {
 
 	}
@@ -40,7 +43,9 @@ public class UserController {
 	{
 		
 		
-		userDao.save(usernam, password, role, email, admin, name,role);
+		String user_id = userDao.save(usernam, password, role, email, admin, name,role);
+		deckDao.insertDefaultDeck(user_id);
+		
 		return "/user-list";
 	}
 	@GetMapping("/user-list")

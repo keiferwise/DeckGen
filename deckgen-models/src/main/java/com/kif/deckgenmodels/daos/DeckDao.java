@@ -31,7 +31,7 @@ public class DeckDao {
 		String sql = "insert into deck (deck_name, job_status, deck_id, user_id) values(?,?,?,?)";
 		int result = jdbcTemplate.update(
                 sql,
-                "Collection","COMPLETE",deckId,userId);
+                "My Collection","COMPLETE",deckId,userId);
 		return deckId;
 	}
 	

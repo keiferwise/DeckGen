@@ -32,8 +32,11 @@ public class SecurityConfiguration {
 		// @formatter:off
 		http
 				.authorizeHttpRequests((authorize) -> authorize
+			            .requestMatchers("/create-user").hasRole("ADMIN")
 						.anyRequest().authenticated()
+						
 				)
+				
 				.httpBasic(withDefaults())
 				.formLogin(withDefaults());
 		// @formatter:on
