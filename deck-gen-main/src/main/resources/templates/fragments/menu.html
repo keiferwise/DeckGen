@@ -3,24 +3,26 @@
 		<div class="dg-menu-bar navbar">
 
 			<ul class="navbar-nav mr-auto">
-			<li class="nav-item active">
-				<a class="nav-link dg-button" th:href="@{/}">Home <span class="sr-only"></span></a>
-			</li>
-			<li class="nav-item active">
-				<a class="nav-link dg-button" th:href="@{/decks}">Decks <span class="sr-only"></span></a>
-			</li>
-			<li class="nav-item active">
-				<a class="nav-link dg-button" th:href="@{/new-single}">New Card<span class="sr-only"></span></a>
-			</li>
-			</li>
-			<li class="nav-item active">
-				<a class="nav-link dg-button" th:href="@{/deck-gen}">New deck<span class="sr-only"></span></a>
-			</li>
-			<li class="nav-item active">
-				<a class="nav-link dg-button" th:href="@{/create-user}" sec:authorize="hasRole('ROLE_ADMIN')">Create User </a>
-			<li class="nav-item active">
-				<a class="nav-link dg-button" th:href="@{/logout}" th:if="${#authentication.isAuthenticated()}"> Logout</a>
-			</li>
+				<li class="nav-item active">
+					<a class="nav-link dg-button" th:href="@{/}">Home <span class="sr-only"></span></a>
+				</li>
+				<li class="nav-item active">
+					<a class="nav-link dg-button" th:href="@{/decks}">Decks <span class="sr-only"></span></a>
+				</li>
+				<li class="nav-item active">
+					<a class="nav-link dg-button" th:href="@{/new-single}">New Card<span class="sr-only"></span></a>
+				</li>
+				</li>
+				<li class="nav-item active">
+					<a class="nav-link dg-button" th:href="@{/deck-gen}">New deck<span class="sr-only"></span></a>
+				</li>
+				<li class="nav-item active">
+					<a class="nav-link dg-button" th:href="@{/create-user}" sec:authorize="hasRole('ROLE_ADMIN')">Create
+						User </a>
+				<li class="nav-item active">
+					<a class="nav-link dg-button" th:href="@{/logout}" th:if="${#authentication.isAuthenticated()}">
+						Logout</a>
+				</li>
 
 			</ul>
 

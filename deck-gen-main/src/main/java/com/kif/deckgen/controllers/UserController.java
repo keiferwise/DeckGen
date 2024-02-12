@@ -1,6 +1,7 @@
 package com.kif.deckgen.controllers;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -46,14 +47,13 @@ public class UserController {
 		String user_id = userDao.save(usernam, password, role, email, admin, name,role);
 		deckDao.insertDefaultDeck(user_id);
 		
-		return "/user-list";
+		return userList(model);
 	}
 	@GetMapping("/user-list")
 	public String userList(Model model) {
-		ArrayList<User> users = new ArrayList<User>();
-		model.addAttribute(users);
-		userDao.allUsers();
-		
+		List<User> users = userDao.allUsers();
+		System.out.println(users.toString());
+		model.addAttribute("users",users);
 		return "user-list";
 	}
 

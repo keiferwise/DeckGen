@@ -23,10 +23,13 @@ public class User {
 	
 	private String password;
 	
+
+
 	@Override
 	public String toString() {
-		return "User [userId=" + userId + ", userName=" + userName + ", email=" + email + ", firstName=" + name
-				+ ", lastName=" + name + ", admin=" + admin + ", password=" + password + "]";
+		return "User [userId=" + userId + ", userName=" + userName + ", email=" + email + ", name=" + name + ", admin="
+				+ admin + ", enabled=" + enabled + ", tokens=" + tokens + ", role=" + role + ", password=" + password
+				+ "]";
 	}
 
 	public String getUserId() {
@@ -53,12 +56,12 @@ public class User {
 		this.email = email;
 	}
 
-	public String getFirstName() {
+	public String getName() {
 		return name;
 	}
 
-	public void setFirstName(String firstName) {
-		this.name = firstName;
+	public void setName(String name) {
+		this.name = name;
 	}
 
 	public boolean getAdmin() {

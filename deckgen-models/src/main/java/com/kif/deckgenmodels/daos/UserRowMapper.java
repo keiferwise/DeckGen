@@ -1,5 +1,6 @@
 package com.kif.deckgenmodels.daos;
 
+import java.math.BigInteger;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import org.springframework.jdbc.core.RowMapper;
@@ -20,10 +21,15 @@ public class UserRowMapper implements RowMapper<User>{
 
 		user.setAdmin(rs.getBoolean("admin"));
 		user.setEmail(rs.getString("email"));
-		user.setFirstName(rs.getString("name"));
+		user.setName(rs.getString("name"));
 		user.setUserId(rs.getString("user_id"));
 		user.setUserName(rs.getString("username"));
-		
+		user.setRole(rs.getString("ROLE"));
+		BigInteger tokens = BigInteger.valueOf(rs.getInt("tokens"));
+		user.setTokens(tokens);
+		user.setEnabled(rs.getBoolean("enabled"));
+		user.setAdmin(rs.getBoolean("admin"));
+
 		return user;
 	}
 

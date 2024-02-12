@@ -1,3 +1,23 @@
-<h1>Users</h1>
+<div th:replace="fragments/header">...</div>
+<div th:replace="fragments/menu">...</div>
+<div class="container"> <h1>Users</h1> </div>
 
+<div class="container">
+	<table class="dg-deck-input-box table">
+		<tr>
+        	<th>Username</th>
+        	<th>User ID</th>
+        	<th>Email</th>
+        	<th>Name</th>
+        	<th>Role</th>
 
+		</tr>
+		<tr th:each="user : ${users}">
+			<td th:text="${user.userName}"></td>
+			<td th:text="${user.userId}"></td>
+			<td th:text="${user.email}"></td>
+			<td th:text="${user.name}"></td>
+			<td th:text="${user.role}"></td>
+		</tr>
+	</table>
+</div>

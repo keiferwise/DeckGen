@@ -33,6 +33,7 @@ public class SecurityConfiguration {
 		http
 				.authorizeHttpRequests((authorize) -> authorize
 			            .requestMatchers("/create-user").hasRole("ADMIN")
+			            .requestMatchers("/user-list").hasRole("ADMIN")
 						.anyRequest().authenticated()
 						
 				)
