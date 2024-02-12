@@ -98,6 +98,13 @@
 						Absurd
 					</label>
 				</div>
+				<div>
+					<label for="deck">Add to Deck</label>
+					<select id="deck" name="deck">
+						<option th:each="deck : ${decks}" th:value="${deck.deckId}" th:text="${deck.name}"></option>
+					</select>	
+					
+				</div>
 
 
 				

@@ -7,6 +7,9 @@ import java.util.Optional;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -25,7 +28,9 @@ import com.kif.deckgenmodels.daos.ArtStyleDao;
 import com.kif.deckgenmodels.daos.CardDao;
 import com.kif.deckgenmodels.daos.CardSubtypeDao;
 import com.kif.deckgenmodels.daos.CardTypeDao;
+import com.kif.deckgenmodels.daos.DeckDao;
 import com.kif.deckgenmodels.daos.MinioDao;
+import com.kif.deckgenmodels.daos.UserDao;
 
 @Controller
 public class SingleController {
@@ -48,20 +53,36 @@ public class SingleController {
 	@Autowired 
 	ArtStyleDao artDao;
 	
+	@Autowired 
+	DeckDao deckDao;
+	
+	@Autowired 
+	UserDao userDao;
+	
 	public SingleController() {
 		// TODO Auto-generated constructor stub
 	}
 	
 	@GetMapping("/new-single")
 	public String newSingle(Model model) {
-		
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		String currentPrincipalName = auth.getName();
+		String userId = userDao.findUserByName(currentPrincipalName).getUserId();
+
 		List<CardType> types = cardTypeDao.getCardTypes();
 		List<CardSubtype> subtypes = cardSubtypeDao.getCardSubtypes();
-
+		
+		//System.out.println(auth.getDetails().toString());
+		//System.out.println(auth.getPrincipal().toString());
+		//UserDetails ud = (UserDetails) auth.getPrincipal();
+		//System.out.println(ud.getAuthorities().toString());
+		List<Deck> decks = deckDao.findDecksByUserId(userId);
 		List<ArtStyle> artStyles = artDao.findAll();	
-		System.out.println(types.toString());
+		//System.out.println(types.toString());
 		model.addAttribute("artStyles",artStyles);
 		model.addAttribute("types",types);
+		model.addAttribute("decks",decks);
+
 		model.addAttribute("subtypes",subtypes);
 
 		return "card-gen";

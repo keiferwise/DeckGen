@@ -1,0 +1,15 @@
+# Use the official MySQL image as the base image
+FROM mysql:latest
+
+# Set environment variables for MySQL
+ENV MYSQL_ROOT_PASSWORD=yog9jom4vok7jiy
+ENV MYSQL_DATABASE=deckgendb
+ENV MYSQL_USER=deckgenuser
+ENV MYSQL_PASSWORD=kard7bear3nift
+
+# Set character set and collation for MySQL
+RUN echo "character-set-server=utf8mb4" >> /etc/mysql/my.cnf
+RUN echo "collation-server=utf8mb4_unicode_ci" >> /etc/mysql/my.cnf
+
+# Expose port 3306 for MySQL
+EXPOSE 3306

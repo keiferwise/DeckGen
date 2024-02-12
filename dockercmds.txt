@@ -1,0 +1,4 @@
+docker run --name deckgen-mysql -p 3306:3306 -e MYSQL_ROOT_PASSWORD=yog9jom4vok7jiy  -e MYSQL_DATABASE=deckgendb -e MYSQL_USER=deckgenuser -e  MYSQL_PASSWORD=kard7bear3nift -d mysql:latest --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci 
+
+docker run -p 9000:9000 -p 9001:9001 --name minio -d -v D:\Minio\deckgen:/data -e "MINIO_ROOT_USER=minio99" -e "MINIO_ROOT_PASSWORD=minio123" minio/minio server --console-address ":9001" /data
+
