@@ -47,12 +47,13 @@ public class CardController {
 		System.out.println("creating SINGLE card");
 		System.out.println(sr.toString());
 		// PARAMETERS: name,
-		
-		Card nc = new Card();
+		System.out.println("making new card in deck with ID: "+sr.getDeckId());
+;		Card nc = new Card();
 		
 		String newCardId = UUID.randomUUID().toString();
 		nc = cardGenerator.createSingleCard(sr,newCardId);
-		cardDao.save(nc,"e608db2a-b816-4163-a56e-d2cc2d3b4c42",newCardId); 
+		
+		cardDao.save(nc,sr.getDeckId(),newCardId); 
 
 		return ResponseEntity.ok(newCardId);
 	}

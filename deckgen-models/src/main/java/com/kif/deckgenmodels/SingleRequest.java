@@ -15,12 +15,19 @@ public class SingleRequest {
 	private String vibe; 
 	@JsonProperty("mana")
 	private String mana;
+	@JsonProperty("deckId")
+	private String deckId;
+	
 	public SingleRequest() {
 
 	
 	
 	}
-	public SingleRequest(String name, String type, String theme, String artStyle, String vibe, String mana) {
+	
+
+
+	public SingleRequest(String name, String type, String theme, String artStyle, String vibe, String mana,
+			String deckId) {
 		super();
 		this.name = name;
 		this.type = type;
@@ -28,6 +35,15 @@ public class SingleRequest {
 		this.artStyle = artStyle;
 		this.vibe = vibe;
 		this.mana = mana;
+		this.deckId = deckId;
+	}
+	
+	public String getDeckId() {
+		return deckId;
+	}
+
+	public void setDeckId(String deckId) {
+		this.deckId = deckId;
 	}
 	public String getName() {
 		return name;

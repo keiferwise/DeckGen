@@ -68,7 +68,6 @@ public class SingleController {
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		String currentPrincipalName = auth.getName();
 		String userId = userDao.findUserByName(currentPrincipalName).getUserId();
-
 		List<CardType> types = cardTypeDao.getCardTypes();
 		List<CardSubtype> subtypes = cardSubtypeDao.getCardSubtypes();
 		
@@ -104,6 +103,7 @@ public class SingleController {
     		@RequestParam("colourless") Integer colourless,
     		@RequestParam("vibe") String vibe,
     		@RequestParam("artStyle") String artStyle,
+    		@RequestParam("deck") String deckId,
     		Model model) {
     	//System.out.println(name + ", "+ theme + ", "+type + ", "+white + ", "+ blue + ", "+black + ", "+red + ", "+ green+ ", "+ colourless + ", "+ vibe+ ", "+ artStyle);
     	
@@ -119,7 +119,7 @@ public class SingleController {
     		typeSubtype = type;
     	}
     	
-    	String response  = cs.createSingle(name, typeSubtype, theme, artStyle, vibe, mana).block().trim();
+    	String response  = cs.createSingle(name, typeSubtype, theme, artStyle, vibe, mana,deckId).block().trim();
     	//System.out.println("#Response start#");
 
     	//System.out.println(response);

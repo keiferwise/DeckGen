@@ -19,7 +19,7 @@ public class CardService {
     }
 	
 
-    public Mono<String> createSingle(String name, String type, String theme,String artStyle,String vibe, String mana){
+    public Mono<String> createSingle(String name, String type, String theme,String artStyle,String vibe, String mana,String deckId){
     	
     	
     	String requestBody;
@@ -31,6 +31,7 @@ public class CardService {
     	sr.setTheme(theme);
     	sr.setType(type);
     	sr.setVibe(vibe);
+    	sr.setDeckId(deckId);
     	
     	requestBody = convertSingleToJson(sr);
     	
