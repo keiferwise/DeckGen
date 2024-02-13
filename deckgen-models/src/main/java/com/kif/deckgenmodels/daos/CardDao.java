@@ -123,7 +123,7 @@ public class CardDao {
 	
 	public int updateStatus(String cardId,String status) {
 		
-		String sql = "update card set status=? where cardId=?";
+		String sql = "update card set status=? where card_id=?";
 		int result = jdbcTemplate.update(
                 sql,
                 status,cardId);

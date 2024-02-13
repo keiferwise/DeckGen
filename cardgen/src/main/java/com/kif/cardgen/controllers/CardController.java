@@ -31,10 +31,10 @@ public class CardController {
 	
 	@PostMapping(value = "/create-card-for-deck", consumes = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<String> createCardForDeck(@RequestBody CardRequest cr) {
-		System.out.println("creating card");
-		System.out.println(cr.toString());
+		//System.out.println("creating card");
+		//System.out.println(cr.toString());
 		// Create something to 
-		System.out.println("have we lost the card ID? "+cr.getCardId());
+		//System.out.println("have we lost the card ID? "+cr.getCardId());
 
 		cardGenerator.createCard(cr.getCardId(), cr.getTheme(), cr.getDeckIdeaId());
 		// CreateCard(Card card, String theme, DeckIdea deckIdea)

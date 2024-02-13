@@ -93,6 +93,7 @@ public class CardGenerator {
 		System.out.println(newCard.toString());
 		newCard.setCardId(card.getCardId());
 		newCard.setDeckId(card.getDeckId());
+		newCard.setStatus("INPROGRESS");
 		// System.out.println(card.getName());
 		return newCard;
 	}
@@ -120,12 +121,14 @@ public class CardGenerator {
 				url = new URL(art.getUrl());
 			} catch (MalformedURLException e1) {
 				// TODO Auto-generated catch block
+				cardDao.updateStatusFailed(card.getCardId());
 				e1.printStackTrace();
 			}
 			try {
 				img = ImageIO.read(url);
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
+				cardDao.updateStatusFailed(card.getCardId());
 				e.printStackTrace();
 			}
 
@@ -136,6 +139,7 @@ public class CardGenerator {
 				img = ImageIO.read(new File(artPath));//
 			} catch (IOException e2) {
 				// TODO Auto-generated catch block
+				cardDao.updateStatusFailed(card.getCardId());
 				e2.printStackTrace();
 			}
 
@@ -144,8 +148,11 @@ public class CardGenerator {
 		BufferedImage cardImage = null;
 		try {
 			cardImage = composer.createImage(card, img);
+			cardDao.updateStatusComplete(card.getCardId());
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
+			cardDao.updateStatusFailed(card.getCardId());
+
 			e.printStackTrace();
 		}
 
@@ -188,6 +195,7 @@ public class CardGenerator {
 			newCard = objectMapper.readValue(newCardJson, Card.class);
 		} catch (JsonProcessingException e) {
 			// TODO Auto-generated catch block
+			newCard.setStatus("FAILED");
 			e.printStackTrace();
 		}
 		System.out.println(newCard.toString());

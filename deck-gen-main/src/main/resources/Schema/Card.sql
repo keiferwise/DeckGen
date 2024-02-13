@@ -14,5 +14,6 @@ power varchar(6),
 toughness varchar(6),
 artist varchar(200),
 copyright varchar(200),
-deck_id varchar(36)
+deck_id varchar(36),
+status varchar(20)
 );

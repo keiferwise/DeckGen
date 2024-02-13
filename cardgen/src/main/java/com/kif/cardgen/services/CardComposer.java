@@ -15,15 +15,9 @@ import java.awt.geom.AffineTransform;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-import java.io.InputStream;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.UUID;
-
 import javax.imageio.ImageIO;
 
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import com.kif.deckgenmodels.Card;
@@ -135,7 +129,7 @@ public class CardComposer {
 		// ## Type and subtype ## //
 		font = new Font("EB Garamond Medium", Font.PLAIN, 55);
 		g2d.setFont(font);
-		x = 180;
+		x = 165;
 		y = 985;
 		//g2d.drawString(type + " - " + subtype, x, y);
 		String typeText="";

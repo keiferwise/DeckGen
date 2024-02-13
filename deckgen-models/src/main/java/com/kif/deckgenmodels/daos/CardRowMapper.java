@@ -28,6 +28,7 @@ public class CardRowMapper implements RowMapper<Card> {
 		card.setToughness(rs.getString("toughness"));
 		card.setArtist(rs.getString("artist"));
 		card.setCopyright(rs.getString("copyright"));
+		card.setStatus(rs.getString("status"));
 		return card;
 
 	}

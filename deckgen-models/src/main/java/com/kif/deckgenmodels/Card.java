@@ -35,6 +35,9 @@ public class Card {
 	private String artist;
     @JsonProperty("copyright")
 	private String copyright;
+    @JsonProperty("status")
+	private String status = "NEW";
+    
     
 	private String cardId;
 	
@@ -110,6 +113,13 @@ public class Card {
 	}
 	public void setToughness(String toughness) {
 		this.toughness = toughness;
+	}
+	
+	public String getStatus() {
+		return status;
+	}
+	public void setStatus(String status) {
+		this.status = status;
 	}
 	public String getArtist() {
 		return artist;
