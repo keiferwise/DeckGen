@@ -5,6 +5,7 @@
 body {
   	background-image:  url("/images/bg/bg-Texture-Seamless.jpg");
 	background-repeat: repeat;
+	/*background-color: saddlebrown;*/
 }
 .card-container-large {
 	position: relative;

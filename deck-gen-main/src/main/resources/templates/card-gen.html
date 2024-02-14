@@ -6,75 +6,81 @@
 	<title>Make a Single Card</title>
 </head>
 <script th:inline="javascript">
-  var types = /*[[${types}]]*/ [];
-  var subtypes = /*[[${subtypes}]]*/ [];
+	var types = /*[[${types}]]*/[];
+	var subtypes = /*[[${subtypes}]]*/[];
 </script>
 
 <script type="text/javascript" th:src="@{/js/typeSubtype.js}"></script>
 
 <body>
 	<div th:replace="fragments/background-open"></div>
-	<div th:replace="fragments/header">...</div>
-	<div th:replace="fragments/menu">...</div>
-	<div class="container">
+	<div th:replace="fragments/001-header">...</div>
+	<div class="container col-md-6 col-lg-7">
 		<div class="dg-deck-input-box row">
+			<h4 class="mb-3">Make a Card!</h4>
 			<form method="post" th:action="@{/submit-card}">
+				<div class="row g-3">
 				<div>
-					<label for="theme">What is the theme of your Card:</label>
-					<input type="text" id="theme" name="theme">
+					<label for="theme" class="form-label">Theme</label>
+					<input type="text" id="theme" name="theme" class="form-control" required>
+					<div class="invalid-feedback">
+						Valid Theme is required.
+					</div>
 				</div>
 				<div>
-					<label for="cardName">Card Name:</label>
-					<input type="text" id="cardName" name="cardName">
+					<label for="cardName" class="form-label">Card Name:</label>
+					<input type="text" id="cardName" name="cardName" class="form-control">
 				</div>
-				<div>
-					<label for="type">Card Type</label>
-					<select id="type" name="type" onchange="filterOptions()">
-						<option th:each="tp : ${types}" th:value="${tp.type_name}" th:text="${tp.type_name}"></option>
+				<div class="col-sm-6">
+					<label for="type" class="form-label">Card Type</label>
+					<select id="type" name="type" onchange="filterOptions()" class="form-select">
+						<option th:each="tp : ${types}" th:value="${tp.type_name}" th:text="${tp.type_name}">
+						</option>
+					</select>
+				</div>
+				<div class="col-sm-6">
+					<label id="subtypeLabel" class="form-label" for="subtype">Card Subtype</label>
+					<select id="subtype" name="subtype" class="form-select">
+						<option th:each="stp : ${subtypes}" th:value="${stp.subtype_name}"
+							th:text="${stp.subtype_name}"></option>
+					</select>
+				</div>
+				<div class="col-sm-6">
+					<label for="artStyle" class="form-label">Art Style</label>
+					<select id="artStyle" name="artStyle" class="form-select">
+						<option th:each="as : ${artStyles}" th:value="${as.shortName}" th:text="${as.shortName}">
+						</option>
 					</select>
 				</div>
 				<div>
-					<label id="subtypeLabel" for="subtype">Card Subtype</label>
-					<select id="subtype" name="subtype">
-						<option th:each="stp : ${subtypes}" th:value="${stp.subtype_name}" th:text="${stp.subtype_name}"></option>
-					</select>				
-					</div>
-				<div>
-					<label for="artStyle">Choose and Art Style</label>
-					<select id="artStyle" name="artStyle">
-						<option th:each="as : ${artStyles}" th:value="${as.shortName}" th:text="${as.shortName}"></option>
-					</select>	
-					
-				</div>
-				<div>
-					<label for="red">Red</label>
-					<input type="number" id="red" name="red" value="0"/>
+					<label for="red" class="form-label">Red</label>
+					<input type="number" id="red" name="red" value="0" />
 
 				</div>
 				<div>
-					<label for="blue">Blue</label>
-					<input type="number" id="blue" name="blue" value="0"/>
+					<label for="blue" class="form-label">Blue</label>
+					<input type="number" id="blue" name="blue" value="0" />
 				</div>
 				<div>
-					<label for="green">Green</label>
-					<input type="number" id="green" name="green" value="0"/>
+					<label for="green" class="form-label">Green</label>
+					<input type="number" id="green" name="green" value="0" />
 
 				</div>
 				<div>
-					<label for="white">White</label>
+					<label for="white" class="form-label">White</label>
 					<input type="number" id="white" name="white" value="0" />
 				</div>
 				<div>
-					<label for="black">Black</label>
-					<input type="number" id="black" name="black" value="0"/>
+					<label for="black" class="form-label">Black</label>
+					<input type="number" id="black" name="black" value="0" />
 				</div>
 				<div>
-					<label for="colourless">Colourless</label>
+					<label for="colourless" class="form-label">Colourless</label>
 					<input type="number" id="colourless" name="colourless" value="0">
 				</div>
 				<div id="tone-selector">
-					<label for="tone-selector">
-						Select the deck's vibe:
+					<label for="tone-selector" class="form-label">
+						Vibe:
 					</label>
 					<input type="radio" name="vibe" id="radioButton1" th:value="Grim">
 					<label for="radioButton1">
@@ -99,16 +105,18 @@
 					</label>
 				</div>
 				<div>
-					<label for="deck">Add to Deck</label>
+					<label for="deck" class="form-label">Add to Deck</label>
 					<select id="deck" name="deck">
 						<option th:each="deck : ${decks}" th:value="${deck.deckId}" th:text="${deck.name}"></option>
-					</select>	
-					
+					</select>
+
 				</div>
 
 
-				
-				<button type="submit">Submit</button>
+				<div>
+					<button type="submit" class="w-100 btn btn-primary btn-lg">Submit</button>
+				</div>
+				</div>
 			</form>
 		</div>
 	</div>
