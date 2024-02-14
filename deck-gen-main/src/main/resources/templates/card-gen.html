@@ -28,12 +28,13 @@
 						</div>
 					</div>
 					<div>
-						<label for="cardName" class="form-label">Card Name:</label>
+						<label for="cardName" class="form-label">Card Name</label>
 						<input type="text" id="cardName" name="cardName" class="form-control">
 					</div>
 					<div class="col-sm-6">
 						<label for="type" class="form-label">Card Type</label>
 						<select id="type" name="type" onchange="filterOptions()" class="form-select">
+							<option value="" disabled selected>Select your option</option>
 							<option th:each="tp : ${types}" th:value="${tp.type_name}" th:text="${tp.type_name}">
 							</option>
 						</select>
@@ -45,68 +46,70 @@
 								th:text="${stp.subtype_name}"></option>
 						</select>
 					</div>
-					<div class="col-sm-6">
+					
+					<div class="col-sm-5">
 						<label for="artStyle" class="form-label">Art Style</label>
 						<select id="artStyle" name="artStyle" class="form-select">
 							<option th:each="as : ${artStyles}" th:value="${as.shortName}" th:text="${as.shortName}">
 							</option>
 						</select>
 					</div>
-					<div>
+					<h4>Mana Value</h4>
+					<div class="col-sm-2">
 						<label for="red" class="form-label">Red</label>
-						<input type="number" id="red" name="red" value="0" />
+						<input type="number" id="red" name="red" value="0" class="form-control"/>
 
 					</div>
-					<div>
+					<div class="col-sm-2">
 						<label for="blue" class="form-label">Blue</label>
-						<input type="number" id="blue" name="blue" value="0" />
+						<input type="number" id="blue" name="blue" value="0" class="form-control"/>
 					</div>
-					<div>
+					<div class="col-sm-2">
 						<label for="green" class="form-label">Green</label>
-						<input type="number" id="green" name="green" value="0" />
+						<input type="number" id="green" name="green" value="0" class="form-control"/>
 
 					</div>
-					<div>
+					<div class="col-sm-2">
 						<label for="white" class="form-label">White</label>
-						<input type="number" id="white" name="white" value="0" />
+						<input type="number" id="white" name="white" value="0" class="form-control"/>
 					</div>
-					<div>
+					<div class="col-sm-2">
 						<label for="black" class="form-label">Black</label>
-						<input type="number" id="black" name="black" value="0" />
+						<input type="number" id="black" name="black" value="0" class="form-control"/>
 					</div>
-					<div>
+					<div class="col-sm-2">
 						<label for="colourless" class="form-label">Colourless</label>
-						<input type="number" id="colourless" name="colourless" value="0">
+						<input type="number" id="colourless" name="colourless" value="0" class="form-control">
 					</div>
-					<div id="tone-selector">
-						<label for="tone-selector" class="form-label">
-							Vibe:
-						</label>
-						<input type="radio" name="vibe" id="radioButton1" th:value="Grim">
-						<label for="radioButton1">
+					<div id="tone-selector" >
+						<h4 for="tone-selector" class="form-label" >
+							Vibe
+						</h4>
+						<input type="radio" name="vibe" id="radioButton1" th:value="Grim" class="form-check-input">
+						<label for="radioButton1" class="form-check-label">
 							Grim
 						</label>
-						<input type="radio" name="vibe" id="radioButton2" th:value="Serious">
-						<label for="radioButton2">
+						<input type="radio" name="vibe" id="radioButton2" th:value="Serious" class="form-check-input">
+						<label for="radioButton2" class="form-check-label">
 							Serious
 						</label>
-						<input type="radio" name="vibe" id="radioButton3" th:value="Normal" checked>
-						<label for="radioButton3">
+						<input type="radio" name="vibe" id="radioButton3" th:value="Normal" checked class="form-check-input">
+						<label for="radioButton3" class="form-check-label">
 							Normal
 						</label>
 
-						<input type="radio" name="vibe" id="radioButton4" th:value="Silly">
-						<label for="radioButton4">
+						<input type="radio" name="vibe" id="radioButton4" th:value="Silly" class="form-check-input">
+						<label for="radioButton4" class="form-check-label">
 							Silly
 						</label>
-						<input type="radio" name="vibe" id="radioButton5" th:value="Absurd">
-						<label for="radioButton5">
+						<input type="radio" name="vibe" id="radioButton5" th:value="Absurd" class="form-check-input">
+						<label for="radioButton5" class="form-check-label">
 							Absurd
 						</label>
 					</div>
 					<div>
-						<label for="deck" class="form-label">Add to Deck</label>
-						<select id="deck" name="deck">
+						<label for="deck" class="form-label">Deck</label>
+						<select id="deck" name="deck" class="form-select">
 							<option th:each="deck : ${decks}" th:value="${deck.deckId}" th:text="${deck.name}"></option>
 						</select>
 

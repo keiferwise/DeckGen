@@ -13,26 +13,26 @@
 <div class="dg-deck-input-box row">
 	<form method="post" th:action="@{/submit-theme}">
 		<div>
-			<label for="theme">What is the theme of your deck:</label>
-			<input type="text" id="theme" name="theme">
+			<label for="theme" class="form-label">What is the theme of your deck:</label>
+			<input type="text" id="theme" name="theme" class="form-control">
 		</div>
 		<div>
-			<label for="deckName">Name your deck:</label>
-			<input type="text" id="deckName" name="deckName">
+			<label for="deckName" class="form-label">Name your deck:</label>
+			<input type="text" id="deckName" name="deckName" class="form-control">
 		</div>
 		<div>
-			<label for="legend">Add a Legend</label>
-			<input type="text" id="legend" name="legend">
+			<label for="legend" class="form-label">Add a Legend</label>
+			<input type="text" id="legend" name="legend" class="form-control">
 		</div>
 				<div>
-			<label for="artStyle">Choose and Art Style</label>
-			<select id="artStyle" name="artStyle">
+			<label for="artStyle" class="form-label">Choose and Art Style</label>
+			<select id="artStyle" name="artStyle" class="form-select">
 				<option th:each="as : ${artStyles}" th:value="${as.shortName}" th:text="${as.shortName}"></option>
 			</select>	
 		</div>
 
 		<div id="checkboxdiv">
-			<label for="checkboxdiv">Choose mana colours</label>
+			<label for="checkboxdiv" class="form-label">Choose mana colours</label>
 
 			<input type="checkbox" id="red" name="mana" th:value="red" />
 			<label for="red">Red</label>
@@ -77,20 +77,6 @@
 				Absurd
 			</label>
 		</div>
-
-		<!--/*	
-        <label for=""></label>
-       	<input type="" id="" name="">
-       	
-        <label for=""></label>
-       	<input type="" id="" name="">
-       	
-        <label for=""></label>
-       	<input type="" id="" name="">
-       	
-        <label for=""></label>
-       	<input type="" id="" name="">       	       	       	       	
-        */-->
 		<button type="submit">Submit</button>
 	</form>
 	</div>
