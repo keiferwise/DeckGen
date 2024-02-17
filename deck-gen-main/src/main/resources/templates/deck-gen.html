@@ -13,15 +13,15 @@
 		<div class="dg-deck-input-box">
 			<form method="post" th:action="@{/submit-theme}">
 				<div class="row">
-					<div>
+					<div class="col-sm-10">
 						<label for="theme" class="form-label">What is the theme of your deck:</label>
 						<input type="text" id="theme" name="theme" class="form-control">
 					</div>
-					<div>
+					<div class="col-sm-7">
 						<label for="deckName" class="form-label">Name your deck:</label>
 						<input type="text" id="deckName" name="deckName" class="form-control">
 					</div>
-					<div class="col-6">
+					<div class="col-7">
 						<label for="legend" class="form-label">Add a Legend</label>
 						<input type="text" id="legend" name="legend" class="form-control">
 					</div>
@@ -32,7 +32,7 @@
 							</option>
 						</select>
 					</div>
-					<div>
+					<div class="col-9">
 						<label for="checkboxdiv" class="form-label">Choose mana colours</label>
 						<div id="checkboxdiv">
 
@@ -53,38 +53,58 @@
 						</div>
 					</div>
 
-					<div id="tone-selector">
-						<label for="tone-selector">
-							Select the deck's vibe:
-						</label>
-						<input class="form-check-input" type="radio" name="vibe" id="radioButton1" th:value="Grim">
-						<label for="radioButton1">
-							Grim
-						</label>
-						<input class="form-check-input" type="radio" name="vibe" id="radioButton2" th:value="Serious">
-						<label for="radioButton2">
-							Serious
-						</label>
-						<input class="form-check-input" type="radio" name="vibe" id="radioButton3" th:value="Normal"
-							checked>
-						<label for="radioButton3">
-							Normal
-						</label>
-
-						<input class="form-check-input" type="radio" name="vibe" id="radioButton4" th:value="Silly">
-						<label for="radioButton4">
-							Silly
-						</label>
-						<input class="form-check-input" type="radio" name="vibe" id="radioButton5" th:value="Absurd">
-						<label for="radioButton5">
-							Absurd
-						</label>
-						<button type="submit" class="w-100 btn btn-primary btn-lg">Submit</button>
-
+					<div id="tone-selector" class="col-9">
+						<div>
+							<label for="tone-selector" class="form-label">
+								Select the deck's vibe:
+							</label>
+						</div>
+						<div class="form-check">
+							<input class="form-check-input" type="radio" name="vibe" id="radioButton1" th:value="Grim">
+							<label for="radioButton1" class="form-check-label">
+								Grim
+							</label>
+						</div>
+						<div class="form-check">
+							<input class="form-check-input" type="radio" name="vibe" id="radioButton2"
+								th:value="Serious">
+							<label for="radioButton2" class="form-check-label">
+								Serious
+							</label>
+						</div>
+						<div class="form-check">
+							<input class="form-check-input" type="radio" name="vibe" id="radioButton3" th:value="Normal"
+								checked>
+							<label for="radioButton3" class="form-check-label">
+								Normal
+							</label>
+						</div>
+						<div class="form-check">
+							<input class="form-check-input" type="radio" name="vibe" id="radioButton4" th:value="Silly">
+							<label for="radioButton4" class="form-check-label">
+								Silly
+							</label>
+						</div>
+						<div class="form-check">
+							<input class="form-check-input" type="radio" name="vibe" id="radioButton5"
+								th:value="Absurd">
+							<label for="radioButton5">
+								Absurd
+							</label>
+						</div>
 					</div>
+
 				</div>
-			</form>
+				<div>
+					<button type="submit" class="w-100 btn btn-primary btn-lg">Submit</button>
+				</div>
+
 		</div>
+
+
+	</div>
+	</form>
+	</div>
 	</div>
 	<div th:replace="fragments/background-close">...</div>
 
