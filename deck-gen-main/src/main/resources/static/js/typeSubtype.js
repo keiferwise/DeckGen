@@ -30,8 +30,8 @@ function filterOptions() {
         cardSubtypeLabel.style.display = "none";
     }
     else {
-        cardSubtype.style.display = "inline";
-        cardSubtypeLabel.style.display = "inline";
+        cardSubtype.style.display = "block";
+        cardSubtypeLabel.style.display = "block";
     }
     //subtypes.forEach((subtype) => {
     //  console.log(subtype.type_id);
