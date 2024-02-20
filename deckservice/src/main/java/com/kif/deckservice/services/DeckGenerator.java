@@ -12,6 +12,10 @@ import org.springframework.web.reactive.function.client.WebClient;
 import com.kif.deckgenmodels.daos.DeckDao;
 import com.kif.deckgenmodels.daos.DeckIdeaDao;
 import com.kif.deckservice.services.CardService;
+
+import reactor.core.Disposable;
+import reactor.core.publisher.Mono;
+
 import com.kif.deckgenmodels.Card;
 import com.kif.deckgenmodels.Deck;
 import com.kif.deckgenmodels.DeckIdea;
@@ -55,20 +59,30 @@ public class DeckGenerator {
 		// TODO Auto-generated method stub
 		// CardService cs = new CardService(WebClient.builder());
 		CardService cs = new CardService(WebClient.builder());
-
 		Deck deck = deckDao.findDeckById(deckId);
 		DeckIdea deckIdea = did.findByDeckId(deckId);
+		Disposable myMono;
 		//Fill out card text detail
-		for (Card card : deck.getCards()) {
-
-
-			// Change this to call the microservice
-			System.out.println(card.getCardId());
-			cs.createCard(card.getCardId(), deckIdea.getTheme(), deckIdea.getDeckIdeaId()).subscribe(response -> {
-				// Handle the response string here.
-				System.out.println("Response: " + response + "... Awesome!");
-			});
-
+		try {
+			for (Card card : deck.getCards()) {
+			
+				
+				cs.createCard(card.getCardId(), deckIdea.getTheme(), deckIdea.getDeckIdeaId()).subscribe(response -> {
+					// Handle the response string here.
+					if(response.equals("Request received successfully!")) {
+						
+					}
+					//System.out.println("Response: " + response + "... Awesome!");
+				});
+				
+				//System.out.println(myMono.toString());
+				
+			}
+			deckDao.updateStatusComplete(deckId);
+		} catch (Exception e) {
+			// TODO Auto-generated catch 
+			deckDao.updateStatusFailed(deckId)	;
+			e.printStackTrace();
 		}
 
 	}

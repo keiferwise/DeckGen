@@ -15,6 +15,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.reactive.result.view.RedirectView;
 
 import com.kif.deckgen.services.CardService;
 import com.kif.deckgenmodels.ArtStyle;
@@ -90,7 +91,7 @@ public class SingleController {
 	
 
     @PostMapping("/submit-card")
-    public String makeSingle(
+    public String  makeSingle(
     		@RequestParam("cardName") String name, 
     		@RequestParam("theme") String theme, 
     		@RequestParam("type") String type,
@@ -119,7 +120,7 @@ public class SingleController {
     		typeSubtype = type;
     	}
     	
-    	String response  = cs.createSingle(name, typeSubtype, theme, artStyle, vibe, mana,deckId).block().trim();
+    	String response  = cs.createSingle(name, type, subtype, theme, artStyle, vibe, mana,deckId).block().trim();
     	//System.out.println("#Response start#");
 
     	//System.out.println(response);
@@ -130,14 +131,14 @@ public class SingleController {
 		Card card = cardDao.getCardById(response);
     	//System.out.println(card.getArtDescription());
 
-    	Image image = new Image();
-    	image.setUrl(minio.getImage(response));
-    	model.addAttribute("image",image);
-    	model.addAttribute("flavor", card.getFlavorText().split("<NEWLINE>"));
-    	model.addAttribute("rules", card.getRulesText().split("<NEWLINE>"));
+    	//Image image = new Image();
+    	//image.setUrl(minio.getImage(response));
+    	//model.addAttribute("image",image);
+    	//model.addAttribute("flavor", card.getFlavorText().split("<NEWLINE>"));
+    	//model.addAttribute("rules", card.getRulesText().split("<NEWLINE>"));
     	
     	
-        return "single";
+        return "redirect:/card/"+card.getCardId();
     }
     
     private String convertManaToString(Integer white, Integer blue, Integer black, Integer red, Integer green, Integer colourless) {

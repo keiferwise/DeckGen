@@ -176,6 +176,7 @@ public class CardGenerator {
 		card.setName(sr.getName());
 		card.setManaCost(sr.getMana());
 		card.setType(sr.getType());
+		card.setSubtype(sr.getSubType());
 		idea.setArtStyle(sr.getArtStyle());
 		idea.setTheme(sr.getTheme());
 		idea.setVibe(sr.getVibe());

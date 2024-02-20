@@ -19,7 +19,7 @@ public class CardService {
     }
 	
 
-    public Mono<String> createSingle(String name, String type, String theme,String artStyle,String vibe, String mana,String deckId){
+    public Mono<String> createSingle(String name, String type, String subtype, String theme,String artStyle,String vibe, String mana,String deckId){
     	
     	
     	String requestBody;
@@ -30,6 +30,7 @@ public class CardService {
     	sr.setName(name);
     	sr.setTheme(theme);
     	sr.setType(type);
+    	sr.setSubType(subtype);
     	sr.setVibe(vibe);
     	sr.setDeckId(deckId);
     	

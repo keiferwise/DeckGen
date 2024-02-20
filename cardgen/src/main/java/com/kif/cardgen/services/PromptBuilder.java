@@ -59,6 +59,8 @@ public class PromptBuilder {
 		//System.out.println("Base rompt is : "+ cardDetailsTemplate);
 		String prompt = cardDetailsTemplate.replace("<NAME>", card.getName());
 		prompt = prompt.replace("<TYPE>", card.getType());
+		prompt = prompt.replace("<SUBTYPE>", card.getSubtype());
+
 		prompt = prompt.replace("<THEME>", deckIdea.getTheme());
 		prompt = prompt.replace("<MANACOST>",card.getManaCost());
 		//prompt = prompt.replace("<ARTSTYLE>", deckIdea.getArtStyle());

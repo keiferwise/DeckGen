@@ -35,7 +35,6 @@ public class CardNamesGenerator {
 	
 public Deck generateCardNames(String inputText, DeckIdea deckIdea) {
     	
-    	//ChatGPTClient gptClient = new ChatGPTClient();
 		String mana = manaColour(deckIdea);
     	String prompt = promptTemplate.replace("<MYTHEME>", inputText);
     	prompt = prompt.replace("<MANA>", mana);
@@ -45,7 +44,7 @@ public Deck generateCardNames(String inputText, DeckIdea deckIdea) {
     	List<Card> cards = null;
 		try {
 			System.out.println(deck);
-			deck = deck.substring(12);
+			deck = deck.substring(deck.indexOf("["));
 			deck = deck.substring(0, deck.length() - 1);
 			cards = objectMapper.readValue(deck, new TypeReference<List<Card>>() {}); //THIS IS A PROBLEM, I THINK I AM DESERIALIZING THE CARD BUT I AM NOT
 			//System.out.println(cards.get(0).getClass());
@@ -67,7 +66,7 @@ public Deck generateCardNames(String inputText, DeckIdea deckIdea) {
     		//deckRepo.save(deckObject);
     	}
     	else {
-    		System.out.println("fuck you");
+    		System.out.println("f#%k you");
     	}
     	
     	
