@@ -2,6 +2,9 @@
 	font-family:"goudy";
 	src: url('/fonts/Goudy-Mediaeval-Regular.ttf') format('truetype');
 }
+.card-margin{
+	margin:20px;
+}
 body {
   	background-image:  url("/images/bg/bg-Texture-Seamless.jpg");
 	background-repeat: repeat;
