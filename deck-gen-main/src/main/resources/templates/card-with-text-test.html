@@ -1,8 +1,9 @@
 <head>
 	<link th:href="@{/css/style.css}" rel="stylesheet" />
 </head>
-<div class="card-container-small">
-	<img class="image-small" th:src="${image.url}">
+<div>
+<div  class="card-container-small">
+	<img style="box-shadow:  7px 7px 7px dimgrey; border-radius:14px;" class="image-small" th:src="${image.url}">
 	<div class="rules-and-flavor-box" id="myOutput">
 		<div class="rules" th:each="rule : ${rules}">
 			<div th:utext="${rule}"></div>
@@ -12,10 +13,6 @@
 		</div>
 	</div>
 </div>
-<!--<div>
-	<button id="myButton">Scale Down</button>
-	<button id="scaleUpButton">Scale Up</button>
-</div>-->
+</div>
 <script type="text/javascript" th:src="@{/js/script.js}"></script>
-<!--<script type="text/javascript" th:src="@{/js/sizeText.js}"></script>-->
 <script type="text/javascript" th:src="@{/js/isTextOverflowing.js}"></script>

@@ -5,37 +5,38 @@
 	<div class="">
 		<div class="row dg-deck-input-box">
 			<div class="col card-margin">
-				<h4 th:text="${card.name}"></h4>
-				<h4 th:text="${card.manaCost}"></h4>
+				<h4 th:text="${card.name} "></h4>
+				<div th:utext="${manaCost}"></div>
 			</div>
 			<div class="col">
 				<div class="card-margin">
+					<div >
 					<div th:replace="card-with-text-test">...</div>
+					</div>
 				</div>
 			</div>
-
-
 			<div class="d-flex justify-content-between">
-  <form method="post" th:action="@{/move-card}" class="col-md-6">
-    <div class="row">
-      <div class="col">
-        <select id="deck" name="deck" class="form-select">
-          <option th:each="deck : ${decks}" th:value="${deck.deckId}" th:text="${deck.name}"></option>
-        </select>
-      </div>
-      <div class="col-auto">
-        <button type="button" class="btn btn-dark">Move to deck</button>
-      </div>
-    </div>
-  </form>
-  <form method="post" th:action="@{/delete-card}" class="col-auto">
-    <div class="row">
-      <div class="col">
-        <button type="button" class="btn btn-danger">Delete Card</button>
-      </div>
-    </div>
-  </form>
-</div>
+				<form method="post" th:action="@{/move-card}" class="col-md-6">
+					<div class="row">
+						<div class="col">
+							<select id="deck" name="deck" class="form-select">
+								<option th:each="deck : ${decks}" th:value="${deck.deckId}" th:text="${deck.name}">
+								</option>
+							</select>
+						</div>
+						<div class="col-auto">
+							<button type="button" class="btn btn-dark">Move to deck</button>
+						</div>
+					</div>
+				</form>
+				<form method="post" th:action="@{/delete-card}" class="col-auto">
+					<div class="row">
+						<div class="col">
+							<button type="button" class="btn btn-danger">Delete Card</button>
+						</div>
+					</div>
+				</form>
+			</div>
 
 
 		</div>

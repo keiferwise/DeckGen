@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 
 import com.kif.deckgen.services.CardComposer;
 import com.kif.deckgen.services.CardService;
+import com.kif.deckgen.utilities.ManaCostUtility;
 import com.kif.deckgenmodels.services.DalleClient;
 import com.kif.deckgenmodels.Card;
 import com.kif.deckgenmodels.Image;
@@ -49,6 +50,9 @@ public class CardController {
 	@Autowired 
 	CardComposer cardComposer;
 	
+	@Autowired
+	ManaCostUtility manaCostUtility;
+	
 	@Value("${com.kif.site-title}")
 	private String siteTitle;
 	
@@ -75,6 +79,9 @@ public class CardController {
 
     	}
     	model.addAttribute("font-size",card.getTextSize("small"));
+    	
+    	model.addAttribute("manaCost", manaCostUtility.manaCostForTemplate("Large", card.getManaCost()));
+    	
         return "card";
     }
     @GetMapping("/card/art/{cardId}")
