@@ -1,36 +1,31 @@
 <div th:replace="fragments/001-header">...</div>
 
-<div class="dg-button"><a th:href="@{/deck-gen}">New Deck</a></div>
-<div class="dg-button"><a th:href="@{/new-single}">New Single</a></div>
-<div class="dg-button"><a th:href="@{/open-booster}">Open Booster Pack</a></div>
+
 
 <div class="container">
 	<div class="row">
-		<div class="card" style="width: 18rem;">
+		<div class="card dg-deck-input-box" style="width: 18rem;">
 			<img src="\images/w.png" class="card-img-top" alt="...">
 			<div class="card-body">
-				<h5 class="card-title">Card title</h5>
-				<p class="card-text">Some quick example text to build on the card title and make up the bulk of the
-					card's content.</p>
-				<a href="#" class="btn btn-primary">Go somewhere</a>
+				<h5 class="card-title">New Deck</h5>
+				<p class="card-text">Make yourself a new MTG deck!</p>
+				<a th:href="@{/deck-gen}" class="btn btn-dark">Go somewhere</a>
 			</div>
 		</div>
-		<div class="card" style="width: 18rem;">
+		<div class="card dg-deck-input-box" style="width: 18rem;">
 			<img src="\images/b.png" class="card-img-top" alt="...">
 			<div class="card-body">
-				<h5 class="card-title">Card title</h5>
-				<p class="card-text">Some quick example text to build on the card title and make up the bulk of the
-					card's content.</p>
-				<a href="#" class="btn btn-primary">Go somewhere</a>
+				<h5 class="card-title">New Card</h5>
+				<p class="card-text">MAke yourself a new single MTG card!</p>
+				<a th:href="@{/new-single}" class="btn btn-dark">Go somewhere</a>
 			</div>
 		</div>
-		<div class="card" style="width: 18rem;">
+		<div class="card dg-deck-input-box" style="width: 18rem;">
 			<img src="\images/g.png" class="card-img-top" alt="...">
 			<div class="card-body">
-				<h5 class="card-title">Card title</h5>
-				<p class="card-text">Some quick example text to build on the card title and make up the bulk of the
-					card's content.</p>
-				<a href="#" class="btn btn-primary">Go somewhere</a>
+				<h5 class="card-title">Open a booster Pack</h5>
+				<p class="card-text">Add 15 cards to your collection!</p>
+				<a  th:href="@{/open-booster}" class="btn btn-dark">Go somewhere</a>
 			</div>
 		</div>
 	</div>
