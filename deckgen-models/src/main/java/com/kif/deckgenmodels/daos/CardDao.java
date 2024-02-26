@@ -28,6 +28,11 @@ public class CardDao {
 		return result;
 	}
 	
+	/*
+	 * Update this for multideck
+	 * 		select * from card c inner join card_deck d on c.card_id = d.card_id where d.deck_id = ? 
+
+	 */
 	public List<Card> findAllByDeckId(String cardId){
 		
 		List<Card> cards = new ArrayList<Card>();
@@ -49,6 +54,14 @@ public class CardDao {
 		
 	}
 	
+	/*
+	 * Update this for multideck
+	 * 
+	 *  "insert into card_deck (card_id,deck_id,id) values (?,?,?)",
+	 *  UUID.randomUUID().toString, 
+	 *  myUUID.toString, 
+	 *  UUID.randomUUID().toString
+	 */
 	public int saveAll( List<Card> list, UUID myUuid) {
 		int result=0;
 		for (Card card : list) {
@@ -64,6 +77,9 @@ public class CardDao {
 		}
 		return result;
 	}
+	/*
+	 * Update this for multideck
+	 */
 	public int save(Card card, String deckId) {
 		int result=0;
 		result = jdbcTemplate.update(
@@ -78,7 +94,13 @@ public class CardDao {
 		
 		return result;
 	}
-	
+	/*
+	 * Update this for multideck
+	 *  "insert into card_deck (card_id,deck_id,id) values (?,?,?)",
+	 *  cardId, 
+	 *  deckId, 
+	 *  UUID.randomUUID().toString
+	 */
 	public int save(Card card, String deckId,String cardId) {
 		int result=0;
 		result = jdbcTemplate.update(
