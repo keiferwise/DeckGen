@@ -36,7 +36,7 @@ public class CardDao {
 	public List<Card> findAllByDeckId(String cardId){
 		
 		List<Card> cards = new ArrayList<Card>();
-        String sql = "SELECT * FROM card WHERE deck_id = ?";
+        String sql = "select * from card c inner join card_deck d on c.card_id = d.card_id where d.deck_id = ?";
         
         cards = jdbcTemplate.query(sql, cardRowMapper,cardId);
         //System.out.println(cards.isEmpty());
@@ -64,36 +64,54 @@ public class CardDao {
 	 */
 	public int saveAll( List<Card> list, UUID myUuid) {
 		int result=0;
+		String newCardId = UUID.randomUUID().toString();
+
 		for (Card card : list) {
 			result = jdbcTemplate.update(
 	                "insert into card (card_id, card_name, mana_cost,"
 	                + "art_description,card_type,card_subtype,rarity,"
 	                + "rules_text,flavor_text,power,toughness,artist,copyright,deck_id) values(?,?,?,?,?,?,?,?,?,?,?,?,?,?)",
 	                
-	                UUID.randomUUID().toString(), card.getName(), card.getManaCost(),card.getArtDescription(),card.getType(),card.getSubtype(),
+	                newCardId, card.getName(), card.getManaCost(),card.getArtDescription(),card.getType(),card.getSubtype(),
 	                card.getRarity(),card.getRulesText(),card.getFlavorText(),card.getPower(),card.getToughness(),
 	                card.getArtist(),card.getCopyright(),
 	                myUuid.toString());	
 		}
-		return result;
-	}
+		int result2 = 0;
+		
+		result2 = jdbcTemplate.update("insert into card_deck (card_id,deck_id,id) values (?,?,?)",
+				newCardId, 
+				 myUuid.toString(),  
+				   UUID.randomUUID().toString()
+				);
+		
+		return result & result2;	}
 	/*
 	 * Update this for multideck
 	 */
 	public int save(Card card, String deckId) {
 		int result=0;
+		String newCardId = UUID.randomUUID().toString();
 		result = jdbcTemplate.update(
                 "insert into card (card_id, card_name, mana_cost,"
                 + "art_description,card_type,card_subtype,rarity,"
                 + "rules_text,flavor_text,power,toughness,artist,copyright,deck_id) values(?,?,?,?,?,?,?,?,?,?,?,?,?,?)",
                 
-                UUID.randomUUID().toString(), card.getName(), card.getManaCost(),card.getArtDescription(),card.getType(),card.getSubtype(),
+                newCardId, card.getName(), card.getManaCost(),card.getArtDescription(),card.getType(),card.getSubtype(),
                 card.getRarity(),card.getRulesText(),card.getFlavorText(),card.getPower(),card.getToughness(),
                 card.getArtist(),card.getCopyright(),
                 deckId);	
+		int result2 = 0;
 		
-		return result;
-	}
+		result2 = jdbcTemplate.update("insert into card_deck (card_id,deck_id,id) values (?,?,?)",
+				newCardId, 
+				 deckId,  
+				 UUID.randomUUID().toString()
+				);
+		
+		return result & result2;	
+		}
+	
 	/*
 	 * Update this for multideck
 	 *  "insert into card_deck (card_id,deck_id,id) values (?,?,?)",
@@ -113,7 +131,15 @@ public class CardDao {
                 card.getArtist(),card.getCopyright(),
                 deckId);	
 		
-		return result;
+		int result2 = 0;
+		
+		result2 = jdbcTemplate.update("insert into card_deck (card_id,deck_id,id) values (?,?,?)",
+				 cardId, 
+				   deckId, 
+				   UUID.randomUUID().toString()
+				);
+		
+		return result & result2;
 	}
 	
 	public Card getCardById(String cardId) {
