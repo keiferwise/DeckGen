@@ -41,6 +41,7 @@ public class DalleClient {
         
         
         Map<String, String> requestBody = new HashMap<>();
+        requestBody.put("model", "dall-e-3");
         requestBody.put("size", "1024x1024");
         requestBody.put("prompt", prompt);
         //requestBody.("n", 1);

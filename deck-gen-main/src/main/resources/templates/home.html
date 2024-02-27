@@ -3,29 +3,35 @@
 
 
 <div class="container">
-	<div class="row">
-		<div class="card dg-deck-input-box" style="width: 18rem;">
-			<img src="\images/w.png" class="card-img-top" alt="...">
-			<div class="card-body">
-				<h5 class="card-title">New Deck</h5>
-				<p class="card-text">Make yourself a new MTG deck!</p>
-				<a th:href="@{/deck-gen}" class="btn btn-dark">Go somewhere</a>
+	<div class="row row-cols-1 row-cols-md-3 mb-3 text-center">
+		<div class="col-sm">
+			<div class="card dg-deck-input-box" style="width: 18rem;">
+				<img src="\images/w.png" class="card-img-top" alt="...">
+				<div class="card-body">
+					<h5 class="card-title">New Deck</h5>
+					<p class="card-text">Make yourself a new MTG deck!</p>
+					<a th:href="@{/deck-gen}" class="btn btn-dark">Go somewhere</a>
+				</div>
 			</div>
 		</div>
-		<div class="card dg-deck-input-box" style="width: 18rem;">
-			<img src="\images/b.png" class="card-img-top" alt="...">
-			<div class="card-body">
-				<h5 class="card-title">New Card</h5>
-				<p class="card-text">MAke yourself a new single MTG card!</p>
-				<a th:href="@{/new-single}" class="btn btn-dark">Go somewhere</a>
+		<div class="col-sm">
+			<div class="card dg-deck-input-box" style="width: 18rem;">
+				<img src="\images/b.png" class="card-img-top" alt="...">
+				<div class="card-body">
+					<h5 class="card-title">New Card</h5>
+					<p class="card-text">MAke yourself a new single MTG card!</p>
+					<a th:href="@{/new-single}" class="btn btn-dark">Go somewhere</a>
+				</div>
 			</div>
 		</div>
-		<div class="card dg-deck-input-box" style="width: 18rem;">
-			<img src="\images/g.png" class="card-img-top" alt="...">
-			<div class="card-body">
-				<h5 class="card-title">Open a booster Pack</h5>
-				<p class="card-text">Add 15 cards to your collection!</p>
-				<a  th:href="@{/open-booster}" class="btn btn-dark">Go somewhere</a>
+		<div class="col-sm">
+			<div class="card dg-deck-input-box" style="width: 18rem;">
+				<img src="\images/g.png" class="card-img-top" alt="...">
+				<div class="card-body">
+					<h5 class="card-title">Open a booster Pack</h5>
+					<p class="card-text">Add 15 cards to your collection!</p>
+					<a th:href="@{/open-booster}" class="btn btn-dark">Go somewhere</a>
+				</div>
 			</div>
 		</div>
 	</div>
