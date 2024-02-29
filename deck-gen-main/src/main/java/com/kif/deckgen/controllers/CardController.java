@@ -87,8 +87,6 @@ public class CardController {
     @GetMapping("/card/art/{cardId}")
     public String art(@PathVariable String cardId, Model model) {
     	
-    	//Card card = cardDao.getCardById(cardId);
-    	//System.out.println(card.getArtDescription());
 
     	Image image = new Image();
     	image.setUrl(minio.getImage(cardId));
@@ -101,17 +99,13 @@ public class CardController {
     @GetMapping("/card/with-text/{cardId}")
     public String cardWithText(@PathVariable String cardId, Model model) {
     	Card card = cardDao.getCardById(cardId);
-    	//System.out.println(card.getArtDescription());
 
     	Image image = new Image();
     	image.setUrl(minio.getImage(cardId));
     	model.addAttribute("image",image);
     	model.addAttribute("flavor", card.getFlavorText().split("<NEWLINE>"));
     	model.addAttribute("rules", card.getRulesText().split("<NEWLINE>"));
-
-    	
-    	
-    	
+    	    	
     	return "card-with-text";
     }
     @GetMapping("/art-test")
@@ -143,11 +137,9 @@ public class CardController {
 			e.printStackTrace();
 		}
 
-    	//minio.saveImage(image, cardId);
     	
     	model.addAttribute("image",cardImage);
     	
-    	//minio.uploadObject(null);
     	
     	
     	return "art-test";
