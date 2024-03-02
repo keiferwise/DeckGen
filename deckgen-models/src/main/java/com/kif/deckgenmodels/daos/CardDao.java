@@ -67,6 +67,7 @@ public class CardDao {
 		String newCardId = UUID.randomUUID().toString();
 
 		for (Card card : list) {
+			newCardId = UUID.randomUUID().toString();
 			result = jdbcTemplate.update(
 	                "insert into card (card_id, card_name, mana_cost,"
 	                + "art_description,card_type,card_subtype,rarity,"

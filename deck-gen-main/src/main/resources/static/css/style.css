@@ -187,5 +187,7 @@ body {
 .b-card.active {
   /* ...existing styles... */
   z-index: 999;
-  transform: translate(-50%, -50%) scale(1.5) rotate(0deg);
+  transform: translate(50%, 50%) scale(1.5) rotate(0deg);
+  box-shadow: 0px 0px 14px gold; 
+  border-radius:14px;
 }
