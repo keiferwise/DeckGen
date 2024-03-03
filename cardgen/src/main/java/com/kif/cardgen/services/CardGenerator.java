@@ -68,12 +68,20 @@ public class CardGenerator {
 		//  Call createCardText method 
 		Card cardWithAllText = createCardText(cardid, theme, deckIdeaId);
 		System.out.println("This is the card we are about to update"+cardWithAllText.toString());
-		cardDao.updateCard(cardWithAllText, cardWithAllText.getCardId());
-			
-		// call the card composer to make the art.
-		createCardArt(cardWithAllText,ideaDao.findByDeckIdeaId(deckIdeaId).getArtStyle());
-
 		
+		try {
+			cardDao.updateCard(cardWithAllText, cardWithAllText.getCardId());
+			// call the card composer to make the art.
+			createCardArt(cardWithAllText,ideaDao.findByDeckIdeaId(deckIdeaId).getArtStyle());
+			cardDao.updateStatusComplete(cardid);
+
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			cardDao.updateStatusFailed(cardid);
+
+			e.printStackTrace();
+		}
+
 		
 		return cardWithAllText;
 	}
