@@ -140,7 +140,7 @@ public class CardComposer {
 		//g2d.drawString(type + " - " + subtype, x, y);
 		String typeText="";
 		if((card.getSubtype()!=null)) {
-			if(card.getSubtype().isBlank()) {
+			if(card.getSubtype().isBlank() || card.getSubtype().equals("<NONE>")) {
 				typeText = card.getType();
 			}
 			else {

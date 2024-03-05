@@ -19,6 +19,8 @@ public class SingleRequest {
 	private String deckId;
 	@JsonProperty("subType")
 	private String subType;
+	@JsonProperty("key")
+	private String key;
 	
 	public SingleRequest() {
 
@@ -29,7 +31,7 @@ public class SingleRequest {
 
 
 	public SingleRequest(String name, String type, String theme, String artStyle, String vibe, String mana,
-			String deckId, String subType) {
+			String deckId, String subType, String key) {
 		super();
 		this.name = name;
 		this.type = type;
@@ -39,12 +41,25 @@ public class SingleRequest {
 		this.mana = mana;
 		this.deckId = deckId;
 		this.subType = subType;
+		this.key = key;
 	}
 
 
 
 
 	
+	public String getKey() {
+		return key;
+	}
+
+
+
+	public void setKey(String key) {
+		this.key = key;
+	}
+
+
+
 	public String getDeckId() {
 		return deckId;
 	}
