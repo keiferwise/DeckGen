@@ -6,20 +6,39 @@ public class CardRequest {
 		// TODO Auto-generated constructor stub
 	}
 	
-	public CardRequest(String cardId, String theme, String deckId) {
-		// TODO Auto-generated constructor stub
+
+	
+	
+	public CardRequest(String cardId, String theme, String deckIdeaId, String key) {
+		super();
 		this.cardId = cardId;
-		this.theme=theme;
-		this.deckIdeaId = deckId;
+		this.theme = theme;
+		this.deckIdeaId = deckIdeaId;
+		this.key = key;
 	}
-	
-	
+
+
+
+
+	public String getKey() {
+		return key;
+	}
+	public void setKey(String key) {
+		this.key = key;
+	}
+
+
+
+
 	@JsonProperty("cardId")
 	String cardId;
 	@JsonProperty("theme")
 	String theme;
 	@JsonProperty("deckIdeaId")
 	String deckIdeaId;
+	@JsonProperty("key")
+	String key;
+	
 	public String getCardId() {
 		return cardId;
 	}

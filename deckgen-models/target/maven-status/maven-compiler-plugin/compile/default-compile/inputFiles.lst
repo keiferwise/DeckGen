@@ -2,6 +2,7 @@ D:\deckgen\deckgen-models\src\main\java\com\kif\deckgenmodels\services\OpenAIRes
 D:\deckgen\deckgen-models\src\main\java\com\kif\deckgenmodels\daos\ArtStyleRowMapper.java
 D:\deckgen\deckgen-models\src\main\java\com\kif\deckgenmodels\Image.java
 D:\deckgen\deckgen-models\src\main\java\com\kif\deckgenmodels\SingleRequest.java
+D:\deckgen\deckgen-models\src\main\java\com\kif\deckgenmodels\util\package-info.java
 D:\deckgen\deckgen-models\src\main\java\com\kif\deckgenmodels\ArtStyle.java
 D:\deckgen\deckgen-models\src\main\java\com\kif\deckgenmodels\daos\DeckIdeaDao.java
 D:\deckgen\deckgen-models\src\main\java\com\kif\deckgenmodels\daos\UserRowMapper.java
@@ -31,6 +32,7 @@ D:\deckgen\deckgen-models\src\main\java\com\kif\deckgenmodels\ChatResponse.java
 D:\deckgen\deckgen-models\src\main\java\com\kif\deckgenmodels\daos\package-info.java
 D:\deckgen\deckgen-models\src\main\java\com\kif\deckgenmodels\daos\DeckRowMapper.java
 D:\deckgen\deckgen-models\src\main\java\com\kif\deckgenmodels\services\package-info.java
+D:\deckgen\deckgen-models\src\main\java\com\kif\deckgenmodels\CardDeck.java
 D:\deckgen\deckgen-models\src\main\java\com\kif\deckgenmodels\services\DalleClient.java
 D:\deckgen\deckgen-models\src\main\java\com\kif\deckgenmodels\daos\CardRowMapper.java
 D:\deckgen\deckgen-models\src\main\java\com\kif\deckgenmodels\daos\UserDao.java

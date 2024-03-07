@@ -11,5 +11,4 @@ public class DeckserviceApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(DeckserviceApplication.class, args);
 	}
-
 }

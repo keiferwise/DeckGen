@@ -1,10 +1,13 @@
 package com.kif.deckservice.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpHeaders;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
 import com.kif.deckgenmodels.*;
+import com.kif.deckservice.util.ApiKeyUtil;
+
 import reactor.core.publisher.Mono;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -12,6 +15,12 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 @Service
 public class CardService {
+	
+	@Autowired
+	private ApiKeyUtil keyUtil;
+	
+	@Value("${com.kif.sharedsecret}")
+	private String key;
 
     private final WebClient webClient;
 
@@ -26,7 +35,7 @@ public class CardService {
 		System.out.println("Trying to make this into a request JSON: "+cardId + " "+theme+ " "+deckId);
 		ObjectMapper mapper = new ObjectMapper();
 		
-		CardRequest cr = new CardRequest(cardId, theme, deckId);
+		CardRequest cr = new CardRequest(cardId, theme, deckId, keyUtil.calculateSHA256Hash(key));
 		String requestBody="{\"cardId\":\""+cardId+"\",\"theme\":"+theme+",\"deckIdeaId\":\""+deckId+"}";
 		try {
 			 requestBody=mapper.writeValueAsString(cr);

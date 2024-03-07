@@ -23,8 +23,10 @@ com\kif\deckgenmodels\DeckIdea.class
 com\kif\deckgenmodels\daos\package-info.class
 com\kif\deckgenmodels\User.class
 com\kif\deckgenmodels\ChatRequest.class
+com\kif\deckgenmodels\util\package-info.class
 com\kif\deckgenmodels\services\ChatApiClient.class
 com\kif\deckgenmodels\services\package-info.class
+com\kif\deckgenmodels\CardDeck.class
 com\kif\deckgenmodels\daos\UserDao.class
 com\kif\deckgenmodels\daos\CardTypeRowMapper.class
 com\kif\deckgenmodels\Image.class

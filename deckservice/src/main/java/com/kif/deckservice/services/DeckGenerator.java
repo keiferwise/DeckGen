@@ -36,14 +36,7 @@ public class DeckGenerator {
 	
 	@Autowired
 	DeckIdeaDao did;
-	// MinioDao minio;
 
-	// CardComposer composer;
-
-	// CardDao cardDao;
-	/**
-	 * 
-	 */
 
 
 	// CardGenerator cardGenerator;

@@ -14,7 +14,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
-import com.kif.deckgen.services.CardComposer;
+//import com.kif.deckgen.services.CardComposer;
 import com.kif.deckgen.services.CardService;
 import com.kif.deckgen.utilities.ManaCostUtility;
 import com.kif.deckgenmodels.services.DalleClient;
@@ -47,8 +47,7 @@ public class CardController {
 	@Autowired
 	MinioDao minio;
 	
-	@Autowired 
-	CardComposer cardComposer;
+
 	
 	@Autowired
 	ManaCostUtility manaCostUtility;
@@ -108,42 +107,5 @@ public class CardController {
     	    	
     	return "card-with-text";
     }
-    @GetMapping("/art-test")
-    public String artTest(Model model) {
-    	
-    	BufferedImage cardImage = null;
-        Card card = cardDao.getCardById("fb1f9828-c42b-4f37-86a9-a92bc5c57798");
-		BufferedImage imgTest =null;
-		//TestArt
-        String artPath = "D:\\deckgen\\src\\main\\resources\\images\\test-clay.png";
-        try {
-			imgTest = ImageIO.read(new File(artPath));
-		} catch (IOException e2) {
-			// TODO Auto-generated catch block
-			e2.printStackTrace();
-		}
-        try {
-			 cardImage = cardComposer.createImage(card, imgTest);
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-    	
-    	
-    	try {
-			ImageIO.write(cardImage, "png", new File("D:\\out-images\\"+ card.getName() + UUID.randomUUID().toString() +".png"));
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-
-    	
-    	model.addAttribute("image",cardImage);
-    	
-    	
-    	
-    	return "art-test";
-    }
-    
 	
 }

@@ -115,5 +115,6 @@ public class SingleRequest {
 	public void setSubType(String subType) {
 		this.subType = subType;
 	}
+	
 
 }

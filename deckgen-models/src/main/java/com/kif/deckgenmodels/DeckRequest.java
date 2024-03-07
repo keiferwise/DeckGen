@@ -6,6 +6,9 @@ public class DeckRequest {
 	String deckIdeaId;
 	@JsonProperty("deckId")
 	String deckId;
+	@JsonProperty("key")
+	String key;
+	
 	public String getDeckIdeaId() {
 		return deckIdeaId;
 	}
@@ -21,8 +24,20 @@ public class DeckRequest {
 	public DeckRequest() {
 		// TODO Auto-generated constructor stub
 	}
-	public DeckRequest(String deckIdeaId, String deckId) {
+	public String getKey() {
+		return key;
+	}
+	public void setKey(String key) {
+		this.key = key;
+	}
+	public DeckRequest(String deckIdeaId, String deckId, String key) {
+		super();
+		this.deckIdeaId = deckIdeaId;
 		this.deckId = deckId;
-		this.deckIdeaId = deckIdeaId;	}
+		this.key = key;
+	}
+
+	
+	
 
 }

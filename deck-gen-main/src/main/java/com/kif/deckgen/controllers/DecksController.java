@@ -1,11 +1,9 @@
 package com.kif.deckgen.controllers;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
+
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -17,10 +15,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.kif.deckgen.services.CardComposer;
 import com.kif.deckgen.services.CardGenerator;
-import com.kif.deckgenmodels.services.DalleClient;
-import com.kif.deckgen.services.DeckGenerator;
 import com.kif.deckgen.services.DeckService;
 import com.kif.deckgenmodels.Card;
 import com.kif.deckgenmodels.Deck;
