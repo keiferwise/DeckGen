@@ -15,7 +15,7 @@ public class SecurityConfiguration {
 
     @Bean
     WebSecurityCustomizer webSecurityCustomizer() {
-    	RequestMatcher requestMatcher = new AntPathRequestMatcher("/create-deck");
+    	RequestMatcher requestMatcher = new AntPathRequestMatcher("/create-deck");//,"/actuator/*"
         return (webSecurity) -> webSecurity.ignoring().requestMatchers(requestMatcher);
     }
     @Bean
