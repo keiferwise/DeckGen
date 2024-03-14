@@ -8,7 +8,6 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
 import com.kif.deckgenmodels.ArtStyle;
-import com.kif.deckgenmodels.Deck;
 
 @Repository
 public class ArtStyleDao {

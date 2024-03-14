@@ -5,8 +5,6 @@ import java.io.File;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.Random;
-
 import javax.imageio.ImageIO;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -199,7 +197,7 @@ public class CardGenerator {
 		//String newCardJson = chatApiClient.chat(prompt);
 		// System.out.println(newCardJson);
 
-		Card newCard = null;
+		Card newCard = new Card();
 		try {
 			newCard = objectMapper.readValue(newCardJson, Card.class);
 		} catch (JsonProcessingException e) {

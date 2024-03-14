@@ -1,12 +1,5 @@
 package com.kif.deckgen.controllers;
 
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
-import java.util.UUID;
-
-import javax.imageio.ImageIO;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
@@ -20,11 +13,8 @@ import com.kif.deckgen.utilities.ManaCostUtility;
 import com.kif.deckgenmodels.services.DalleClient;
 import com.kif.deckgenmodels.Card;
 import com.kif.deckgenmodels.Image;
-import com.kif.deckgenmodels.ImageResult;
 import com.kif.deckgenmodels.daos.CardDao;
 import com.kif.deckgenmodels.daos.MinioDao;
-
-import io.minio.MinioClient;
 
 
 /**

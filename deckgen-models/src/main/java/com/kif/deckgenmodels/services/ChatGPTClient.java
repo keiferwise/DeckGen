@@ -1,6 +1,5 @@
 package com.kif.deckgenmodels.services;
 import com.kif.deckgenmodels.ChatRequest;
-import com.kif.deckgenmodels.ChatResponse;
 import com.kif.deckgenmodels.Message;
 import com.fasterxml.jackson.databind.JsonNode;
 import org.springframework.context.annotation.PropertySource;
@@ -8,8 +7,6 @@ import org.springframework.context.annotation.PropertySource;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.kif.deckgenmodels.Card;
-import com.kif.deckgenmodels.ChatRequest;
-
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.*;
 import org.springframework.stereotype.Service;

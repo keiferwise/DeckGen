@@ -6,12 +6,12 @@ import java.security.NoSuchAlgorithmException;
 import java.util.Date;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpHeaders;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
 import com.kif.deckgenmodels.*;
 //import com.kif.deckservice.util.ApiKeyUtil;
+import com.kif.deckservice.config.AppProperties;
 
 import reactor.core.publisher.Mono;
 
@@ -24,9 +24,9 @@ public class CardService {
 //	@Autowired
 //	private ApiKeyUtil keyUtil;
 	
-	@Value("${com.kif.sharedsecret}")
-	private String key;
-
+	@Autowired
+	private AppProperties props;
+	
     private final WebClient webClient;
 
     public CardService(WebClient.Builder webClientBuilder) {
@@ -36,11 +36,11 @@ public class CardService {
 
 	public Mono<String> createCard(String cardId, String theme, String deckId) {
 		//System.out.println("sending request to card microservice");
-		System.out.println("my key: "+key);
+		System.out.println("my key: "+props.getApikey());
 		//System.out.println("Trying to make this into a request JSON: "+cardId + " "+theme+ " "+deckId);
 		ObjectMapper mapper = new ObjectMapper();
 		
-		CardRequest cr = new CardRequest(cardId, theme, deckId, calculateSHA256Hash(key));
+		CardRequest cr = new CardRequest(cardId, theme, deckId, calculateSHA256Hash(props.getApikey()));
 		String requestBody="{\"cardId\":\""+cardId+"\",\"theme\":"+theme+",\"deckIdeaId\":\""+deckId+"}";
 		try {
 			 requestBody=mapper.writeValueAsString(cr);

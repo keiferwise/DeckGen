@@ -6,7 +6,7 @@
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
 		<version>3.1.2</version>
-		<relativePath/> <!-- lookup parent from repository -->
+		<relativePath /> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.kif</groupId>
 	<artifactId>deckservice</artifactId>
@@ -55,28 +55,31 @@
 			<scope>test</scope>
 		</dependency>
 		<dependency>
-        <groupId>com.kif</groupId> <!-- Replace with your shared model project's groupId -->
-        <artifactId>deckgenmodels</artifactId> <!-- Replace with your shared model project's artifactId -->
-        <version>0.0.1-SNAPSHOT</version> <!-- Replace with the appropriate version -->
-    </dependency>
-    	<dependency>
-		  <groupId>io.minio</groupId>
-		  <artifactId>minio</artifactId>
-		  <version>8.5.2</version>
+			<groupId>com.kif</groupId> <!-- Replace with your shared model project's groupId -->
+			<artifactId>deckgenmodels</artifactId> <!-- Replace with your shared model project's artifactId -->
+			<version>0.0.1-SNAPSHOT</version> <!-- Replace with the appropriate version -->
 		</dependency>
-		    <dependency>
-      <groupId>org.springframework.boot</groupId>
-      <artifactId>spring-boot-starter-actuator</artifactId>
-    </dependency>
-		    <dependency>
-		    	<groupId>org.springframework.boot</groupId>
-		    	<artifactId>
+		<dependency>
+			<groupId>io.minio</groupId>
+			<artifactId>minio</artifactId>
+			<version>8.5.2</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-actuator</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>
 		    		spring-boot-configuration-processor
 		    	</artifactId>
-		    	<optional>true</optional>
-		    </dependency>
+			<optional>true</optional>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-validation</artifactId>
+		</dependency>
 	</dependencies>
-
 	<build>
 		<plugins>
 			<plugin>
@@ -84,6 +87,6 @@
 				<artifactId>spring-boot-maven-plugin</artifactId>
 			</plugin>
 		</plugins>
+		
 	</build>
-
 </project>

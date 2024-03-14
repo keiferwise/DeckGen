@@ -1,6 +1,5 @@
 package com.kif.deckgenmodels;
 
-import java.util.HashMap;
 import java.util.List;
 
 public class ImageResult {
