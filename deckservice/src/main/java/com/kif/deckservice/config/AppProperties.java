@@ -3,7 +3,7 @@ package com.kif.deckservice.config;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.context.properties.ConfigurationPropertiesScan;
 import org.springframework.context.annotation.PropertySource;
-@PropertySource("classpath:applcation.properties")
+@PropertySource("classpath:application.properties")
 @ConfigurationProperties(prefix ="com.kif")
 @ConfigurationPropertiesScan 
 public class AppProperties {

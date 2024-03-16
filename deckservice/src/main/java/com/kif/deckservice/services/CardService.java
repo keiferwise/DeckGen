@@ -36,11 +36,11 @@ public class CardService {
 
 	public Mono<String> createCard(String cardId, String theme, String deckId) {
 		//System.out.println("sending request to card microservice");
-		System.out.println("my key: "+props.getApikey());
+		System.out.println("my key: "+props.getSharedsecret());
 		//System.out.println("Trying to make this into a request JSON: "+cardId + " "+theme+ " "+deckId);
 		ObjectMapper mapper = new ObjectMapper();
 		
-		CardRequest cr = new CardRequest(cardId, theme, deckId, calculateSHA256Hash(props.getApikey()));
+		CardRequest cr = new CardRequest(cardId, theme, deckId, calculateSHA256Hash(props.getSharedsecret()));
 		String requestBody="{\"cardId\":\""+cardId+"\",\"theme\":"+theme+",\"deckIdeaId\":\""+deckId+"}";
 		try {
 			 requestBody=mapper.writeValueAsString(cr);
