@@ -1,8 +1,10 @@
-package com.kif.deckservice.config;
+/*package com.kif.deckservice.config;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.context.properties.ConfigurationPropertiesScan;
 import org.springframework.context.annotation.PropertySource;
+import org.springframework.stereotype.Component;
+
 @PropertySource("classpath:application.properties")
 @ConfigurationProperties(prefix ="com.kif")
 @ConfigurationPropertiesScan 
@@ -89,3 +91,4 @@ public class AppProperties {
 	}
 
 }
+*/

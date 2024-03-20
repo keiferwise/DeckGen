@@ -8,8 +8,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.kif.deckgenmodels.DeckRequest;
-import com.kif.deckservice.util.ApiKeyUtil;
 import com.kif.deckservice.services.DeckGenerator;
+import com.kif.deckservice.util.ApiKeyUtil;
 
 @RestController
 public class DeckController {

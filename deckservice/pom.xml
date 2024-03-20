@@ -15,6 +15,7 @@
 	<description>Microservice for makindg decks</description>
 	<properties>
 		<java.version>17</java.version>
+		<spring.config.location>file:/path/to/your/application.properties</spring.config.location>
 	</properties>
 	<dependencies>
 		<dependency>

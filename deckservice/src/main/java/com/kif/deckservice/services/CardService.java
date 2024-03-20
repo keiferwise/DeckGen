@@ -6,12 +6,14 @@ import java.security.NoSuchAlgorithmException;
 import java.util.Date;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.http.HttpHeaders;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
 import com.kif.deckgenmodels.*;
 //import com.kif.deckservice.util.ApiKeyUtil;
-import com.kif.deckservice.config.AppProperties;
+//import com.kif.deckservice.config.AppProperties;
 
 import reactor.core.publisher.Mono;
 
@@ -21,11 +23,10 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 @Service
 public class CardService {
 	
-//	@Autowired
-//	private ApiKeyUtil keyUtil;
-	
-	@Autowired
-	private AppProperties props;
+	//@Autowired
+	//private AppProperties props;
+	@Value("${com.kif.sharedsecret}")
+	private String secret;
 	
     private final WebClient webClient;
 
@@ -36,11 +37,11 @@ public class CardService {
 
 	public Mono<String> createCard(String cardId, String theme, String deckId) {
 		//System.out.println("sending request to card microservice");
-		System.out.println("my key: "+props.getSharedsecret());
+		System.out.println("my key: "+secret);
 		//System.out.println("Trying to make this into a request JSON: "+cardId + " "+theme+ " "+deckId);
 		ObjectMapper mapper = new ObjectMapper();
 		
-		CardRequest cr = new CardRequest(cardId, theme, deckId, calculateSHA256Hash(props.getSharedsecret()));
+		CardRequest cr = new CardRequest(cardId, theme, deckId, calculateSHA256Hash(secret));
 		String requestBody="{\"cardId\":\""+cardId+"\",\"theme\":"+theme+",\"deckIdeaId\":\""+deckId+"}";
 		try {
 			 requestBody=mapper.writeValueAsString(cr);
