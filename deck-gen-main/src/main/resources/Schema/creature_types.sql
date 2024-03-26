@@ -1,3 +1,4 @@
+truncate table sub_type;
 insert into sub_type values("1005","Advisor","112"); 
 insert into sub_type values("1006","Aetherborn","112"); 
 insert into sub_type values("1007","Alien","112"); 

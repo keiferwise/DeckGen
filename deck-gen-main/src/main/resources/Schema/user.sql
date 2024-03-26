@@ -1,3 +1,5 @@
+use deckgendb;
+
 drop table users;
 
 CREATE TABLE users (
@@ -11,4 +13,6 @@ CREATE TABLE users (
     name VARCHAR(50),
     tokens BIGINT
 );
+
+
 
