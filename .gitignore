@@ -4,3 +4,5 @@ cardgen/src/main/resources/application.properties
 deck-gen-main/src/main/resources/application.properties
 deckservice/src/main/resources/application.properties
 deckservice/src/main/resources/application.yml
+deckgen-models/target/deckgenmodels-0.0.1-SNAPSHOT.jar
+deckgen-models/target/classes/META-INF/*
