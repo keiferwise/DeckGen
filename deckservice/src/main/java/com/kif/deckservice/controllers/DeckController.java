@@ -1,6 +1,7 @@
 package com.kif.deckservice.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -14,6 +15,8 @@ import com.kif.deckservice.services.DeckGenerator;
 public class DeckController {
 	@Autowired
 	DeckGenerator deckGenerator;
+	@Value("${com.kif.sharedsecret}")
+	String key;
 	
 	public DeckController() {
 		// TODO Auto-generated constructor stub
@@ -23,7 +26,7 @@ public class DeckController {
 		System.out.println("creating Deck");
 		System.out.println("deck Idea: "+dr.getDeckIdeaId().toString());
 		System.out.println("deck: "+dr.getDeckId().toString());
-
+		System.out.println("Key: "+key);
 		deckGenerator.makeDeck(dr.getDeckId(),dr.getDeckIdeaId());
 		// Create something to 
 		

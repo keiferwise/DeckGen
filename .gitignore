@@ -3,3 +3,4 @@
 cardgen/src/main/resources/application.properties
 deck-gen-main/src/main/resources/application.properties
 deckservice/src/main/resources/application.properties
+deckgen-models/target/classes/META-INF/maven/*

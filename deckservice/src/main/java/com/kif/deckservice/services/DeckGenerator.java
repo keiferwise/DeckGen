@@ -61,6 +61,7 @@ public class DeckGenerator {
 		CardService cs = new CardService(WebClient.builder());
 		Deck deck = deckDao.findDeckById(deckId);
 		DeckIdea deckIdea = did.findByDeckId(deckId);
+		System.out.println("theme is: "+deckIdea.getTheme());
 		Disposable myMono;
 		//Fill out card text detail
 		try {
