@@ -8,13 +8,14 @@ import org.springframework.boot.context.properties.EnableConfigurationProperties
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.PropertySource;
 
+import com.kif.deckservice.config.AppProperties;
+
 //import com.kif.deckservice.config.AppProperties;
 
 @SpringBootApplication
 @ComponentScan({"com.kif.deckservice", "com.kif.deckgenmodels"})
-//@EnableConfigurationProperties(AppProperties.class)
-//@ConfigurationPropertiesScan("com.kif.deckservice.config")
-@PropertySource("classpath:application.properties")
+@EnableConfigurationProperties(AppProperties.class)
+@ConfigurationPropertiesScan("com.kif.deckservice.config")
 public class DeckserviceApplication {
 
 	//@Value("${spring.datasource.password}")

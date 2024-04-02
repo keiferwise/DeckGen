@@ -14,6 +14,7 @@ import org.springframework.web.reactive.function.client.WebClient;
 import com.kif.deckgenmodels.*;
 //import com.kif.deckservice.util.ApiKeyUtil;
 //import com.kif.deckservice.config.AppProperties;
+import com.kif.deckservice.config.AppProperties;
 
 import reactor.core.publisher.Mono;
 
@@ -23,8 +24,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 @Service
 public class CardService {
 	
-	//@Autowired
-	//private AppProperties props;
+	@Autowired
+	private AppProperties props;
 	@Value("${com.kif.sharedsecret}")
 	private String secret;
 	
@@ -38,6 +39,8 @@ public class CardService {
 	public Mono<String> createCard(String cardId, String theme, String deckId) {
 		//System.out.println("sending request to card microservice");
 		System.out.println("my key: "+secret);
+		System.out.println("from props: "+props.getSharedsecret());
+
 		//System.out.println("Trying to make this into a request JSON: "+cardId + " "+theme+ " "+deckId);
 		ObjectMapper mapper = new ObjectMapper();
 		
