@@ -6,3 +6,7 @@ deckservice/src/main/resources/application.properties
 deckservice/src/main/resources/application.yml
 deckgen-models/target/deckgenmodels-0.0.1-SNAPSHOT.jar
 deckgen-models/target/classes/META-INF/*
+deckgen-models/target/maven-status/maven-compiler-plugin/*
+deckgen-models/.classpath
+deckgen-models/target/deckgenmodels-0.0.1-SNAPSHOT.jar
+deckservice/src/main/resources/application.properties
