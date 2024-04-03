@@ -27,7 +27,7 @@ public class DeckController {
 		System.out.println("deck Idea: "+dr.getDeckIdeaId().toString());
 		System.out.println("deck: "+dr.getDeckId().toString());
 		System.out.println("Key: "+key);
-		deckGenerator.makeDeck(dr.getDeckId(),dr.getDeckIdeaId());
+		deckGenerator.makeDeck(dr.getDeckId(),dr.getDeckIdeaId(),key);
 		// Create something to 
 		
 		// CreateCard(Card card, String theme, DeckIdea deckIdea)

@@ -6,6 +6,8 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
 import com.kif.deckgenmodels.*;
+import com.kif.deckservice.util.ApiKeyUtil;
+
 import reactor.core.publisher.Mono;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -15,8 +17,11 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 public class CardService {
 
 	
-	@Value("${com.kif.sharedsecret}")
-	String key;
+	//@Value("${com.kif.sharedsecret}")
+	//String key;
+	
+	
+	ApiKeyUtil keyUtil;
 	
     private final WebClient webClient;
 
@@ -25,13 +30,14 @@ public class CardService {
     }
 	
 
-	public Mono<String> createCard(String cardId, String theme, String deckId) {
+	public Mono<String> createCard(String cardId, String theme, String deckId, String key) {
+		keyUtil = new ApiKeyUtil();
 		System.out.println("sending request to card microservice");
 		System.out.println("KEY: "+ key);
 		System.out.println("Trying to make this into a request JSON: "+cardId + " "+theme+ " "+deckId);
 		ObjectMapper mapper = new ObjectMapper();
 		
-		CardRequest cr = new CardRequest(cardId, theme, deckId,"1111aaaa");
+		CardRequest cr = new CardRequest(cardId, theme, deckId,keyUtil.calculateSHA256Hash(key));
 		String requestBody="{\"cardId\":\""+cardId+"\",\"theme\":"+theme+",\"deckIdeaId\":\""+deckId+"}";
 		try {
 			 requestBody=mapper.writeValueAsString(cr);

@@ -54,7 +54,7 @@ public class DeckGenerator {
 
 	}
 
-	public void makeDeck(String deckId,String deckIdeaId) {
+	public void makeDeck(String deckId,String deckIdeaId, String key) {
 		System.out.println("making deck: " + deckId);
 		// TODO Auto-generated method stub
 		// CardService cs = new CardService(WebClient.builder());
@@ -68,7 +68,7 @@ public class DeckGenerator {
 			for (Card card : deck.getCards()) {
 			
 				
-				cs.createCard(card.getCardId(), deckIdea.getTheme(), deckIdea.getDeckIdeaId()).subscribe(response -> {
+				cs.createCard(card.getCardId(), deckIdea.getTheme(), deckIdea.getDeckIdeaId(),key).subscribe(response -> {
 					// Handle the response string here.
 					if(response.equals("Request received successfully!")) {
 						
