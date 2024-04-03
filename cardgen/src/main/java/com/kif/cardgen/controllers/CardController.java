@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.kif.deckgenmodels.daos.CardDao;
 import com.kif.cardgen.services.CardGenerator;
+import com.kif.cardgen.util.ApiKeyUtil;
 import com.kif.deckgenmodels.Card;
 import com.kif.deckgenmodels.CardRequest;
 import com.kif.deckgenmodels.SingleRequest;
@@ -29,17 +30,30 @@ public class CardController {
 	CardGenerator cardGenerator;
 	@Value("${com.kif.sharedsecret}")
 	String key;
-	
+	@Autowired
+	ApiKeyUtil keyUtil;
 	public CardController() {
 		// TODO Auto-generated constructor stub
 	}
 	
 	@PostMapping(value = "/create-card-for-deck", consumes = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<String> createCardForDeck(@RequestBody CardRequest cr) {
+		System.out.println(key);
+		if(cr.getKey().equals(keyUtil.calculateSHA256Hash(key))) {
+			cardGenerator.createCard(cr.getCardId(), cr.getTheme(), cr.getDeckIdeaId());
+			System.out.println(cr.getKey() + " = "+keyUtil.calculateSHA256Hash(key));
+
+			return ResponseEntity.ok("Request received successfully!");
+		}
+		else {
+			System.out.println(cr.getKey() + " != "+keyUtil.calculateSHA256Hash(key));
+
+			return ResponseEntity.badRequest().body("Bad Key");
+			
+
+		}
 		
-		
-		cardGenerator.createCard(cr.getCardId(), cr.getTheme(), cr.getDeckIdeaId());
-		return ResponseEntity.ok("Request received successfully!");
+
 	}
 	
 	

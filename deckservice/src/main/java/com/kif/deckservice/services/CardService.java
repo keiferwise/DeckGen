@@ -1,6 +1,7 @@
 package com.kif.deckservice.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpHeaders;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
@@ -13,6 +14,10 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 @Service
 public class CardService {
 
+	
+	@Value("${com.kif.sharedsecret}")
+	String key;
+	
     private final WebClient webClient;
 
     public CardService(WebClient.Builder webClientBuilder) {
@@ -22,11 +27,11 @@ public class CardService {
 
 	public Mono<String> createCard(String cardId, String theme, String deckId) {
 		System.out.println("sending request to card microservice");
-		
+		System.out.println("KEY: "+ key);
 		System.out.println("Trying to make this into a request JSON: "+cardId + " "+theme+ " "+deckId);
 		ObjectMapper mapper = new ObjectMapper();
 		
-		CardRequest cr = new CardRequest(cardId, theme, deckId);
+		CardRequest cr = new CardRequest(cardId, theme, deckId,"1111aaaa");
 		String requestBody="{\"cardId\":\""+cardId+"\",\"theme\":"+theme+",\"deckIdeaId\":\""+deckId+"}";
 		try {
 			 requestBody=mapper.writeValueAsString(cr);
