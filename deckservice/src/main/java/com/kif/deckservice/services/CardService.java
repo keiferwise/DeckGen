@@ -6,7 +6,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
 import com.kif.deckgenmodels.*;
-import com.kif.deckservice.util.ApiKeyUtil;
+import com.kif.deckgenmodels.util.ApiKeyUtil;
 
 import reactor.core.publisher.Mono;
 
@@ -47,7 +47,7 @@ public class CardService {
 			e.printStackTrace();
 		}
 		
-		System.out.println(cr.toString());
+		System.out.println("card request about to send of id "+cr.getCardId());
 		//String requestBody="{\"cardId\":\""+cardId+"\",\"theme\":"+theme+",\"deckIdeaId\":\""+deckId+"}";
 
 		System.out.println(requestBody);

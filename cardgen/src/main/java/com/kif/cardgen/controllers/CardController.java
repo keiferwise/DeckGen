@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.kif.deckgenmodels.daos.CardDao;
 import com.kif.cardgen.services.CardGenerator;
-import com.kif.cardgen.util.ApiKeyUtil;
+import com.kif.deckgenmodels.util.ApiKeyUtil;
 import com.kif.deckgenmodels.Card;
 import com.kif.deckgenmodels.CardRequest;
 import com.kif.deckgenmodels.SingleRequest;

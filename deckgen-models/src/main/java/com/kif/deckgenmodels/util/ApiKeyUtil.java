@@ -1,4 +1,4 @@
-package com.kif.cardgen.util;
+package com.kif.deckgenmodels.util;
 
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;

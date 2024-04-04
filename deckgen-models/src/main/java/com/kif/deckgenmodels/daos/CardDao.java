@@ -65,8 +65,10 @@ public class CardDao {
 	public int saveAll( List<Card> list, UUID myUuid) {
 		int result=0;
 		String newCardId = UUID.randomUUID().toString();
+		int result2 = 0;
 
 		for (Card card : list) {
+			//System.out.println("saving "+card.getName());
 			newCardId = UUID.randomUUID().toString();
 			result = jdbcTemplate.update(
 	                "insert into card (card_id, card_name, mana_cost,"
@@ -77,14 +79,13 @@ public class CardDao {
 	                card.getRarity(),card.getRulesText(),card.getFlavorText(),card.getPower(),card.getToughness(),
 	                card.getArtist(),card.getCopyright(),
 	                myUuid.toString());	
+			result2 = jdbcTemplate.update("insert into card_deck (card_id,deck_id,id) values (?,?,?)",
+					newCardId, 
+					 myUuid.toString(),  
+					   UUID.randomUUID().toString());
 		}
-		int result2 = 0;
 		
-		result2 = jdbcTemplate.update("insert into card_deck (card_id,deck_id,id) values (?,?,?)",
-				newCardId, 
-				 myUuid.toString(),  
-				   UUID.randomUUID().toString()
-				);
+
 		
 		return result & result2;	}
 	/*

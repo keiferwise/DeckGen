@@ -63,15 +63,16 @@ public class DeckGenerator {
 		DeckIdea deckIdea = did.findByDeckId(deckId);
 		System.out.println("theme is: "+deckIdea.getTheme());
 		Disposable myMono;
+		System.out.println(deck.getCards().toString());
 		//Fill out card text detail
 		try {
 			for (Card card : deck.getCards()) {
 			
-				
+				System.out.println("about to create card: "+card.getName());
 				cs.createCard(card.getCardId(), deckIdea.getTheme(), deckIdea.getDeckIdeaId(),key).subscribe(response -> {
 					// Handle the response string here.
 					if(response.equals("Request received successfully!")) {
-						
+						System.out.println("successful");
 					}
 					//System.out.println("Response: " + response + "... Awesome!");
 				});
@@ -79,6 +80,7 @@ public class DeckGenerator {
 				//System.out.println(myMono.toString());
 				
 			}
+			System.out.println("deck complete");
 			deckDao.updateStatusComplete(deckId);
 		} catch (Exception e) {
 			// TODO Auto-generated catch 
