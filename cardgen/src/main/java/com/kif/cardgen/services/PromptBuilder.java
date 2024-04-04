@@ -13,6 +13,9 @@ public class PromptBuilder {
 	@Value("${com.kif.cardDetailsTemplate}")
 	private String cardDetailsTemplate;
 	
+	@Value("${com.kif.cardDetailsTemplateForDeck}")
+	private String cardDetailsTemplateForDeck;
+	
     @Value("${com.kif.deckListTemplate}")
     private String DeckListTemplate;
 	
@@ -56,13 +59,27 @@ public class PromptBuilder {
 	
 	
 	public String buildCardPrompt(Card card, DeckIdea deckIdea) {
-		//System.out.println("Base rompt is : "+ cardDetailsTemplate);
-		String prompt = cardDetailsTemplate.replace("<NAME>", card.getName());
-		prompt = prompt.replace("<TYPE>", card.getType());
-		prompt = prompt.replace("<SUBTYPE>", card.getSubtype());
+		//System.out.println("Base prompt is : "+ cardDetailsTemplate);
+		String prompt = null;
+		
+		System.out.println(deckIdea.getDeckIdeaId());
+		if(deckIdea.getDeckIdeaId().equals("none")) {
+			
+			prompt = cardDetailsTemplateForDeck.replace("<NAME>", card.getName());
+			prompt = prompt.replace("<TYPE>", card.getType());
+			prompt = prompt.replace("<SUBTYPE>", card.getSubtype());
 
-		prompt = prompt.replace("<THEME>", deckIdea.getTheme());
-		prompt = prompt.replace("<MANACOST>",card.getManaCost());
+			prompt = prompt.replace("<THEME>", deckIdea.getTheme());
+			prompt = prompt.replace("<MANACOST>",card.getManaCost());
+		}
+		else {
+			prompt = cardDetailsTemplate.replace("<NAME>", card.getName());
+			prompt = prompt.replace("<TYPE>", card.getType());
+
+			prompt = prompt.replace("<THEME>", deckIdea.getTheme());
+			prompt = prompt.replace("<MANACOST>",card.getManaCost());
+		}
+		
 		//prompt = prompt.replace("<ARTSTYLE>", deckIdea.getArtStyle());
 		
 		String cardColours = getDeckColours(deckIdea);
