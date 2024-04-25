@@ -5,7 +5,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
 import com.kif.deckgenmodels.*;
-import com.kif.deckgen.utilities.ApiKeyUtil;
+import com.kif.deckgenmodels.util.ApiKeyUtil;
 
 import reactor.core.publisher.Mono;
 

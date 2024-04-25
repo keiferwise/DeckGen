@@ -2,6 +2,8 @@ package com.kif.deckgen.controllers;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -13,6 +15,8 @@ import com.kif.deckgenmodels.daos.MinioDao;
 
 @Controller
 public class BoosterPackController {
+	
+    private static final Logger logger = LoggerFactory.getLogger(BoosterPackController.class);
 	
 	@Autowired
 	MinioDao minio;
@@ -26,7 +30,6 @@ public class BoosterPackController {
 	
 	@GetMapping("/open-booster")
 	public String openBooster( Model model) {
-		
 		ArrayList<Card> cards = (ArrayList<Card>) cardDao.nineRandom();
 		HashMap<String,String[]> cardMap = new HashMap<String,String[]>(); 
 		ArrayList<HashMap<String,String[]>> imageList = new ArrayList<HashMap<String,String[]>>();
@@ -55,7 +58,8 @@ public class BoosterPackController {
 	}
 	@GetMapping("/booster")
 	public String booster( Model model ) {
-		
+		logger.info("Booster page opened.");
+
 		ArrayList<Card> cards = (ArrayList<Card>) cardDao.nineRandom();
 		HashMap<String,String[]> cardMap = new HashMap<String,String[]>(); 
 		ArrayList<HashMap<String,String[]>> imageList = new ArrayList<HashMap<String,String[]>>();
