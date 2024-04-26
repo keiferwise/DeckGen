@@ -4,6 +4,8 @@ package com.kif.deckgenmodels.services;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -17,6 +19,8 @@ import com.kif.deckgenmodels.ImageResult;
 
 @Service 
 public class DalleClient {
+
+    private static final Logger logger = LoggerFactory.getLogger(DalleClient.class);
 
 	//@Autowired
     private RestTemplate restTemplate;
@@ -71,6 +75,7 @@ public class DalleClient {
             // do something with the image data...
             return responseBody;
         } else {
+        	logger.error("Dalle API returned something other than STATUS.OK");
             return null;
         }
     }
