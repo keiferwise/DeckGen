@@ -5,12 +5,16 @@ package com.kif.deckservice.services;
 
 import java.util.Random;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.web.reactive.function.client.WebClient;
 
 import com.kif.deckgenmodels.daos.DeckDao;
 import com.kif.deckgenmodels.daos.DeckIdeaDao;
+import com.kif.deckservice.controllers.DeckController;
+
 import reactor.core.Disposable;
 import com.kif.deckgenmodels.Card;
 import com.kif.deckgenmodels.Deck;
@@ -33,6 +37,7 @@ public class DeckGenerator {
 	@Autowired
 	DeckIdeaDao did;
 
+    private static final Logger logger = LoggerFactory.getLogger(DeckGenerator.class);
 
 
 	// CardGenerator cardGenerator;
@@ -44,9 +49,9 @@ public class DeckGenerator {
 	}
 
 	public void makeDeck(String deckId,String deckIdeaId, String key) {
-		System.out.println("making deck: " + deckId);
-		// TODO Auto-generated method stub
-		// CardService cs = new CardService(WebClient.builder());
+		logger.info("making deck with deck_id " + deckId);
+
+		
 		CardService cs = new CardService(WebClient.builder());
 		Deck deck = deckDao.findDeckById(deckId);
 		DeckIdea deckIdea = did.findByDeckId(deckId);
@@ -56,7 +61,7 @@ public class DeckGenerator {
 		//Fill out card text detail
 		try {
 			for (Card card : deck.getCards()) {
-			
+				logger.info("Ceating card with card_id "+card.getCardId());
 				System.out.println("about to create card: "+card.getName());
 				cs.createCard(card.getCardId(), deckIdea.getTheme(), deckIdea.getDeckIdeaId(),key).subscribe(response -> {
 					// Handle the response string here.
@@ -69,11 +74,11 @@ public class DeckGenerator {
 				//System.out.println(myMono.toString());
 				
 			}
-			System.out.println("deck complete");
+			logger.info("Deck with deck_id "+deckId+" complete");
 			deckDao.updateStatusComplete(deckId);
 		} catch (Exception e) {
-			// TODO Auto-generated catch 
-			deckDao.updateStatusFailed(deckId)	;
+			deckDao.updateStatusFailed(deckId);
+			logger.error("Card generation failed");
 			e.printStackTrace();
 		}
 

@@ -42,6 +42,11 @@ public class CardDao {
 		return cards;
 		
 	}
+	
+	public int addBoosterToDeck() {
+		return 0;
+	}
+	
 	public List<Card> nineRandom(){
 		
 		List<Card> cards = new ArrayList<Card>();

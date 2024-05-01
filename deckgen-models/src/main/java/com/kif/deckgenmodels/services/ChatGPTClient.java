@@ -62,11 +62,11 @@ public class ChatGPTClient {
                 return completion.trim();
             } catch (Exception e) {
                 System.err.println("Failed to parse JSON response: " + e.getMessage());
-                return null;
+                return "FAILED";
             }
         } else {
             System.err.println("Request failed. Response code: " + responseEntity.getStatusCode());
-            return null;
+            return "FAILED";
         }
     }
 /*

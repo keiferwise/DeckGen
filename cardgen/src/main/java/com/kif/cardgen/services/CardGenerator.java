@@ -16,6 +16,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.kif.deckgenmodels.Card;
 import com.kif.deckgenmodels.DeckIdea;
 import com.kif.deckgenmodels.Image;
+import com.kif.deckgenmodels.ImageResult;
 import com.kif.deckgenmodels.SingleRequest;
 import com.kif.deckgenmodels.services.ChatApiClient;
 import com.kif.deckgenmodels.services.ChatGPTClient;
@@ -120,8 +121,14 @@ public class CardGenerator {
 			// ######################################################
 			// #### What we will call when we are generating art ####
 			// ######################################################
-
-			Image art = dalle.generateImage(card.getArtDescription() + ". In this art style: " +artStyle ).getData().get(0);
+			ImageResult ir = dalle.generateImage(card.getArtDescription() + ". In this art style: " +artStyle );
+			if(ir == null) {
+				cardDao.updateStatusFailed(card.getCardId());
+				return 0;
+			}
+			Image art = ir.getData().get(0);
+			
+			
 			// get the art from Dall-E URL
 			try {
 				url = new URL(art.getUrl());
