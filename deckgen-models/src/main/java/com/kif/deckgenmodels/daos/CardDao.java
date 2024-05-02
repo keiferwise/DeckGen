@@ -9,6 +9,8 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
 import com.kif.deckgenmodels.Card;
+import com.kif.deckgenmodels.Deck;
+import java.sql.PreparedStatement;
 
 @Repository
 public class CardDao {
@@ -30,7 +32,6 @@ public class CardDao {
 	/*
 	 * Update this for multideck
 	 * 		select * from card c inner join card_deck d on c.card_id = d.card_id where d.deck_id = ? 
-
 	 */
 	public List<Card> findAllByDeckId(String cardId){
 		
@@ -43,7 +44,19 @@ public class CardDao {
 		
 	}
 	
-	public int addBoosterToDeck() {
+	public int saveToDeck(List<Card> cards, Deck deck) {
+		
+        jdbcTemplate.batchUpdate("INSERT INTO card_deck (deck_id, card_id, id) " +
+                "VALUES (?, ?, ?)",
+                cards,
+                100,
+                (PreparedStatement ps, Card card) -> {
+                  ps.setString(1, deck.getDeckId());
+                  ps.setString(2,card.getCardId());
+                  ps.setString(3, UUID.randomUUID().toString());
+                });
+		
+		
 		return 0;
 	}
 	

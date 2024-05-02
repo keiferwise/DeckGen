@@ -6,3 +6,4 @@ deckservice/src/main/resources/application.properties
 deckgen-models/target/classes/META-INF/maven/*
 deckgen-models/target/*
 deck-gen-main/logs/app.log
+deck-gen-main/logs/*

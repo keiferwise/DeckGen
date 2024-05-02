@@ -27,13 +27,22 @@ public class DeckDao {
 		return result;
 	}
 	
+	public Deck getCollectionByUserId(String username) {
+			//TODO implement this
+		String sql = "Select d.deck_id, d.deck_name,d.job_status,d.user_id,d.collection from deck d inner join users u on d.user_id=u.user_id where u.username = ? and d.collection = ?";
+        Deck deck = jdbcTemplate.query(sql, deckRowMapper,username,"Y").get(0);
+
+		return deck;
+		
+	}
+	
 	
 	public String insertDefaultDeck(String userId) {
 		String deckId = UUID.randomUUID().toString();
-		String sql = "insert into deck (deck_name, job_status, deck_id, user_id) values(?,?,?,?)";
+		String sql = "insert into deck (deck_name, job_status, deck_id, user_id,collection) values(?,?,?,?,?)";
 		int result = jdbcTemplate.update(
                 sql,
-                "My Collection","COMPLETE",deckId,userId);
+                "My Collection","COMPLETE",deckId,userId,"Y");
 		return deckId;
 	}
 	
