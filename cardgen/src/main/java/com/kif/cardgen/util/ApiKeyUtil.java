@@ -5,10 +5,15 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.Date;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
+
+import com.kif.cardgen.services.PromptBuilder;
 
 @Component
 public class ApiKeyUtil {
+    private static final Logger logger = LoggerFactory.getLogger(ApiKeyUtil.class);
 
 	public ApiKeyUtil() {
 		// TODO Auto-generated constructor stub

@@ -18,8 +18,11 @@ import java.io.IOException;
 import java.util.ArrayList;
 import javax.imageio.ImageIO;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
+import com.kif.cardgen.controllers.CardController;
 import com.kif.deckgenmodels.Card;
 
 @Service
@@ -29,6 +32,7 @@ public class CardComposer {
 							// "D:\\deckgen\\src\\main\\resources\\images\\img-H7MTllJItxyHXRMlnO77hB9I.png";
 	// @Value("${com.kif.mana-path}")
 	private String manaPath = "D:\\deckgen\\deck-gen-main\\src\\main\\resources\\images\\mana-symbols\\";
+    private static final Logger logger = LoggerFactory.getLogger(CardComposer.class);
 
 	public CardComposer(String framePath, String artPath) {
 		this.framePath = framePath;

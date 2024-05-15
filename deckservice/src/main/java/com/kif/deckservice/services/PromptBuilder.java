@@ -1,5 +1,7 @@
 package com.kif.deckservice.services;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
@@ -9,6 +11,7 @@ import com.kif.deckgenmodels.DeckIdea;
 @Component
 public class PromptBuilder {
 
+	private static final Logger logger = LoggerFactory.getLogger(PromptBuilder.class);
 
 	@Value("${com.kif.cardDetailsTemplate}")
 	private String cardDetailsTemplate;

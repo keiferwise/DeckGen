@@ -6,6 +6,8 @@ import java.security.NoSuchAlgorithmException;
 import java.util.Date;
 import java.util.UUID;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.MediaType;
@@ -32,6 +34,9 @@ public class CardController {
 	String key;
 	@Autowired
 	ApiKeyUtil keyUtil;
+	
+    private static final Logger logger = LoggerFactory.getLogger(CardController.class);
+
 	public CardController() {
 		// TODO Auto-generated constructor stub
 	}

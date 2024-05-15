@@ -1,5 +1,7 @@
 package com.kif.deckservice.services;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpHeaders;
@@ -15,6 +17,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 @Service
 public class CardService {
+    private static final Logger logger = LoggerFactory.getLogger(CardService.class);
 
 	
 	//@Value("${com.kif.sharedsecret}")

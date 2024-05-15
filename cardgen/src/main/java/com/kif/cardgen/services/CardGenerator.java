@@ -7,6 +7,8 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import javax.imageio.ImageIO;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
@@ -36,6 +38,7 @@ import com.kif.deckgenmodels.daos.MinioDao;
  */
 @Component
 public class CardGenerator {
+    private static final Logger logger = LoggerFactory.getLogger(CardGenerator.class);
 
 	@Value("${com.kif.cardDetailsTemplate}")
 	private String cardDetailsTemplate;

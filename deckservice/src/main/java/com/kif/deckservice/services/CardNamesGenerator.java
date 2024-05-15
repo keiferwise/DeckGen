@@ -2,6 +2,8 @@ package com.kif.deckservice.services;
 
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -9,6 +11,7 @@ import org.springframework.stereotype.Service;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.kif.deckgen.controllers.BoosterPackController;
 import com.kif.deckgenmodels.Card;
 import com.kif.deckgenmodels.Deck;
 import com.kif.deckgenmodels.DeckIdea;
@@ -21,7 +24,8 @@ import com.kif.deckgenmodels.services.ChatGPTClient;
  */
 @Service
 public class CardNamesGenerator {
-	
+    private static final Logger logger = LoggerFactory.getLogger(CardNamesGenerator.class);
+
     @Value("${com.kif.deckListTemplate}")
     private String promptTemplate;
     
