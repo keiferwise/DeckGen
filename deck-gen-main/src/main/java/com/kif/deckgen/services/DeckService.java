@@ -1,4 +1,6 @@
 package com.kif.deckgen.services;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpHeaders;
@@ -14,6 +16,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 @Service
 public class DeckService {
+    private static final Logger logger = LoggerFactory.getLogger(DeckService.class);
 
 	@Autowired
 	ApiKeyUtil keyUtil;

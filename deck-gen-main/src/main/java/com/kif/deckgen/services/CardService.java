@@ -5,6 +5,8 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.Date;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpHeaders;
 import org.springframework.stereotype.Service;
@@ -17,7 +19,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 @Service
 public class CardService {
-	
+    private static final Logger logger = LoggerFactory.getLogger(CardService.class);
+
 	@Value("${com.kif.sharedsecret}")
 	String key;
     private final WebClient webClient;
