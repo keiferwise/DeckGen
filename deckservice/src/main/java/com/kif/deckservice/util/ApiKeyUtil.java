@@ -1,4 +1,4 @@
-package com.kif.deckservice.util;
+/*package com.kif.deckservice.util;
 
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
@@ -50,3 +50,4 @@ public class ApiKeyUtil {
         return null;
     }
 }
+*/

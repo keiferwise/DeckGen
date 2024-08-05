@@ -66,7 +66,8 @@ public class CardDao {
         String sql = "SELECT * FROM card ORDER BY RAND() LIMIT 9";
         
         cards = jdbcTemplate.query(sql, cardRowMapper);
-        //System.out.println(cards.isEmpty());
+        System.out.println(cards.isEmpty());
+        System.out.println(cards.toString());
 		return cards;
 		
 	}

@@ -1,4 +1,4 @@
-package com.kif.cardgen.util;
+/*package com.kif.cardgen.util;
 
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
@@ -48,3 +48,4 @@ public class ApiKeyUtil {
         return null;
     }
 }
+*/

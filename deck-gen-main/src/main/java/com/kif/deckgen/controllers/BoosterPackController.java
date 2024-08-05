@@ -67,14 +67,16 @@ public class BoosterPackController {
 			imageList.add(cardMap);
 			images.add(minio.getImage(c.getCardId()));
 		}
-		
+		/*
 		Deck deck = deckDao.getCollectionByUserId(currentPrincipalName);
 		System.out.println(deck.getName() +" - "+ deck.getUser_id());
+		*/
 		model.addAttribute("images",images);
 		model.addAttribute("imageList",imageList);
 		model.addAttribute("cards", cards);
+		/*
 		cardDao.saveToDeck(cards,deck);
-		
+	*/
 		return "booster";
 	}
 

@@ -55,12 +55,14 @@
 			<artifactId>deckgenmodels</artifactId> <!-- Replace with your shared model project's artifactId -->
 			<version>0.0.1-SNAPSHOT</version> <!-- Replace with the appropriate version -->
 		</dependency>
+		<!--
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-devtools</artifactId>
 			<scope>runtime</scope>
 			<optional>true</optional>
 		</dependency>
+		-->
 		<dependency>
 			<groupId>com.mysql</groupId>
 			<artifactId>mysql-connector-j</artifactId>
