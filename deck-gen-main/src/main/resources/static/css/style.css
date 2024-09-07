@@ -50,7 +50,10 @@ body {
 {
 	padding: 5px;
 }
-
+.container{
+	    max-width: 1200px; /* Optional: limit max width of header */
+    margin: auto; /* Center align header content */
+}
 .card-container {
 	position: relative;
 	/*text-align: center;*/
@@ -168,17 +171,16 @@ body {
 }
 .dg-button{
 	border-style: solid;
-	border-width: 3px;
+	border-width: 5px;
 	border-top-color: #313131;
 	border-left-color:#313131;
 	border-right-color: slategrey;
 	border-bottom-color: slategrey;
 	background-image: url("/images/bg/parchment-3.png");
-	margin: 6px;
-	padding:3px;
+	margin: 3px;
+	padding:1px;
 	font-family: "goudy";
 	color: black;
-
 }
 .dg-deck-input-box{
 	margin:20px;

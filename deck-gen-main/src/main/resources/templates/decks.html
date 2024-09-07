@@ -6,13 +6,13 @@
 <table class="dg-deck-input-box table">
     <tr>
         <th>Deck Name</th>
-        <th>ID</th>
+        <!--<th>ID</th>-->
         <th>Status</th>
         <th>Cards</th>
     </tr>	
     <tr th:each="deck : ${myDecks}">
 		<td ><a th:text="${deck.name}" th:href="@{/deck/{id}(id=${deck.deckId})}"></a></td>
-        <td class="align-middle" th:text="${deck.deckId}"></td>
+        <!--<td class="align-middle" th:text="${deck.deckId}"></td>-->
         <td class="align-middle" th:text="${deck.status}"></td>
         <td><a  th:href="@{/deck/allcards/{id}(id=${deck.deckId})}">
 			<img src="/images/tap.png" alt="Tap to see cards" style="width:42px;height:42px;">
