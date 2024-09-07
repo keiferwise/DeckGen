@@ -1,36 +1,38 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
+
 <head>
-    <meta charset="UTF-8">
-    <title>Result Page</title>
+	<meta charset="UTF-8">
+	<title>Deck Preview</title>
 </head>
-<body>
-    <h1>Result</h1>
-    <p>The transformed text is:</p>
-    <!--/* <input type="textarea" th:value="${inputText}" width="500px" height="1000px"> */-->
-    
-    <p th:text="${deck.deckId}"></p>
-    
-    <table>
+<div th:replace="fragments/001-header">...</div>
+
+	<h1>Deck</h1>
+	<!--/* <input type="textarea" th:value="${inputText}" width="500px" height="1000px"> */-->
+
+	<p th:text="${deck.deckId}"></p>
+
+	<table class="dg-deck-input-box table">
 		<tr>
 			<th>Card</th>
 			<th>type</th>
 			<th>CMC</th>
 		</tr>
 		<tr th:each="card : ${cardList}">
-			<td th:text="${card.name}" ></td>
-			<td th:text="${card.type}" ></td>
+			<td th:text="${card.name}"></td>
+			<td th:text="${card.type}"></td>
 			<td th:text="${card.manaCost}"></td>
 		</tr>
-		
-		
+
+
 	</table>
-    
-        <form method="post" th:action="@{/submit-deck}">
+
+	<form method="post" th:action="@{/submit-deck}">
 		<input type="hidden" name="deckId" id="deckId" th:value="${deck.deckId}" />
-        <label for="inputField">Submit Deck</label>
-        <button type="submit">Submit</button>
-    </form>
-    
-</body>
+		<label for="inputField">Submit Deck</label>
+		<button type="submit" name="action" value="submit" >Submit</button>
+  		<button type="submit" name="action" value="cancel" th:formaction="@{/cancel-submit-deck}">Cancel</button>	
+  	</form>
+
+
 </html>

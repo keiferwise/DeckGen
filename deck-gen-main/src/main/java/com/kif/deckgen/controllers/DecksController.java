@@ -86,6 +86,18 @@ public class DecksController {
 		
 		return decks(model);
 	}
+	@PostMapping("/cancel-submit-deck")
+	public String cancelDeck(@RequestParam("deckId") String currentDeckId,Model model){
+		
+		//model.addAttribute(model);
+		
+		//model.addAttribute(currentDeckId);
+
+		cardDao.deleteCardsByDeckId(currentDeckId);
+		deckDao.deleteDeckOnlyById(currentDeckId);
+		
+		return "/deck-gen";
+	}
 	
 	// this controller shows a list of decks
 	/**

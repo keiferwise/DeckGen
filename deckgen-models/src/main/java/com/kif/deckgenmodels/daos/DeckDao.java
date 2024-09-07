@@ -98,5 +98,12 @@ public class DeckDao {
 		
 		return result;
 	}
+	public int deleteDeckOnlyById(String deckId) {
+	    String deleteDeckSql = "DELETE FROM deck WHERE deck_id = ?";
+	    int result = jdbcTemplate.update(deleteDeckSql, deckId);
+
+	    return result;
+	}
+
 
 }
