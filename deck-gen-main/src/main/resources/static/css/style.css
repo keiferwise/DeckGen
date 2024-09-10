@@ -22,10 +22,27 @@
 }
 
 
+.header-icons-container {
+  display: flex;
+  justify-content: space-evenly; /* Distributes icons evenly */
+  align-items: center; /* Aligns icons vertically in the center */
+}
 
+.header-icon {
+  width: 40px; /* Adjust width as needed */
+  height: auto;
+  object-fit: contain;
+}
 .header-container {
     max-width: 1200px; /* Optional: limit max width of header */
-    margin: auto; /* Center align header content */
+    margin: auto; /* Center align header content */  
+}
+.header-container-2 {
+    display: flex;
+    align-items: center;
+    justify-content: space-between; /* Distribute space between items */
+    padding: 10px;
+    /*border: 1px solid #ddd; /* Optional: for visual clarity */
 }
 
 .card-margin{
