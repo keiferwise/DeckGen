@@ -37,8 +37,7 @@ public class CardNamesGenerator {
     
 	
 public Deck generateCardNames(String inputText, DeckIdea deckIdea) {
-    	
-    	//ChatGPTClient gptClient = new ChatGPTClient();
+		logger.info("Creating card names for deck idea " +deckIdea+ ". " );
 		String mana = manaColour(deckIdea);
     	String prompt = promptTemplate.replace("<MYTHEME>", inputText);
     	prompt = prompt.replace("<MANA>", mana);
@@ -48,27 +47,20 @@ public Deck generateCardNames(String inputText, DeckIdea deckIdea) {
     	
     	List<Card> cards = null;
 		try {
-			cards = objectMapper.readValue(deck, new TypeReference<List<Card>>() {}); //THIS IS A PROBLEM, I THINK I AM DESERIALIZING THE CARD BUT I AM NOT
-			System.out.println(cards.get(0).getClass());
+			cards = objectMapper.readValue(deck, new TypeReference<List<Card>>() {}); 
+			logger.info("Card names successfully generated");
 		} catch (JsonProcessingException e) {
 			// TODO Auto-generated catch block
+			logger.error("Card names generation failed due to "+ e.getMessage());
 			e.printStackTrace();
 		}
     	
     	if(!cards.equals(null)) {
-    		//deckObject.setCards(cards);
-    		//deckObject.getCards().add( objectMapper.readValue(cards.get(0), Card.class) );
+    	
     		deckObject.setCards(cards);
-
-    		System.out.println(deckObject.getCards().get(0).getClass());
-    		System.out.println(deckObject.getDeckId());
-    		//for(Card c : deckObject.getCards()){
-    		//	c.setDeckId(deckObject.getDeckId());
-    		//}
-    		//deckRepo.save(deckObject);
     	}
     	else {
-    		System.out.println("fuck you");
+			logger.error("No card names Generated");
     	}
     	
     	

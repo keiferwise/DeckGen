@@ -35,25 +35,23 @@ public class CardService {
 
 	public Mono<String> createCard(String cardId, String theme, String deckId, String key) {
 		keyUtil = new ApiKeyUtil();
-		System.out.println("sending request to card microservice");
-		System.out.println("KEY: "+ key);
-		System.out.println("Trying to make this into a request JSON: "+cardId + " "+theme+ " "+deckId);
 		ObjectMapper mapper = new ObjectMapper();
 		
 		CardRequest cr = new CardRequest(cardId, theme, deckId,keyUtil.calculateSHA256Hash(key));
 		String requestBody="{\"cardId\":\""+cardId+"\",\"theme\":"+theme+",\"deckIdeaId\":\""+deckId+"}";
 		try {
 			 requestBody=mapper.writeValueAsString(cr);
-			 System.out.println("Object converted to JSON String: " + requestBody.toString());
+			 logger.info("Object converted to JSON String: " + requestBody.toString());
 		} catch (JsonProcessingException e) {
 			// TODO Auto-generated catch block
+			logger.error("Error occured when trying to convert JSON to string"+e.getLocalizedMessage());
 			e.printStackTrace();
 		}
 		
-		System.out.println("card request about to send of id "+cr.getCardId());
+		//System.out.println("card request about to send of id "+cr.getCardId());
 		//String requestBody="{\"cardId\":\""+cardId+"\",\"theme\":"+theme+",\"deckIdeaId\":\""+deckId+"}";
 
-		System.out.println(requestBody);
+		//System.out.println(requestBody);
 		return webClient.post()
 		            .uri("/create-card-for-deck")
 		            .header(HttpHeaders.CONTENT_TYPE, "application/json") // Set the Content-Type header

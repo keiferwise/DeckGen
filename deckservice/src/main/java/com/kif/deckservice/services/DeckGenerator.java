@@ -13,7 +13,6 @@ import org.springframework.web.reactive.function.client.WebClient;
 
 import com.kif.deckgenmodels.daos.DeckDao;
 import com.kif.deckgenmodels.daos.DeckIdeaDao;
-import com.kif.deckservice.controllers.DeckController;
 
 import reactor.core.Disposable;
 import com.kif.deckgenmodels.Card;
@@ -26,10 +25,6 @@ import com.kif.deckgenmodels.DeckIdea;
  */
 @Component
 public class DeckGenerator {
-
-	// @Autowired
-	// CardGenerator cardGenerator;
-	// @Value("${com.kif.generateImages}")
 
 	@Autowired
 	DeckDao deckDao;
