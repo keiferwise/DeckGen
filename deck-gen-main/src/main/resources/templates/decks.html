@@ -2,20 +2,41 @@
 
 <!--<h1 class="p-5">Decks</h1>-->
 <br>
-<div class="container">
-<table class="dg-deck-input-box table">
-    <tr>
+
+<div class="pillar-layout">
+  <!-- Left Pillar -->
+  <div class="column-container">
+    <div class="pillar-top"></div>
+    <div class="pillar-mid"></div>
+    <div class="pillar-btm"></div>
+  </div>
+
+  <!-- Table in the middle -->
+  <div class="container">
+    <table class="dg-deck-input-box table">
+      <tr>
         <th>Deck Name</th>
         <!--<th>ID</th>-->
         <th>Status</th>
         <th>Cards</th>
-    </tr>	
-    <tr th:each="deck : ${myDecks}">
-		<td ><a th:text="${deck.name}" th:href="@{/deck/{id}(id=${deck.deckId})}"></a></td>
+      </tr>
+      <tr th:each="deck : ${myDecks}">
+        <td><a th:text="${deck.name}" th:href="@{/deck/{id}(id=${deck.deckId})}"></a></td>
         <!--<td class="align-middle" th:text="${deck.deckId}"></td>-->
         <td class="align-middle" th:text="${deck.status}"></td>
-        <td><a  th:href="@{/deck/allcards/{id}(id=${deck.deckId})}">
-			<img src="/images/tap.png" alt="Tap to see cards" style="width:42px;height:42px;">
-			</a></td>
-    </tr>
-</table></div>
+        <td>
+          <a th:href="@{/deck/allcards/{id}(id=${deck.deckId})}">
+            <img src="/images/tap.png" alt="Tap to see cards" style="width:42px;height:42px;">
+          </a>
+        </td>
+      </tr>
+    </table>
+  </div>
+
+  <!-- Right Pillar -->
+  <div class="column-container">
+    <div class="pillar-top"></div>
+    <div class="pillar-mid"></div>
+    <div class="pillar-btm"></div>
+  </div>
+</div>
