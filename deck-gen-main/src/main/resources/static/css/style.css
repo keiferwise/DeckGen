@@ -12,7 +12,7 @@
 }
 
 .nav-link {
-    color: #495057; /* Set text color for nav links */
+    color: black; /* Set text color for nav links */
 }
 
 .nav-link:hover {
@@ -27,7 +27,26 @@
   justify-content: space-evenly; /* Distributes icons evenly */
   align-items: center; /* Aligns icons vertically in the center */
 }
+html, body {
+  height: 100%;
+  margin: 0;
+}
 
+.page-container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.content-container {
+  flex: 1;
+}
+
+footer {
+  background-color: #f8f9fa;
+  padding: 10px;
+  text-align: center;
+}
 .header-icon {
   width: 40px; /* Adjust width as needed */
   height: auto;
@@ -187,6 +206,20 @@ body {
 	margin: 20px;
 }
 .dg-button{
+	border-style: solid;
+	border-width: 5px;
+	border-top-color: #313131;
+	border-left-color:#313131;
+	border-right-color: slategrey;
+	border-bottom-color: slategrey;
+	background-image: url("/images/bg/parchment-3.png");
+	margin: 3px;
+	padding:1px;
+	font-family: "times";
+	font-size: 18px;
+	color: black;
+}
+dg-header-box {
 	border-style: solid;
 	border-width: 5px;
 	border-top-color: #313131;
