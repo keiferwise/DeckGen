@@ -41,6 +41,7 @@ html, body {
 
 .content-container {
   flex: 1;
+  margin-top:20px;
 }
 
 footer {
@@ -143,10 +144,6 @@ body {
 .flavor {
 	margin: 0.5%;
 	padding: 0.5%;
-	/*border: dashed;
-	color: aquamarine;
-	border-width: 2px;
-	border-color: aqua;*/
 	font-style: italic;
 	font-family: Georgia, 'Times New Roman', Times, serif;
 }
@@ -214,7 +211,10 @@ body {
 	border-right-color: slategrey;
 	border-bottom-color: slategrey;
 	background-image: url("/images/bg/parchment-3.png");
-	margin: 3px;
+	margin-top: 3px;
+	margin-bottom: 3px;
+	margin-right:6px;
+
 	padding:1px;
 	font-family: "times";
 	font-size: 18px;

@@ -1,10 +1,18 @@
 <div class="page-container">
   <div th:replace="fragments/001-header">...</div>
   
+  <div class="pillar-layout">
+  <!-- Left Pillar -->
+  <div class="column-container">
+    <div class="pillar-top"></div>
+    <div class="pillar-mid"></div>
+    <div class="pillar-btm"></div>
+  </div>
+  
   <div class="content-container">
     <!-- Your existing content -->
-    <div class="header-container">
-      <div class="row row-cols-1 row-cols-md-3 mb-3 text-center">
+    <!--<div class="header-container">-->
+      <div class="row row-cols-1 row-cols-md-3 mb-3 text-center justify-content-around align-items-center">
         <div class="col-sm">
           <div class="card dg-deck-input-box" style="width: 18rem;">
             <img src="\images/bg/wizard.jpg" class="card-img-top" alt="...">
@@ -35,9 +43,14 @@
             </div>
           </div>
         </div>
-      </div>
+      <!--</div>-->
     </div>
   </div>
-  
+    <div class="column-container">
+    <div class="pillar-top"></div>
+    <div class="pillar-mid"></div>
+    <div class="pillar-btm"></div>
+  </div>
+</div>
   <div th:replace="fragments/footer">...</div>
 </div>
