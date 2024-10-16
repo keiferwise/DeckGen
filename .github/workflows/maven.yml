@@ -28,7 +28,7 @@ jobs:
         distribution: 'temurin'
         cache: maven
     - name: Build model
-      run: mvn -B package --file deckgen-models/pom.xml
+      run: mvn -B install --file deckgen-models/pom.xml
     - name: Build main
       run: mvn -B package --file deck-gen-main/pom.xml
     - name: Build deck service
