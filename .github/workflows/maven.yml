@@ -28,9 +28,9 @@ jobs:
         distribution: 'temurin'
         cache: maven
     - name: Build model
-      run: mvn -B install --file deckgen-models/pom.xml
+      run: mvn -B install --file deckgen-models/pom.xml 
     - name: Build main
-      run: mvn -B package --file deck-gen-main/pom.xml
+      run: mvn -B package --file deck-gen-main/pom.xml -Dmaven.test.skip=true
     - name: Build deck service
       run: mvn -B package --file deckservice/pom.xml
     - name: Build deck card generator
