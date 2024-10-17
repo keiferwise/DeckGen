@@ -30,11 +30,14 @@ jobs:
     - name: Build model
       run: mvn -B install --file deckgen-models/pom.xml 
     - name: Build main
-      run: mvn -B package --file deck-gen-main/pom.xml -Dmaven.test.skip=true
+      run: mvn -B package --file deck-gen-main/pom.xml 
+      -Dmaven.test.skip=true
     - name: Build deck service
-      run: mvn -B package --file deckservice/pom.xml -Dmaven.test.skip=true
+      run: mvn -B package --file deckservice/pom.xml 
+      -Dmaven.test.skip=true
     - name: Build deck card generator
-      run: mvn -B package --file cardgen/pom.xml -Dmaven.test.skip=true
+      run: mvn -B package --file cardgen/pom.xml 
+      -Dmaven.test.skip=true
 
     # Optional: Uploads the full dependency graph to GitHub to improve the quality of Dependabot alerts this repository can receive
     - name: Update dependency graph
