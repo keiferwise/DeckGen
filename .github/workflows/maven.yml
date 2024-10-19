@@ -36,4 +36,6 @@ jobs:
     - name: Build deck card generator
       run: mvn -B package --file cardgen/pom.xml -Dmaven.test.skip=true
 
+    name: deploy
+    
    
