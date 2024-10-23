@@ -41,7 +41,7 @@ jobs:
       with:
         host: ${{ secrets.HOST }}
         username: ${{ secrets.USERNAME }}
-        password: ${{ secrets.OCI_KEY }}
+        password: ${{ secrets.KEY }}
         port: ${{ secrets.PORT }}
         source: "/home/runner/work/DeckGen/DeckGen/cardgen/target/cardgen-0.0.1-SNAPSHOT.jar"
         target: /home/opc/jartemp
