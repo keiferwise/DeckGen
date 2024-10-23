@@ -43,6 +43,6 @@ jobs:
         username: ${{ secrets.USERNAME }}
         password: ${{ secrets.PASSWORD }}
         port: ${{ secrets.PORT }}
-        source: "tests/a.txt,tests/b.txt"
+        source: "/home/runner/work/DeckGen/DeckGen/cardgen/target/cardgen-0.0.1-SNAPSHOT.jar"
         target: your_server_target_folder_path
 
