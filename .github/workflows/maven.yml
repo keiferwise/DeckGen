@@ -36,6 +36,13 @@ jobs:
     - name: Build deck card generator
       run: mvn -B package --file cardgen/pom.xml -Dmaven.test.skip=true
 
-    name: deploy
-    
-   
+    - name: deploy
+      uses: appleboy/scp-action@v0.1.7
+      with:
+        host: ${{ secrets.HOST }}
+        username: ${{ secrets.USERNAME }}
+        password: ${{ secrets.PASSWORD }}
+        port: ${{ secrets.PORT }}
+        source: "tests/a.txt,tests/b.txt"
+        target: your_server_target_folder_path
+
