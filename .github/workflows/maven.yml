@@ -1,0 +1,48 @@
+# This workflow will build a Java project with Maven, and cache/restore any dependencies to improve the workflow execution time
+# For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-java-with-maven
+
+# This workflow uses actions that are not certified by GitHub.
+# They are provided by a third-party and are governed by
+# separate terms of service, privacy policy, and support
+# documentation.
+
+name: Java CI with Maven
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v4
+    - name: Set up JDK 17
+      uses: actions/setup-java@v4
+      with:
+        java-version: '17'
+        distribution: 'temurin'
+        cache: maven
+    - name: Build model
+      run: mvn -B install --file deckgen-models/pom.xml 
+    - name: Build main
+      run: mvn -B package --file deck-gen-main/pom.xml -Dmaven.test.skip=true
+    - name: Build deck service
+      run: mvn -B package --file deckservice/pom.xml -Dmaven.test.skip=true
+    - name: Build deck card generator
+      run: mvn -B package --file cardgen/pom.xml -Dmaven.test.skip=true
+
+    - name: deploy
+      uses: appleboy/scp-action@v0.1.7
+      with:
+        host: ${{ secrets.HOST }}
+        username: ${{ secrets.USERNAME }}
+        password: ${{ secrets.KEY }}
+        port: ${{ secrets.PORT }}
+        source: "/home/runner/work/DeckGen/DeckGen/cardgen/target/cardgen-0.0.1-SNAPSHOT.jar"
+        target: /home/opc/jartemp
+
