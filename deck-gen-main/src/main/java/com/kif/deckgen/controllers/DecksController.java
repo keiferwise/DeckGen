@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.kif.deckgen.services.CardGenerator;
 import com.kif.deckgen.services.DeckService;
 import com.kif.deckgenmodels.Card;
 import com.kif.deckgenmodels.Deck;
@@ -43,8 +42,6 @@ public class DecksController {
 	DeckIdeaDao ideaDao;
 	@Autowired 
 	MinioDao minio;
-	@Autowired
-	CardGenerator cardGenerator;
 	@Autowired
 	DeckService deckService;
 	@Autowired
