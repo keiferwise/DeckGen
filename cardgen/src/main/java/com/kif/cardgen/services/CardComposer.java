@@ -87,12 +87,8 @@ public class CardComposer {
 		g2d.drawImage(artImage, 90, 160, null);
 		g2d.drawImage(frameImage, 0, 0, null);
 
-		// Clean the mana cost of other symbols
 		card.setManaCost(card.getManaCost().replaceAll("[^WUBRG1234567890{}]", ""));
-		// Set the initial font
-		// Font font = new Font("Arial", Font.BOLD, 30);
-		// g2d.setFont(font);
-		// init
+
 		int x = width - 180;
 		int y = 85;
 		int manaSymbolSize = 50;
@@ -149,85 +145,7 @@ public class CardComposer {
 
 		drawTextWithOutline(g2d, (typeText), x, y, font);
 
-		/*
-		 * ################ ## Rules text ## ################
-		 */
-		/*
-		 * x = 170; g2d.setFont(rulesFont); ArrayList<String> rulesArray = new
-		 * ArrayList<String>(); //String[] rules =
-		 * card.getRulesText().split("<NEWLINE>"); if(card.getRulesText()!=null) {
-		 * rulesArray = new
-		 * ArrayList(Arrays.asList(card.getRulesText().split("<NEWLINE>")));
-		 * 
-		 * } ArrayList<String> flavorArray = new ArrayList<String>(); //String[] flavors
-		 * = card.getFlavorText().split("<NEWLINE>"); if(card.getFlavorText()!=null) {
-		 * flavorArray = new
-		 * ArrayList(Arrays.asList(card.getFlavorText().split("<NEWLINE>")));
-		 * 
-		 * }
-		 * 
-		 * //String currentLine = new String(); //int lineCount = 1;
-		 * 
-		 * rulesArray=removeBlankLines(rulesArray);
-		 * flavorArray=removeBlankLines(flavorArray);
-		 * 
-		 * //int maxCharsPerLine = textWidth/rulesFont.getSize()-10; //int maxLines =
-		 * 11; int maxChars = textWidth/rulesFont.getSize()-lineLengthMinus; int
-		 * numLines
-		 * =numberOfLines(rulesArray,maxChars)+numberOfLines(flavorArray,maxChars);
-		 * System.out.println(numLines);
-		 * 
-		 * int[] textProps = calibrateText( numLines, rulesTextSize, textWidth,
-		 * maxChars); int lineFactor = textProps[4]; newParagraphSize = textProps[0];
-		 * newlineSize= textProps[1]; rulesTextSize=textProps[2];
-		 * //System.out.println(rulesTextSize); maxChars = textProps[3]; rulesFont= new
-		 * Font("EB Garamond Medium", Font.PLAIN, rulesTextSize); Font flavorFont = new
-		 * Font("EB Garamond SemiBold",Font.ITALIC,rulesTextSize-5); //int NewnumLines
-		 * =numberOfLines(rulesArray,maxChars)+numberOfLines(flavorArray,maxChars);
-		 * 
-		 * g2d.setFont(rulesFont);
-		 * 
-		 * y = getTextStartingPoint( numLines,lineFactor);
-		 * //System.out.println(card.getName()+". There are a total of "+
-		 * numLines+" lines. Text Starting at " + y + "px.");
-		 * 
-		 * g2d.setColor(Color.BLACK);
-		 * 
-		 * for(String rule : rulesArray) { //System.out.println(rule); ArrayList<String>
-		 * ruleLines = divideLines(rule,maxChars);
-		 * 
-		 * for(String ruleLine : ruleLines) { //System.out.println(ruleLine);
-		 * 
-		 * 
-		 * 
-		 * g2d.drawString(ruleLine.trim(), x, y); y+=newlineSize;
-		 * 
-		 * } y+=newParagraphSize - newlineSize; }
-		 */
-		/*
-		 * ################# ## Flavor text ## #################
-		 */
-		/*
-		 * y+=newlineSize;
-		 * 
-		 * g2d.setFont(flavorFont);
-		 * 
-		 * 
-		 * for(String flavor : flavorArray) {
-		 * 
-		 * if(flavor.isBlank()){continue;}
-		 * 
-		 * 
-		 * //System.out.println(flavor); ArrayList<String> flavorLines =
-		 * divideLines(flavor,maxChars);
-		 * 
-		 * for(String line : flavorLines) { //System.out.println(line);
-		 * g2d.drawString(line.trim(), x, y); y+=newlineSize;
-		 * 
-		 * } y += newParagraphSize - newlineSize;
-		 * 
-		 * }
-		 */
+		
 		y = height - height / 16;
 
 		if (card.getType().toLowerCase().contains("creature")) {

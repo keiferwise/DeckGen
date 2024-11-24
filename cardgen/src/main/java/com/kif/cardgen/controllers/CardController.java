@@ -1,9 +1,5 @@
 package com.kif.cardgen.controllers;
 
-import java.nio.charset.StandardCharsets;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
-import java.util.Date;
 import java.util.UUID;
 
 import org.slf4j.Logger;
@@ -13,6 +9,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.kif.deckgenmodels.daos.CardDao;
@@ -22,89 +19,77 @@ import com.kif.deckgenmodels.Card;
 import com.kif.deckgenmodels.CardRequest;
 import com.kif.deckgenmodels.SingleRequest;
 
-import org.springframework.web.bind.annotation.RequestBody;
-
 @RestController
 public class CardController {
-	@Autowired
-	CardDao cardDao;
-	@Autowired
-	CardGenerator cardGenerator;
-	@Value("${com.kif.sharedsecret}")
-	String key;
-	@Autowired
-	ApiKeyUtil keyUtil;
-	
+
     private static final Logger logger = LoggerFactory.getLogger(CardController.class);
 
-	public CardController() {
-		// TODO Auto-generated constructor stub
-	}
-	
-	@PostMapping(value = "/create-card-for-deck", consumes = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<String> createCardForDeck(@RequestBody CardRequest cr) {
-		if(cr.getKey().equals(keyUtil.calculateSHA256Hash(key))) {
-			cardGenerator.createCard(cr.getCardId(), cr.getTheme(), cr.getDeckIdeaId());
+    @Autowired
+    private CardDao cardDao;
 
-			return ResponseEntity.ok("Request received successfully!");
-		}
-		else {
+    @Autowired
+    private CardGenerator cardGenerator;
 
-			return ResponseEntity.badRequest().body("Bad Key");
-			
+    @Value("${com.kif.sharedsecret}")
+    private String sharedSecret;
 
-		}
-		
+    @Autowired
+    private ApiKeyUtil keyUtil;
 
-	}
-	
-	
-	@PostMapping("/create-card")
-	public ResponseEntity<String> createCard(@RequestBody SingleRequest sr) {
-		Card nc = new Card();
-		String newCardId = UUID.randomUUID().toString();
-		if(sr.getKey().equals(calculateSHA256Hash(key))) {
-			nc = cardGenerator.createSingleCard(sr,newCardId);
-			cardDao.save(nc,sr.getDeckId(),newCardId); 
-			return ResponseEntity.ok(newCardId);
+    /**
+     * Endpoint to create a card for a specific deck.
+     *
+     * @param cr CardRequest containing card details and API key.
+     * @return ResponseEntity indicating success or failure.
+     */
+    @PostMapping(value = "/create-card-for-deck", consumes = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<String> createCardForDeck(@RequestBody CardRequest cr) {
+        logger.info("Received request to create card for deck: {}", cr.getDeckIdeaId());
 
-		}
-		else {
-			return ResponseEntity.badRequest().body("Bad Key");
-
-		}
-
-
-	}
-	
-	public static String calculateSHA256Hash(String input) {
-    	Date date = new Date();
-    	String seededKey = input + date.toString().substring(0, 16);
-    	
-        try {
-            // Create a MessageDigest object with the SHA-256 algorithm
-            MessageDigest digest = MessageDigest.getInstance("SHA-256");
-
-            // Convert the input string to bytes
-            byte[] encodedHash = digest.digest(seededKey.getBytes(StandardCharsets.UTF_8));
-
-            // Convert the byte array to a hexadecimal string
-            StringBuilder hexString = new StringBuilder();
-            for (byte b : encodedHash) {
-                String hex = Integer.toHexString(0xff & b);
-                if (hex.length() == 1) {
-                    hexString.append('0');
-                }
-                hexString.append(hex);
-            }
-
-            // Return the SHA-256 hash as a string
-            return hexString.toString();
-        } catch (NoSuchAlgorithmException e) {
-            e.printStackTrace();
+        // Validate API key
+        if (!keyUtil.calculateSHA256Hash(sharedSecret).equals(cr.getKey())) {
+            logger.error("Invalid API key for card creation request.");
+            return ResponseEntity.badRequest().body("Invalid API key.");
         }
 
-        return null;
+        try {
+            // Generate the card
+            cardGenerator.createCard(cr.getCardId(), cr.getTheme(), cr.getDeckIdeaId());
+            logger.info("Successfully created card for deck: {}", cr.getDeckIdeaId());
+            return ResponseEntity.ok("Request received successfully!");
+        } catch (Exception e) {
+            logger.error("Error while creating card for deck: {}", e.getMessage(), e);
+            return ResponseEntity.internalServerError().body("Failed to process the request.");
+        }
     }
 
+    /**
+     * Endpoint to create a single card.
+     *
+     * @param sr SingleRequest containing single card details and API key.
+     * @return ResponseEntity with the ID of the newly created card or error message.
+     */
+    @PostMapping("/create-card")
+    public ResponseEntity<String> createCard(@RequestBody SingleRequest sr) {
+        logger.info("Received request to create a single card.");
+
+        // Validate API key
+        if (!keyUtil.calculateSHA256Hash(sharedSecret).equals(sr.getKey())) {
+            logger.error("Invalid API key for single card creation request.");
+            return ResponseEntity.badRequest().body("Invalid API key.");
+        }
+
+        try {
+            // Generate and save the card
+            String newCardId = UUID.randomUUID().toString();
+            Card newCard = cardGenerator.createSingleCard(sr, newCardId);
+            cardDao.save(newCard, sr.getDeckId(), newCardId);
+
+            logger.info("Successfully created single card with ID: {}", newCardId);
+            return ResponseEntity.ok(newCardId);
+        } catch (Exception e) {
+            logger.error("Error while creating single card: {}", e.getMessage(), e);
+            return ResponseEntity.internalServerError().body("Failed to create card.");
+        }
+    }
 }

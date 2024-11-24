@@ -156,15 +156,10 @@ public class PromptBuilder {
 		if(idea.isGreen()) {cardColour+="green, "; colourCounter++;}
 
 
-		//if(colourCounter>1) {
-		//	cardColour = "Multicolour";
-		//}
 		else if(colourCounter == 0) {
 			cardColour="Colourless, ";
 		}
-		//path = path + frameColour + ".png";
 
-		//System.out.println(path);
 		return cardColour.substring(0, cardColour.length()-2);
 	}
 }
