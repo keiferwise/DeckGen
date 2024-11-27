@@ -1,44 +1,39 @@
 <div th:replace="fragments/001-header">...</div>
 
-
 <div class="container col-md-6 col-lg-7">
-	<div class="">
-		<div class="row dg-deck-input-box">
-			<div class="col card-margin">
-				<h4 th:text="${card.name} "></h4>
-				<div th:utext="${manaCost}"></div>
-			</div>
-			<div class="col">
-				<div class="card-margin">
-					<div >
-					<div th:replace="card-with-text-test">...</div>
-					</div>
-				</div>
-			</div>
-			<div class="d-flex justify-content-between">
-				<form method="post" th:action="@{/move-card}" class="col-md-6">
-					<div class="row">
-						<div class="col">
-							<select id="deck" name="deck" class="form-select">
-								<option th:each="deck : ${decks}" th:value="${deck.deckId}" th:text="${deck.name}">
-								</option>
-							</select>
-						</div>
-						<div class="col-auto">
-							<button type="button" class="btn btn-dark">Move to deck</button>
-						</div>
-					</div>
-				</form>
-				<form method="post" th:action="@{/delete-card}" class="col-auto">
-					<div class="row">
-						<div class="col">
-							<button type="button" class="btn btn-danger">Delete Card</button>
-						</div>
-					</div>
-				</form>
-			</div>
+    <section class="dg-deck-input-box p-3">
+        <div class="row">
+            <!-- Card Details -->
+            <div class="col card-margin">
+                <h4 th:text="${card.name ?: 'Unnamed Card'}"></h4>
+                <div th:utext="${manaCost ?: ''}"></div>
+            </div>
 
+            <!-- Card Display -->
+            <div class="col">
+                <div class="card-margin">
+                    <div th:replace="card-with-text-1">...</div>
+                </div>
+            </div>
+        </div>
 
-		</div>
-	</div>
+        <!-- Form Actions -->
+        <div class="d-flex justify-content-between mt-3">
+            <!-- Move Card Form -->
+            <form method="post" th:action="@{/move-card}" class="d-flex align-items-center">
+                <label for="deck" class="form-label visually-hidden">Select Deck</label>
+                <select id="deck" name="deck" class="form-select me-2">
+                    <option value="" disabled selected>Choose Deck</option>
+                    <option th:each="deck : ${decks}" th:value="${deck.deckId}" th:text="${deck.name}">
+                    </option>
+                </select>
+                <button type="submit" class="btn btn-dark">Move to Deck</button>
+            </form>
+
+            <!-- Delete Card Form -->
+            <form method="post" th:action="@{/delete-card}" class="d-flex align-items-center">
+                <button type="submit" class="btn btn-danger">Delete Card</button>
+            </form>
+        </div>
+    </section>
 </div>

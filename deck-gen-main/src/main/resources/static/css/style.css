@@ -1,9 +1,29 @@
+:root {
+    --primary-color: #007bff;
+    --secondary-color: #e9ecef;
+    --font-family-primary: "goudy", serif;
+}
+
 @font-face{
 	font-family:"goudy";
 	src: url('/fonts/Goudy-Mediaeval-Regular.ttf') format('truetype');
 }
 /* style.css */
+.nav-link {
+    color: var(--primary-color);
+    text-decoration: none;
+    transition: color 0.3s, background-color 0.3s;
+}
 
+.nav-link:hover {
+    color: white;
+    background-color: var(--primary-color);
+}
+
+.nav-link.active {
+    font-weight: bold;
+    border-bottom: 2px solid var(--primary-color);
+}
 /* Improve header styling */
 .dg-header-title {
     font-size: 1.5rem;
@@ -78,34 +98,62 @@ body {
 	background-repeat: repeat;
 	/*background-color: saddlebrown;*/
 }
+
+
+.form-element 
+{
+	padding: 5px;
+}
+
+.container{
+	max-width: 1200px; /* Optional: limit max width of header */
+    margin: auto; /* Center align header content */
+}
+/*
+.card-container {
+	position: relative;
+	height: 840px;
+	width: 600px;
+	color: white;
+	font-size: 25px;
+}*/
+.card-container {
+    position: relative;
+    color: white;
+    margin: 3%;
+	font-size: 25px;
+}
+
+.card-container.large {
+    height: 1680px;
+    width: 1200px;
+    font-size: 50px;
+}
+
+.card-container.medium {
+	    position: relative;
+
+    height: 840px;
+    width: 600px;
+    font-size: 25px;
+}
+
+.card-container.small {
+	    position: relative;
+
+    height: 420px;
+    width: 300px;
+    font-size: 12.5px;
+}
+
 .card-container-large {
 	position: relative;
-	/*text-align: center;*/
 	height: 1680px;
 	width: 1200px;
 	color: white;
 	margin: 3%;
 	font-size: 50px;
 }
-
-.form-element 
-{
-	padding: 5px;
-}
-.container{
-	    max-width: 1200px; /* Optional: limit max width of header */
-    margin: auto; /* Center align header content */
-}
-.card-container {
-	position: relative;
-	/*text-align: center;*/
-	height: 840px;
-	width: 600px;
-	color: white;
-	/*margin: 3%;*/
-	font-size: 25px;
-}
-
 .card-container-small {
 	position: relative;
 	/*text-align: center;*/
@@ -115,6 +163,7 @@ body {
 	/*margin: 3%;*/
 	font-size: 12.5px;
 }
+
 
 /* Bottom left text */
 .rules-and-flavor-box {
