@@ -7,6 +7,7 @@ import java.util.Date;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpHeaders;
 import org.springframework.stereotype.Service;
@@ -16,6 +17,8 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.kif.deckgenmodels.CardRequest;
 import com.kif.deckgenmodels.SingleRequest;
+import com.kif.deckgenmodels.util.ApiKeyUtil;
+
 import reactor.core.publisher.Mono;
 
 @Service
@@ -24,6 +27,8 @@ public class CardService {
 
     @Value("${com.kif.sharedsecret}")
     private String key;
+    @Autowired
+    private ApiKeyUtil keyUtil;
 
     private final WebClient webClient;
 
@@ -33,7 +38,6 @@ public class CardService {
 
     public Mono<String> createSingle(String name, String type, String subtype, String theme, String artStyle, String vibe, String mana, String deckId) {
         logger.info("Starting createSingle method for name: {}, type: {}, theme: {}, deckId: {}", name, type, theme, deckId);
-
         SingleRequest sr = new SingleRequest();
         sr.setArtStyle(artStyle);
         sr.setMana(mana);
@@ -44,7 +48,7 @@ public class CardService {
         sr.setVibe(vibe);
         sr.setDeckId(deckId);
 
-        String newKey = calculateSHA256Hash(key);
+        String newKey = keyUtil.calculateSHA256Hash(key);
         sr.setKey(newKey);
 
         String requestBody = convertSingleToJson(sr);
@@ -54,6 +58,7 @@ public class CardService {
         }
 
         logger.debug("Generated request body: {}", requestBody);
+        logger.info("API KEY: "+ newKey);
 
         return webClient.post()
                 .uri("/create-card")
@@ -68,7 +73,7 @@ public class CardService {
     public Mono<String> createCard(String cardId, String theme, String deckId) {
         logger.info("Starting createCard method for cardId: {}, theme: {}, deckId: {}", cardId, theme, deckId);
 
-        CardRequest cr = new CardRequest(cardId, theme, deckId, calculateSHA256Hash(key));
+        CardRequest cr = new CardRequest(cardId, theme, deckId, keyUtil.calculateSHA256Hash(key));
 
         String requestBody;
         try {
@@ -98,7 +103,7 @@ public class CardService {
             return null;
         }
     }
-
+/*
     public static String calculateSHA256Hash(String input) {
         Date date = new Date();
         String seededKey = input + date.toString().substring(0, 16);
@@ -123,5 +128,5 @@ public class CardService {
             logger.error("SHA-256 algorithm not found", e);
             throw new RuntimeException("SHA-256 algorithm not available", e);
         }
-    }
+    }*/
 }

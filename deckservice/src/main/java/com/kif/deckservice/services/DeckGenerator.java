@@ -4,6 +4,7 @@
 package com.kif.deckservice.services;
 
 import java.util.Random;
+import java.util.concurrent.TimeUnit;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -56,6 +57,7 @@ public class DeckGenerator {
 		//Fill out card text detail
 		try {
 			for (Card card : deck.getCards()) {
+				TimeUnit.SECONDS.sleep(9);
 				logger.info("Ceating card with card_id "+card.getCardId());
 				System.out.println("about to create card: "+card.getName());
 				cs.createCard(card.getCardId(), deckIdea.getTheme(), deckIdea.getDeckIdeaId(),key).subscribe(response -> {

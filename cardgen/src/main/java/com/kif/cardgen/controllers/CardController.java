@@ -72,6 +72,8 @@ public class CardController {
     @PostMapping("/create-card")
     public ResponseEntity<String> createCard(@RequestBody SingleRequest sr) {
         logger.info("Received request to create a single card.");
+        logger.info("API KEY: " + keyUtil.calculateSHA256Hash(sharedSecret) + " = " + sr.getKey());
+
 
         // Validate API key
         if (!keyUtil.calculateSHA256Hash(sharedSecret).equals(sr.getKey())) {
@@ -79,6 +81,8 @@ public class CardController {
             return ResponseEntity.badRequest().body("Invalid API key.");
         }
 
+
+        
         try {
             // Generate and save the card
             String newCardId = UUID.randomUUID().toString();
