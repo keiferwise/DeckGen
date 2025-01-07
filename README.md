@@ -17,9 +17,12 @@ Majik: The Generating Allows users to create original Magic: The Gathering cards
 #### Close-up of sample card
 ![MajikTG-ss-1-Dino-detail](https://github.com/keiferwise/DeckGen/assets/26557443/dd68ce0b-0c3b-4aa0-abb2-5b331e269fa0)
 #### The user can also generate a single card with more granular control
-![MajikTG-ss-1-Card-gen](https://github.com/keiferwise/DeckGen/assets/26557443/da05de6f-7b62-44f3-b896-152efe9e6497)
+<img width="833" alt="Screenshot 2025-01-07 172040" src="https://github.com/user-attachments/assets/de63112c-462e-4e52-986c-9667084aac58" />
 #### Sample Single card
-![MajikTG-ss-1-frog-detail](https://github.com/keiferwise/DeckGen/assets/26557443/6e2888a4-0a39-4213-924e-4aed2635d56b)
+<img width="1025" alt="Screenshot 2025-01-07 172241" src="https://github.com/user-attachments/assets/af339025-b8b8-4a85-a25d-7f95fb8edded" />
+
+
+
 
 
 ## To Do - MVP
