@@ -1,53 +1,80 @@
 <div th:replace="fragments/001-header">...</div>
-<div class="dg-deck-input-box">
-<h1>Make a new user</h1>
-<form method="post" th:action="@{/create-user}">
-	<div class="form-element">
-		<label for="username">Username:</label>
-		<input type="text" id="username" name="username">
-	</div>
-	<div class="form-element">
-		<label for="password">Password:</label>
-		<input type="text" id="password" name="password">
-	</div>
-	
-	<div  class="form-element">
-				<label for="email">email:</label>
-		<input type="text" id="email" name="email">
-	</div>
-	
 
-	<div class="form-element">
-		<label for="role">Role:</label>
-		<select id="role" name="role">
-			<option th:value="ROLE_ADMIN" th:text="Admin"></option>
-			<option th:value="ROLE_USER" th:text="User"></option>
-		</select>	
-	</div>
-	
-	<div class="form-element">
-		<label for="enabled">Enabled:</label>
-		<input type="checkbox" id="enabled" name="enabled">
-	</div>
+<!--<h1 class="p-5">Decks</h1>-->
+<div class="container">
+<div class="pillar-layout">
+  <!-- Left Pillar -->
+  <div class="column-container">
+    <div class="pillar-top"></div>
+    <div class="pillar-mid"></div>
+    <div class="pillar-btm"></div>
+  </div>
+
+  <!-- Table in the middle -->
+  <div class="container">
+	<div class="dg-deck-input-box">
+	<h1>Make a new user</h1>
+	<form method="post" th:action="@{/create-user}">
+		<div class="form-element">
+			<label for="username">Username:</label>
+			<input type="text" id="username" name="username">
+		</div>
+		<div class="form-element">
+			<label for="password">Password:</label>
+			<input type="text" id="password" name="password">
+		</div>
 		
-	<div class="form-element">
-		<label for="admin">Admin:</label>
-		<input type="checkbox" id="adin" name="admin">
-	</div>
-	<div class="form-element">
-		<label for="tokens">Tokens:</label>
-		<input type="number" id="tokens" name="tokens">
-	</div>
-	
-	<div class="form-element">
-		<label for="name">Name:</label>
-		<input type="text" id="name" name="name">
-	</div>
-	
-	<div class="form-element">
-			<button type="submit">Add User</button>
+		<div  class="form-element">
+					<label for="email">email:</label>
+			<input type="text" id="email" name="email">
+		</div>
+		
 
-	</div>
+		<div class="form-element">
+			<label for="role">Role:</label>
+			<select id="role" name="role">
+				<option th:value="ROLE_ADMIN" th:text="Admin"></option>
+				<option th:value="ROLE_USER" th:text="User"></option>
+			</select>	
+		</div>
+		
+		<div class="form-element">
+			<label for="enabled">Enabled:</label>
+			<input type="checkbox" id="enabled" name="enabled">
+		</div>
+			
+		<div class="form-element">
+			<label for="admin">Admin:</label>
+			<input type="checkbox" id="adin" name="admin">
+		</div>
+		<div class="form-element">
+			<label for="tokens">Tokens:</label>
+			<input type="number" id="tokens" name="tokens">
+		</div>
+		
+		<div class="form-element">
+			<label for="name">Name:</label>
+			<input type="text" id="name" name="name">
+		</div>
+		
+		<div class="form-element">
+				<button type="submit">Add User</button>
+
+		</div>
+  </div>
+  </div>
+
+  <!-- Right Pillar -->
+  <div class="column-container">
+    <div class="pillar-top"></div>
+    <div class="pillar-mid"></div>
+    <div class="pillar-btm"></div>
+  </div>
+
+</div>
+<div th:replace="fragments/footer">...</div>
+
+
 
 
 

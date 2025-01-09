@@ -9,8 +9,22 @@
 <body>
 	<div th:replace="fragments/background-open"></div>
 	<div th:replace="fragments/001-header">...</div>
-	<div class="container col-md-6 col-lg-7">
+	
+	<div class="container">
+	<div class="pillar-layout">
+		<!-- Pillar -->
+		<!-- Left Pillar -->
+		<div class="column-container">
+			<div class="pillar-top"></div>
+			<div class="pillar-mid"></div>
+			<div class="pillar-btm"></div>
+		</div>
+
+	
+	<div class="container">
 		<div class="dg-deck-input-box">
+			<h4 class="mb-3">Deck Generator</h4>
+
 			<form method="post" th:action="@{/submit-theme}">
 				<div class="row">
 					<div class="col-sm-10">
@@ -101,11 +115,20 @@
 
 		</div>
 
+</div>
 
+<div class="column-container">
+	<div class="pillar-top"></div>
+	<div class="pillar-mid"></div>
+	<div class="pillar-btm"></div>
+</div>
+</div>
 	</div>
 	</form>
 	</div>
 	</div>
+	<div th:replace="fragments/footer">...</div>
+
 	<div th:replace="fragments/background-close">...</div>
 
 </body>

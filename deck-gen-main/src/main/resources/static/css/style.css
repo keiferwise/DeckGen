@@ -80,7 +80,7 @@ footer {
 }
 .header-container {
     max-width: 1200px; /* Optional: limit max width of header */
-    margin: auto; /* Center align header content */  
+    margin: 30px auto; /* Center align header content */  
 }
 .header-container-2 {
     display: flex;
@@ -330,7 +330,7 @@ dg-header-box {
   justify-content: center;
   align-items: stretch; /* Ensures the pillars stretch according to the height of the table */
   width: 100%; /* Only take up the width necessary for the table and pillars */
-  margin: 0 auto; /* Centers the entire layout in the page */
+  margin: 30px auto; /* Centers the entire layout in the page */
 }
 
 .column-container {
