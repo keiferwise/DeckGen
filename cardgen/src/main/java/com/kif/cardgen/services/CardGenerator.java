@@ -28,8 +28,6 @@ import com.kif.deckgenmodels.daos.CardDao;
 import com.kif.deckgenmodels.daos.DeckIdeaDao;
 import com.kif.deckgenmodels.daos.MinioDao;
 
-
-
 /**
  * 
  * @author Keifer
@@ -40,187 +38,152 @@ import com.kif.deckgenmodels.daos.MinioDao;
 public class CardGenerator {
     private static final Logger logger = LoggerFactory.getLogger(CardGenerator.class);
 
-	@Value("${com.kif.cardDetailsTemplate}")
-	private String cardDetailsTemplate;
+    @Value("${com.kif.cardDetailsTemplate}")
+    private String cardDetailsTemplate;
 
-	@Autowired
-	ObjectMapper objectMapper;
-	@Autowired
-	ChatGPTClient gptClient;
-	@Autowired
-	ChatApiClient chatApiClient;
-	@Autowired
-	PromptBuilder pb;
-	@Autowired
-	CardDao cardDao;
-	@Autowired
-	DeckIdeaDao ideaDao;
-	@Autowired
-	CardComposer composer;
-	@Autowired
-	DalleClient dalle;
-	@Autowired
-	MinioDao minio;
-	
-	// TODO take a card object with only a name and type and fill out the details
-	public Card createCard(String cardid, String theme, String deckIdeaId) {
-		
-		 
-		
-		//  Call createCardText method 
-		Card cardWithAllText = createCardText(cardid, theme, deckIdeaId);
-		System.out.println("This is the card we are about to update"+cardWithAllText.toString());
-		
-		try {
-			cardDao.updateCard(cardWithAllText, cardWithAllText.getCardId());
-			// call the card composer to make the art.
-			createCardArt(cardWithAllText,ideaDao.findByDeckIdeaId(deckIdeaId).getArtStyle());
-			cardDao.updateStatusComplete(cardid);
+    @Autowired
+    ObjectMapper objectMapper;
+    @Autowired
+    ChatGPTClient gptClient;
+    @Autowired
+    ChatApiClient chatApiClient;
+    @Autowired
+    PromptBuilder pb;
+    @Autowired
+    CardDao cardDao;
+    @Autowired
+    DeckIdeaDao ideaDao;
+    @Autowired
+    CardComposer composer;
+    @Autowired
+    DalleClient dalle;
+    @Autowired
+    MinioDao minio;
 
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			cardDao.updateStatusFailed(cardid);
+    public Card createCard(String cardid, String theme, String deckIdeaId) {
+        logger.info("Starting card creation for cardId: {}, theme: {}, deckIdeaId: {}", cardid, theme, deckIdeaId);
 
-			e.printStackTrace();
-		}
+        Card cardWithAllText = createCardText(cardid, theme, deckIdeaId);
+        logger.debug("Generated card details: {}", cardWithAllText);
 
-		
-		return cardWithAllText;
-	}
+        try {
+            cardDao.updateCard(cardWithAllText, cardWithAllText.getCardId());
+            logger.info("Updated card details for cardId: {}", cardid);
 
-	
-	private Card createCardText(String cardid, String theme, String deckIdeaId) {
-		Card card = cardDao.getCardById(cardid);
-		DeckIdea deckIdea = ideaDao.findByDeckIdeaId(deckIdeaId);
-		Card newCard = null;
+            createCardArt(cardWithAllText, ideaDao.findByDeckIdeaId(deckIdeaId).getArtStyle());
+            logger.info("Card art creation completed for cardId: {}", cardid);
 
-		
-		
-		String prompt = pb.buildCardPrompt(card, deckIdea);
+            cardDao.updateStatusComplete(cardid);
+            logger.info("Card status updated to COMPLETE for cardId: {}", cardid);
+        } catch (Exception e) {
+            cardDao.updateStatusFailed(cardid);
+            logger.error("Failed to create card for cardId: {}", cardid, e);
+        }
 
-		newCard = sendPromptToGpt(prompt);
-	
-		System.out.println(newCard.toString());
-		newCard.setCardId(card.getCardId());
-		newCard.setDeckId(card.getDeckId());
-		newCard.setStatus("INPROGRESS");
-		// System.out.println(card.getName());
-		return newCard;
-	}
+        return cardWithAllText;
+    }
 
-	
-	private int createCardArt(Card card, String artStyle) {
-		/* ### THIS decides if WE ARE MAKING ART ### */
-		String makeArt = "true";
+    private Card createCardText(String cardid, String theme, String deckIdeaId) {
+        logger.info("Generating text for cardId: {}, theme: {}, deckIdeaId: {}", cardid, theme, deckIdeaId);
 
-		System.out.println("Making art: " + makeArt);
+        Card card = cardDao.getCardById(cardid);
+        DeckIdea deckIdea = ideaDao.findByDeckIdeaId(deckIdeaId);
 
-		BufferedImage imgTest = null;
-		BufferedImage img = null;
-		URL url = null;
-		// Generate Art for cards FINISH THIS
-		if (makeArt.equals("true")) {
+        String prompt = pb.buildCardPrompt(card, deckIdea);
+        logger.debug("Generated prompt: {}", prompt);
 
-			// ######################################################
-			// #### What we will call when we are generating art ####
-			// ######################################################
-			ImageResult ir = dalle.generateImage(card.getArtDescription() + ". In this art style: " +artStyle );
-			if(ir == null) {
-				cardDao.updateStatusFailed(card.getCardId());
-				return 0;
-			}
-			Image art = ir.getData().get(0);
-			
-			
-			// get the art from Dall-E URL
-			try {
-				url = new URL(art.getUrl());
-			} catch (MalformedURLException e1) {
-				// TODO Auto-generated catch block
-				cardDao.updateStatusFailed(card.getCardId());
-				e1.printStackTrace();
-			}
-			try {
-				img = ImageIO.read(url);
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				cardDao.updateStatusFailed(card.getCardId());
-				e.printStackTrace();
-			}
+        Card newCard = sendPromptToGpt(prompt);
+        logger.debug("Received card text: {}", newCard);
 
-		} else {
-			// What we will call while we are testing ""
-			String artPath = "D:\\deckgen\\cardgen\\src\\main\\resources\\images\\test-clay.png";
-			try {
-				img = ImageIO.read(new File(artPath));//
-			} catch (IOException e2) {
-				// TODO Auto-generated catch block
-				cardDao.updateStatusFailed(card.getCardId());
-				e2.printStackTrace();
-			}
+        newCard.setCardId(card.getCardId());
+        newCard.setDeckId(card.getDeckId());
+        newCard.setStatus("INPROGRESS");
 
-		}
-		// Create the card
-		BufferedImage cardImage = null;
-		try {
-			cardImage = composer.createImage(card, img);
-			cardDao.updateStatusComplete(card.getCardId());
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			cardDao.updateStatusFailed(card.getCardId());
+        return newCard;
+    }
 
-			e.printStackTrace();
-		}
+    private int createCardArt(Card card, String artStyle) {
+        logger.info("Creating art for cardId: {}, artStyle: {}", card.getCardId(), artStyle);
 
-		return minio.saveImage(cardImage, card.getCardId());
+        String makeArt = "true";
+        logger.debug("Make art flag: {}", makeArt);
 
-	}
-	
-	public Card createSingleCard(SingleRequest sr,String cardId) {
-		Card newCard = createSingleCardText(sr);
-		newCard.setCardId(cardId);
-		createCardArt(newCard,sr.getArtStyle());
-		return newCard;
-		
-	}
+        BufferedImage img = null;
 
-	public Card createSingleCardText(SingleRequest sr) {
-		// TODO Auto-generated method stub
-		
-		Card card = new Card();
-		DeckIdea idea = new DeckIdea();
-		card.setName(sr.getName());
-		card.setManaCost(sr.getMana());
-		card.setType(sr.getType());
-		card.setSubtype(sr.getSubType());
-		idea.setArtStyle(sr.getArtStyle());
-		idea.setTheme(sr.getTheme());
-		idea.setVibe(sr.getVibe());
-		idea.setDeckIdeaId("none");
-		String prompt = pb.buildCardPrompt(card, idea);
-		
-		return  sendPromptToGpt(prompt);
+        if ("true".equals(makeArt)) {
+            ImageResult ir = dalle.generateImage(card.getArtDescription() + ". In this art style: " + artStyle);
+            if (ir == null) {
+                cardDao.updateStatusFailed(card.getCardId());
+                logger.error("Art generation failed for cardId: {}", card.getCardId());
+                return 0;
+            }
 
-	}
-	
-	private Card sendPromptToGpt(String prompt) {
-		String newCardJson = gptClient.generateCompletion(prompt, 2000);
-		//String newCardJson = chatApiClient.chat(prompt);
-		// System.out.println(newCardJson);
+            Image art = ir.getData().get(0);
 
-		Card newCard = new Card();
-		try {
-			newCard = objectMapper.readValue(newCardJson, Card.class);
-		} catch (JsonProcessingException e) {
-			// TODO Auto-generated catch block
-			newCard.setStatus("FAILED");
-			e.printStackTrace();
-		}
-		System.out.println(newCard.toString());
-		//newCard.setCardId(card.getCardId());
-		//newCard.setDeckId(card.getDeckId());
-		// System.out.println(card.getName());
-		return newCard;
-		
-	}
+            try {
+                URL url = new URL(art.getUrl());
+                img = ImageIO.read(url);
+            } catch (IOException e) {
+                cardDao.updateStatusFailed(card.getCardId());
+                logger.error("Failed to download or read art image for cardId: {}", card.getCardId(), e);
+                return 0;
+            }
+        }
+
+        try {
+            BufferedImage cardImage = composer.createImage(card, img);
+            cardDao.updateStatusComplete(card.getCardId());
+            return minio.saveImage(cardImage, card.getCardId());
+        } catch (IOException e) {
+            cardDao.updateStatusFailed(card.getCardId());
+            logger.error("Failed to create or save card image for cardId: {}", card.getCardId(), e);
+            return 0;
+        }
+    }
+
+    public Card createSingleCard(SingleRequest sr, String cardId) {
+        logger.info("Creating single card with cardId: {}", cardId);
+
+        Card newCard = createSingleCardText(sr);
+        newCard.setCardId(cardId);
+
+        createCardArt(newCard, sr.getArtStyle());
+        return newCard;
+    }
+
+    public Card createSingleCardText(SingleRequest sr) {
+        logger.info("Generating text for single card with name: {}", sr.getName());
+
+        Card card = new Card();
+        DeckIdea idea = new DeckIdea();
+
+        card.setName(sr.getName());
+        card.setManaCost(sr.getMana());
+        card.setType(sr.getType());
+        card.setSubtype(sr.getSubType());
+
+        idea.setArtStyle(sr.getArtStyle());
+        idea.setTheme(sr.getTheme());
+        idea.setVibe(sr.getVibe());
+
+        String prompt = pb.buildCardPrompt(card, idea);
+        return sendPromptToGpt(prompt);
+    }
+
+    private Card sendPromptToGpt(String prompt) {
+        logger.debug("Sending prompt to GPT: {}", prompt);
+
+        String newCardJson = gptClient.generateCompletion(prompt, 2000);
+        Card newCard = new Card();
+
+        try {
+            newCard = objectMapper.readValue(newCardJson, Card.class);
+            logger.debug("Successfully parsed GPT response: {}", newCard);
+        } catch (JsonProcessingException e) {
+            newCard.setStatus("FAILED");
+            logger.error("Failed to parse GPT response", e);
+        }
+
+        return newCard;
+    }
 }
