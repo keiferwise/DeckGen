@@ -2,12 +2,12 @@
 
 ## Application overview
 
-Majik: The Generating Allows users to create original Magic: The Gathering cards using AI.
+Majik: The Generating Allows users to create original Magic: The Gathering cards using AI. 
 
 ![MajikTG-ss-1-fargmet](https://github.com/keiferwise/DeckGen/assets/26557443/03fc529a-ae45-4bd6-86cf-6d06f2a00378)
 
 
-#### Deck Creation page, user fills out these fields and the application will generate 9 cards based on the prompt.
+#### Deck Creation page, user fills out the form and the application will generate 9 cards based on the prompt. Enjoy the beautiful retro web design.
 ![image](https://github.com/user-attachments/assets/7a38a1e9-1783-4239-b726-f1873e37f03b)
 #### The application generates these MTG card
 ![MajikTG-ss-1-Dinos](https://github.com/keiferwise/DeckGen/assets/26557443/4c378035-303d-4c8e-8c34-48af44a0b390)
