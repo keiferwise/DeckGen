@@ -12,154 +12,127 @@ import com.kif.deckgenmodels.DeckIdea;
 public class PromptBuilder {
     private static final Logger logger = LoggerFactory.getLogger(PromptBuilder.class);
 
+    @Value("${com.kif.cardDetailsTemplate}")
+    private String cardDetailsTemplate;
 
-	@Value("${com.kif.cardDetailsTemplate}")
-	private String cardDetailsTemplate;
-	
-	@Value("${com.kif.cardDetailsTemplateForDeck}")
-	private String cardDetailsTemplateForDeck;
-	
+    @Value("${com.kif.cardDetailsTemplateForDeck}")
+    private String cardDetailsTemplateForDeck;
+
     @Value("${com.kif.deckListTemplate}")
-    private String DeckListTemplate;
-	
-    
+    private String deckListTemplate;
 
+    private String cRules = "Creatures must have a power, toughness, and a subtype. Rules text is optional but recommended. If there is no rules text, then flavor text is mandatory.";
+    private String eRules = "Enchantments must have rules text; they have no power or toughness and don't have a subtype.";
+    private String sRules = "Sorceries must have rules text; flavor text is optional. Sorceries have no power or toughness and don't have a subtype.";
+    private String iRules = "Instants must have rules text; flavor text is optional. Instants have no power or toughness and don't have a subtype.";
+    private String aRules = "Artifacts must have rules text; flavor text is optional. Artifacts have no power or toughness and don't have a subtype.";
 
-    //@Value("${com.kif.creatureRules}")
-    private String cRules="Creatures must have a power, toughtness, and a subtype. Rules text is optional but recommended. If there is no rules text, then flavor text in manditory. ";
-    
-   // @Value("${com.kif.enchatmentRules}")
-    private String eRules="Enchantments must have rules text, they have no power or toughness and don't have a subtype.";
-    
-    //@Value("${com.kif.sorceryRules}")
-    private String sRules="Sorceries must have rules text, flavor text is optional. Sorceries have no power or toughness and don't have a subtype.";
-    
-    //@Value("${com.kif.instantRules}")
-    private String iRules="Instants must have rules text, flavor text is optional. Instants have no power or toughness and don't have a subtype.";
-    
-    //@Value("${com.kif.artifactRules}")
-    private String aRules="Artifacts must have rules text, flavor text is optional. Artifacts have no power or toughness and don't have a subtype. ";
-    
-    private String twoColourRules = "Since this deck is two coloured, at least half the cards should have both <MANA> mana colours in it's cost";
-    
-    private String threeColourRules = "Since this deck is Three coloured, Roughtly one third of the cards should have all three of the mana colours(<MANA>) in it's cost, the others can be one or two mana colours, with at least 1 colourless artifact";
-    
-    private String multicolourRules = "Since this deck is a multicoloured deck, Roughtly one third of the cards should have all the mana colours(<MANA>) in it's cost, the others can be one or two, or three mana colours, with at least 1 colourless artifact";
-    
-	public PromptBuilder() {
-		// TODO Auto-generated constructor stub
-	}
-	
-	
-	public String buildDeckPrompt(String theme, String mana){
-		
-    	String prompt = DeckListTemplate.replace("<MYTHEME>", theme);
-    	prompt = prompt.replace("<MANA>", mana);
-		
-		
-		return prompt;
-	}
-	
-	
-	public String buildCardPrompt(Card card, DeckIdea deckIdea) {
-		//System.out.println("Base prompt is : "+ cardDetailsTemplate);
-		String prompt = null;
-		
-		System.out.println(deckIdea.getDeckIdeaId());
-		if(deckIdea.getDeckIdeaId().equals("none")) {
-			
-			prompt = cardDetailsTemplateForDeck.replace("<NAME>", card.getName());
-			prompt = prompt.replace("<TYPE>", card.getType());
-			prompt = prompt.replace("<SUBTYPE>", card.getSubtype());
+    private String twoColourRules = "Since this deck is two-colored, at least half the cards should have both <MANA> mana colors in their cost.";
+    private String threeColourRules = "Since this deck is three-colored, roughly one-third of the cards should have all three of the mana colors (<MANA>) in their cost. The others can be one or two mana colors, with at least one colorless artifact.";
+    private String multicolourRules = "Since this deck is multicolored, roughly one-third of the cards should have all the mana colors (<MANA>) in their cost. The others can be one, two, or three mana colors, with at least one colorless artifact.";
 
-			prompt = prompt.replace("<THEME>", deckIdea.getTheme());
-			prompt = prompt.replace("<MANACOST>",card.getManaCost());
-		}
-		else {
-			prompt = cardDetailsTemplate.replace("<NAME>", card.getName());
-			prompt = prompt.replace("<TYPE>", card.getType());
+    public PromptBuilder() {
+        logger.debug("PromptBuilder instantiated.");
+    }
 
-			prompt = prompt.replace("<THEME>", deckIdea.getTheme());
-			prompt = prompt.replace("<MANACOST>",card.getManaCost());
-		}
-		
-		//prompt = prompt.replace("<ARTSTYLE>", deckIdea.getArtStyle());
-		
-		String cardColours = getDeckColours(deckIdea);
-		prompt = addManaRules(prompt,deckIdea);
+    public String buildDeckPrompt(String theme, String mana) {
+        logger.info("Building deck prompt for theme: {} and mana: {}", theme, mana);
+        try {
+            String prompt = deckListTemplate.replace("<MYTHEME>", theme).replace("<MANA>", mana);
+            logger.debug("Deck prompt built successfully: {}", prompt);
+            return prompt;
+        } catch (Exception e) {
+            logger.error("Error building deck prompt", e);
+            throw e;
+        }
+    }
 
-		if(card.getType().toLowerCase().contains("creature")) {
-			prompt=prompt.replace("<CARDRULES>",cRules);
+    public String buildCardPrompt(Card card, DeckIdea deckIdea) {
+        logger.info("Building card prompt for card: {} in deck: {}", card.getName(), deckIdea.getDeckIdeaId());
+        try {
+            String prompt;
 
-		}
-		else if(card.getType().toLowerCase().contains("enchantment")) {
-			prompt=prompt.replace("<CARDRULES>",eRules);
-		}
-		else if(card.getType().toLowerCase().contains("artifact")) {
-			prompt=prompt.replace("<CARDRULES>",aRules);
+            if ("none".equals(deckIdea.getDeckIdeaId())) {
+                prompt = cardDetailsTemplateForDeck.replace("<NAME>", card.getName())
+                        .replace("<TYPE>", card.getType())
+                        .replace("<SUBTYPE>", card.getSubtype())
+                        .replace("<THEME>", deckIdea.getTheme())
+                        .replace("<MANACOST>", card.getManaCost());
+            } else {
+                prompt = cardDetailsTemplate.replace("<NAME>", card.getName())
+                        .replace("<TYPE>", card.getType())
+                        .replace("<THEME>", deckIdea.getTheme())
+                        .replace("<MANACOST>", card.getManaCost());
+            }
 
-		}
-		else if(card.getType().toLowerCase().contains("instant")) {
-			prompt=prompt.replace("<CARDRULES>",iRules);
+            prompt = addManaRules(prompt, deckIdea);
+            String cardType = card.getType().toLowerCase();
+            if (cardType.contains("creature")) {
+                prompt = prompt.replace("<CARDRULES>", cRules);
+            } else if (cardType.contains("enchantment")) {
+                prompt = prompt.replace("<CARDRULES>", eRules);
+            } else if (cardType.contains("artifact")) {
+                prompt = prompt.replace("<CARDRULES>", aRules);
+            } else if (cardType.contains("instant")) {
+                prompt = prompt.replace("<CARDRULES>", iRules);
+            } else if (cardType.contains("sorcery")) {
+                prompt = prompt.replace("<CARDRULES>", sRules);
+            } else {
+                prompt = prompt.replace("<CARDRULES>", "");
+                logger.warn("Card type not recognized: {}", card.getType());
+            }
 
-		}
-		else if(card.getType().toLowerCase().contains("sorcery")) {
-			prompt=prompt.replace("<CARDRULES>",sRules);
+            logger.debug("Card prompt built successfully: {}", prompt);
+            return prompt;
+        } catch (Exception e) {
+            logger.error("Error building card prompt", e);
+            throw e;
+        }
+    }
 
-		}
-		else {
-			prompt=prompt.replace("<CARDRULES>","");
-			System.out.println("ERROR, CARD NOT VALID");
-		}
-		//System.out.println("The prompt is: "+prompt);
-		return prompt;
-	}
-	private String addManaRules(String prompt, DeckIdea idea) {
-		int colourCounter=0;
-		if(idea.isWhite()) {colourCounter++;}
-		if(idea.isBlue()) {colourCounter++;}
-		if(idea.isBlack()) {colourCounter++;}
-		if(idea.isRed()) {colourCounter++;}
-		if(idea.isGreen()) {colourCounter++;}
+    private String addManaRules(String prompt, DeckIdea idea) {
+        logger.debug("Adding mana rules for deck idea: {}", idea.getDeckIdeaId());
+        int colourCounter = 0;
+        if (idea.isWhite()) colourCounter++;
+        if (idea.isBlue()) colourCounter++;
+        if (idea.isBlack()) colourCounter++;
+        if (idea.isRed()) colourCounter++;
+        if (idea.isGreen()) colourCounter++;
 
-		if(colourCounter==0) 
-		{
-			prompt=prompt.replace("<MANARULES", "This deck is colourless, so none of the cards should have any mana cost other than colorless");
-		}
-		else if(colourCounter==1) {
-			prompt=prompt.replace("<MANARULES","");
-		}
-		else if(colourCounter==2) {
-			prompt=prompt.replace("<MANARULES",twoColourRules);
-		}
-		else if(colourCounter==3) {
-			prompt=prompt.replace("<MANARULES",threeColourRules);
-		}
-		else {
-			prompt=prompt.replace("<MANARULES",multicolourRules);
+        String manaRules;
+        if (colourCounter == 0) {
+            manaRules = "This deck is colorless, so none of the cards should have any mana cost other than colorless.";
+        } else if (colourCounter == 1) {
+            manaRules = "";
+        } else if (colourCounter == 2) {
+            manaRules = twoColourRules;
+        } else if (colourCounter == 3) {
+            manaRules = threeColourRules;
+        } else {
+            manaRules = multicolourRules;
+        }
 
-		}
-		
-		
-		
-		return prompt;
-	}
-	private String getDeckColours(DeckIdea idea) {
-		String cardColour="";
-		//String path = "D:\\deckgen\\src\\main\\resources\\images\\";
-		int colourCounter=0;
-		//Get Colour Identity String
-		if(idea.isWhite()) {cardColour+="white, "; colourCounter++;}
-		if(idea.isBlue()) {cardColour+="blue, "; colourCounter++;}
-		if(idea.isBlack()) {cardColour+="black, "; colourCounter++;}
-		if(idea.isRed()) {cardColour+="red, "; colourCounter++;}
-		if(idea.isGreen()) {cardColour+="green, "; colourCounter++;}
+        prompt = prompt.replace("<MANARULES>", manaRules);
+        logger.debug("Mana rules added: {}", manaRules);
+        return prompt;
+    }
 
+    private String getDeckColours(DeckIdea idea) {
+        logger.debug("Determining deck colors for deck idea: {}", idea.getDeckIdeaId());
+        StringBuilder cardColour = new StringBuilder();
+        if (idea.isWhite()) cardColour.append("white, ");
+        if (idea.isBlue()) cardColour.append("blue, ");
+        if (idea.isBlack()) cardColour.append("black, ");
+        if (idea.isRed()) cardColour.append("red, ");
+        if (idea.isGreen()) cardColour.append("green, ");
 
-		else if(colourCounter == 0) {
-			cardColour="Colourless, ";
-		}
+        if (cardColour.length() == 0) {
+            logger.debug("Deck is colorless.");
+            return "Colorless";
+        }
 
-		return cardColour.substring(0, cardColour.length()-2);
-	}
+        String result = cardColour.substring(0, cardColour.length() - 2);
+        logger.debug("Deck colors determined: {}", result);
+        return result;
+    }
 }

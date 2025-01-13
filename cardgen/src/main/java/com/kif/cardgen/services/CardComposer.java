@@ -1,13 +1,9 @@
 package com.kif.cardgen.services;
 
 import java.awt.*;
-import java.awt.font.FontRenderContext;
-import java.awt.font.GlyphVector;
-import java.awt.geom.AffineTransform;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
 import javax.imageio.ImageIO;
 
 import org.slf4j.Logger;
@@ -19,13 +15,12 @@ import com.kif.deckgenmodels.Card;
 @Service
 public class CardComposer {
     private String framePath;
-    private String artPath;
     private String manaPath = "D:\\deckgen\\deck-gen-main\\src\\main\\resources\\images\\mana-symbols\\";
     private static final Logger logger = LoggerFactory.getLogger(CardComposer.class);
 
-    public CardComposer(String framePath, String artPath) {
+    public CardComposer(String framePath) {
         this.framePath = framePath;
-        this.artPath = artPath;
+
     }
 
     public CardComposer() {
@@ -47,8 +42,7 @@ public class CardComposer {
         registerFont("D:\\deckgen\\deck-gen-main\\src\\main\\resources\\fonts\\EBGaramond-SemiBoldItalic.ttf");
 
         logger.debug("Setting up fonts and paths");
-        Font rulesFont = new Font("EB Garamond Medium", Font.PLAIN, 50);
-        Font nameFont = new Font("Goudy Mediaeval", Font.PLAIN, 65);
+
 
         framePath = getFrame(card);
         logger.info("Frame path resolved to: {}", framePath);
