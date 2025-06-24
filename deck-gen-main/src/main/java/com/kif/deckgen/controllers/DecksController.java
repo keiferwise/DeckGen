@@ -4,7 +4,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -26,169 +27,140 @@ import com.kif.deckgenmodels.daos.DeckIdeaDao;
 import com.kif.deckgenmodels.daos.MinioDao;
 import com.kif.deckgenmodels.daos.UserDao;
 
-
-/**
- * This is the controler for decks
- * @author Keifer
- * 
- */
 @Controller
 public class DecksController {
-	@Autowired
-	CardDao cardDao;
-	@Autowired
-	DeckDao deckDao;
-	@Autowired
-	DeckIdeaDao ideaDao;
-	@Autowired 
-	MinioDao minio;
-	@Autowired
-	DeckService deckService;
-	@Autowired
-	UserDao userDao;
-	
-	/**
-	 * This is for submitting the parameters.
-	 * @param currentDeckId
-	 * @param model
-	 * @return
-	 */
-	@PostMapping("/submit-deck")
-	public String generateDeck(@RequestParam("deckId") String currentDeckId,Model model){
-		
-		model.addAttribute(model);
-		
-		model.addAttribute(currentDeckId);
 
-		//Test Deck Idea
+    private static final Logger logger = LoggerFactory.getLogger(DecksController.class);
 
-		//System.out.println(currentDeckId);
-		List<Card> cards = cardDao.findAllByDeckId(currentDeckId);
-		Deck deck = deckDao.findDeckById(currentDeckId);
-		deck.setCards(cards);
-		//ArrayList<Card> finishedCards = new ArrayList<Card>();
-		//ArrayList<String> legends = new ArrayList<String>();
-		//legends.add("Keifer,Chief Chef");
-		DeckIdea idea = ideaDao.findByDeckId(currentDeckId);
-		
-		//TODO MOVE THIS TO THE MICROSERVICE
-		
-		//TODO MICROSERVICE CALL
-		deckService.createDeck(idea.getDeckIdeaId(), currentDeckId).subscribe();
-		
-		//executor.execute(deckGenerator);
-		
-		//Add the finished cards so you can display them.
-		//model.addAttribute( finishedCards );
-		
-		return decks(model);
-	}
-	@PostMapping("/cancel-submit-deck")
-	public String cancelDeck(@RequestParam("deckId") String currentDeckId,Model model){
-		
-		//model.addAttribute(model);
-		
-		//model.addAttribute(currentDeckId);
+    @Autowired
+    private CardDao cardDao;
+    @Autowired
+    private DeckDao deckDao;
+    @Autowired
+    private DeckIdeaDao ideaDao;
+    @Autowired 
+    private MinioDao minio;
+    @Autowired
+    private DeckService deckService;
+    @Autowired
+    private UserDao userDao;
 
-		cardDao.deleteCardsByDeckId(currentDeckId);
-		deckDao.deleteDeckOnlyById(currentDeckId);
-		
-		return "/deck-gen";
-	}
-	
-	// this controller shows a list of decks
-	/**
-	 * List all the decks
-	 * @param model
-	 * @return
-	 */
-	@GetMapping("/decks")
-	public String decks(Model model) {
-		final Authentication currentUserName = SecurityContextHolder.getContext().getAuthentication();
-		System.out.println(currentUserName.getName());
-		User cu = userDao.findUserByName(currentUserName.getName());
-		List<Deck> myDecks = deckDao.findDecksByUserId(cu.getUserId());
+    /**
+     * Handles deck submission and generation.
+     */
+    @PostMapping("/submit-deck")
+    public String generateDeck(@RequestParam("deckId") String currentDeckId, Model model) {
+        logger.info("Generating deck for deckId: {}", currentDeckId);
 
-		System.out.println(cu.getUserId() + ", " + cu.toString() );
-		model.addAttribute("myDecks",myDecks);
-		
-		return "decks";
-	}
-	// 
-	/**
-	 * Show all the cards in the deck.
-	 * this controller lists the cards in the the deck and provides links to each
-	 * @param deckId
-	 * @param model
-	 * @return
-	 */
-	@GetMapping("/deck/{deckId}")
-	public String deck(@PathVariable String deckId, Model model) {
-		//System.out.println(deckId);
+        // Fetch deck and associated cards
+        List<Card> cards = cardDao.findAllByDeckId(currentDeckId);
+        Deck deck = deckDao.findDeckById(currentDeckId);
+        deck.setCards(cards);
 
-		List<Card> cards = cardDao.findAllByDeckId(deckId);
-		Deck deck = deckDao.findDeckById(deckId);
-		model.addAttribute("cards",cards);
-		model.addAttribute("deck", deck);
-		//System.out.println(cards.isEmpty());
-		return "deck";
-	}
-	/**
-	 * 	this controller shows all the cards as images
+        // Fetch deck idea and initiate deck generation via service
+        DeckIdea idea = ideaDao.findByDeckId(currentDeckId);
+        deckService.createDeck(idea.getDeckIdeaId(), currentDeckId).subscribe();
 
-	 * @param deckId
-	 * @param model
-	 * @return
-	 */
-	@GetMapping("/deck/allcards/{deckId}")
-	public String deckCardGrid(@PathVariable String deckId, Model model) {
-		HashMap<String,String[]> cardMap = new HashMap<String,String[]>(); 
-		ArrayList<HashMap<String,String[]>> imageList = new ArrayList<HashMap<String,String[]>>();
-		//Deck deck = deckDao.findDeckById(deckId);
-		//model.addAttribute("cards",deck.getCards());
-		ArrayList<String> images = new ArrayList<String>();
-		for(Card c : deckDao.findDeckById(deckId).getCards()) {
-			cardMap = new HashMap<String,String[]>();
-			cardMap.put("rules", c.getRulesForTemplate("mid").split("<NEWLINE>"));
-			cardMap.put("flavor", c.getFlavorText().split("<NEWLINE>"));
-			cardMap.put("image", new String[] {minio.getImage(c.getCardId())});
-			imageList.add(cardMap);
-			images.add(minio.getImage(c.getCardId()));
-		}
-		
-		model.addAttribute("images",images);
-		model.addAttribute("imageList",imageList);
+        // Add attributes to the model for the view
+        model.addAttribute("deckId", currentDeckId);
+        return decks(model); // Redirect to the decks listing page
+    }
 
-		return "card-grid";
-	}
+    /**
+     * Cancels deck submission and deletes the deck.
+     */
+    @PostMapping("/cancel-submit-deck")
+    public String cancelDeck(@RequestParam("deckId") String currentDeckId, Model model) {
+        logger.info("Cancelling deck submission for deckId: {}", currentDeckId);
 
-	/**
-	 * 	this controller shows all the cards as images
+        // Delete associated cards and deck
+        cardDao.deleteCardsByDeckId(currentDeckId);
+        deckDao.deleteDeckOnlyById(currentDeckId);
 
-	 * @param deckId
-	 * @param model
-	 * @return
-	 */
-	@GetMapping("/deck/printable-nine/{deckId}")
-	public String deckCardPrintableNine(@PathVariable String deckId, Model model) {
-		HashMap<String,String[]> cardMap = new HashMap<String,String[]>(); 
-		ArrayList<HashMap<String,String[]>> imageList = new ArrayList<HashMap<String,String[]>>();
-		//Deck deck = deckDao.findDeckById(deckId);
-		//model.addAttribute("cards",deck.getCards());
-		ArrayList<String> images = new ArrayList<String>();
-		for(Card c : deckDao.findDeckById(deckId).getCards()) {
-			cardMap = new HashMap<String,String[]>();
-			cardMap.put("rules", c.getRulesForTemplate("mid").split("<NEWLINE>"));
-			cardMap.put("flavor", c.getFlavorText().split("<NEWLINE>"));
-			cardMap.put("image", new String[] {minio.getImage(c.getCardId())});
-			imageList.add(cardMap);
-			images.add(minio.getImage(c.getCardId()));
-		}
-		
-		model.addAttribute("images",images);
-		model.addAttribute("imageList",imageList);
+        return "/deck-gen"; // Return to the deck generation page
+    }
 
-		return "printable-nine";
-	}
-	
+    /**
+     * Lists all decks for the current user.
+     */
+    @GetMapping("/decks")
+    public String decks(Model model) {
+        Authentication currentUser = SecurityContextHolder.getContext().getAuthentication();
+        logger.info("Fetching decks for user: {}", currentUser.getName());
+
+        User user = userDao.findUserByName(currentUser.getName());
+        List<Deck> myDecks = deckDao.findDecksByUserId(user.getUserId());
+
+        logger.debug("User {} has {} decks", user.getUserId(), myDecks.size());
+        model.addAttribute("myDecks", myDecks);
+
+        return "decks"; // Return the view for listing decks
+    }
+
+    /**
+     * Shows the details of a single deck and its cards.
+     */
+    @GetMapping("/deck/{deckId}")
+    public String deck(@PathVariable String deckId, Model model) {
+        logger.info("Displaying deck details for deckId: {}", deckId);
+
+        List<Card> cards = cardDao.findAllByDeckId(deckId);
+        Deck deck = deckDao.findDeckById(deckId);
+        model.addAttribute("cards", cards);
+        model.addAttribute("deck", deck);
+
+        return "deck"; // Return the view to display deck details
+    }
+
+    /**
+     * Shows all cards in the deck as images.
+     */
+    @GetMapping("/deck/allcards/{deckId}")
+    public String deckCardGrid(@PathVariable String deckId, Model model) {
+        logger.info("Displaying card grid for deckId: {}", deckId);
+
+        List<Card> cards = deckDao.findDeckById(deckId).getCards();
+        ArrayList<HashMap<String, String[]>> imageList = new ArrayList<>();
+        ArrayList<String> images = new ArrayList<>();
+
+        for (Card card : cards) {
+            HashMap<String, String[]> cardMap = new HashMap<>();
+            cardMap.put("rules", card.getRulesForTemplate("mid").split("<NEWLINE>"));
+            cardMap.put("flavor", card.getFlavorText().split("<NEWLINE>"));
+            cardMap.put("image", new String[] { minio.getImage(card.getCardId()) });
+            imageList.add(cardMap);
+            images.add(minio.getImage(card.getCardId()));
+        }
+
+        model.addAttribute("images", images);
+        model.addAttribute("imageList", imageList);
+
+        return "card-grid"; // Return the view for card grid display
+    }
+
+    /**
+     * Displays a printable version of the cards in the deck.
+     */
+    @GetMapping("/deck/printable-nine/{deckId}")
+    public String deckCardPrintableNine(@PathVariable String deckId, Model model) {
+        logger.info("Displaying printable version of deckId: {}", deckId);
+
+        List<Card> cards = deckDao.findDeckById(deckId).getCards();
+        ArrayList<HashMap<String, String[]>> imageList = new ArrayList<>();
+        ArrayList<String> images = new ArrayList<>();
+
+        for (Card card : cards) {
+            HashMap<String, String[]> cardMap = new HashMap<>();
+            cardMap.put("rules", card.getRulesForTemplate("mid").split("<NEWLINE>"));
+            cardMap.put("flavor", card.getFlavorText().split("<NEWLINE>"));
+            cardMap.put("image", new String[] { minio.getImage(card.getCardId()) });
+            imageList.add(cardMap);
+            images.add(minio.getImage(card.getCardId()));
+        }
+
+        model.addAttribute("images", images);
+        model.addAttribute("imageList", imageList);
+
+        return "printable-nine"; // Return the view for printable nine cards
+    }
 }
