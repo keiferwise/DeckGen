@@ -16,32 +16,35 @@
     <!--<div class="header-container">-->
       <div class="row row-cols-1 row-cols-md-3 mb-3 text-center justify-content-around align-items-center">
         <div class="col-sm">
+			<a th:href="@{/deck-gen}" >
           <div class="card dg-deck-input-box" style="width: 18rem;">
             <img src="\images/bg/wizard.jpg" class="card-img-top" alt="...">
             <div class="card-body">
               <h5 class="card-title">New Deck</h5>
               <p class="card-text">Make yourself a new deck!</p>
-              <a th:href="@{/deck-gen}" class="btn btn-dark">Go somewhere</a>
+              </a>
             </div>
           </div>
         </div>
         <div class="col-sm">
+			<a th:href="@{/new-single}" >
           <div class="card dg-deck-input-box" style="width: 18rem;">
             <img src="\images/bg/OIG1.jpg" class="card-img-top" alt="...">
             <div class="card-body">
               <h5 class="card-title">New Card</h5>
-              <p class="card-text">Make a new single card!</p>
-              <a th:href="@{/new-single}" class="btn btn-dark">Go somewhere</a>
+              <p class="card-text"></p>
+              </a>
             </div>
           </div>
         </div>
         <div class="col-sm">
+			<a th:href="@{/booster}">
           <div class="card dg-deck-input-box" style="width: 18rem;">
             <img src="\images/bg/open-pack.jpg" class="card-img-top" alt="...">
             <div class="card-body">
               <h5 class="card-title">Open a booster Pack</h5>
               <p class="card-text">Add 15 cards to your collection!</p>
-              <a th:href="@{/booster}" class="btn btn-dark">Go somewhere</a>
+              </a>
             </div>
           </div>
         </div>

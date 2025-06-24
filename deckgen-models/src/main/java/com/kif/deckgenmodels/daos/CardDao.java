@@ -20,6 +20,14 @@ public class CardDao {
 
 	@Autowired
 	CardRowMapper cardRowMapper;
+	
+	public void purgeUnfinishedCards() {
+		String deleteCardSql = "DELETE FROM card WHERE status = 'FAILED' OR status is NULL";
+		
+		int result2 = jdbcTemplate.update(deleteCardSql);
+
+		return;
+	}
 
 	public Integer count() {
 		int result = jdbcTemplate.queryForObject("SELECT (*) FROM card", Integer.class);
